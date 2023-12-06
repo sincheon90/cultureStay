@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>join</title>
+</head>
+<script>
+    function idCheck() {
+		// url경로, 이름, 속성
+        let win = window.open('idCheck', 'idWin', 'top=150, left=500, width=500, height=400');
+        
+    }
+
+    function checkValid(){
+        let id = document.querySelector('#memberid');
+        let password = document.querySelector('#memberpw');
+        let password2 = document.querySelector('#memberpw2');
+        let name = document.querySelector('#membername');
+
+		if(!checkLength(id.value) || !checkLength(password)){
+			alert("id 길이를 확인해주세요");
+			return false;
+		}
+		
+		if(!checkLength(password)){
+			alert("password 길이를 확인해주세요");
+			return false;
+		}
+		
+		if(password.value != password2.value){
+			alert("비밀번호가 같지 않습니다");
+			return false;
+		}
+		
+		if(name.value == ''){
+			alert("name값이 빈값입니다");
+			return false;
+		}
+
+		return true;
+    }
+
+    function checkLength(obj){
+        if(obj.length < 3 || obj.length >=10) return false;
+        return true;
+    }
+    
+</script>
+<body>
+    <h1>회원가입</h1>
+   
+    <form th:action="@{/member/join}" method="post" onsubmit="return checkValid()">
+       <table>
+          <tr>
+             <th>아이디</th>
+             <td>
+                <input type="text" name="memberid" id="memberid"
+                readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력">
+                <input type="button" value="ID중복검사" onclick="idCheck();">
+             </td>
+          </tr>
+          <tr>
+             <th>비밀번호</th>
+             <td>
+                <input type="password" name="memberpw" id="memberpw" placeholder="비밀번호 입력">
+             </td>
+          </tr>
+          <tr>
+             <th></th>
+             <td>
+                <input type="password" name="memberpw2" id="memberpw2" placeholder="비밀번호 재입력">
+             </td>
+          </tr>
+          <tr>
+             <th>이름</th>
+             <td>
+                <input type="text" name="membername" id="membername" placeholder="이름 입력">
+             </td>
+          </tr>
+          <tr>
+             <th>이메일</th>
+             <td>
+                <input type="email" name="email" placeholder="이메일 입력">
+             </td>
+          </tr>
+          <tr>
+             <th>전화번호</th>
+             <td>
+                <input type="text" name="phone" placeholder="전화번호 입력">
+             </td>
+          </tr>
+          <tr>
+             <th>주소</th>
+             <td>
+                <input type="text" name="address" placeholder="주소입력">
+             </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+               <input type="submit" value="가입">
+            </td>
+         </tr>
+       </table>
+    </form>
+</body>
+</html>
