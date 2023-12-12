@@ -1,41 +1,50 @@
 package com.abcde.cultureStay.service;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
+import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
+@XSlf4j
 public class TranslationService {
 
-    @Value("${google.api.key}")
-    private String apiKey;
+    @Value("${google.credentials.path}")
+    private String credentialsPath;
 
-    public String translateText(String text, String targetLanguage) throws JSONException {
-        RestTemplate restTemplate = new RestTemplate();
-        String apiUrl = "https://translation.googleapis.com/language/translate/v2";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+    public HashMap<String, Object> getTranslatedText() {
 
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("q", text);
-        requestBody.put("target", targetLanguage);
-        requestBody.put("key", apiKey);
-
-        HttpEntity<String> request = new HttpEntity<>(requestBody.toString(), headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(apiUrl, request, String.class);
-        return extractTranslation(response.getBody());
-    }
-
-    private String extractTranslation(String response) {
-        // Google 번역 API 응답에서 번역된 텍스트 추출
-        // JSON 파싱 및 처리 로직 구현
-        return "Extracted translation";
+        Map<String, Object> map = new HashMap<>();
+        String text= "";
+        String sourceLanguage = "";
+        String targetLanguage = "";
+        // json 파일 경로
+        String jsonPath = credentialsPath;
+        // json 파일에서 GoogleCredentials 객체 생성
+        try (InputStream serviceAccountStream = new URL(jsonPath).openStream()) {
+            GoogleCredentials credentials = ServiceAccountCredentials.fromStream(serviceAccountStream);
+            // Translate 서비스 생성
+            Translate translate = TranslateOptions.newBuilder().setCredentials(credentials).build().getService();
+            // 번역 api 코드 추가
+            Translation translation = translate.translate(text, Translate.TranslateOption.sourceLanguage(sourceLanguage),
+                    Translate.TranslateOption.targetLanguage(targetLanguage));
+            String translatedText =  translation.getTranslatedText();
+            translatedText = translatedText.replaceAll("&#39;", "\'");
+            map.put("translatedText", translatedText);
+        } catch (IOException e) {
+            // ...
+        }
+        return map.size () > 0 ? (HashMap<String, Object>) map : null;
     }
 }
 
