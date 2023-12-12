@@ -2,15 +2,15 @@
 <html xmlns="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>join</title>
+<title>culture stay 로그인</title>
 </head>
 <body>
     <h2>로그인</h2>
    
     <form th:action="@{/member/login}" method="post">
-		ID: <input type="text" name="memberid">			<br>
-		PW: <input type="password" name="memberpw">		<br>
-		<input type="submit" value="로그인">
+		ID: <input type="text" name="userid" id="userid">			<br>
+		PW: <input type="password" name="password" id="password">		<br>
+			<input type="submit" value="로그인">
     </form>
 </body>
 </html>

@@ -1,14 +1,15 @@
 package com.abcde.cultureStay.contoller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+
+@Controller
 public class HelloController {
 
-    @GetMapping({"","/"})
-    public String Hello() {
-        return "hello 3조~ 하이하이 나도 하이하이";
+    @GetMapping({"","/","hello"})
+    public String hello() {
+        return "hello/hello";
         
     }
 

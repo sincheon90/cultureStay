@@ -5,35 +5,45 @@
 <title>join</title>
 </head>
 <script>
-    function idCheck() {
+   function idCheck() {
 		// url경로, 이름, 속성
-        let win = window.open('idCheck', 'idWin', 'top=150, left=500, width=500, height=400');
-        
-    }
+		//let win = window.open('idCheck', 'idwin', 'top=200, left=500, width=500, height=400');
+		window.open('idCheck', '_blank', 'top=200, left=500, width=500, height=400');
+	}
 
     function checkValid(){
-        let id = document.querySelector('#memberid');
-        let password = document.querySelector('#memberpw');
-        let password2 = document.querySelector('#memberpw2');
-        let name = document.querySelector('#membername');
+        let userid = document.querySelector('#userid');
+		let password = document.querySelector('#password');
+		let password2 = document.querySelector('#password2');
+		let username = document.querySelector('#username');
+        let gender = document.querySelector('#gender');
+        let birth = document.querySelector('#birth');
 
-		if(!checkLength(id.value) || !checkLength(password)){
-			alert("id 길이를 확인해주세요");
+		if (userid.value.length < 3 || userid.value.length > 10) {
+			alert("ID는 3~10자로 입력하세요.");
 			return false;
 		}
 		
-		if(!checkLength(password)){
-			alert("password 길이를 확인해주세요");
+		if (password.value.length < 3 || password.value.length > 10) {
+			alert("비밀번호는 3~10자로 입력하세요.");
 			return false;
 		}
 		
-		if(password.value != password2.value){
-			alert("비밀번호가 같지 않습니다");
+		if (password.value != password2.value) {
+			alert("비밀번호를 정확하게 입력하세요.");
 			return false;
 		}
 		
-		if(name.value == ''){
-			alert("name값이 빈값입니다");
+		if (username.value == '') {
+			alert("이름을 입력하세요.");
+			return false;
+		}
+		if(!gender == 'm' || !gender == 'f'){
+			alert("성별을 정확히 입력해주세요 ex)남자 = m 여자 = f");
+			return false;
+		}
+		if(!birth.value.length == 8){
+			alert("숫자 8자를 입력해주세요 ex)20231211");
 			return false;
 		}
 
@@ -49,12 +59,12 @@
 <body>
     <h1>회원가입</h1>
    
-    <form th:action="@{/member/join}" method="post" onsubmit="return checkValid()">
+    <form th:action="@{/member/join}" method="post" onsubmit="return checkValid()" enctype="multipart/form-data">
        <table>
           <tr>
              <th>아이디</th>
              <td>
-                <input type="text" name="memberid" id="memberid"
+                <input type="text" name="userid" id="userid"
                 readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력">
                 <input type="button" value="ID중복검사" onclick="idCheck();">
              </td>
@@ -62,25 +72,31 @@
           <tr>
              <th>비밀번호</th>
              <td>
-                <input type="password" name="memberpw" id="memberpw" placeholder="비밀번호 입력">
+                <input type="password" name="password" id="password" placeholder="비밀번호 입력">
              </td>
           </tr>
           <tr>
              <th></th>
              <td>
-                <input type="password" name="memberpw2" id="memberpw2" placeholder="비밀번호 재입력">
+                <input type="password" name="password2" id="password2" placeholder="비밀번호 재입력">
              </td>
           </tr>
           <tr>
              <th>이름</th>
              <td>
-                <input type="text" name="membername" id="membername" placeholder="이름 입력">
+                <input type="text" name="username" id="username" placeholder="이름 입력">
              </td>
           </tr>
           <tr>
-             <th>이메일</th>
+             <th>성별</th>
              <td>
-                <input type="email" name="email" placeholder="이메일 입력">
+                <input type="text" name="gender" id="gender" placeholder="성별 ex)남:m,여:f">
+             </td>
+          </tr>
+          <tr>
+             <th>생년월일</th>
+             <td>
+                <input type="number" name="birth" id="birth" placeholder="숫자8자리 ex)20231211">
              </td>
           </tr>
           <tr>
@@ -95,6 +111,18 @@
                 <input type="text" name="address" placeholder="주소입력">
              </td>
           </tr>
+          <tr>
+             <th>이메일</th>
+             <td>
+                <input type="email" name="email" placeholder="이메일 입력">
+             </td>
+          </tr>
+          <tr>
+            <th>프로필사진</th>
+            <td>
+                <input type="file" name="profileImage" accept="image/*">
+            </td>
+        </tr>
           <tr>
             <td colspan="2">
                <input type="submit" value="가입">
