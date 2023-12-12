@@ -74,4 +74,7 @@ public class Member implements UserDetails{
 		return false;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
