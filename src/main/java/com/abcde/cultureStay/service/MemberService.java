@@ -1,4 +1,4 @@
-package com.abcde.cultureStay.Service;
+package com.abcde.cultureStay.service;
 
 import com.abcde.cultureStay.vo.Member;
 

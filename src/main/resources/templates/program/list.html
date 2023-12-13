@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>프로그램 리스트</h2>
+
+
+
+<table>
+	
+		<tr>
+			<th>글번호</th>
+			<th>작성자</th>
+			<th style="width:230px;">제목</th>
+			<th>조회수</th>
+			<th style="width:150px;">작성일</th>
+		</tr>
+		<!-- controller에서 model로 부터 받아온 데이터를 출력하는 부분 -->
+		<tr th:each="programList : ${programList}">
+			<td th:text="${programList.programNum}"></td>
+			<td th:text="${programList.userid}"></td>
+			<td>
+				<a th:href="@{/board/read(boardnum=${board.boardnum})}" 
+				   th:text="${programList.title}"></a>
+			</td>
+			<td th:text="${programList.hits}"></td>
+		</tr>
+	</table>
+</body>
+</html>

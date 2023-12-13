@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.abcde.cultureStay.Service.MemberService;
+import com.abcde.cultureStay.service.MemberService;
 import com.abcde.cultureStay.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
