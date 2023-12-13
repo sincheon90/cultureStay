@@ -59,14 +59,14 @@ public class WebSecurityConfig {
         .dataSource(dataSource)
         // 인증 (로그인)
         .usersByUsernameQuery(
-        		"select memberid username, memberpw password, enabled " +
-                "from spring5_member " +
-                "where memberid = ?")
+        		"select * " +
+                "from cultureStay_member " +
+                "where userid = ?")
         // 권한
         .authoritiesByUsernameQuery(
-        		"select memberid username, rolename role_name " +
-                "from spring5_member " +
-                "where memberid = ?");
+        		"select *" +
+                "from cultureStay_member " +
+                "where userid = ?");
     }
 
     // 단방향 비밀번호 암호화

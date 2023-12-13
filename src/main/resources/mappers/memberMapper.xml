@@ -25,9 +25,9 @@
         , phone
         , address
         , email
-        <if test="profileImagePath != null and authority != null">
+        <if test="profileImagePath != null">
         , profileImagePath
-        , authority
+        
 			</if>
     )
     VALUES
@@ -40,9 +40,9 @@
         , #{phone}
         , #{address}
         , #{email}
-         <if test="profileImagePath != null and authority != null">
-        , profileImagePath
-        , authority
+         <if test="profileImagePath != null">
+        , #{profileImagePath}
+        
 			</if>
     )
 </insert>
