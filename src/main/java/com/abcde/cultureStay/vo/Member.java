@@ -24,6 +24,7 @@ public class Member implements UserDetails{
 	String address;
 	String email;
 	String profileImagePath;
+	boolean enabled;
 	String authority;
 	
 	 // profileImagePath에 대한 getter와 setter를 수동으로 추가합니다.
