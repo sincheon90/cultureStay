@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<title>join</title>
-</head>
+<meta charset="UTF-8">
+<title>회원정보수정</title>
 <script>
-   function idCheck() {
-		// url경로, 이름, 속성
-		//let win = window.open('idCheck', 'idwin', 'top=200, left=500, width=500, height=400');
-		window.open('idCheck', '_blank', 'top=200, left=500, width=500, height=400');
-	}
-
-    function checkValid(){
+function checkValid(){
         let userid = document.querySelector('#userid');
 		let password = document.querySelector('#password');
 		let password2 = document.querySelector('#password2');
@@ -22,14 +15,8 @@
         let address = document.querySelector('#address');
         let email = document.querySelector('#email');
         let profileImage = document.querySelector('#profileImage');
-        
-        
-        
 
-		if (userid.value.length < 3 || userid.value.length > 10) {
-			alert("ID는 3~10자로 입력하세요.");
-			return false;
-		}
+		
 		
 		if (password.value.length < 3 || password.value.length > 10) {
 			alert("비밀번호는 3~10자로 입력하세요.");
@@ -38,19 +25,6 @@
 		
 		if (password.value != password2.value) {
 			alert("비밀번호를 정확하게 입력하세요.");
-			return false;
-		}
-		
-		if (name.value == '') {
-			alert("이름을 입력하세요.");
-			return false;
-		}
-		if(!(gender.value == 'm' || gender.value == 'f')){
-			alert("성별을 정확히 입력해주세요 ex)남자 = m 여자 = f");
-			return false;
-		}
-		if(birth.value.length != 8){
-			alert("숫자 8자를 입력해주세요 ex)20231211");
 			return false;
 		}
 		if (phone.value == '') {
@@ -69,6 +43,7 @@
 			alert("프로필사진을 등록하세요");
 			return false;
 		}
+		
 
 		return true;
     }
@@ -79,23 +54,20 @@
     }
     
 </script>
+</head>
 <body>
-    <h1>회원가입</h1>
-   
-    <form th:action="@{/member/join}" method="post" onsubmit="return checkValid();" enctype="multipart/form-data">
+	<h1>회원정보 수정</h1>
+	<form th:action="@{/member/update}" method="post" onsubmit="return checkValid()" enctype="multipart/form-data">
        <table>
           <tr>
              <th>아이디</th>
-             <td>
-                <input type="text" name="userid" id="userid"
-                readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력">
-                <input type="button" value="ID중복검사" onclick="idCheck();">
-             </td>
+             <td th:text="${member.userid}"></td>></td>
+             
           </tr>
           <tr>
              <th>비밀번호</th>
              <td>
-                <input type="password" name="password" id="password" placeholder="비밀번호 입력">
+                <input type="password" name="password" id="password" placeholder="새로운 비밀번호 입력">
              </td>
           </tr>
           <tr>
@@ -106,38 +78,32 @@
           </tr>
           <tr>
              <th>이름</th>
-             <td>
-                <input type="text" name="name" id="name" placeholder="이름 입력">
-             </td>
+             <td th:text="${member.name}"></td>
           </tr>
           <tr>
              <th>성별</th>
-             <td>
-                <input type="text" name="gender" id="gender" placeholder="성별 ex)남:m,여:f">
-             </td>
+             <td th:text="${member.gender}"></td>
           </tr>
           <tr>
              <th>생년월일</th>
-             <td>
-                <input type="number" name="birth" id="birth" placeholder="숫자8자리 ex)20231211">
-             </td>
+             <td th:text="${member.birth}"></td>
           </tr>
           <tr>
              <th>전화번호</th>
              <td>
-                <input type="text" name="phone" id="phone" placeholder="전화번호 입력">
+                <input type="text" name="phone" id="phone" th:value="${member.phone}">
              </td>
           </tr>
           <tr>
              <th>주소</th>
              <td>
-                <input type="text" name="address" id="address" placeholder="주소입력">
+                <input type="text" name="address" id="address" th:value="${member.address}">
              </td>
           </tr>
           <tr>
              <th>이메일</th>
              <td>
-                <input type="email" name="email" id="email" placeholder="이메일 입력">
+                <input type="email" name="email" id="email" th:value="${member.email}">
              </td>
           </tr>
           <tr>
@@ -148,10 +114,11 @@
         </tr>
           <tr>
             <td colspan="2">
-               <input type="submit" value="가입">
+               <input type="submit" value="수정">
             </td>
          </tr>
        </table>
     </form>
+
 </body>
 </html>

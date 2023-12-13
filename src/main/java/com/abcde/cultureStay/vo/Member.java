@@ -17,15 +17,15 @@ public class Member implements UserDetails{
 	
 	String userid;
 	String password;
-	String username;
+	String name;
 	String gender;
-	int birth;
-	int phone;
+	String birth;
+	String phone;
 	String address;
 	String email;
 	String profileImagePath;
 	boolean enabled;
-	String authority;
+	String rolename;
 	
 	 // profileImagePath에 대한 getter와 setter를 수동으로 추가합니다.
     public String getProfileImagePath() {

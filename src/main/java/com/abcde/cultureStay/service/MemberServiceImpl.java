@@ -1,4 +1,4 @@
-package com.abcde.cultureStay.Service;
+package com.abcde.cultureStay.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +29,25 @@ public class MemberServiceImpl implements MemberService{
 		member.setPassword(encodedPassword);
 		dao.joinMember(member);
 		
+	}
+
+	@Override
+	public Member selectUser(String userId) {
+		Member member = dao.selectUser(userId);
+		return member;
+	}
+
+	@Override
+	public int updateUser(Member member) {
+		// updateForm.html에서 비밀번호를 변경한 경우에 암호화
+				if(member.getPassword() != null || !member.getPassword().equals("")) {
+					String encodedPw = passwordEncoder.encode(member.getPassword());
+					member.setPassword(encodedPw);
+				}
+				
+				int result = dao.updateUser(member);
+				
+				return result;
 	}
 
 }

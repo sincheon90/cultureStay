@@ -19,7 +19,7 @@
     (
         userid
         , password
-        , username
+        , name
         , gender
         , birth
         , phone
@@ -34,7 +34,7 @@
     (
         #{userid}
         , #{password}
-        , #{username}
+        , #{name}
         , #{gender}
         , #{birth}
         , #{phone}
@@ -46,6 +46,30 @@
 			</if>
     )
 </insert>
+
+<select id="selectUser" parameterType="String" resultType="Member">
+		select * from cultureStay_member where userid like #{userId}
+	</select>
+	
+	<update id="updateUser" parameterType="Member">
+		update 
+			cultureStay_member
+		set
+			
+			 phone = #{phone}
+			, address = #{address}
+			, email = #{email}
+			<if test="profileImagePath != null">
+        	, profileImagePath = #{profileImagePath}
+        	</if>
+			<if test="password != null or password != ''">
+			, password = #{password}
+			</if>
+			
+        
+		where
+			userid = #{userid}
+	</update>
 
 
 </mapper>

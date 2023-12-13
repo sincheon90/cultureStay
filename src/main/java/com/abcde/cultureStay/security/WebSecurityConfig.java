@@ -38,8 +38,8 @@ public class WebSecurityConfig {
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용
         .loginPage("/member/loginForm")		//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
         .loginProcessingUrl("/member/login").permitAll()	//인증 처리를 하는 URL을 설정. 로그인 폼의 action으로 지정
-        .usernameParameter("memberid")		//로그인폼의 아이디 입력란의 name
-        .passwordParameter("memberpw")		//로그인폼의 비밀번호 입력란의 name
+        .usernameParameter("userid")		//로그인폼의 아이디 입력란의 name
+        .passwordParameter("password")		//로그인폼의 비밀번호 입력란의 name
         .and()
         .logout()
         .logoutUrl("/member/logout")
@@ -56,15 +56,15 @@ public class WebSecurityConfig {
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
-        .dataSource(dataSource)
-        // 인증 (로그인)
-        .usersByUsernameQuery(
-        		"select * " +
+            .dataSource(dataSource)
+            // 인증 (로그인)
+            .usersByUsernameQuery(
+                "select userid username, password password, enabled " + // '1'은 계정이 활성화 상태임을 의미합니다.
                 "from cultureStay_member " +
                 "where userid = ?")
-        // 권한
-        .authoritiesByUsernameQuery(
-        		"select *" +
+            // 권한
+            .authoritiesByUsernameQuery(
+                "select userid username, rolename role_name  " + // 모든 사용자에게 'ROLE_USER' 권한 부여
                 "from cultureStay_member " +
                 "where userid = ?");
     }
