@@ -2,22 +2,14 @@
 <html>
 <head>
     <title>Translation Service</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <input type="text" id="textToTranslate" placeholder="Enter text">
 <input type="text" id="targetLanguage" placeholder="Target Language">
 <button onclick="translateText()">Translate</button>
 <p id="result"></p>
-
 <script>
-    function translateText() {
-        var text = document.getElementById('textToTranslate').value;
-        var language = document.getElementById('targetLanguage').value;
-        $.get("/api/translate", { text: text, targetLanguage: language }, function(data) {
-            document.getElementById('result').innerText = data;
-        });
-    }
+
 </script>
 </body>
 </html>
