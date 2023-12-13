@@ -15,6 +15,8 @@
 		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}" th:text="로그아웃"></a></li>
 		<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="회원정보수정"></a></li>
 		<li sec:authorize="isAuthenticated()"><a th:href="@{/board/boardList}">게시판</a></li>
+		<li sec:authorize="not isAuthenticated()"><a th:href="@{/program/list}" th:text="프로그램리스트"></a></li>
+
 	</ul>
 </body>
 </html>
