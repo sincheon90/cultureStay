@@ -9,11 +9,12 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 
 public class TestMain {
 
     public static void main(String[] args) {
-        String credentialsPath = "C:/";
+        String credentialsPath = "C:/client_secret_527056499323-bqk3ngc2ck7ufsjj0re8bjog52cqf4co.apps.googleusercontent.com.json";
 
         Translate translate = null;
 
