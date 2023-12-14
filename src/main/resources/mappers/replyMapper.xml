@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abcde.cultureStay.dao.ReplyDAO">
+
+	<!-- 리플 저장 -->
+	<insert id="writeReply" parameterType="Reply">
+		insert into cultureStay_reply (
+				replynum
+				, boardnum
+				, userid
+				, content
+		)
+		values (
+				cultureStay_reply_seq.nextval
+				, #{boardnum}
+				, #{userid}
+				, #{content}
+		)
+	</insert>
+	
+	<select id="replyList" parameterType="int" resultType="Reply">
+		select 
+			* 
+		from 
+			cultureStay_reply 
+		where 
+			boardnum = #{boardnum}
+		order by
+			replynum
+	</select>
+	
+	<delete id="deleteReply" parameterType="Reply">
+		delete 
+			cultureStay_reply
+		where
+			replynum = #{replynum}
+			and
+			userid = #{userid}
+		
+	</delete>
+</mapper>
