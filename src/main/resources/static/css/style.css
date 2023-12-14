@@ -4,9 +4,9 @@ body {
 }
 
 header {
-    background: linear-gradient(to bottom, #c6a2f2, #5d54a4); /* 라벤더에서 자주색으로 */
+    /*background: linear-gradient(to bottom, #c6a2f2, #5d54a4);*/ /* 라벤더에서 자주색으로 */
     /*background: linear-gradient(to bottom, #a8e6cf, #11998e);*/ /* 민트에서 에메랄드색으로 */
-    /*background: linear-gradient(to bottom, #e0a96d, #df7861);*/ /* 테라코타에서 샌드색으로 */
+    background: linear-gradient(to bottom, #e0a96d, #df7861); /* 테라코타에서 샌드색으로 */
     /*background: linear-gradient(to bottom, #bfc9ca, #a2d9ce);*/ /* 회색에서 하늘색으로 */
     /*background: linear-gradient(to bottom, #f5f5dc, #ffe4c4);*/ /* 베이지에서 크림색으로 */
     /*background: linear-gradient(to bottom, #808000, #006400);*/ /* 올리브 그린에서 다크그린으로 이어지는 그라디언트 배경 */
