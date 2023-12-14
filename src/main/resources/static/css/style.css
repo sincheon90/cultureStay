@@ -5,6 +5,7 @@ body {
 
 header {
     background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* 파스텔 톤 그라디언트 배경 */
+    /*background: linear-gradient(to bottom, #6dd5ed, #2193b0);*/ /* 그라디언트 배경 */
     padding: 20px 100px; /* 헤더 패딩 */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 헤더에 그림자 효과 추가 */
 }
