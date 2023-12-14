@@ -4,9 +4,54 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.abcde.cultureStay.dao.ProgramDAO">
+
+
  <select id="mainSelect" resultType="Program">
-  
   		select * from Program 
+ </select>
   
-  </select>
+ <insert id="pWrite" parameterType="Program">
+		insert into Program
+		(
+			programNum
+			, userid
+			, title
+			, content
+			, address
+			, price
+			, tag
+			, start_date
+			, end_date
+		
+		) values (
+			programNum_seq.nextval
+			, #{userid}
+			, #{title}
+			, #{content}
+			, #{address}
+			, #{price}
+			, #{tag}
+			, #{start_date}
+			, #{end_date}
+		)
+	</insert>
+  
+  	<select id="readProgram" parameterType="int" resultType="Program">
+		select * from Program where programNum = #{programNum}
+	</select>
+  
+  
+	  <select id="pReviewList" parameterType="int" resultType="Reply">
+			select 
+				* 
+			from 
+				Review 
+			where 
+				boardnum = #{boardnum}
+			order by
+				replynum
+		</select>
+		
+  
+  
 </mapper>

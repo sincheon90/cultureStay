@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.abcde.cultureStay.dao.ProgramDAO;
 import com.abcde.cultureStay.vo.Program;
+import com.abcde.cultureStay.vo.Review;
 
 @Service
 public class ProgramServiceImpl implements ProgramService{
@@ -18,5 +19,25 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Program> mainSelect() {
 		ArrayList<Program> result = dao.mainSelect();
 		return result;
+	}
+
+	@Override
+	public int pWrite(Program program) {
+		int result = dao.pWrite(program);		
+		return result;
+	}
+	
+	
+	@Override
+	public Program readProgram(int programNum) {
+		
+		Program program = dao.readProgram(programNum);
+		return program;
+	}
+	
+	@Override
+	public ArrayList<Review> pReviewList(int programNum) {
+		ArrayList<Review> pReviewList = dao.pReviewList(programNum);
+		return pReviewList;
 	}
 }
