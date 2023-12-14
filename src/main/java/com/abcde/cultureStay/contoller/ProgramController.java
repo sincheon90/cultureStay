@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Program;
-import com.abcde.test.controller.service.programService;
 
 @Controller
 @RequestMapping("program")

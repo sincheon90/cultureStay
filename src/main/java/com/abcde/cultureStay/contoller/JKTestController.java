@@ -18,9 +18,14 @@ public class JKTestController {
     public String translate(){
         String text = "이것은 번역 테스트 렛츠고!";
         System.out.println("translate 컨트롤러 실행");
-        System.out.println(service.translate("ko", "ja", text));
+//        System.out.println(service.translate("ko", "ja", text));
 
         return "jk/translation";
     }
 //http://localhost:3333/jk/translate
+
+    @GetMapping("list")
+    public String list() {
+        return "jk/list";
+    }
 }

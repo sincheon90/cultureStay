@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* 파스텔 톤 그라디언트 배경 */
+    padding: 20px 100px; /* 헤더 패딩 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 헤더에 그림자 효과 추가 */
+}
+
+main {
+    padding: 20px 100px; /* 헤더 패딩 */
+}
+
+footer {
+    padding: 20px 100px; /* 헤더 패딩 */
+}
+
+.header-container {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 100px; /* 로고 이미지 높이 */
+}
+
+.header-container.header-bottom{
+    justify-content: center;
+}
+
+/*searcg-bar css*/
+.search-bar {
+    background: white; /* 백그라운드 색상 */
+    border-radius: 25px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* 내부 여백 */
+}
+
+.search-bar input[type="text"] {
+    /* 입력 필드 스타일링 */
+}
+
+.search-bar input[type="text"],
+.search-bar input[type="date"] {
+    border: none; /* 테두리 제거 */
+    border-radius: 15px; /* 입력란 둥근 모서리 */
+    margin-right: 10px; /* 요소 간 간격 */
+    padding: 10px; /* 입력란 내부 여백 */
+    outline: none; /* 포커스 아웃라인 제거 */
+}
+
+.search-bar button {
+    border: none; /* 버튼 테두리 제거 */
+    background-color: #ff385c; /* 버튼 배경 색상 */
+    color: white; /* 버튼 텍스트 색상 */
+    border-radius: 15px; /* 버튼 둥근 모서리 */
+    padding: 10px 20px; /* 버튼 내부 여백 */
+    cursor: pointer; /* 클릭 가능 커서 */
+    outline: none; /* 포커스 아웃라인 제거 */
+}
+
+.search-bar button:hover {
+    background-color: #f22f46; /* 버튼 호버 효과 */
+}
+
+.search-bar .icon-search i {
+    margin-right: 15px; /* 아이콘과 텍스트 사이 간격 */
+}
+
+
+
+.header-right a, .header-right button {
+    margin-left: 15px;
+    /* 아이콘 및 버튼 스타일링 */
+}
+
+.icon-search, .icon-user, .icon-menu {
+    /* 아이콘 스타일링, 이곳에 폰트 아이콘 클래스나 배경 이미지를 사용할 수 있습니다. */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #ffffff;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  right: 0; /* 부모 요소인 .dropdown의 왼쪽 가장자리에 정렬합니다. */
+  top: 100%; /* .dropdown의 바로 아래에 드롭다운이 위치하도록 설정합니다. */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
