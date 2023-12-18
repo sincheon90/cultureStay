@@ -22,6 +22,10 @@
 					+ replynum + '&boardnum=' + boardnum;
 		}
 	}
+	let recommend = document.querySelector('#recommend');
+	function recommend(boardnum){
+		
+	}
 
 </script>
 </head>
@@ -60,8 +64,11 @@
 				th:text="${board.originalfile}"></a>
 			</td>
 		</tr>
+		
 	</table>
-	
+	<div>
+		<a th:href="" id="recommend">추천</a>
+	</div>
 	<div th:if="${#authentication.name == board.userid}" style="text-align: center;">
 		<a th:href="@{/board/boardList}">목록</a>
 		<a th:href="@{/board/update(boardnum=${board.boardnum})}">수정</a>
