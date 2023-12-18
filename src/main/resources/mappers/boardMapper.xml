@@ -61,7 +61,7 @@
 			, savedfile
 			</if>
 		) values (
-			cultureStay_board_seq.nextval
+			cultureStay_boardnum_seq.nextval
 			, #{userid}
 			, #{title}
 			, #{contents}
@@ -92,5 +92,20 @@
 			userid like #{userid}
 			and boardnum = #{boardnum}
 	</delete>
+	
+	<update id="updateBoard" parameterType="Board">
+		update
+			cultureStay_board
+		set
+			title = #{title}
+			, contents = #{contents}
+			<if test="originalfile != null and savedfile != null">
+			, originalfile = #{originalfile}
+			, savedfile = #{savedfile}
+			</if>
+		where
+			boardnum = #{boardnum}
+			and userid = #{userid}
+	</update>
 
 </mapper>

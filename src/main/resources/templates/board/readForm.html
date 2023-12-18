@@ -63,6 +63,7 @@
 	</table>
 	
 	<div th:if="${#authentication.name == board.userid}" style="text-align: center;">
+		<a th:href="@{/board/boardList}">목록</a>
 		<a th:href="@{/board/update(boardnum=${board.boardnum})}">수정</a>
 		<a th:href="|javascript:deleteFunc(${board.boardnum})|">삭제</a>
 	</div>
@@ -72,7 +73,7 @@
 		<form th:action="@{/reply/writeReply}" method="post">
 			리플내용
 			<input type="hidden" name="boardnum" th:value="${board.boardnum}">
-			<input type="text" name="replytext" style="width: 500px;">
+			<input type="text" name="content" style="width: 500px;">
 			<input type="submit" value="확인">
 		</form>
 		
@@ -80,12 +81,12 @@
 		<table class="reply">
 			<tr th:each="reply : ${replyList}">
 				<td class="replyid" th:text="${reply.userid}"></td>
-				<td class="replytext" th:text="${reply.replytext}"></td>
+				<td class="content" th:text="${reply.content}"></td>
 				<td class="replydate" th:text="${reply.inputdate}"></td>
 				<td class="white">
 					<th:block th:if="${#authentication.name} == ${reply.userid}">
 						<a th:href="|javascript:deleteReply(${reply.replynum}, ${reply.boardnum})|">
-							<img th:src="@{/image/icon_delete_24.png}">
+							<input type="button" value="삭제">
 						</a>
 					</th:block>
 				</td>

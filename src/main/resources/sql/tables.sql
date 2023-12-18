@@ -1,17 +1,18 @@
 --유저테이블
 CREATE TABLE cultureStay_member(
-	userid	    varchar2(255)	    primary key,   
-	password	varchar2(255)	    not null,  
-	username	varchar2(255)	    not null,  
-	phone	    varchar2(255)		not null,  
-	address 	varchar2(255)		NULL,           
-	email	    varchar2(100)		not null,        --이메일
-	birth	    date		        NULL,            --생년월일
-    gender      varchar2(20)        not null,        --성별
-    profileImagePath   varchar(255)   NULL, --프사
-    verified    varchar2(1) CHECK(verified IN  ('0','1'))--본인인증 여부
-    enabled     NUMBER(1)       DEFAULT 1 NOT NULL,             -- 계정 상태. 1:사용 가능, 0:사용 불가능
-    rolename    VARCHAR2(20)    DEFAULT 'ROLE_USER' NOT NULL    -- 사용자 권한. 모두 'ROLE_USER'로 처리
+	userid	    	varchar2(255)	    primary key,   
+	password		varchar2(255)	    not null,  
+	username		varchar2(255)	    not null,  
+	phone	    	varchar2(255)		not null,  
+	address 		varchar2(255)		NULL,           
+	email	    	varchar2(100)		not null,        --이메일
+	birth	   	 	date		        NULL,            --생년월일
+    gender      	varchar2(20)        not null,        --성별
+    ogProfileImage	varchar(255),					 -- 프사original
+    svProfileImage  varchar(255),					 -- 프사saved
+    verified    	varchar2(1) 		CHECK(verified IN  ('0','1'))--본인인증 여부
+    enabled     	NUMBER(1)       	DEFAULT 1 NOT NULL,             -- 계정 상태. 1:사용 가능, 0:사용 불가능
+    rolename    	VARCHAR2(20)   		DEFAULT 'ROLE_USER' NOT NULL    -- 사용자 권한. 모두 'ROLE_USER'로 처리
 
 );
    --변경
@@ -43,7 +44,7 @@ select * from Program;
 
 --인기태그용 태그클릭수
 create table tagClick_cnt(
-    one     number     default 0,
+    one      number     default 0,
     two      number     default 0,
     three    number     default 0,
     four     number     default 0,
@@ -51,7 +52,7 @@ create table tagClick_cnt(
     six      number     default 0,
     seven    number     default 0,
     eight    number     default 0,
-    nine    number     default 0,
+    nine     number     default 0,
     ten      number     default 0
 );
 
@@ -60,13 +61,13 @@ create table tagClick_cnt(
 CREATE TABLE Review (
 	reviewNum   	number		            primary key,
 	programNum	    number		            references Program(programNum), 
-	customerID	    varchar2(255)		references cultureStay_member(userid), 
-	hostID	        varchar2(255)		references cultureStay_member(userid), 
-	reviewerID	    varchar2(255)		references cultureStay_member(userid), 
+	customerID	    varchar2(255)			references cultureStay_member(userid), 
+	hostID	        varchar2(255)			references cultureStay_member(userid), 
+	reviewerID	    varchar2(255)			references cultureStay_member(userid), 
 	stars	        number	    	        NOT NULL,
-	content	        varchar2(2000)  	NOT NULL,
-	reviewPic	    varchar2(255)	    NULL,
-	start_date	    date		        NOT NULL
+	content	        varchar2(2000)  		NOT NULL,
+	reviewPic	    varchar2(255)	    	NULL,
+	start_date	    date		        	NOT NULL
 );
 create sequence reviewNum_seq;
 
@@ -75,35 +76,37 @@ create sequence reviewNum_seq;
 CREATE TABLE Reservation (
 	reserNum	number		            primary key,
 	programNum	number		            references Program(programNum), 
-	userid	    varchar2(255)		references cultureStay_member(userid),
-	start_date	date		    NOT NULL,
-	end_date	date		    NOT NULL,
-    request	    varchar2(255)		NULL, --요청사항
-	payment 	number		NULL,   --결제수단(0,1,2,3)
-	status	    number		default 0       --예약상태(0,1,2,3)
+	userid	    varchar2(255)		    references cultureStay_member(userid),
+	start_date	date		    		NOT NULL,
+	end_date	date		    		NOT NULL,
+    request	    varchar2(255)			NULL, --요청사항
+	payment 	number					NULL,   --결제수단(0,1,2,3)
+	status	    number					default 0       --예약상태(0,1,2,3)
 );
 create sequence reserNum_seq;
 
-CREATE TABLE Board(
-    boardnum	    number		            primary key,
+CREATE TABLE cultureStay_board(
+    boardnum	    number		        primary key,
 	userid          varchar2(255)		references cultureStay_member(userid),
     title           varchar2(300)       not null,                               --제목
     contents        varchar2(4000)      not null,                               --글내용
     inputdate       date                default sysdate,     
     hits            number              default 0,   
     originalfile    varchar2(300),      --첨부파일의 원래이름 사진.jpg -> 20220727.jpg
-    savedfile       varchar2(100)       --첨부파일이 서버에 저장된 이름
+    savedfile       varchar2(100),
+	recommend       number       --첨부파일이 서버에 저장된 이름
 );
-create sequence boardnum_seq;
+create sequence cultureStay_boardnum_seq;
 
-CREATE TABLE Reply (
-	replynum      number		            primary key,
-	boardnum    number		references Board(boardnum),
-	userid	 varchar2(255)		references cultureStay_member(userid),
-	content	varchar2(4000)      not null,     
-	inputdate date                default sysdate
+CREATE TABLE cultureStay_reply (
+	replynum        number		        primary key,
+	boardnum        number		        references Board(boardnum),
+	userid	        varchar2(255)		references cultureStay_member(userid),
+	content	        varchar2(4000)      not null,     
+	inputdate       date                default sysdate,
+	recommend       number
 );
-create sequence replynum_seq;
+create sequence cultureStay_replynum_seq;
 
 
 

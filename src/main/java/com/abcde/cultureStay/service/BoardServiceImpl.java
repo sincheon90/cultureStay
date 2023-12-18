@@ -70,4 +70,10 @@ public class BoardServiceImpl implements BoardService{
 		return result;
 	}
 
+	@Override
+	public int updateBoard(Board board) {
+		int result = dao.updateBoard(board);
+		return result;
+	}
+
 }

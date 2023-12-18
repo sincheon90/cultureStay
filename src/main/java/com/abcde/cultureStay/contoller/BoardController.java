@@ -177,5 +177,57 @@ public class BoardController {
 		return "redirect:/board/boardList";
 	}
 	
+	@GetMapping("update")
+	public String update(
+			int boardnum
+			, @AuthenticationPrincipal UserDetails user
+			, Model model) {
+		
+		Board board = service.readBoard(boardnum);
+		if (!board.getUserid().equals(user.getUsername())) {
+			return "redirect:/board/boardList";
+		}
+		model.addAttribute("board", board);
+		
+		return "/board/updateForm";
+	}
+	
+	@PostMapping("update")
+	public String update(
+			Board board
+			, @AuthenticationPrincipal UserDetails user
+			, MultipartFile upload) {
+		
+		log.debug("수정할 글정보 : {}", board);
+		log.debug("파일 정보: {}", upload);
+		
+		//작성자 아이디 추가
+		board.setUserid(user.getUsername());
+		
+		Board oldBoard = null;
+		String oldSavedfile = null;
+		String savedfile = null;
+		
+		//첨부파일이 있는 경우 기존파일 삭제 후 새 파일 저장
+		if (upload != null && !upload.isEmpty()) {
+			oldBoard = service.readBoard(board.getBoardnum());
+			oldSavedfile = oldBoard == null ? null : oldBoard.getSavedfile();
+			
+			savedfile = FileService.saveFile(upload, uploadPath);
+			board.setOriginalfile(upload.getOriginalFilename());
+			board.setSavedfile(savedfile);
+			log.debug("새파일:{}, 구파일:{}", savedfile, oldSavedfile);
+		}
+		
+		int result = service.updateBoard(board);
+		
+		//글 수정 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result == 1 && savedfile != null) {
+			FileService.deleteFile(uploadPath + "/" + oldSavedfile);
+		}
+		
+		return "redirect:/board/read?boardnum=" + board.getBoardnum();
+	}
+	
 
 }
