@@ -10,14 +10,14 @@ function validation() {
 	let title = document.getElementById('title');
 	let contents = document.getElementById('contents');
 	
-	if (title.value.length < 5) {
-		alert("제목을 입력하세요.");
+	if (title.value.length < 2) {
+		alert("제목을 2자이상 입력하세요.");
 		title.focus();
 		title.select();
 		return false;
 	}
-	if (contents.value.length < 5) {
-		alert("내용을 입력하세요.");
+	if (contents.value.length < 2) {
+		alert("내용을 2자이상 입력하세요.");
 		contents.focus();
 		contents.select();
 		return false;

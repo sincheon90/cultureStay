@@ -13,7 +13,7 @@
 				, content
 		)
 		values (
-				cultureStay_reply_seq.nextval
+				cultureStay_replynum_seq.nextval
 				, #{boardnum}
 				, #{userid}
 				, #{content}
