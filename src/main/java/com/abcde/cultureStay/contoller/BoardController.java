@@ -229,5 +229,7 @@ public class BoardController {
 		return "redirect:/board/read?boardnum=" + board.getBoardnum();
 	}
 	
+	
+	
 
 }
