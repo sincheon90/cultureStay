@@ -12,7 +12,6 @@ CREATE TABLE cultureStay_member(
     verified    varchar2(1) CHECK(verified IN  ('0','1'))--본인인증 여부
     enabled     NUMBER(1)       DEFAULT 1 NOT NULL,             -- 계정 상태. 1:사용 가능, 0:사용 불가능
     rolename    VARCHAR2(20)    DEFAULT 'ROLE_USER' NOT NULL    -- 사용자 권한. 모두 'ROLE_USER'로 처리
-
 );
    --변경
 --verified 디폴트값 넣어주기

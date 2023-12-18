@@ -122,14 +122,14 @@ function uploadAndPreview() {
 </script>
 <body>
     <h1>회원가입</h1>
-   
-    <form th:action="@{/member/join}" method="post" onsubmit="return checkValid();" enctype="multipart/form-data">
+   <!--onsubmit="return checkValid();"-->
+    <form th:action="@{/member/join}" method="post" enctype="multipart/form-data">
        <table>
           <tr>
              <th>아이디</th>
              <td>
-                <input type="text" name="userid" id="userid"
-                readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력">
+                <input type="text" name="userid" id="userid">
+                <!--readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력"-->
                 <input type="button" value="ID중복검사" onclick="idCheck();">
              </td>
           </tr>
