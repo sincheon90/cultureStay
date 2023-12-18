@@ -7,7 +7,7 @@
 	<!-- 리플 저장 -->
 	<insert id="writeReply" parameterType="Reply">
 		insert into cultureStay_reply (
-				replynum
+				  replynum
 				, boardnum
 				, userid
 				, content

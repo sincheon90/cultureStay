@@ -22,13 +22,13 @@ public class ReplyController {
 	
 	@PostMapping("writeReply")
 	public String writeReply(Reply reply, @AuthenticationPrincipal UserDetails user) {
-		reply.setMemberid(user.getUsername());
+		reply.setUserid(user.getUsername());
 		int result = service.writeReply(reply);
 		return "redirect:/board/read?boardnum=" + reply.getBoardnum();
 	}
 	@GetMapping("deleteReply")
 	public String deleteReply(Reply reply, @AuthenticationPrincipal UserDetails user) {
-		reply.setMemberid(user.getUsername());
+		reply.setUserid(user.getUsername());
 		int result = service.deleteReply(reply);
 		return "redirect:/board/read?boardnum=" + reply.getBoardnum();
 	}
