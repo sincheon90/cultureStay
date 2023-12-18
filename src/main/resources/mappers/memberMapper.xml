@@ -25,9 +25,9 @@
         , phone
         , address
         , email
-        <if test="profileImagePath != null">
-        , profileImagePath
-        
+        <if test="ogProfileImage != null and svProfileImage != null">
+			, ogProfileImage
+			, svProfileImage
 			</if>
     )
     VALUES
@@ -40,9 +40,9 @@
         , #{phone}
         , #{address}
         , #{email}
-         <if test="profileImagePath != null">
-        , #{profileImagePath}
-        
+        <if test="ogProfileImage != null and svProfileImage != null">
+			, #{ogProfileImage}
+			, #{svProfileImage}
 			</if>
     )
 </insert>
@@ -59,9 +59,7 @@
 			 phone = #{phone}
 			, address = #{address}
 			, email = #{email}
-			<if test="profileImagePath != null">
-        	, profileImagePath = #{profileImagePath}
-        	</if>
+			
 			<if test="password != null or password != ''">
 			, password = #{password}
 			</if>
