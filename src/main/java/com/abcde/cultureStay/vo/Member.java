@@ -23,18 +23,12 @@ public class Member implements UserDetails{
 	String phone;
 	String address;
 	String email;
-	String profileImagePath;
+	String ogProfileImage;
+	String svProfileImage;
 	boolean enabled;
 	String rolename;
 	
-	 // profileImagePath에 대한 getter와 setter를 수동으로 추가합니다.
-    public String getProfileImagePath() {
-        return profileImagePath;
-    }
-
-    public void setProfileImagePath(String profileImagePath) {
-        this.profileImagePath = profileImagePath;
-    }
+	 
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

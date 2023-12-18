@@ -1,6 +1,7 @@
 package com.abcde.cultureStay.contoller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.abcde.cultureStay.service.MemberService;
 import com.abcde.cultureStay.vo.Member;
+import com.abcde.cultureStay.util.FileService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,9 +29,10 @@ import java.nio.file.Paths;
 public class MemberController {
     @Autowired
     MemberService service;
-
-    private static String UPLOADED_FOLDER = "/path/to/your/uploaded/folder/"; // 이 경로를 조정하세요
-
+    
+    @Value("${spring.servlet.multipart.location}")
+	String uploadPath;
+    
     @GetMapping("join")
     public String joinForm() {
         return "member/joinForm";
@@ -56,23 +59,15 @@ public class MemberController {
     }
 
     @PostMapping("join")
-    public String join(Member member, @RequestParam("profileImage") MultipartFile profileImage) {
+    public String join(Member member, MultipartFile upload, @AuthenticationPrincipal UserDetails user) {
         log.debug("join_param: {}", member);
 
         // 프로필 사진 저장
-        if (!profileImage.isEmpty()) {
-            try {
-                byte[] bytes = profileImage.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + profileImage.getOriginalFilename());
-                Files.write(path, bytes);
-
-                // Member 객체에 프로필 이미지 경로 설정
-                member.setProfileImagePath(path.toString());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        if(!upload.isEmpty()) {
+			String savedfile = FileService.saveFile(upload, uploadPath);
+			member.setOgProfileImage(upload.getOriginalFilename());
+			member.setSvProfileImage(savedfile);
+		}
 
         service.joinMember(member);
         return "redirect:/";
