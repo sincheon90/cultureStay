@@ -24,6 +24,7 @@ CREATE TABLE Program (
 	title	    varchar2(255)	NOT NULL,
 	content	    varchar2(4000)	NOT NULL,
 	address	    varchar2(255)	NOT NULL,
+	detailed_address varchar2(255)	NOT NULL,
 	price	    number		        NOT NULL,
 	start_date	date		    NOT NULL,
 	end_date	date		    NOT NULL,
@@ -125,7 +126,7 @@ create table tagClick_cnt(
 );
 
 
---프로그램 리뷰(사진5 추가하기)
+--프로그램 리뷰(사진5 추가하기) 테이블
 CREATE TABLE Review (
 	reviewNum   	number		            primary key,
 	programNum	    number		            references Program(programNum), 
@@ -140,7 +141,7 @@ CREATE TABLE Review (
 create sequence reviewNum_seq;
 
 
-
+--예약테이블
 CREATE TABLE Reservation (
 	reserNum	number		            primary key,
 	programNum	number		            references Program(programNum), 
@@ -167,6 +168,7 @@ CREATE TABLE cultureStay_board(
 );
 create sequence cultureStay_boardnum_seq;
 
+--게시판 댓글
 CREATE TABLE cultureStay_reply (
 	replynum        number		        primary key,
 	boardnum        number		        references Board(boardnum),
