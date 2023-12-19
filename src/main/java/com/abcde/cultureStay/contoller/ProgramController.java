@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Program;
+import com.abcde.cultureStay.vo.ProgramTag;
 import com.abcde.cultureStay.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,10 +29,20 @@ public class ProgramController {
 	
 	//메인 프로그램 불러오기
 	@GetMapping("list")
-	public String homeList(Model model) {
+	public String homeList(Model model
+			, String start_date
+			,String end_date,
+			String searchWord,String address, ProgramTag tag) {
 		
-		ArrayList<Program> programList = service.mainSelect();	
-		//카테고리화 추가하기 
+		//검색조건
+		Program searchProgram = new Program();
+		searchProgram.setAddress(address);
+		searchProgram.setEnd_date(end_date);
+		searchProgram.setStart_date(start_date);
+			tag.setSearchWord(searchWord);
+		ArrayList<Program> programList = service.mainSelect(searchProgram,tag);	
+
+		
 		model.addAttribute("programList", programList);
 		
 		return "program/list";

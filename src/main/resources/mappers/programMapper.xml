@@ -35,9 +35,14 @@
 			, #{end_date}
 		)
 	</insert>
-  
-  	<select id="readProgram" parameterType="int" resultType="Program">
-		select * from Program where programNum = #{programNum}
+	
+ 	
+  	<select id="readProgram" parameterType="map" resultType="Program">
+  	<!-- 수정해야댐 -->
+		select * from 
+			Program 
+		where 
+			programNum = #{programNum}
 	</select>
   
   

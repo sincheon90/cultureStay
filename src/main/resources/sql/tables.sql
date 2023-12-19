@@ -1,4 +1,4 @@
---유저테이블
+--유저테이블 verified 디폴트값 넣어주기
 CREATE TABLE cultureStay_member(
 	userid	    	varchar2(255)	    primary key,   
 	password		varchar2(255)	    not null,  
@@ -15,18 +15,9 @@ CREATE TABLE cultureStay_member(
     rolename    	VARCHAR2(20)   		DEFAULT 'ROLE_USER' NOT NULL    -- 사용자 권한. 모두 'ROLE_USER'로 처리
 
 );
-   --변경
---verified 디폴트값 넣어주기
-select * from Users;
+select * from cultureStay_member;
 
---유저 좋아요,북마크, 최근방문 프로그램 :  추천시 사용
-CREATE TABLE Interests(     
-    	userid	    varchar2(255)	    primary key references cultureStay_member(userid), 
-        favorite     number                 null,          --좋아요한 프로그램 아이디(어레이리스트)
-        bookmark    number                 null,         --북마크한 프로그램 아이디(어레이리스트)
-        recentClick number                 null         --최근 클릭한 프로그램
-);
-
+--프로그램 테이블 
 CREATE TABLE Program (
 	programNum	number	            primary key,
 	userid	    varchar2(255)	references cultureStay_member(userid), 
@@ -34,7 +25,6 @@ CREATE TABLE Program (
 	content	    varchar2(4000)	NOT NULL,
 	address	    varchar2(255)	NOT NULL,
 	price	    number		        NOT NULL,
-    tag         number             NOT NULL, --수정할지도 모름
 	start_date	date		    NOT NULL,
 	end_date	date		    NOT NULL,
     hits            number              default 0 --인기프로그램용 조회수
@@ -42,22 +32,100 @@ CREATE TABLE Program (
 create sequence programNum_seq;
 select * from Program;
 
---인기태그용 태그클릭수
-create table tagClick_cnt(
-    one      number     default 0,
-    two      number     default 0,
-    three    number     default 0,
-    four     number     default 0,
-    five     number     default 0,
-    six      number     default 0,
-    seven    number     default 0,
-    eight    number     default 0,
-    nine     number     default 0,
-    ten      number     default 0
+-
+--좋아요한 프로그램 테이블
+CREATE TABLE Program_like(     
+	p_like_num 	number 				primary key,
+	userid	    varchar2(255)	    references cultureStay_member(userid), 
+	programNum	number              references Program(programNum) ,        
+);
+create sequence p_like_num_seq;
+
+--북마크한 프로그램 테이블 
+CREATE TABLE Program_bookmark(     
+	bookmark_num 	number 				primary key,
+	userid	    varchar2(255)	    references cultureStay_member(userid), 
+	programNum	number              references Program(programNum),              
+);
+create sequence bookmark_num;
+
+--최근 방문 프로그램 5개 테이블
+CREATE TABLE recentClick(     
+	userid	    varchar2(255)	    primary key references cultureStay_member(userid)
+	one      number     default 0,
+	two      number     default 0,
+	three    number     default 0,
+	four     number     default 0,
+	five     number     default 0
+);
+
+--프로그램 필터,태그 
+CREATE TABLE ProgramTag(
+	programNum	    number		  primary key references Program(programNum), 
+	--인원수
+	maxhito	    number;
+	String searchWord; --검색할때 mapper에 태워보내려고 넣었어요
+	
+	--건물 유형
+	apartment      number     default 0, --아파트
+    detached      number     default 0, --단독주택
+
+	--접근성 및 편의시설:와이파이,세탁기,에어컨,주자창,개인욕실,대중교통, 운전지원
+	wifi      		number     default 0,
+    laundry     	number     default 0,
+    aircon     		number     default 0,
+    parking    		number     default 0,
+    private_bath     	number     default 0,
+	public_transport    number     default 0,
+    car    		number     default 0,
+    nine   		number     default 0,
+    ten      	number     default 0
+	
+
+	--호스트언어:한국어, 일본어, 영어, 중국어
+	kr      number     default 0,
+    eng     number     default 0,
+    jp    	number     default 0,
+    cn    	number     default 0,
+
+
+	--추천,집계 위한 태그:
+	--활동적, 창의적, 힐링, 전통, 요리체험, 뷰, 시골, 도시, 축제, 드라이브, 친목, 한적한
+	active      	number     default 0,
+    creative     	number     default 0,
+    healing    		number     default 0,
+    traditional     number     default 0,
+    cooking      	number     default 0,
+    view      		number     default 0,
+    countryside    	number     default 0,
+    city    		number     default 0,
+    festival     	number     default 0,
+    drive      		number     default 0,
+	socializing     number     default 0,
+	secluded      	number     default 0 
 );
 
 
 
+--인기태그용 태그클릭수
+--이름 수정할말
+create table tagClick_cnt(
+    active      	number     default 0,
+    creative     	number     default 0,
+    healing    		number     default 0,
+    traditional     number     default 0,
+    cooking      	number     default 0,
+    view      		number     default 0,
+    countryside    	number     default 0,
+    city    		number     default 0,
+    festival     	number     default 0,
+    drive      		number     default 0,
+	socializing     number     default 0,
+	secluded      	number     default 0
+);
+
+
+--프로그램 리뷰(사진5 추가하기)
 CREATE TABLE Review (
 	reviewNum   	number		            primary key,
 	programNum	    number		            references Program(programNum), 
@@ -84,7 +152,8 @@ CREATE TABLE Reservation (
 	status	    number					default 0       --예약상태(0,1,2,3)
 );
 create sequence reserNum_seq;
-
+---------------------------------------------------------------------
+--게시판 보드
 CREATE TABLE cultureStay_board(
     boardnum	    number		        primary key,
 	userid          varchar2(255)		references cultureStay_member(userid),
@@ -108,6 +177,13 @@ CREATE TABLE cultureStay_reply (
 );
 create sequence cultureStay_replynum_seq;
 
+--게시판 좋아요
+CREATE TABLE Board_like(     
+	b_like_num 	number 				primary key,
+	userid	    varchar2(255)	    references cultureStay_member(userid), 
+	boardnum	   number	         references cultureStay_board(boardnum)        
+);
+create sequence b_like_num_seq;
 
 
 --https://velog.io/@hiy7030/TIL-%EC%B1%84%ED%8C%85-%EA%B8%B0%EB%8A%A5-ERD-%EC%84%A4%EA%B3%84
