@@ -4,29 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
-	<link rel="stylesheet" th:href="@{/css/header_style.css}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-	<style>
-		.menu {
-			width: 80%;
-			height: 100%;
-			margin: 0;
-			display: flex;
-    		align-items: baseline;
-		}
+<link rel="stylesheet" th:href="@{/css/header_style.css}">
+<link rel="stylesheet" th:href="@{/css/main_style.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<style>
 
-		.menu h3 {
-			width: 100px;
-			margin-right: 20px; /* Space between menu items */
-    		align-items: baseline;
-		}
-
-		.menu a {
-			text-decoration: none; /* 밑줄 제거 */
-			color: black; /* 원하는 색상으로 설정 (파란색으로 지정) */
-			font-weight: bold;
-		}
-	</style>
+</style>
 </head>
 <body>
 <!-- 헤더 섹션-->
@@ -39,8 +22,8 @@
 		</div>
 
 		<nav class="menu">
-			<h3><a href="#">프로그램</a></h3>
-			<h3><a href="#">커뮤니티</a></h3>
+			<h2><a href="#">프로그램</a></h2>
+			<h2><a href="#">커뮤니티</a></h2>
 		</nav>
 
 
@@ -56,14 +39,58 @@
 				<a href="#">도움말</a>
 			</div>
 		</div>
-
 	</div>
 
 </header>
 
 <main>
+	<section class="board-container">
+		<h2>인기 게시글 or 최신</h2>
 
+		<div class="board-main">
+			<article>
+				<img th:src="@{/img/board/img.png}" alt="게시글 1">
+			</article>
+
+			<article>
+				<img th:src="@{/img/board/img_1.png}" alt="게시글 2">
+			</article>
+		</div>
+	</section>
+
+	<br><br>
+	<hr>
+	<br><br>
+
+	<section class="search-section">
+		<div class="header-container header-bottom">
+			<div class="search-bar">
+				<!-- 지역 입력란 -->
+				<input type="text" placeholder="지역 검색" aria-label="지역">
+
+				<!-- 체크인 날짜 선택 -->
+				<input type="date" aria-label="체크인 날짜">
+
+				<!-- 체크아웃 날짜 선택 -->
+				<input type="date" aria-label="체크아웃 날짜">
+
+				<!-- 프로그램 입력란 -->
+				<input type="text" placeholder="프로그램 검색" aria-label="프로그램">
+
+				<!-- 검색 버튼 -->
+				<button type="submit" aria-label="검색">
+					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</section>
 </main>
+
+
 
 
 </body>

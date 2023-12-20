@@ -1,3 +1,14 @@
+:root {
+    --primary-color: #1F9CB3; /* 주 색상 */
+    --secondary-color: #DF8664; /* 보조 색상 */
+
+    --lightGrey-color: #ECECEC; /* 보조 색상 */
+
+    --accent-color: #E91E63;  /* 강조 색상 */
+    --text-color: #333; /* 기본 텍스트 색상 */
+    --background-color: #fff; /* 배경 색상 */
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -12,16 +23,16 @@ header {
     /*background: linear-gradient(to bottom, #808000, #006400);*/ /* 올리브 그린에서 다크그린으로 이어지는 그라디언트 배경 */
     /*background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);*/ /* 파스텔 톤 그라디언트 배경 */
     /*background: linear-gradient(to bottom, #6dd5ed, #2193b0);*/ /* 그라디언트 배경 */
-    padding: 20px 100px; /* 헤더 패딩 */
+    padding: 20px 200px; /* 헤더 패딩 */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 헤더에 그림자 효과 추가 */
 }
 
 main {
-    padding: 20px 100px; /* 헤더 패딩 */
+    padding: 20px 200px; /* 헤더 패딩 */
 }
 
 footer {
-    padding: 20px 100px; /* 헤더 패딩 */
+    padding: 20px 200px; /* 헤더 패딩 */
 }
 
 .header-container {
@@ -46,6 +57,7 @@ footer {
 /*searcg-bar css*/
 .search-bar {
     background: white; /* 백그라운드 색상 */
+    border: 1px solid #cccccc;
     border-radius: 25px; /* 둥근 모서리 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     display: flex;
@@ -69,7 +81,7 @@ footer {
 
 .search-bar button {
     border: none; /* 버튼 테두리 제거 */
-    background-color: #ff385c; /* 버튼 배경 색상 */
+    background-color: var(--primary-color); /* 버튼 배경 색상 빨간색=#ff385c;*/
     color: white; /* 버튼 텍스트 색상 */
     border-radius: 15px; /* 버튼 둥근 모서리 */
     padding: 10px 20px; /* 버튼 내부 여백 */
@@ -78,7 +90,7 @@ footer {
 }
 
 .search-bar button:hover {
-    background-color: #f22f46; /* 버튼 호버 효과 */
+    background-color: var(--secondary-color); /* 버튼 호버 효과 */
 }
 
 .search-bar .icon-search i {
@@ -137,4 +149,26 @@ footer {
 
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
+}
+
+
+/*메뉴 스타일*/
+.menu {
+    width: 80%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+}
+
+.menu h2 {
+    width: 100px;
+    margin-right: 40px; /* Space between menu items */
+    align-items: baseline;
+}
+
+.menu a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: black; /* 원하는 색상으로 설정 (파란색으로 지정) */
+    font-weight: bold;
 }

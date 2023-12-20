@@ -1,0 +1,50 @@
+.board-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+.board-main {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap; /* Allows articles to wrap to the next line if needed */
+}
+
+.board-main article{
+    width: 45%;
+    margin: 10px; /* Add some space around the articles */
+    overflow: hidden; /* Ensures the scaled image does not overflow the article bounds */
+    position: relative; /* hover 시 z-index 적용을 위해 position 설정 */
+    transition: transform 0.3s ease; /* Smooth transition for the transform effect */
+}
+
+/* 비율을 유지하기 위한 패딩 트릭 */
+.board-main article::before {
+    content: '';
+    display: block;
+    padding-top: 75%; /* 16:9 비율 = 56.25%, 4:3 비율 = 75%*/
+    pointer-events: none; /* Ignore mouse events */
+}
+
+.board-main article img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  /*max-width: 100%;*/ /* 이미지가 부모 컨테이너를 넘지 않도록 설정 */
+  object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 채움 */
+  transition: transform 0.3s ease; /* Smooth transition for the transform effect */
+}
+
+/* Hover effect */
+.board-main article:hover img {
+    transform: scale(1.1); /* Enlarges the article on hover */
+    z-index: 10; /* Ensure the scaled item is above others */
+}
+
+.search-section {
+    /*background-color: var(--secondary-color);*/
+}
