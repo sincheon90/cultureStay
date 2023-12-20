@@ -6,6 +6,7 @@
 <title>Home</title>
 <link rel="stylesheet" th:href="@{/css/header_style.css}">
 <link rel="stylesheet" th:href="@{/css/main_style.css}">
+<link rel="stylesheet" th:href="@{/css/footer.css}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <style>
 
@@ -92,7 +93,7 @@
 	<section class="board-container">
 		<div class="board-title">
 			<h2>00님을 위한 추천 프로그램</h2>
-			더보기
+			<div class="add_link"><a href="#">더보기</a></div>
 		</div>
 
 		<div class="board-card">
@@ -103,8 +104,10 @@
 			<article class="card-content">
 				<h2>제목</h2>
 				<p>콘텐츠</p>
-				<p>태그</p>
-				<button type="button">가격</button>
+				<div class="card-content-footer">
+					<p>#태그 #태그 </p>
+					<p>$999,999</p>
+				</div>
 			</article>
 		</div>
 
@@ -114,10 +117,51 @@
 			</article>
 
 			<article class="card-content">
-				<h2>제목2</h2>
+				<h2>제목</h2>
 				<p>콘텐츠</p>
-				<p>태그</p>
-				<button type="button">가격</button>
+				<div class="card-content-footer">
+					<p>#태그 #태그 </p>
+					<p>$999,999</p>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<br><br>
+
+	<section class="board-container">
+		<div class="board-title">
+			<h2>인기 Best</h2>
+			<div class="add_link"><a href="#">더보기</a></div>
+		</div>
+
+		<div class="board-card">
+			<article class="card-image">
+				<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
+			</article>
+
+			<article class="card-content">
+				<h2>제목</h2>
+				<p>콘텐츠</p>
+				<div class="card-content-footer">
+					<p>#태그 #태그 </p>
+					<p>$999,999</p>
+				</div>
+			</article>
+		</div>
+
+		<div class="board-card">
+			<article class="card-image">
+				<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
+			</article>
+
+			<article class="card-content">
+				<h2>제목</h2>
+				<p>콘텐츠</p>
+				<div class="card-content-footer">
+					<p>#태그 #태그 </p>
+					<p>$999,999</p>
+				</div>
 			</article>
 		</div>
 	</section>
@@ -126,6 +170,32 @@
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	</section>
 </main>
+
+<footer class="site-footer">
+	<div class="footer-content">
+		<div class="footer-section">
+			<h4>회사 정보</h4>
+			<p>회사 소개 및 주소</p>
+		</div>
+		<div class="footer-section">
+			<h4>빠른 링크</h4>
+			<ul>
+				<li><a href="#">홈</a></li>
+				<li><a href="#">서비스</a></li>
+				<li><a href="#">제품</a></li>
+				<li><a href="#">문의하기</a></li>
+			</ul>
+		</div>
+		<div class="footer-section">
+			<h4>연락처</h4>
+			<p>전화번호: 123-456-7890</p>
+			<p>이메일: info@example.com</p>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<p>© 2024 CultureStay. All Rights Reserved.</p>
+	</div>
+</footer>
 
 
 

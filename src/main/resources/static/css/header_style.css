@@ -148,7 +148,7 @@ footer {
 }
 
 .dropdown:hover .dropbtn {
-  background-color: #3e8e41;
+  background-color: var(--secondary-color);
 }
 
 
@@ -172,3 +172,5 @@ footer {
     color: black; /* 원하는 색상으로 설정 (파란색으로 지정) */
     font-weight: bold;
 }
+
+

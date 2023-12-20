@@ -63,10 +63,28 @@
 }
 
 
-/*프로그램 섹션 스타일*/
-.program-section {
+
+.card-content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+
 }
 
+.card-content-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.add_link a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: var(--primary-color); /* 원하는 색상으로 설정 (파란색으로 지정) */
+    font-weight: bold;
+}
+
+/* hover 상태일 때 링크 스타일 */
+.add_link a:hover {
+    color: var(--secondary-color); /* hover 색상으로 변경 (예: 빨간색으로 설정) */
+}
 
