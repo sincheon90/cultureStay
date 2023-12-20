@@ -45,14 +45,16 @@
 
 <main>
 	<section class="board-container">
-		<h2>인기 게시글 or 최신</h2>
+		<div class="board-title">
+			<h2>인기 게시글 or 최신</h2>
+		</div>
 
-		<div class="board-main">
-			<article>
+		<div class="board-card">
+			<article class="card-image">
 				<img th:src="@{/img/board/img.png}" alt="게시글 1">
 			</article>
 
-			<article>
+			<article class="card-image">
 				<img th:src="@{/img/board/img_1.png}" alt="게시글 2">
 			</article>
 		</div>
@@ -82,6 +84,41 @@
 					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
 				</button>
 			</div>
+		</div>
+	</section>
+
+	<br><br>
+
+	<section class="board-container">
+		<div class="board-title">
+			<h2>00님을 위한 추천 프로그램</h2>
+			더보기
+		</div>
+
+		<div class="board-card">
+			<article class="card-image">
+				<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
+			</article>
+
+			<article class="card-content">
+				<h2>제목</h2>
+				<p>콘텐츠</p>
+				<p>태그</p>
+				<button type="button">가격</button>
+			</article>
+		</div>
+
+		<div class="board-card">
+			<article class="card-image">
+				<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
+			</article>
+
+			<article class="card-content">
+				<h2>제목2</h2>
+				<p>콘텐츠</p>
+				<p>태그</p>
+				<button type="button">가격</button>
+			</article>
 		</div>
 	</section>
 
