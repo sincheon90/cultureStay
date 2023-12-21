@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>Home</title>
 <link rel="stylesheet" th:href="@{/css/header_style.css}">
-<link rel="stylesheet" th:href="@{/css/main_style.css}">
+<link rel="stylesheet" th:href="@{/css/main_style_test.css}">
 <link rel="stylesheet" th:href="@{/css/footer.css}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <style>
@@ -71,14 +71,26 @@
 		</div>
 
 		<div class="board-card">
-			<article class="card-image">
-				<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
+			<article class="image-article">
+				<div class="image-container">
+					<div class="image-wrapper">
+						<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
+					</div>
+
+					<div class="image-wrapper">
+						<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
+					</div>
+				</div>
+
+				<div class="image-container-sub">
+					<h4>프로그램 이름</h4>
+				</div>
 			</article>
 
-			<article class="card-content">
+			<article class="content-article">
 				<h2>제목</h2>
 				<p>콘텐츠</p>
-				<div class="card-content-footer">
+				<div class="content-article-footer">
 					<p>#태그 #태그 </p>
 					<p>$999,999</p>
 				</div>
@@ -90,10 +102,10 @@
 				<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
 			</article>
 
-			<article class="card-content">
+			<article class="content-article">
 				<h2>제목</h2>
 				<p>콘텐츠</p>
-				<div class="card-content-footer">
+				<div class="content-article-footer">
 					<p>#태그 #태그 </p>
 					<p>$999,999</p>
 				</div>
@@ -114,10 +126,10 @@
 				<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
 			</article>
 
-			<article class="card-content">
+			<article class="content-article">
 				<h2>제목</h2>
 				<p>콘텐츠</p>
-				<div class="card-content-footer">
+				<div class="content-article-footer">
 					<p>#태그 #태그 </p>
 					<p>$999,999</p>
 				</div>
@@ -129,10 +141,10 @@
 				<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
 			</article>
 
-			<article class="card-content">
+			<article class="content-article">
 				<h2>제목</h2>
 				<p>콘텐츠</p>
-				<div class="card-content-footer">
+				<div class="content-article-footer">
 					<p>#태그 #태그 </p>
 					<p>$999,999</p>
 				</div>

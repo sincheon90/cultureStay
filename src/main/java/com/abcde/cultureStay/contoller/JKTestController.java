@@ -29,8 +29,8 @@ public class JKTestController {
         return "jk/list";
     }
 
-    @GetMapping("home")
+    @GetMapping("test")
     public String home() {
-        return "jk/home";
+        return "jk/test";
     }
 }
