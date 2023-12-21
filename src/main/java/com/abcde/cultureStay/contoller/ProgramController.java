@@ -28,7 +28,7 @@ public class ProgramController {
 	@Autowired
 	ProgramService service;
 	
-	//홈화면 프로그램- 나중에 링크 수정
+	//홈화면
 	@GetMapping("")
 	public String homeList(@AuthenticationPrincipal UserDetails user,
 			Model model) {
