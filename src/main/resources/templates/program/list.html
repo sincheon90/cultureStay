@@ -23,7 +23,7 @@
 			<td th:text="${programList.programNum}"></td>
 			<td th:text="${programList.userid}"></td>
 			<td>
-				<a th:href="@{/board/read(boardnum=${board.boardnum})}" 
+				<a th:href="@{/program/detail(programNum=${programList.programNum})}" 
 				   th:text="${programList.title}"></a>
 			</td>
 			<td th:text="${programList.hits}"></td>
