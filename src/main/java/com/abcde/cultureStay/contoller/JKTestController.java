@@ -28,4 +28,9 @@ public class JKTestController {
     public String list() {
         return "jk/list";
     }
+
+    @GetMapping("home")
+    public String home() {
+        return "jk/home";
+    }
 }
