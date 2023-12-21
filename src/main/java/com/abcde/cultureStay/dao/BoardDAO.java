@@ -25,4 +25,13 @@ public interface BoardDAO {
 
 	int updateBoard(Board board);
 
+	void updateLikehit(int boardnum);
+
+	int selectLikehit(int boardnum);
+
+	
+	
+
+	
+
 }

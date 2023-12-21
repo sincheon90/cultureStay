@@ -19,4 +19,7 @@ public interface BoardService {
 
 	int updateBoard(Board board);
 
+	
+
+	
 }

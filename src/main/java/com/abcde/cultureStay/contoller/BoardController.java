@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.abcde.cultureStay.dao.BoardDAO;
 import com.abcde.cultureStay.service.BoardService;
 import com.abcde.cultureStay.service.ReplyService;
 import com.abcde.cultureStay.util.PageNavigator;
@@ -50,6 +52,9 @@ public class BoardController {
 	
 	@Autowired
 	ReplyService rService;
+	
+	@Autowired
+	BoardDAO dao;
 	
 	@GetMapping("boardList")
 	public String boardList(Model model
@@ -228,6 +233,23 @@ public class BoardController {
 		
 		return "redirect:/board/read?boardnum=" + board.getBoardnum();
 	}
+	
+	@ResponseBody
+	@PostMapping("recommend")
+	public int recommend(int boardnum) {
+		log.debug("보드넘:{}", boardnum);
+		
+		int likehit = 0;
+		dao.updateLikehit(boardnum);    //DB에 likehit 데이터 수정 완료
+		likehit = dao.selectLikehit(boardnum); //DB에 있는 likehit 값을 가져오기
+		log.debug("조회수:{}", likehit);
+		return likehit;
+	}
+	
+	
+	
+	
+	
 	
 	
 	

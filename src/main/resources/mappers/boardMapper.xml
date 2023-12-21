@@ -107,5 +107,24 @@
 			boardnum = #{boardnum}
 			and userid = #{userid}
 	</update>
+	
+	<update id="updateLikehit" parameterType="int">
+	update
+		cultureStay_board
+	set
+		likehit = likehit + 1
+	where
+		boardnum = #{boardnum}
+</update>
+	<select id="selectLikehit" parameterType="int" resultType="int">
+		select
+			likehit
+		from
+			cultureStay_board
+		where
+			boardnum = #{boardnum}
+</select>
+
+
 
 </mapper>
