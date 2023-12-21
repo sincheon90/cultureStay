@@ -11,13 +11,23 @@ import com.abcde.cultureStay.vo.Review;
 
 @Mapper
 public interface ProgramDAO {
+	
+	ArrayList<Program> homePopular();
 
-	ArrayList<Program> mainSelect(HashMap<Program, ProgramTag> map);
+	ArrayList<Program> homeRecommend(String id);
+	
+	ArrayList<Program> programMainlist(HashMap<String, Object> map);
 
 	int pWrite(Program program);
 
 	Program readProgram(int programNum);
 
 	ArrayList<Review> pReviewList(int programNum);
+
+	void p_updateHits(int programNum);
+
+	void recentClick(int programNum);
+
+
 
 }

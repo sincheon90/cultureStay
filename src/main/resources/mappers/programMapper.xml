@@ -5,11 +5,22 @@
 
 <mapper namespace="com.abcde.cultureStay.dao.ProgramDAO">
 
+<!--///////// 가장 첫 메인 홈 화면 /////////-->
+<!-- 인기 프로그램 -->
+	<select id="homePopular" resultType="Program">
+	  		select * from Program 
+	</select>
+<!-- 유저별 추천 프로그램 -->	
+	<select id="homeRecommend" parameterType="String" resultType="Program">
+	  		select * from Program 
+	</select>
 
- <select id="mainSelect" resultType="Program">
+<!-- ///////////프로그램 화면//////////////-->
+ <select id="programMainlist" resultType="Program">
   		select * from Program 
  </select>
   
+ <!-- 글쓰기 -->
  <insert id="pWrite" parameterType="Program">
 		insert into Program
 		(
@@ -45,6 +56,13 @@
 			programNum = #{programNum}
 	</select>
   
+  	<select id="recentClick" parameterType="int" >
+  	<!-- 수정해야댐 -->
+		select * from 
+			Program 
+		where 
+			programNum = #{programNum}
+	</select>
   
 	  <select id="pReviewList" parameterType="int" resultType="Reply">
 			select 
@@ -52,11 +70,18 @@
 			from 
 				Review 
 			where 
-				boardnum = #{boardnum}
+				programNum = #{programNum}
 			order by
-				replynum
+				reviewNum
 		</select>
 		
-  
+  <update id="p_updateHits" parameterType="int">
+		update 
+			Program 
+		set 
+			hits = hits + 1
+		where 
+			programNum = #{programNum}
+	</update>
   
 </mapper>

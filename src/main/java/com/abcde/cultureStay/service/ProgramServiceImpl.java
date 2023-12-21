@@ -17,39 +17,62 @@ public class ProgramServiceImpl implements ProgramService{
 	@Autowired
 	ProgramDAO dao;
 	
-	private HashMap<Program, ProgramTag> getMap(Program type, ProgramTag searchWord) {
-		HashMap<Program, ProgramTag> map = new HashMap<>();
-		map.put("type", type);
-		map.put("searchWord", searchWord);
-		return map;
-	}
-	
-	@Override
-	public ArrayList<Program> mainSelect(Program searchProgram, ProgramTag tag) {
-		HashMap<Program, ProgramTag> map = getMap(searchProgram, tag);
 
-		ArrayList<Program> result = dao.mainSelect(map);
+
+	//추천게시물 -최근방문+좋아요+북마크
+	@Override
+	public ArrayList<Program> homeRecommend(String id) {
+		ArrayList<Program> result = dao.homeRecommend(id);
 		
 		return result;
 	}
+	//인기게시물 -조회수+좋아요
+	@Override
+	public ArrayList<Program> homePopular() {
+		ArrayList<Program> result = dao.homePopular();
+		
+		return result;
+	}
+	
+	//프로그램 메인화면
+	@Override
+	public ArrayList<Program> programMainlist(Program searchProgram, ProgramTag tag) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("searchProgram", searchProgram);
+		map.put("tag", tag);
 
+		ArrayList<Program> result = dao.programMainlist(map);
+		
+	
+		return result;
+	}
+
+	//프로그램 만들기(호스트)
 	@Override
 	public int pWrite(Program program) {
 		int result = dao.pWrite(program);		
 		return result;
 	}
 	
-	
+	//프로그램 상세화면
 	@Override
 	public Program readProgram(int programNum) {
 		
 		Program program = dao.readProgram(programNum);
+		//조회수
+		dao.p_updateHits(programNum);
+		//최근방문
+		dao.recentClick(programNum);
 		return program;
 	}
-	
+	//상세화면 리뷰
 	@Override
 	public ArrayList<Review> pReviewList(int programNum) {
 		ArrayList<Review> pReviewList = dao.pReviewList(programNum);
 		return pReviewList;
 	}
+
+	
+
+
 }
