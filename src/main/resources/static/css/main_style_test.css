@@ -90,7 +90,6 @@
 
 
 
-
 .board-card .card-image{
     width: 45%;
     margin: 10px; /* Add some space around the articles */
@@ -108,12 +107,31 @@
 }
 
 .board-card .card-image img {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 채움 */
     transition: transform 0.3s ease; /* Smooth transition for the transform effect */
+}
+
+.board-card .card-content {
+    /* 텍스트 콘텐츠를 위한 스타일 */
+    width: 45%;
+    margin: 10px;
+    transition: transform 0.3s ease;
+    /* 추가 스타일 */
+}
+
+/* Hover effect */
+.board-card .card-image:hover img {
+    transform: scale(1.1); /* Enlarges the article on hover */
+    z-index: 10; /* Ensure the scaled item is above others */
+}
+
+.search-section {
+    /*background-color: var(--secondary-color);*/
 }
 
 
