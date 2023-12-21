@@ -2,7 +2,11 @@
 <html xmlns:th="thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>커뮤니티 게시판</title>
+<title>community</title>
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/main_style.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <!-- 페이지 이동 스크립트  -->
 <script>
 function pagingFormSubmit(currentPage) {
@@ -15,7 +19,61 @@ function pagingFormSubmit(currentPage) {
 </head>
 <body>
 
-	<h1 style="text-align: center;">게시판</h1>
+<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
+
+<main>
+	<br><br>
+
+	<section class="search-section">
+		<div class="header-container header-bottom">
+			<div class="search-bar">
+				<form id="pagingForm" method="get" th:action="@{/board/boardList}">
+					<input type="hidden" name="page" id="page">
+
+					<!-- 지역 입력란 -->
+		<!--			<input type="text" placeholder="지역 검색" aria-label="지역">-->
+					<select id="type" name="type">
+						<option value="title" th:selected="${type} == 'title'">제목</option>
+						<option value="contents" th:selected="${type} == 'contents'">본문</option>
+						<option value="userid" th:selected="${type} == 'userid'">작성자ID</option>
+						<option value="all" th:selected="${type} == 'all'">전체</option>
+					</select>
+
+					<!-- 게시글 입력란 -->
+					<input type="text" name="searchWord" th:value="${searchWord}" placeholder="게시글 검색" aria-label="게시글">
+
+					<!-- 검색 버튼 -->
+					<button type="submit" aria-label="검색" onclick="pagingFormSubmit(1)">
+						<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
+					</button>
+
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<br><br>
+
+	<section class="board-container">
+		<div class="board-title">
+			<h2>인기 게시글 or 최신</h2>
+		</div>
+
+		<div class="board-card">
+			<article class="card-image">
+				<img th:src="@{/img/board/img.png}" alt="게시글 1">
+			</article>
+
+			<article class="card-image">
+				<img th:src="@{/img/board/img_1.png}" alt="게시글 2">
+			</article>
+		</div>
+	</section>
+
+
+	<br><br>
+
 	
 	<table>
 		<tr>
@@ -64,19 +122,13 @@ function pagingFormSubmit(currentPage) {
 	<a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
 	<br><br>
 	
-	<!-- 검색폼 -->
-	<form id="pagingForm" method="get" th:action="@{/board/boardList}">
-		<input type="hidden" name="page" id="page">
-		<select id="type" name="type">
-			<option value="title" th:selected="${type} == 'title'">제목</option>
-			<option value="contents" th:selected="${type} == 'contents'">본문</option>
-			<option value="userid" th:selected="${type} == 'userid'">작성자ID</option>
-			<option value="all" th:selected="${type} == 'all'">전체</option>
-		</select>
-		<input type="text"  name="searchWord" th:value="${searchWord}">
-		<input type="button" onclick="pagingFormSubmit(1)" value="검색">
-	</form>
+
 	</section>
-	
+
+	<br><br><br><br><br><br><br><br>
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
+
 </body>
 </html>
