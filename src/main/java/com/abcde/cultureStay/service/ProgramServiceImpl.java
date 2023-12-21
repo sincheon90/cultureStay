@@ -11,19 +11,20 @@ import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.ProgramTag;
 import com.abcde.cultureStay.vo.Review;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ProgramServiceImpl implements ProgramService{
 
 	@Autowired
 	ProgramDAO dao;
 	
-
-
 	//추천게시물 -최근방문+좋아요+북마크
 	@Override
 	public ArrayList<Program> homeRecommend(String id) {
 		ArrayList<Program> result = dao.homeRecommend(id);
-		
+		log.debug("추천id:{}",id);
 		return result;
 	}
 	//인기게시물 -조회수+좋아요
