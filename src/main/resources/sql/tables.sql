@@ -10,7 +10,7 @@ CREATE TABLE cultureStay_member(
     gender      	varchar2(20)        not null,        --성별
     ogProfileImage	varchar(255),					 -- 프사original
     svProfileImage  varchar(255),					 -- 프사saved
-    verified    	varchar2(1) 		CHECK(verified IN  ('0','1'))--본인인증 여부
+    verified    	varchar2(1) 		CHECK(verified IN  ('0','1')), --본인인증 여부
     enabled     	NUMBER(1)       	DEFAULT 1 NOT NULL,             -- 계정 상태. 1:사용 가능, 0:사용 불가능
     rolename    	VARCHAR2(20)   		DEFAULT 'ROLE_USER' NOT NULL    -- 사용자 권한. 모두 'ROLE_USER'로 처리
 
@@ -28,6 +28,7 @@ CREATE TABLE Program (
 	price	    number		        NOT NULL,
 	start_date	date		    NOT NULL,
 	end_date	date		    NOT NULL,
+	inputdate       date                default sysdate, 
     hits            number              default 0 --인기프로그램용 조회수
 );
 create sequence programNum_seq;
@@ -38,7 +39,9 @@ select * from Program;
 CREATE TABLE Program_like(     
 	p_like_num 	number 				primary key,
 	userid	    varchar2(255)	    references cultureStay_member(userid), 
-	programNum	number              references Program(programNum) ,        
+	programNum	number              references Program(programNum) ,       
+	inputdate       date            default sysdate     --작성일
+ 
 );
 create sequence p_like_num_seq;
 
@@ -46,7 +49,9 @@ create sequence p_like_num_seq;
 CREATE TABLE Program_bookmark(     
 	bookmark_num 	number 				primary key,
 	userid	    varchar2(255)	    references cultureStay_member(userid), 
-	programNum	number              references Program(programNum),              
+	programNum	number              references Program(programNum),      
+	inputdate       date            default sysdate     --작성일
+        
 );
 create sequence bookmark_num;
 
@@ -91,38 +96,34 @@ CREATE TABLE ProgramTag(
 
 
 	--추천,집계 위한 태그:
-	--활동적, 창의적, 힐링, 전통, 요리체험, 뷰, 시골, 도시, 축제, 드라이브, 친목, 한적한
-	active      	number     default 0,
-    creative     	number     default 0,
-    healing    		number     default 0,
-    traditional     number     default 0,
-    cooking      	number     default 0,
-    view      		number     default 0,
-    countryside    	number     default 0,
-    city    		number     default 0,
-    festival     	number     default 0,
-    drive      		number     default 0,
-	socializing     number     default 0,
-	secluded      	number     default 0 
+	active      	number     default 0, --활동적
+    creative     	number     default 0, --창의적
+    healing    		number     default 0, --힐링
+    traditional     number     default 0, --전통
+    cooking      	number     default 0, --요리체험
+    view      		number     default 0, --뷰
+    countryside    	number     default 0, --시골
+    city    		number     default 0, --도시
+    festival     	number     default 0, --축제
+    drive      		number     default 0, --드라이브
+	socializing     number     default 0, --친목
+	secluded      	number     default 0  --한적한
 );
 
-
-
 --인기태그용 태그클릭수
---이름 수정할말
 create table tagClick_cnt(
-    active      	number     default 0,
-    creative     	number     default 0,
-    healing    		number     default 0,
-    traditional     number     default 0,
-    cooking      	number     default 0,
-    view      		number     default 0,
-    countryside    	number     default 0,
-    city    		number     default 0,
-    festival     	number     default 0,
-    drive      		number     default 0,
-	socializing     number     default 0,
-	secluded      	number     default 0
+	active      	number     default 0, --활동적
+    creative     	number     default 0, --창의적
+    healing    		number     default 0, --힐링
+    traditional     number     default 0, --전통
+    cooking      	number     default 0, --요리체험
+    view      		number     default 0, --뷰
+    countryside    	number     default 0, --시골
+    city    		number     default 0, --도시
+    festival     	number     default 0, --축제
+    drive      		number     default 0, --드라이브
+	socializing     number     default 0, --친목
+	secluded      	number     default 0  --한적한
 );
 
 
