@@ -28,6 +28,22 @@ public interface ProgramDAO {
 
 	void recentClick(int programNum);
 
+	ProgramTag readProgramTag(int programNum);
+
+	Integer likeCheck(HashMap<String, Object> map);
+
+	Integer bookmarkCheck(HashMap<String, Object> map);
+
+	void createLike(HashMap<String, Object> map);
+
+	void deleteLike(HashMap<String, Object> map);
+
+	void createBookmark(HashMap<String, Object> map);
+
+	void deleteBookmark(HashMap<String, Object> map);
+
+
+
 
 
 }

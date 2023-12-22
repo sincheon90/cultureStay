@@ -18,4 +18,18 @@ public interface ProgramService {
 	ArrayList<Program> homeRecommend(String id);
 
 	ArrayList<Program> homePopular();
+
+	ProgramTag readProgramTag(int programNum);
+
+	int likeCheck(int programNum, String userid);
+
+	int bookmarkCheck(int programNum, String userid);
+
+	void createLike(int programNum, String userid);
+
+	void deleteLike(int programNum, String userid);
+
+	void createBookmark(int programNum, String userid);
+
+	void deleteBookmark(int programNum, String userid);
 }
