@@ -188,6 +188,36 @@ CREATE TABLE Board_like(
 create sequence b_like_num_seq;
 
 
+-- 첨부 이미지 관리 테이블
+CREATE TABLE image(     
+	imgID 	number 				primary key, -- 첨부파일 ID (PK) 
+	programNum	number              references Program(programNum),     
+	boardnum	   number	         references cultureStay_board(boardnum),    
+	reviewNum   	number		             references Review(reviewNum),
+	fileName	varchar2(255), 	-- 파일명 또는 경로
+	filetype	varchar2(255), 	-- 파일 타입
+	inputdate       date            default sysdate     -- 업로드 일자
+);
+create sequence imgID_seq;
+
+
+-- 체크리스트 테이블
+CREATE TABLE Checklist(     
+	checklistID 	number 				primary key, -- 첨부파일 ID (PK) 
+	one 			number	default 0,
+	two 			number	default 0,
+	three 			number	default 0,
+	four 			number	default 0,
+	five 			number	default 0,
+	six 			number	default 0,
+	seven 			number	default 0,
+	eight 			number	default 0,
+	nine 			number	default 0,
+	ten 			number	default 0,
+	inputdate       date            default sysdate     -- 업로드 일자
+);
+create sequence checklistID_seq;
+
 --https://velog.io/@hiy7030/TIL-%EC%B1%84%ED%8C%85-%EA%B8%B0%EB%8A%A5-ERD-%EC%84%A4%EA%B3%84
 --CREATE TABLE Chat (
 --	chatNum         number		            primary key,

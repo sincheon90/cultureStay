@@ -172,7 +172,6 @@ public class ProgramController {
 	}
 	
 	
-	
 	//프로그램 신청화면
 		@GetMapping("apply")
 		public String applyForm() {
@@ -180,7 +179,7 @@ public class ProgramController {
 		}
 	//프로그램 신청
 		@PostMapping("apply")
-		public String applyForm(ProgramTag tag,Reservation reserveForm) {
+		public String applyForm(Checklist chlist, Reservation reserveForm) {
 			//태그x 체크리스트, 예약테이블 넘기기
 			
 			return "program/apply";
