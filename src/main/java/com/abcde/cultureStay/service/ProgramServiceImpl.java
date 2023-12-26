@@ -19,7 +19,7 @@ public class ProgramServiceImpl implements ProgramService{
 
 	@Autowired
 	ProgramDAO dao;
-	
+
 	//추천게시물 -최근방문+좋아요+북마크
 	@Override
 	public ArrayList<Program> homeRecommend(String id) {
@@ -71,6 +71,67 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Review> pReviewList(int programNum) {
 		ArrayList<Review> pReviewList = dao.pReviewList(programNum);
 		return pReviewList;
+	}
+	
+	//프로그램 태그 가져오기
+	@Override
+	public ProgramTag readProgramTag(int programNum) {
+		ProgramTag result = dao.readProgramTag(programNum);
+
+		return result;
+	}
+	
+	private HashMap<String, Object> getMap(int programNum, String userid) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("programNum", programNum);
+		map.put("userid", userid);
+		return map;
+	}
+	
+	//좋아요상태
+	@Override
+	public int likeCheck(int programNum, String userid) {
+		HashMap<String, Object> map =  getMap(programNum, userid);
+
+		Integer result =  dao.likeCheck(map);
+		if(result == null) {
+			result = 0;
+		}
+		return result;
+	}
+	//북마크상태
+	@Override
+	public int bookmarkCheck(int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		
+		Integer result = dao.bookmarkCheck(map);
+		if(result == null) {
+			result = 0;
+		}
+		return result;
+		
+	}
+	//좋아요
+	@Override
+	public void createLike(int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		dao.createLike(map);
+	}
+	@Override
+	public void deleteLike(int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		dao.deleteLike(map);
+	}
+	//북마크
+	@Override
+	public void createBookmark(int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		dao.createBookmark(map);
+	}
+	@Override
+	public void deleteBookmark(int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		dao.deleteBookmark(map);
 	}
 
 	

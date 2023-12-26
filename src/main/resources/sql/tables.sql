@@ -41,7 +41,6 @@ CREATE TABLE Program_like(
 	userid	    varchar2(255)	    references cultureStay_member(userid), 
 	programNum	number              references Program(programNum) ,       
 	inputdate       date            default sysdate     --작성일
- 
 );
 create sequence p_like_num_seq;
 
@@ -53,7 +52,7 @@ CREATE TABLE Program_bookmark(
 	inputdate       date            default sysdate     --작성일
         
 );
-create sequence bookmark_num;
+create sequence bookmark_num_seq;
 
 --최근 방문 프로그램 5개 테이블
 CREATE TABLE recentClick(     
@@ -69,8 +68,8 @@ CREATE TABLE recentClick(
 CREATE TABLE ProgramTag(
 	programNum	    number		  primary key references Program(programNum), 
 	--인원수
-	maxhito	    number;
-	String searchWord; --검색할때 mapper에 태워보내려고 넣었어요
+	maxhito	    number,
+    searchWord varchar2(255), --검색할때 mapper에 태워보내려고 넣었어요
 	
 	--건물 유형
 	apartment      number     default 0, --아파트
@@ -85,7 +84,7 @@ CREATE TABLE ProgramTag(
 	public_transport    number     default 0,
     car    		number     default 0,
     nine   		number     default 0,
-    ten      	number     default 0
+    ten      	number     default 0,
 	
 
 	--호스트언어:한국어, 일본어, 영어, 중국어
@@ -101,7 +100,7 @@ CREATE TABLE ProgramTag(
     healing    		number     default 0, --힐링
     traditional     number     default 0, --전통
     cooking      	number     default 0, --요리체험
-    view      		number     default 0, --뷰
+    viewtag      		number     default 0, --뷰
     countryside    	number     default 0, --시골
     city    		number     default 0, --도시
     festival     	number     default 0, --축제
@@ -188,6 +187,36 @@ CREATE TABLE Board_like(
 );
 create sequence b_like_num_seq;
 
+
+-- 첨부 이미지 관리 테이블
+CREATE TABLE image(     
+	imgID 	number 				primary key, -- 첨부파일 ID (PK) 
+	programNum	number              references Program(programNum),     
+	boardnum	   number	         references cultureStay_board(boardnum),    
+	reviewNum   	number		             references Review(reviewNum),
+	fileName	varchar2(255), 	-- 파일명 또는 경로
+	filetype	varchar2(255), 	-- 파일 타입
+	inputdate       date            default sysdate     -- 업로드 일자
+);
+create sequence imgID_seq;
+
+
+-- 체크리스트 테이블
+CREATE TABLE Checklist(     
+	checklistID 	number 				primary key, -- 첨부파일 ID (PK) 
+	one 			number	default 0,
+	two 			number	default 0,
+	three 			number	default 0,
+	four 			number	default 0,
+	five 			number	default 0,
+	six 			number	default 0,
+	seven 			number	default 0,
+	eight 			number	default 0,
+	nine 			number	default 0,
+	ten 			number	default 0,
+	inputdate       date            default sysdate     -- 업로드 일자
+);
+create sequence checklistID_seq;
 
 --https://velog.io/@hiy7030/TIL-%EC%B1%84%ED%8C%85-%EA%B8%B0%EB%8A%A5-ERD-%EC%84%A4%EA%B3%84
 --CREATE TABLE Chat (

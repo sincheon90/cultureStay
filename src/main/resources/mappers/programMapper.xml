@@ -78,7 +78,7 @@
 				reviewNum
 		</select>
 		
-  <update id="p_updateHits" parameterType="int">
+  	<update id="p_updateHits" parameterType="int">
 		update 
 			Program 
 		set 
@@ -86,5 +86,79 @@
 		where 
 			programNum = #{programNum}
 	</update>
+	
+	<select id="readProgramTag" parameterType="int" resultType="ProgramTag">
+	  		select 
+	  			* 
+	  		from 
+	  			ProgramTag 
+	  		where 
+				programNum = #{programNum}
+	</select><!-- 수정해야댐 -->
   
+  <!-- 좋아요 -->
+  	<select id="likeCheck" parameterType="map" resultType="Integer">
+			SELECT *
+			FROM Program_like
+			WHERE programNum = #{programNum} AND userid = #{userid}
+	</select>
+
+	
+	
+	  
+	<insert id="createLike" parameterType="map">
+		insert into Program_like
+			(	p_like_num
+				,userid
+				,programNum
+			) 
+		values (
+				p_like_num.nextval
+				, #{userid}
+				, #{programNum}
+			)
+			
+	</insert>
+	  
+	<delete id="deleteLike" parameterType="map">
+		delete 
+			Program_like
+		where 
+			programNum = #{programNum}
+			and userid = #{userid}
+					
+	
+	</delete>
+	  
+	  
+	 <!-- 북마크 -->
+  	<select id="bookmarkCheck" parameterType="map" resultType="Integer">
+			SELECT *
+			FROM Program_bookmark
+			WHERE programNum = #{programNum} AND userid = #{userid}
+	</select>
+	
+	<insert id="createBookmark" parameterType="map">
+		insert into Program_bookmark
+			(	bookmark_num
+				,userid
+				,programNum
+			) 
+		values (
+			bookmark_num_seq.nextval
+			, #{userid}
+			, #{programNum}
+		)
+		
+	</insert>
+	  
+	<delete id="deleteBookmark" parameterType="map">		
+		delete 
+			Program_bookmark
+		where 
+			programNum = #{programNum}
+			and userid = #{userid}
+	</delete>
+	
+	
 </mapper>

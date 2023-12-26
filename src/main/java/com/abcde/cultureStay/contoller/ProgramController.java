@@ -69,9 +69,6 @@ public class ProgramController {
 		}
 		
 	
-	
-	
-	
 	//프로그램 글쓰기 폼
 	@GetMapping("write")
 	public String pWriteForm() {
@@ -88,32 +85,92 @@ public class ProgramController {
 		
 		program.setUserid(user.getUsername());
 	
-		//일단 파일은 어떻게 첨부할지 고민해보기
+		//일단 파일은 어떻게 첨부할지 고민해보기, 고객 체크용 체크리스트 생성해야됨
 		int result = service.pWrite(program);
 		log.debug("프로그램 저장 성공 체크 : {}",result);
 
 		return "redirect:/program/list";
 	}
 	
-	//프로그램 조회
+	//프로그램 디테일 조회
 	@GetMapping("detail")
 	public String read(@RequestParam(name = "programNum", defaultValue = "0") int programNum,
-			Model model) {
-		log.debug("read_param: {}", programNum);
+			Model model,@AuthenticationPrincipal UserDetails user) {
+		log.debug("프로그램 넘버: {}", programNum);
 
-		// DB에서 프로그램번호에 일치하는 프로그램 정보를 가져오기
+		//프로그램 정보 가져오기
 		Program program = service.readProgram(programNum);
-	
+		log.debug("프로그램 디테일: {}", program);
+
+		//좋아요 상태(좋아요:1, 없음:0)
+	//	int program_like =  service.likeCheck(programNum,user.getUsername());
+		int program_like =  service.likeCheck(programNum,"aaa");//test용
+
+		log.debug("좋아요 상태: {}", program_like);
+
+		//북마크 상태(북마크:1, 없음:0)
+	//	int program_bookmark = service.bookmarkCheck(programNum,user.getUsername());
+		int program_bookmark = service.bookmarkCheck(programNum,"aaa");//test용
+		log.debug("북마크 상태 : {}", program_bookmark);
+
+		//프로그램 태그 가져오기
+		ProgramTag programTag = service.readProgramTag(programNum);
+		log.debug("프로그램 태그: {}", programTag);
+		
+		
 		//프로그램 리뷰 가져오기
 		ArrayList<Review> pReviewList = service.pReviewList(programNum);
+		log.debug("리뷰 : {}", pReviewList);
+
 		
-		
-		// model 객체를 이용해 readForm.html에 출력하기
+		// model 객체를 이용해 detail.html에 출력하기
 		model.addAttribute("program", program);
+		model.addAttribute("program_like", program_like);
+		model.addAttribute("program_bookmark", program_bookmark);
+		model.addAttribute("programTag", programTag);
 		model.addAttribute("pReviewList", pReviewList);
-		
+	
 		return "program/detail";
 	}
+	
+	//좋아요post
+	@PostMapping("like")
+	public String like(Program program,@AuthenticationPrincipal UserDetails user) {
+//		int program_like =  service.likeCheck(program.getProgramNum(),user.getUsername());
+		int like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
+		if(like==0) {
+			//좋아요테이블 생성
+			service.createLike(program.getProgramNum(),user.getUsername());
+		}
+		else {
+			//테이블 삭제
+			service.deleteLike(program.getProgramNum(),user.getUsername());
+
+		}
+		
+		return "redirect:/program/detail?programNum="+program.getProgramNum();	
+	}
+	
+	//북마크post
+	@PostMapping("bookmark")
+	public String bookmark(Program program,@AuthenticationPrincipal UserDetails user) {
+		//	int program_bookmark = service.bookmarkCheck(program.getProgramNum(),user.getUsername());
+		int bookmark = service.bookmarkCheck(program.getProgramNum(),"aaa");//test용
+		if(bookmark==0) {
+			//좋아요테이블 생성
+			service.createBookmark(program.getProgramNum(),user.getUsername());
+
+		}
+		else {
+			//테이블 삭제
+			service.deleteBookmark(program.getProgramNum(),user.getUsername());
+
+		}
+		
+		
+		return "redirect:/program/detail?programNum="+program.getProgramNum();
+	}
+	
 	
 	//프로그램 신청화면
 		@GetMapping("apply")
@@ -122,8 +179,8 @@ public class ProgramController {
 		}
 	//프로그램 신청
 		@PostMapping("apply")
-		public String applyForm(ProgramTag tag,Reservation reserveForm) {
-			//태그, 예약테이블 넘기기
+		public String applyForm(Checklist chlist, Reservation reserveForm) {
+			//태그x 체크리스트, 예약테이블 넘기기
 			
 			return "program/apply";
 		}
