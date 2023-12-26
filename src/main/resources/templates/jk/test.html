@@ -45,12 +45,6 @@
 				<!-- 지역 입력란 -->
 				<input type="text" placeholder="지역 검색" aria-label="지역">
 
-				<!-- 체크인 날짜 선택 -->
-				<input type="date" aria-label="체크인 날짜">
-
-				<!-- 체크아웃 날짜 선택 -->
-				<input type="date" aria-label="체크아웃 날짜">
-
 				<!-- 프로그램 입력란 -->
 				<input type="text" placeholder="프로그램 검색" aria-label="프로그램">
 
@@ -65,9 +59,8 @@
 	<br><br>
 
 	<section class="board-container">
-		<div class="board-title">
-			<h2>00님을 위한 추천 프로그램</h2>
-			<div class="add_link"><a href="#">더보기</a></div>
+		<div class="board-title-right">
+			<div class="add_link"><a th:href="@{/board/write}">글쓰기</a></div>
 		</div>
 
 		<div class="board-card">

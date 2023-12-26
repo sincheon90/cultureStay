@@ -2,6 +2,7 @@ package com.abcde.cultureStay.contoller;
 
 import java.util.ArrayList;
 
+import com.abcde.cultureStay.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abcde.cultureStay.service.ProgramService;
-import com.abcde.cultureStay.vo.Program;
-import com.abcde.cultureStay.vo.ProgramTag;
-import com.abcde.cultureStay.vo.Reservation;
-import com.abcde.cultureStay.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
