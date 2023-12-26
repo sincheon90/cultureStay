@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abcde.cultureStay.service.ProgramService;
+import com.abcde.cultureStay.vo.Checklist;
 import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.ProgramTag;
 import com.abcde.cultureStay.vo.Reservation;
@@ -28,15 +29,11 @@ public class ProgramController {
 	@Autowired
 	ProgramService service;
 	
-	//홈화면
-	@GetMapping("")
-	public String homeList(@AuthenticationPrincipal UserDetails user,
+	//인기베스트 리스트
+	@GetMapping("popular")
+	public String popularList(@AuthenticationPrincipal UserDetails user,
 			Model model) {
-		
-		//추천게시물 -최근방문+좋아요+북마크 ----sql 수정
-		ArrayList<Program> recommend = service.homeRecommend(user.getUsername());
-		model.addAttribute("recommend", recommend);
-		
+	
 		//인기게시물 -조회수+좋아요 ----sql 수정
 		ArrayList<Program> popular = service.homePopular();
 		model.addAttribute("popular", popular);
@@ -44,6 +41,18 @@ public class ProgramController {
 		
 		return "program/list";
 	}
+	
+	//추천 리스트
+		@GetMapping("recommend")
+		public String recommendList(@AuthenticationPrincipal UserDetails user,
+				Model model) {
+			
+			//추천게시물 -최근방문+좋아요+북마크 ----sql 수정
+			ArrayList<Program> recommend = service.homeRecommend(user.getUsername());
+			model.addAttribute("recommend", recommend);
+		
+			return "program/list";
+		}
 	
 	//프로그램 리스트
 		@GetMapping("list")
@@ -78,7 +87,8 @@ public class ProgramController {
 	
 	//프로그램 글쓰기 (호스트)
 	@PostMapping("write")
-	public String pWriteForm(Program program, @AuthenticationPrincipal UserDetails user) {
+	public String pWriteForm(Program program, //이미지추가
+@AuthenticationPrincipal UserDetails user) {
 		
 		log.debug("프로그램 : {}",program);
 		log.debug("호스트아이디 : {}",user.getUsername());
