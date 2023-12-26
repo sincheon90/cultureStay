@@ -152,10 +152,8 @@
     color: var(--secondary-color); /* hover 색상으로 변경 (예: 빨간색으로 설정) */
 }
 
-.click-to-detail {
-    /* 기타 스타일 */
-}
 
-.click-to-detail {
+
+.clickable {
     cursor: pointer; /* 마우스 호버 시 포인터 모양 변경 */
 }

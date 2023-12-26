@@ -16,7 +16,6 @@
 <!-- 헤더 섹션-->
 <header th:replace="layouts/header::header"></header>
 
-
 <main>
 	<section class="board-container">
 		<div class="board-title">
@@ -86,14 +85,14 @@
 					</div>
 				</div>
 
-				<div class="image-container-sub click-to-detail" th:data-boardnum="${board.boardnum}">
+				<div class="image-container-sub board-to-detail clickable" th:data-boardnum="${board.boardnum}">
 					<h4 th:text="${board.title}">프로그램 이름</h4>
 				</div>
 			</article>
 
 			<article class="content-article">
 <!--				<h2>제목</h2>-->
-				<p class="click-to-detail" th:data-boardnum="${board.boardnum}" th:text="${board.contents}">콘텐츠</p>
+				<p class="board-to-detail clickable" th:data-boardnum="${board.boardnum}" th:text="${board.contents}">콘텐츠</p>
 				<div class="content-article-footer">
 					<p>#태그 #태그 </p>
 				</div>
