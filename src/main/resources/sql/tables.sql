@@ -169,6 +169,7 @@ CREATE TABLE cultureStay_board(
 create sequence cultureStay_boardnum_seq;
 
 --게시판 댓글
+drop table cultureStay_reply;
 CREATE TABLE cultureStay_reply (
 	replynum        number		        primary key,
 	boardnum        number		        references cultureStay_board(boardnum),
