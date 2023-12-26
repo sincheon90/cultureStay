@@ -32,4 +32,6 @@ public interface ProgramService {
 	void createBookmark(int programNum, String userid);
 
 	void deleteBookmark(int programNum, String userid);
+
+	void recentClick(int programNum, String userid);
 }

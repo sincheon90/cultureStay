@@ -26,7 +26,7 @@ public interface ProgramDAO {
 
 	void p_updateHits(int programNum);
 
-	void recentClick(int programNum);
+	void recentClick(HashMap<String, Object> map);
 
 	ProgramTag readProgramTag(int programNum);
 

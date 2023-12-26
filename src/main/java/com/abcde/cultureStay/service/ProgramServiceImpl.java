@@ -62,10 +62,18 @@ public class ProgramServiceImpl implements ProgramService{
 		Program program = dao.readProgram(programNum);
 		//조회수
 		dao.p_updateHits(programNum);
-		//최근방문
-		dao.recentClick(programNum);
+		
 		return program;
 	}
+	
+	//최근방문에 추가 
+	@Override
+	public void recentClick(int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		dao.recentClick(map);
+
+	}
+	
 	//상세화면 리뷰
 	@Override
 	public ArrayList<Review> pReviewList(int programNum) {
@@ -114,6 +122,9 @@ public class ProgramServiceImpl implements ProgramService{
 	//좋아요
 	@Override
 	public void createLike(int programNum, String userid) {
+		log.debug("유저아이디 {}",userid);
+		log.debug("프로그램넘버 {}",programNum);
+
 		HashMap<String, Object> map = getMap(programNum, userid);
 		dao.createLike(map);
 	}
@@ -133,6 +144,7 @@ public class ProgramServiceImpl implements ProgramService{
 		HashMap<String, Object> map = getMap(programNum, userid);
 		dao.deleteBookmark(map);
 	}
+	
 
 	
 

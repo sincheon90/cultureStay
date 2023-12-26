@@ -19,6 +19,7 @@ public class Program {
 	int price;
 	String start_date;
 	String end_date;
+	String inputdate;
 	int hits;
 	
   

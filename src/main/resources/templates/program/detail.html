@@ -7,13 +7,71 @@
 <body>
 <h2>프로그램 디테일</h2>
 
+	<a th:href="@{/program/apply}" th:text="신청하기"></a>
+<br><br>
 -사진<br>
 -기본정보(제목,호스트, 위치, 리뷰, 가격, 날짜, 조회수)<br>
 -컨텐츠<br>
 -프로그램 태그(접근성 및 편의시설, 건물유형, 위치지도?,호스트언어,태그)<br>
 -좋아요, 북마크 상태(0이면 없음, 1이면 있음)
+<br><br>
+	
+<table>
+		<tr>
+			<th>글번호</th>
+			<td style="width: 80px;" th:text="${program.programNum}"></td>
+			<th>조회수</th>
+			<td style="width: 50px;" th:text="${program.hits}"></td>
+			<th>작성일</th>
+			<td style="width: 150px;" th:text="${program.inputdate}"></td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td colspan="3" th:text="${program.title}"></td>
+			<th>작성자</th>
+			<td th:text="${program.userid}"></td>
+		</tr>
+		<tr>
+			<th>내용</th>
+		
+			<td>
+				<pre th:text="${program.content}"></pre>
+			</td>
+		</tr>
+		
+		
+		<tr>
+			<th>좋아요여부</th>
+		
+			<td>
+				<pre th:text="${program_like}"></pre>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>북마크여부</th>
+		
+			<td>
+				<pre th:text="${program_bookmark}"></pre>
+			</td>
+		</tr>
+		
+	</table>(1:좋아요, 0:좋아요아님)
+	<br><br>
+비회원은 클릭 못하도록 설정
 <br>
-	<a th:href="@{/program/apply}" th:text="신청하기"></a>
+<form th:action="@{/program/like}" method="post">
+    <button type="submit">좋아요</button>
+    
+    <input type="hidden" name="programNum" th:value="${program.programNum}">
+
+</form>
+
+<form th:action="@{/program/bookmark}" method="post">
+    <button type="submit">북마크</button>
+     <input type="hidden" name="programNum" th:value="${program.programNum}">
+
+</form>
 
 </body>
 </html>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Checklist;
+import com.abcde.cultureStay.vo.Image;
 import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.ProgramTag;
 import com.abcde.cultureStay.vo.Reservation;
@@ -87,15 +88,15 @@ public class ProgramController {
 	
 	//프로그램 글쓰기 (호스트)
 	@PostMapping("write")
-	public String pWriteForm(Program program, //이미지추가
-@AuthenticationPrincipal UserDetails user) {
+	public String pWriteForm(Program program, Image img,
+			@AuthenticationPrincipal UserDetails user) {
 		
-		log.debug("프로그램 : {}",program);
 		log.debug("호스트아이디 : {}",user.getUsername());
 		
 		program.setUserid(user.getUsername());
-	
-		//일단 파일은 어떻게 첨부할지 고민해보기, 고객 체크용 체크리스트 생성해야됨
+			log.debug("프로그램 : {}",program);
+
+		//일단 파일은 어떻게 첨부할지 고민해보기,호스트용 체크리스트 생성해야됨
 		int result = service.pWrite(program);
 		log.debug("프로그램 저장 성공 체크 : {}",result);
 
@@ -111,18 +112,26 @@ public class ProgramController {
 		//프로그램 정보 가져오기
 		Program program = service.readProgram(programNum);
 		log.debug("프로그램 디테일: {}", program);
-
+		
+		if(user != null) {
+			//최근방문에 추가
+			service.recentClick(programNum,user.getUsername());
+			
+			
 		//좋아요 상태(좋아요:1, 없음:0)
-	//	int program_like =  service.likeCheck(programNum,user.getUsername());
-		int program_like =  service.likeCheck(programNum,"aaa");//test용
+		int program_like =  service.likeCheck(programNum,user.getUsername());
+	//	int program_like =  service.likeCheck(programNum,"aaa");//test용
 
 		log.debug("좋아요 상태: {}", program_like);
 
 		//북마크 상태(북마크:1, 없음:0)
-	//	int program_bookmark = service.bookmarkCheck(programNum,user.getUsername());
-		int program_bookmark = service.bookmarkCheck(programNum,"aaa");//test용
+		int program_bookmark = service.bookmarkCheck(programNum,user.getUsername());
+	//	int program_bookmark = service.bookmarkCheck(programNum,"aaa");//test용
 		log.debug("북마크 상태 : {}", program_bookmark);
-
+		
+		model.addAttribute("program_like", program_like);
+		model.addAttribute("program_bookmark", program_bookmark);
+		}
 		//프로그램 태그 가져오기
 		ProgramTag programTag = service.readProgramTag(programNum);
 		log.debug("프로그램 태그: {}", programTag);
@@ -135,8 +144,7 @@ public class ProgramController {
 		
 		// model 객체를 이용해 detail.html에 출력하기
 		model.addAttribute("program", program);
-		model.addAttribute("program_like", program_like);
-		model.addAttribute("program_bookmark", program_bookmark);
+	
 		model.addAttribute("programTag", programTag);
 		model.addAttribute("pReviewList", pReviewList);
 	
@@ -145,40 +153,37 @@ public class ProgramController {
 	
 	//좋아요post
 	@PostMapping("like")
-	public String like(Program program,@AuthenticationPrincipal UserDetails user) {
-//		int program_like =  service.likeCheck(program.getProgramNum(),user.getUsername());
-		int like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
-		if(like==0) {
-			//좋아요테이블 생성
-			service.createLike(program.getProgramNum(),user.getUsername());
-		}
-		else {
-			//테이블 삭제
-			service.deleteLike(program.getProgramNum(),user.getUsername());
-
-		}
-		
-		return "redirect:/program/detail?programNum="+program.getProgramNum();	
+	public String like(int programNum,@AuthenticationPrincipal UserDetails user) {
+		log.debug("좋아요 프로그램 넘버 {}",programNum);
+			int program_like =  service.likeCheck(programNum,user.getUsername());
+		//	int program_like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
+			if(program_like==0) {
+				//좋아요테이블 생성
+				service.createLike(programNum,user.getUsername());
+				}
+			else {
+				//테이블 삭제
+				service.deleteLike(programNum,user.getUsername());
+				}
+			
+		return "redirect:/program/detail?programNum="+programNum;	
 	}
 	
 	//북마크post
 	@PostMapping("bookmark")
-	public String bookmark(Program program,@AuthenticationPrincipal UserDetails user) {
-		//	int program_bookmark = service.bookmarkCheck(program.getProgramNum(),user.getUsername());
-		int bookmark = service.bookmarkCheck(program.getProgramNum(),"aaa");//test용
-		if(bookmark==0) {
-			//좋아요테이블 생성
-			service.createBookmark(program.getProgramNum(),user.getUsername());
-
-		}
-		else {
-			//테이블 삭제
-			service.deleteBookmark(program.getProgramNum(),user.getUsername());
-
-		}
+	public String bookmark(int programNum,@AuthenticationPrincipal UserDetails user) {
+			int program_bookmark = service.bookmarkCheck(programNum,user.getUsername());
+		//	int program_bookmark = service.bookmarkCheck(program.getProgramNum(),"aaa");//test용
+			if(program_bookmark==0) {
+				//좋아요테이블 생성
+				service.createBookmark(programNum,user.getUsername());
+			}
+			else {
+				//테이블 삭제
+				service.deleteBookmark(programNum,user.getUsername());
+			}
 		
-		
-		return "redirect:/program/detail?programNum="+program.getProgramNum();
+		return "redirect:/program/detail?programNum="+programNum;
 	}
 	
 	

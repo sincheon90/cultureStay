@@ -2,7 +2,7 @@
 CREATE TABLE cultureStay_member(
 	userid	    	varchar2(255)	    primary key,   
 	password		varchar2(255)	    not null,  
-	username		varchar2(255)	    not null,  
+	name		varchar2(255)	    not null,  
 	phone	    	varchar2(255)		not null,  
 	address 		varchar2(255)		NULL,           
 	email	    	varchar2(100)		not null,        --이메일
@@ -171,7 +171,7 @@ create sequence cultureStay_boardnum_seq;
 --게시판 댓글
 CREATE TABLE cultureStay_reply (
 	replynum        number		        primary key,
-	boardnum        number		        references Board(boardnum),
+	boardnum        number		        references cultureStay_board(boardnum),
 	userid	        varchar2(255)		references cultureStay_member(userid),
 	content	        varchar2(4000)      not null,     
 	inputdate       date                default sysdate,
