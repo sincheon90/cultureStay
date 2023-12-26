@@ -14,3 +14,17 @@ window.onclick = function(event) {
     }
   }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // DOMContentLoaded: DOMContentLoaded 이벤트는 웹 페이지의 HTML이 완전히 로드되고 파싱되었을 때 발생
+    // 모든 클릭 가능한 제목 요소를 선택
+    var titles = document.querySelectorAll('.click-to-detail');
+
+    // 제목 요소에 대한 클릭 이벤트 리스너 추가
+    titles.forEach(function(title) {
+        title.addEventListener('click', function() {
+            var boardnum = this.getAttribute('data-boardnum');
+            window.location.href = '/board/read?boardnum=' + boardnum;
+        });
+    });
+});
