@@ -2,7 +2,7 @@
 CREATE TABLE cultureStay_member(
 	userid	    	varchar2(255)	    primary key,   
 	password		varchar2(255)	    not null,  
-	username		varchar2(255)	    not null,  
+	name		varchar2(255)	    not null,  
 	phone	    	varchar2(255)		not null,  
 	address 		varchar2(255)		NULL,           
 	email	    	varchar2(100)		not null,        --이메일

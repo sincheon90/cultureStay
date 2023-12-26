@@ -29,8 +29,9 @@
 			, title
 			, content
 			, address
+			,detailed_address
 			, price
-			, tag
+		
 			, start_date
 			, end_date
 		
@@ -40,8 +41,9 @@
 			, #{title}
 			, #{content}
 			, #{address}
+			,#{detailed_address}
 			, #{price}
-			, #{tag}
+		
 			, #{start_date}
 			, #{end_date}
 		)
@@ -57,7 +59,7 @@
 	</select>
   
   	<!-- 수정해야댐 -->
-  	<update id="recentClick" parameterType="int">
+  	<update id="recentClick" parameterType="map">
 		update 
 			Program 
 		set 
@@ -98,7 +100,7 @@
   
   <!-- 좋아요 -->
   	<select id="likeCheck" parameterType="map" resultType="Integer">
-			SELECT *
+			SELECT count(*)
 			FROM Program_like
 			WHERE programNum = #{programNum} AND userid = #{userid}
 	</select>
@@ -113,7 +115,7 @@
 				,programNum
 			) 
 		values (
-				p_like_num.nextval
+				p_like_num_seq.nextval
 				, #{userid}
 				, #{programNum}
 			)
@@ -127,13 +129,12 @@
 			programNum = #{programNum}
 			and userid = #{userid}
 					
-	
 	</delete>
 	  
 	  
 	 <!-- 북마크 -->
   	<select id="bookmarkCheck" parameterType="map" resultType="Integer">
-			SELECT *
+			SELECT count(*)
 			FROM Program_bookmark
 			WHERE programNum = #{programNum} AND userid = #{userid}
 	</select>
