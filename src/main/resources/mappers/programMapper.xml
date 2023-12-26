@@ -17,7 +17,7 @@
 
 <!-- ///////////프로그램 화면//////////////-->
  <select id="programMainlist" parameterType="map" resultType="Program">
-  		select * from Program 
+  		select * from Program ORDER BY inputdate DESC
  </select><!-- 수정해야댐 -->
   
  <!-- 글쓰기 -->
@@ -56,6 +56,7 @@
 			Program 
 		where 
 			programNum = #{programNum}
+	
 	</select>
   
   	<!-- 수정해야댐 -->
