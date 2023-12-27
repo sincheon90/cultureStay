@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8">
-	<title>Home</title>
-	<link rel="stylesheet" th:href="@{/css/header_style.css}">
-	<link rel="stylesheet" th:href="@{/css/main_style_test.css}">
-	<link rel="stylesheet" th:href="@{/css/footer.css}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" th:href="@{/css/header_style.css}">
+<link rel="stylesheet" th:href="@{/css/main_style_test.css}">
+<link rel="stylesheet" th:href="@{/css/footer.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<style>
 
-
+</style>
 </head>
 <body>
 
 <!-- 헤더 섹션-->
 <header th:replace="layouts/header::header"></header>
+
 
 <main>
 	<section class="board-container">
@@ -56,19 +58,9 @@
 
 	<br><br>
 
-<!--
-<tr th:each="board : ${boardList}">
-	<td th:text="${board.boardnum}"></td>
-	<td th:text="${board.userid}"></td>
-	<td>
-		<a th:href="@{/board/read(boardnum=${board.boardnum})}"
-		   th:text="${board.title}"></a>
-	</td>
-	<td th:text="${board.hits}"></td>
-	<td th:text="${board.inputdate}"></td>
-</tr>
--->
+
 	<section class="board-container">
+
 		<div class="board-title-right">
 			<div class="add_link"><a th:href="@{/board/write}">글쓰기</a></div>
 		</div>
@@ -77,24 +69,25 @@
 			<article class="image-article">
 				<div class="image-container">
 					<div class="image-wrapper">
-						<img th:src="@{/img/board/img_4.png}" alt="게시글 이미지">
+						<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
 					</div>
 
 					<div class="image-wrapper">
-						<img th:src="@{/img/board/img_5.png}" alt="게시글 이미지">
+						<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
 					</div>
 				</div>
 
-				<div class="image-container-sub board-to-detail clickable" th:data-boardnum="${board.boardnum}">
-					<h4 th:text="${board.title}">프로그램 이름</h4>
+				<div class="image-container-sub">
+					<h4>프로그램 이름</h4>
 				</div>
 			</article>
 
 			<article class="content-article">
-<!--				<h2>제목</h2>-->
-				<p class="board-to-detail clickable" th:data-boardnum="${board.boardnum}" th:text="${board.contents}">콘텐츠</p>
+				<h2>제목</h2>
+				<p>콘텐츠</p>
 				<div class="content-article-footer">
 					<p>#태그 #태그 </p>
+					<p>$999,999</p>
 				</div>
 			</article>
 		</div>
@@ -109,6 +102,5 @@
 
 <footer th:replace="layouts/footer::footer"></footer>
 
-<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

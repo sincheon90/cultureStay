@@ -6,16 +6,16 @@
 </head>
 <script>
    function idCheck() {
-		// url경로, 이름, 속성
-		//let win = window.open('idCheck', 'idwin', 'top=200, left=500, width=500, height=400');
-		window.open('idCheck', '_blank', 'top=200, left=500, width=500, height=400');
-	}
+      // url경로, 이름, 속성
+      //let win = window.open('idCheck', 'idwin', 'top=200, left=500, width=500, height=400');
+      window.open('idCheck', '_blank', 'top=200, left=500, width=500, height=400');
+   }
 
     function checkValid(){
         let userid = document.querySelector('#userid');
-		let password = document.querySelector('#password');
-		let password2 = document.querySelector('#password2');
-		let name = document.querySelector('#name');
+      let password = document.querySelector('#password');
+      let password2 = document.querySelector('#password2');
+      let name = document.querySelector('#name');
         let gender = document.querySelector('#gender');
         let birth = document.querySelector('#birth');
         let phone = document.querySelector('#phone');
@@ -26,48 +26,48 @@
         
         
 
-		if (userid.value.length < 3 || userid.value.length > 10) {
-			alert("ID는 3~10자로 입력하세요.");
-			return false;
-		}
-		
-		if (password.value.length < 3 || password.value.length > 10) {
-			alert("비밀번호는 3~10자로 입력하세요.");
-			return false;
-		}
-		
-		if (password.value != password2.value) {
-			alert("비밀번호를 정확하게 입력하세요.");
-			return false;
-		}
-		
-		if (name.value == '') {
-			alert("이름을 입력하세요.");
-			return false;
-		}
-		if(!(gender.value == 'm' || gender.value == 'f')){
-			alert("성별을 정확히 입력해주세요 ex)남자 = m 여자 = f");
-			return false;
-		}
-		if(birth.value.length != 8){
-			alert("숫자 8자를 입력해주세요 ex)20231211");
-			return false;
-		}
-		if (phone.value == '') {
-			alert("연락처를 입력하세요.");
-			return false;
-		}
-		if (address.value == '') {
-			alert("주소를 입력하세요.");
-			return false;
-		}
-		if (email.value == '') {
-			alert("메일주소를 입력하세요.");
-			return false;
-		}
-		
+      if (userid.value.length < 3 || userid.value.length > 10) {
+         alert("ID는 3~10자로 입력하세요.");
+         return false;
+      }
+      
+      if (password.value.length < 3 || password.value.length > 10) {
+         alert("비밀번호는 3~10자로 입력하세요.");
+         return false;
+      }
+      
+      if (password.value != password2.value) {
+         alert("비밀번호를 정확하게 입력하세요.");
+         return false;
+      }
+      
+      if (name.value == '') {
+         alert("이름을 입력하세요.");
+         return false;
+      }
+      if(!(gender.value == 'm' || gender.value == 'f')){
+         alert("성별을 정확히 입력해주세요 ex)남자 = m 여자 = f");
+         return false;
+      }
+      if(birth.value.length != 8){
+         alert("숫자 8자를 입력해주세요 ex)20231211");
+         return false;
+      }
+      if (phone.value == '') {
+         alert("연락처를 입력하세요.");
+         return false;
+      }
+      if (address.value == '') {
+         alert("주소를 입력하세요.");
+         return false;
+      }
+      if (email.value == '') {
+         alert("메일주소를 입력하세요.");
+         return false;
+      }
+      
 
-		return true;
+      return true;
     }
 function uploadAndPreview() {
             var fileInput = document.getElementById('fileInput');

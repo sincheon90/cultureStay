@@ -5,11 +5,22 @@
 
 <mapper namespace="com.abcde.cultureStay.dao.ProgramDAO">
 
+<!--///////// 가장 첫 메인 홈 화면 /////////-->
+<!-- 인기 프로그램 --><!-- 수정해야댐 -->
+	<select id="homePopular" resultType="Program">
+	  		select * from Program 
+	</select>
+<!-- 유저별 추천 프로그램 -->	<!-- 수정해야댐 -->
+	<select id="homeRecommend" parameterType="String" resultType="Program">
+	  		select * from Program 
+	</select>
 
- <select id="mainSelect" resultType="Program">
-  		select * from Program 
- </select>
+<!-- ///////////프로그램 화면//////////////-->
+ <select id="programMainlist" parameterType="map" resultType="Program">
+  		select * from Program ORDER BY inputdate DESC
+ </select><!-- 수정해야댐 -->
   
+ <!-- 글쓰기 -->
  <insert id="pWrite" parameterType="Program">
 		insert into Program
 		(
@@ -18,8 +29,9 @@
 			, title
 			, content
 			, address
+			,detailed_address
 			, price
-			, tag
+		
 			, start_date
 			, end_date
 		
@@ -29,22 +41,34 @@
 			, #{title}
 			, #{content}
 			, #{address}
+			,#{detailed_address}
 			, #{price}
-			, #{tag}
+		
 			, #{start_date}
 			, #{end_date}
 		)
 	</insert>
 	
  	
-  	<select id="readProgram" parameterType="map" resultType="Program">
-  	<!-- 수정해야댐 -->
+  	<select id="readProgram" parameterType="int" resultType="Program">
+  	
 		select * from 
 			Program 
 		where 
 			programNum = #{programNum}
+	
 	</select>
   
+  	<!-- 수정해야댐 -->
+  	<update id="recentClick" parameterType="map">
+		update 
+			Program 
+		set 
+			hits = hits + 1
+		where 
+			programNum = #{programNum}
+	</update>
+	
   
 	  <select id="pReviewList" parameterType="int" resultType="Reply">
 			select 
@@ -52,11 +76,91 @@
 			from 
 				Review 
 			where 
-				boardnum = #{boardnum}
+				programNum = #{programNum}
 			order by
-				replynum
+				reviewNum
 		</select>
 		
+  	<update id="p_updateHits" parameterType="int">
+		update 
+			Program 
+		set 
+			hits = hits + 1
+		where 
+			programNum = #{programNum}
+	</update>
+	
+	<select id="readProgramTag" parameterType="int" resultType="ProgramTag">
+	  		select 
+	  			* 
+	  		from 
+	  			ProgramTag 
+	  		where 
+				programNum = #{programNum}
+	</select><!-- 수정해야댐 -->
   
-  
+  <!-- 좋아요 -->
+  	<select id="likeCheck" parameterType="map" resultType="Integer">
+			SELECT count(*)
+			FROM Program_like
+			WHERE programNum = #{programNum} AND userid = #{userid}
+	</select>
+
+	
+	
+	  
+	<insert id="createLike" parameterType="map">
+		insert into Program_like
+			(	p_like_num
+				,userid
+				,programNum
+			) 
+		values (
+				p_like_num_seq.nextval
+				, #{userid}
+				, #{programNum}
+			)
+			
+	</insert>
+	  
+	<delete id="deleteLike" parameterType="map">
+		delete 
+			Program_like
+		where 
+			programNum = #{programNum}
+			and userid = #{userid}
+					
+	</delete>
+	  
+	  
+	 <!-- 북마크 -->
+  	<select id="bookmarkCheck" parameterType="map" resultType="Integer">
+			SELECT count(*)
+			FROM Program_bookmark
+			WHERE programNum = #{programNum} AND userid = #{userid}
+	</select>
+	
+	<insert id="createBookmark" parameterType="map">
+		insert into Program_bookmark
+			(	bookmark_num
+				,userid
+				,programNum
+			) 
+		values (
+			bookmark_num_seq.nextval
+			, #{userid}
+			, #{programNum}
+		)
+		
+	</insert>
+	  
+	<delete id="deleteBookmark" parameterType="map">		
+		delete 
+			Program_bookmark
+		where 
+			programNum = #{programNum}
+			and userid = #{userid}
+	</delete>
+	
+	
 </mapper>

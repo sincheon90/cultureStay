@@ -1,16 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Home</title>
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/main_style_test.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
 </head>
 <body>
-<h2>프로그램 리스트</h2>
+
+<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
+
+<main>
+
+	<br><br>
+
+	<section class="search-section">
+		<div class="header-container header-bottom">
+			<div class="search-bar">
+				<!-- 지역 입력란 -->
+				<input type="text" placeholder="지역 검색" aria-label="지역">
+
+				<!-- 체크인 날짜 선택 -->
+				<input type="date" aria-label="체크인 날짜">
+
+				<!-- 체크아웃 날짜 선택 -->
+				<input type="date" aria-label="체크아웃 날짜">
+
+				<!-- 프로그램 입력란 -->
+				<input type="text" placeholder="프로그램 검색" aria-label="프로그램">
+
+				<!-- 검색 버튼 -->
+				<button type="submit" aria-label="검색">
+					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<br><br>
+
+<!--
+	<tr th:each="programList : ${programList}">
+		<td th:text="${programList.programNum}"></td>
+		<td th:text="${programList.userid}"></td>
+		<td>
+			<a th:href="@{/program/detail(programNum=${programList.programNum})}"
+			   th:text="${programList.title}"></a>
+		</td>
+		<td th:text="${programList.hits}"></td>
+	</tr>
+-->
+	<section class="board-container">
+		<div class="board-title-right">
+			<div class="add_link"><a th:href="@{/program/write}">글쓰기</a></div>
+		</div>
+
+		<div class="board-card" th:each="programList : ${programList}">
+			<article class="image-article">
+				<div class="image-container">
+					<div class="image-wrapper">
+						<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
+					</div>
+
+					<div class="image-wrapper">
+						<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
+					</div>
+				</div>
+
+				<div class="image-container-sub program-to-detail clickable" th:data-programnum="${programList.programNum}">
+					<h4 th:text="${programList.title}">프로그램 이름</h4>
+				</div>
+			</article>
+
+			<article class="content-article">
+				<!--				<h2>제목</h2>-->
+				<p class="program-to-detail clickable" th:data-programnum="${programList.programNum}" th:text="${programList.content}">콘텐츠</p>
+				<div class="content-article-footer">
+					<p>#태그 #태그 </p>
+					<p>$999,999</p>
+<!--					<p th:text="${programList.price}">price</p>-->
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<br><br>
+
+	<section>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</section>
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
 
 
 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+	<a sec:authorize="isAuthenticated()" th:href="@{/program/write}" th:text="글쓰기"></a>
+<br><br><br>
 <table>
-	
+
 		<tr>
 			<th>글번호</th>
 			<th>작성자</th>
@@ -23,11 +125,42 @@
 			<td th:text="${programList.programNum}"></td>
 			<td th:text="${programList.userid}"></td>
 			<td>
-				<a th:href="@{/board/read(boardnum=${board.boardnum})}" 
+				<a th:href="@{/program/detail(programNum=${programList.programNum})}"
 				   th:text="${programList.title}"></a>
 			</td>
 			<td th:text="${programList.hits}"></td>
+			<td th:text="${programList.inputdate}"></td>
+
 		</tr>
 	</table>
+	
+		<!-- 검색폼 -->
+
+	<section class="search-section">
+	<form id="pagingForm" method="get" th:action="@{/program/list}">
+		<div class="header-container header-bottom">
+			<div class="search-bar">
+				<!-- 지역 입력란 -->
+				<input type="text"  th:value="${address}" placeholder="지역 검색" aria-label="지역">
+
+				<!-- 체크인 날짜 선택 -->
+				<input type="date" th:value="${start_date}" aria-label="체크인 날짜">
+
+				<!-- 체크아웃 날짜 선택 -->
+				<input type="date" th:value="${end_date}" aria-label="체크아웃 날짜">
+
+				<!-- 프로그램 입력란 -->
+				<input type="text" th:value="${searchWord}" placeholder="프로그램 검색" aria-label="프로그램">
+
+				<!-- 검색 버튼 -->
+				<input type="submit" aria-label="검색" >
+					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
+				</input>
+			</div>
+		</div>
+	</form>
+	</section>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

@@ -14,9 +14,13 @@ public class Program {
 	String title;
 	String content;
 	String address;
+	String detailed_address;
+
 	int price;
-	int tag;
 	String start_date;
 	String end_date;
+	String inputdate;
 	int hits;
+	
+  
 }

@@ -1,16 +1,77 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
-    <title>culture stay 로그인</title>
+    <title>CultureStay 로그인</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .login-logo {
+            max-width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .login-logo img {
+            height: 70px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 93%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #1F9CB3;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #DF8664;
+        }
+        .login-help {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h2>로그인</h2>
-
-<form th:action="@{/member/login}" method="post">
-    ID: <input type="text" name="userid" id="userid">			<br>
-    PW: <input type="password" name="password" id="password">		<br>
-    <input type="submit" value="로그인">
-</form>
+<div class="login-container">
+    <div class="login-logo">
+        <!-- 로고 이미지 경로는 프로젝트에 맞게 조정해야 합니다. -->
+        <img th:src="@{/img/culture_stay_logo_only_picture.png}" alt="CultureStay Logo" />
+        <img th:src="@{/img/culture_stay_logo_only_text.png}" alt="CultureStay Logo" />
+    </div>
+    <form th:action="@{/member/login}" method="post">
+        <input type="text" name="userid" id="userid" placeholder="아이디">
+        <input type="password" name="password" id="password" placeholder="비밀번호">
+        <input type="submit" value="로그인">
+        <div class="login-help">
+            <a th:href="@{/member/join}" th:text="회원가입">회원가입</a> |
+            <a href="#">비밀번호 찾기</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>

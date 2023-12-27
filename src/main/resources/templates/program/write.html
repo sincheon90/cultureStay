@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>프로그램 글쓰기</h2> 
+<form th:action="@{/program/write}" method="post" enctype="multipart/form-data">
+	<table>
+		<tr>
+			<th>제목</th>
+			<td>
+				<input type="text" name="title"  style="width:398px;">
+			</td>
+		</tr>
+		<tr>
+			<th>내용</th>
+			<td>
+				<textarea name="content"  ></textarea>
+			</td>
+		</tr>
+	<tr>
+			<th>주소</th>
+			<td>
+				<textarea name="address"  ></textarea>
+			</td>
+		</tr>
+		<tr>
+			<th>detailed_address</th>
+			<td>
+				<textarea name="detailed_address"  ></textarea>
+			</td>
+		</tr><tr>
+			<th>price</th>
+			<td>
+				<textarea name="price"  ></textarea>
+			</td>
+		</tr><tr>
+			<th>start_date</th>
+			<td>
+				<textarea name="start_date"  ></textarea>
+			</td>
+		</tr><tr>
+			<th>end_date</th>
+			<td>
+				<textarea name="end_date"  ></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="white" style="text-align: center;">
+				<input type="submit" value="저장">
+			</td>
+		</tr>
+	</table>
+	</form>
+	
+	
+	태그 칸도 추가
+</body>
+</html>
