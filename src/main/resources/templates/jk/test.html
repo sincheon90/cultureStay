@@ -12,7 +12,7 @@
 <link rel="stylesheet" th:href="@{/css/footer.css}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <style>
-	label, input[type="text"], textarea {
+	input[type="text"], textarea {
 		display: block;
 		margin-bottom: 10px;
 	}
@@ -32,14 +32,21 @@
 
 <main>
 	<h2>글쓰기</h2>
-	<form method="post" action="서버 URL">
-		<input type="text" id="title" name="title" placeholder="제목">
+	<form th:action="@{/board/write}" method="post" enctype="multipart/form-data">
+		<div>
+			<input type="text" id="title" name="title" placeholder="제목">
+		</div>
 
-		<textarea id="content" name="content"></textarea>
+		<div>
+			<textarea id="contents" name="contents"></textarea>
+		</div>
 
 		<br>
 		<div class="button-right">
 			<button type="submit">작성</button>
+		</div>
+		<div class="button-right">
+			<button type="submit">취소</button>
 		</div>
 	</form>
 </main>
@@ -47,8 +54,9 @@
 <footer th:replace="layouts/footer::footer"></footer>
 
 <script>
-	CKEDITOR.replace('content', {
-		height: 500 // 에디터 높이를 500px로 설정
+	CKEDITOR.replace('contents', {
+		height: 500, // 에디터 높이를 500px로 설정
+		filebrowserUploadUrl: 'image/handler'
 	});
 </script>
 </body>
