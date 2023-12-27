@@ -79,7 +79,7 @@ footer {
     outline: none; /* 포커스 아웃라인 제거 */
 }
 
-.search-bar input[type="submit"] {
+.search-bar button {
     border: none; /* 버튼 테두리 제거 */
     background-color: var(--primary-color); /* 버튼 배경 색상 빨간색=#ff385c;*/
     color: white; /* 버튼 텍스트 색상 */
@@ -89,7 +89,7 @@ footer {
     outline: none; /* 포커스 아웃라인 제거 */
 }
 
-.search-bar input[type="submit"] {
+.search-bar button:hover {
     background-color: var(--secondary-color); /* 버튼 호버 효과 */
 }
 
