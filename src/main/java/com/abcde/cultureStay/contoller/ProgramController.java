@@ -69,7 +69,7 @@ public class ProgramController {
 			searchProgram.setAddress(address);
 			searchProgram.setEnd_date(end_date);
 			searchProgram.setStart_date(start_date);
-			
+			//검색할때 태그도 넘겨주기
 			tag.setSearchWord(searchWord);
 			
 			ArrayList<Program> programList = service.programMainlist(searchProgram,tag);	
