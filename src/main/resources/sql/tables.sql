@@ -116,7 +116,7 @@ create table tagClick_cnt(
     healing    		number     default 0, --힐링
     traditional     number     default 0, --전통
     cooking      	number     default 0, --요리체험
-    view      		number     default 0, --뷰
+    viewtag      	number     default 0, --뷰
     countryside    	number     default 0, --시골
     city    		number     default 0, --도시
     festival     	number     default 0, --축제

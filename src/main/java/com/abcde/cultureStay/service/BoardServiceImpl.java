@@ -11,7 +11,10 @@ import com.abcde.cultureStay.dao.BoardDAO;
 import com.abcde.cultureStay.util.PageNavigator;
 import com.abcde.cultureStay.vo.Board;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class BoardServiceImpl implements BoardService{
 	@Autowired
 	BoardDAO dao;
@@ -73,6 +76,49 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int updateBoard(Board board) {
 		int result = dao.updateBoard(board);
+		return result;
+	}
+
+	@Override
+	public int recommendCheck(int boardnum, String userid) {
+		HashMap<String, Object> recommendMap =  getMap(boardnum, userid);
+		log.debug("맵 {}",recommendMap);
+		Integer result =  dao.recommendCheck(recommendMap);
+		if(result == null) {
+			result = 0;
+		}
+		return result;
+	}
+
+	private HashMap<String, Object> getMap(int boardnum, String userid) {
+		HashMap<String, Object> recommendMap = new HashMap<>();
+		recommendMap.put("boardnum", boardnum);
+		recommendMap.put("userid", userid);
+		return recommendMap;
+	}
+
+	@Override
+	public void createRecommend(int boardnum, String userid) {
+		
+
+		HashMap<String, Object> recommendMap = getMap(boardnum, userid);
+		dao.createRecommend(recommendMap);
+		
+	}
+
+	@Override
+	public void deleteRecommend(int boardnum, String userid) {
+		HashMap<String, Object> recommendMap = getMap(boardnum, userid);
+		dao.deleteRecommend(recommendMap);
+		
+	}
+
+	@Override
+	public int recommendCnt(int boardnum) {
+		Integer result =  dao.recommendCnt(boardnum);
+		if(result == null) {
+			result = 0;
+		}
 		return result;
 	}
 

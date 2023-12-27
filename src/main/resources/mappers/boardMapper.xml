@@ -107,5 +107,44 @@
 			boardnum = #{boardnum}
 			and userid = #{userid}
 	</update>
+	
+	<!-- 좋아요 -->
+  	<select id="recommendCheck" parameterType="map" resultType="Integer">
+			SELECT count(*)
+			FROM Board_like
+			WHERE boardnum = #{boardnum} AND userid = #{userid}
+	</select>
+	
+	<select id="recommendCnt" parameterType="Integer" resultType="Integer">
+			SELECT count(*)
+			FROM Board_like
+			WHERE boardnum = #{boardnum}
+	</select>
+
+	
+	
+	  
+	<insert id="createRecommend" parameterType="map">
+		insert into Board_like
+			(	b_like_num
+				,userid
+				,boardnum
+			) 
+		values (
+				b_like_num_seq.nextval
+				, #{userid}
+				, #{boardnum}
+			)
+			
+	</insert>
+	  
+	<delete id="deleteRecommend" parameterType="map">
+		delete 
+			Board_like
+		where 
+			boardnum = #{boardnum}
+			and userid = #{userid}
+					
+	</delete>
 
 </mapper>

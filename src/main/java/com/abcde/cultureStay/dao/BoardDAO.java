@@ -25,4 +25,12 @@ public interface BoardDAO {
 
 	int updateBoard(Board board);
 
+	Integer recommendCheck(HashMap<String, Object> recommendMap);
+
+	void createRecommend(HashMap<String, Object> recommendMap);
+
+	void deleteRecommend(HashMap<String, Object> recommendMap);
+
+	Integer recommendCnt(int boardnum);
+
 }
