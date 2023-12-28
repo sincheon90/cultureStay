@@ -21,7 +21,10 @@ public class Member implements UserDetails{
 	String gender;
 	String birth;
 	String phone;
-	String address;
+	String address_postcode;
+	String address_address;
+	String address_detailAddress;
+	String address_extraAddress;
 	String email;
 	String ogProfileImage;
 	String svProfileImage;
