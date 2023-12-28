@@ -32,5 +32,6 @@ public interface BoardDAO {
 	void deleteRecommend(HashMap<String, Object> recommendMap);
 
 	Integer recommendCnt(int boardnum);
+	
 
 }

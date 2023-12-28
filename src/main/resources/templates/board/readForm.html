@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <title>글 읽기</title>
@@ -46,14 +47,39 @@
 					+ replynum + '&boardnum=' + boardnum;
 		}
 	}
-	
 
-</script>
+
+      function deleteFunc(boardnum) {
+         if (confirm('삭제하시겠습니까?')) {
+            location.href = 'delete?boardnum=' + boardnum;
+         }
+      }
+
+      //리플 삭제
+      function deleteReply(replynum, boardnum) {
+         if (confirm('삭제하시겠습니까?')) {
+            location.href = '../reply/deleteReply?replynum='
+               + replynum + '&boardnum=' + boardnum;
+         }
+      }
+
+
+
+
+
+   </script>
+   <style>
+      table td,
+      th {
+         text-align: center;
+      }
+   </style>
 </head>
+
 <body>
-	<header>
-		<h1>글 읽기</h1>
-	</header>
+   <header>
+      <h1>글 읽기</h1>
+   </header>
 
 	<table>
 		<tr>
@@ -143,4 +169,5 @@
 	</section>
 
 </body>
+
 </html>

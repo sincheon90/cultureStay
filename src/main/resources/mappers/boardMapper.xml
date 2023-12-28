@@ -147,4 +147,14 @@
 					
 	</delete>
 
+	<update id="updateLikehit" parameterType="int">
+	update
+		cultureStay_board
+	set
+		likehit = likehit + 1
+	where
+		boardnum = #{boardnum}
+</update>
+	
+
 </mapper>
