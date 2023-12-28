@@ -30,7 +30,6 @@ public class ImageController {
     // 이미지를 저장하고 저장한 이미지를 여러개? return
     @PostMapping("upload")
     public ResponseEntity<?> hander(@RequestParam("upload") MultipartFile file) {
-        System.out.println("hander excuted");
         Map<String, Object> response = new HashMap<>();
         try {
             String fileName = saveFile(file, uploadPath);
@@ -51,7 +50,7 @@ public class ImageController {
     @GetMapping("getImages/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
         try {
-            Path fileStorageLocation = Paths.get(url);
+            Path fileStorageLocation = Paths.get(uploadPath);
             Path filePath = fileStorageLocation.resolve(filename).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
