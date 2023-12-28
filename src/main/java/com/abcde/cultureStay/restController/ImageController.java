@@ -21,10 +21,10 @@ import static com.abcde.cultureStay.util.FileService.saveFile;
 @RequestMapping("image")
 public class ImageController {
 
-    @Value("${spring.servlet.multipart.location}")
-    String uploadPath;
+    @Value("${image.save.location}")
+    String saveLocation;
 
-    @Value("${util.image.url}")
+    @Value("${image.getImage.url}")
     String url;
 
     // 이미지를 저장하고 저장한 이미지를 여러개? return
@@ -32,7 +32,7 @@ public class ImageController {
     public ResponseEntity<?> hander(@RequestParam("upload") MultipartFile file) {
         Map<String, Object> response = new HashMap<>();
         try {
-            String fileName = saveFile(file, uploadPath);
+            String fileName = saveFile(file, saveLocation);
             String fileUrl = url + fileName;
 
             response.put("uploaded", 1);
@@ -47,10 +47,10 @@ public class ImageController {
         return null;
     }
 
-    @GetMapping("getImages/{filename:.+}")
+    @GetMapping("getImage/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
         try {
-            Path fileStorageLocation = Paths.get(uploadPath);
+            Path fileStorageLocation = Paths.get(saveLocation);
             Path filePath = fileStorageLocation.resolve(filename).normalize();
             Resource resource = new UrlResource(filePath.toUri());
 
