@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class recentClick {
+	int clickNum;
 	String userid;
-	int one;
-	int two;
-	int three;
-	int four;
-	int five;
+	int programNum;
+	String inputdate;  
 }

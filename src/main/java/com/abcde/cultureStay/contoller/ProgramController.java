@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Checklist;
@@ -63,14 +64,19 @@ public class ProgramController {
 				, String start_date
 				,String end_date,
 				String searchWord,String address, ProgramTag tag) {
+			log.info("=======검색=======");
+			log.debug("주소 {}",address);
+			log.debug("시작날짜 {}",start_date);
+			log.debug("끝나는 날짜 {}",end_date);
+			log.debug("검색어 {}",searchWord);
 			
-			//검색조건
+			  //검색조건
 			Program searchProgram = new Program();
+			searchProgram.setTitle(searchWord);
 			searchProgram.setAddress(address);
 			searchProgram.setEnd_date(end_date);
 			searchProgram.setStart_date(start_date);
-			//검색할때 태그도 넘겨주기
-			tag.setSearchWord(searchWord);
+			
 			
 			ArrayList<Program> programList = service.programMainlist(searchProgram,tag);	
 
@@ -90,7 +96,7 @@ public class ProgramController {
 	
 	//프로그램 글쓰기 (호스트)
 	@PostMapping("write")
-	public String pWriteForm(Program program, Image img,
+	public String pWriteForm(Program program, Image img, ProgramTag tag,
 			@AuthenticationPrincipal UserDetails user) {
 		
 		log.debug("호스트아이디 : {}",user.getUsername());

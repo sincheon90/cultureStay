@@ -2,6 +2,7 @@ package com.abcde.cultureStay.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,15 +36,21 @@ public class ProgramServiceImpl implements ProgramService{
 		return result;
 	}
 	
-	//프로그램 메인화면
+	//프로그램 리스트 화면
 	@Override
 	public ArrayList<Program> programMainlist(Program searchProgram, ProgramTag tag) {
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("searchProgram", searchProgram);
-		map.put("tag", tag);
+		log.debug("프로그램 검색 {}",searchProgram);
+		log.debug("태그 검색 {}",tag);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("address", searchProgram.getAddress());
+		map.put("searchWord", searchProgram.getTitle());
+		map.put("start_date", searchProgram.getStart_date());
+		map.put("end_date", searchProgram.getEnd_date());
 
 		ArrayList<Program> result = dao.programMainlist(map);
-		
+		log.debug("검색결과 {}",result);
 	
 		return result;
 	}
@@ -70,6 +77,9 @@ public class ProgramServiceImpl implements ProgramService{
 	@Override
 	public void recentClick(int programNum, String userid) {
 		HashMap<String, Object> map = getMap(programNum, userid);
+		log.debug("recentClick map 결과 {}",map);
+
+		
 		dao.recentClick(map);
 
 	}

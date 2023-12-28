@@ -19,30 +19,29 @@
 <main>
 
 	<br><br>
-
-	<section class="search-section">
+<section class="search-section">
 		<div class="header-container header-bottom">
 			<div class="search-bar">
+				<form id="pagingForm" method="get" th:action="@{/program/list}">
 				<!-- 지역 입력란 -->
-				<input type="text" placeholder="지역 검색" aria-label="지역">
+				<input type="text" name="address" placeholder="지역 검색" aria-label="지역">
 
 				<!-- 체크인 날짜 선택 -->
-				<input type="date" aria-label="체크인 날짜">
+				<input type="date" name="start_date" aria-label="체크인 날짜">
 
 				<!-- 체크아웃 날짜 선택 -->
-				<input type="date" aria-label="체크아웃 날짜">
+				<input type="date" name="end_date" aria-label="체크아웃 날짜">
 
 				<!-- 프로그램 입력란 -->
-				<input type="text" placeholder="프로그램 검색" aria-label="프로그램">
+				<input type="text" name="searchWord" placeholder="프로그램 검색" aria-label="프로그램">
 
 				<!-- 검색 버튼 -->
-				<button type="submit" aria-label="검색">
+				<button type="submit" onclick="showMessage()" aria-label="검색">
 					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
-				</button>
+				</button></form>
 			</div>
 		</div>
 	</section>
-
 	<br><br>
 
 <!--
@@ -134,7 +133,7 @@
 		</tr>
 	</table>
 	
-		<!-- 검색폼 -->
+		<!-- 검색폼-->
 
 	<section class="search-section">
 	<form id="pagingForm" method="get" th:action="@{/program/list}">
@@ -153,7 +152,7 @@
 				<input type="text" th:value="${searchWord}" placeholder="프로그램 검색" aria-label="프로그램">
 
 				<!-- 검색 버튼 -->
-				<input type="submit" aria-label="검색" >
+				<input type="submit"  aria-label="검색" >
 					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
 				</input>
 			</div>
@@ -161,6 +160,13 @@
 	</form>
 	</section>
 
-<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/script.js}">
+
+	// JavaScript 함수 정의
+    function showMessage() {
+        alert('버튼이 클릭되었습니다!');
+    }
+
+</script>
 </body>
 </html>

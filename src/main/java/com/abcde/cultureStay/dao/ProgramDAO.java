@@ -2,6 +2,7 @@ package com.abcde.cultureStay.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,7 +17,7 @@ public interface ProgramDAO {
 
 	ArrayList<Program> homeRecommend(String id);
 	
-	ArrayList<Program> programMainlist(HashMap<String, Object> map);
+	ArrayList<Program> programMainlist(Map<String, Object> map);
 
 	int pWrite(Program program);
 
