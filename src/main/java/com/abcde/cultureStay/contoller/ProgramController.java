@@ -161,7 +161,7 @@ public class ProgramController {
 		return "program/detail";
 	}
 	
-	//좋아요post
+	//추천post
 	@PostMapping("like")
 	public String like(int programNum,@AuthenticationPrincipal UserDetails user) {
 		log.debug("좋아요 프로그램 넘버 {}",programNum);

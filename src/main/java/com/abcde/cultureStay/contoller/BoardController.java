@@ -20,13 +20,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.abcde.cultureStay.dao.BoardDAO;
 import com.abcde.cultureStay.service.BoardService;
 import com.abcde.cultureStay.service.ReplyService;
 import com.abcde.cultureStay.util.PageNavigator;
 import com.abcde.cultureStay.vo.Board;
+import com.abcde.cultureStay.vo.Program;
+import com.abcde.cultureStay.vo.ProgramTag;
 import com.abcde.cultureStay.vo.Reply;
+import com.abcde.cultureStay.vo.Review;
 import com.abcde.cultureStay.util.FileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +55,9 @@ public class BoardController {
 	
 	@Autowired
 	ReplyService rService;
+	
+	@Autowired
+	BoardDAO dao;
 	
 	@GetMapping("boardList")
 	public String boardList(Model model
@@ -114,6 +122,16 @@ public class BoardController {
 		
 		//리플 목록 가져오기
 		ArrayList<Reply> replyList = rService.replyList(boardnum);
+		
+		//좋아요 상태(좋아요:1, 없음:0)
+		int recommendCnt =  service.recommendCnt(boardnum);
+	//	int program_like =  service.likeCheck(programNum,"aaa");//test용
+
+		log.debug("좋아요 상태: {}", recommendCnt);
+
+		
+		
+		model.addAttribute("board_recommend", recommendCnt);
 		
 		// model 객체를 이용해 readForm.html에 출력하기
 		model.addAttribute("board", board);
@@ -228,6 +246,25 @@ public class BoardController {
 		
 		return "redirect:/board/read?boardnum=" + board.getBoardnum();
 	}
+	@PostMapping("recommend")
+	public String recommend(int boardnum,@AuthenticationPrincipal UserDetails user) {
+		log.debug("추천 게시판 넘버 {}",boardnum);
+			int board_recommend =  service.recommendCheck(boardnum,user.getUsername());
+		//	int program_like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
+			if(board_recommend==0) {
+				//추천테이블 생성
+				service.createRecommend(boardnum,user.getUsername());
+				log.debug("췤케");
+				}
+			else {
+				//테이블 삭제
+				service.deleteRecommend(boardnum,user.getUsername());
+				}
+			
+		return "redirect:/board/read?boardnum="+boardnum;	
+	}
+	
+	
 	
 	
 	

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <title>글 읽기</title>
@@ -9,6 +10,30 @@
 	}
 </style>
 <script>
+	/*$(function () { 
+		   var liked = false;
+         $('#recommendbtn').click(function () {
+            $.ajax({
+               url: 'recommend',
+               type: 'post',
+               data: {boardnum: $(this).attr('boardnum')},
+               success: function (n) {
+                  $('#likehit').html(n);
+                  liked = !liked; // 추천 상태 반전
+                   updateButtonText();
+               },
+               error: function () {
+                  alert('error');
+               }
+            });
+         });
+          function updateButtonText() {
+            var buttonText = liked ? '추천 취소' : '추천';
+            $('#recommendbtn').val(buttonText);
+        }
+
+        updateButtonText();
+      });*/
 	function deleteFunc(boardnum){
 		if(confirm('삭제하시겠습니까?')){
 			location.href = 'delete?boardnum=' + boardnum;
@@ -22,17 +47,39 @@
 					+ replynum + '&boardnum=' + boardnum;
 		}
 	}
-	let recommend = document.querySelector('#recommend');
-	function recommend(boardnum){
 
-	}
 
-</script>
+      function deleteFunc(boardnum) {
+         if (confirm('삭제하시겠습니까?')) {
+            location.href = 'delete?boardnum=' + boardnum;
+         }
+      }
+
+      //리플 삭제
+      function deleteReply(replynum, boardnum) {
+         if (confirm('삭제하시겠습니까?')) {
+            location.href = '../reply/deleteReply?replynum='
+               + replynum + '&boardnum=' + boardnum;
+         }
+      }
+
+
+
+
+
+   </script>
+   <style>
+      table td,
+      th {
+         text-align: center;
+      }
+   </style>
 </head>
+
 <body>
-	<header>
-		<h1>글 읽기</h1>
-	</header>
+   <header>
+      <h1>글 읽기</h1>
+   </header>
 
 	<table>
 		<tr>
@@ -64,11 +111,29 @@
 				th:text="${board.originalfile}"></a>
 			</td>
 		</tr>
+<!--		<tr>
+         <th>추천수</th>
+         <td id="likehit" th:text="${board.likehit}"></td>
+         <td>
+            <input type="button" id="recommendbtn" th:boardnum="${board.boardnum}" value="추천">
 
+         </td>
+      </tr>
+-->
+		<tr>
+			<th>추천수</th>
+		
+			<td>
+				<pre th:text="${board_recommend}"></pre>
+			</td>
+		</tr>
 	</table>
-	<div>
-		<a href="#" id="recommend">추천</a>
-	</div>
+	<form th:action="@{/board/recommend}" method="post">
+    <button type="submit">추천</button>
+    
+    <input type="hidden" name="boardnum" th:value="${board.boardnum}">
+
+</form>
 
 <!--	th:if="${#authentication.name == board.userid}"-->
 	<div  style="text-align: center;">
@@ -104,4 +169,5 @@
 	</section>
 
 </body>
+
 </html>
