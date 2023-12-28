@@ -54,10 +54,12 @@
 <footer th:replace="layouts/footer::footer"></footer>
 
 <script>
-	CKEDITOR.replace('contents', {
+	CKEDITOR.replace("contents", {
+		//filebrowserUploadMethod :'form',
+		filebrowserUploadUrl:  "/image/upload",
 		height: 500, // 에디터 높이를 500px로 설정
-		filebrowserUploadUrl: 'image/handler'
 	});
+
 </script>
 </body>
 </html>

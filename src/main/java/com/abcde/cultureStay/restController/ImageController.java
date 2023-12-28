@@ -28,16 +28,18 @@ public class ImageController {
     String url;
 
     // 이미지를 저장하고 저장한 이미지를 여러개? return
-    @PostMapping("handler")
-    public String hander(@RequestParam("upload") MultipartFile file) {
+    @PostMapping("upload")
+    public ResponseEntity<?> hander(@RequestParam("upload") MultipartFile file) {
+        System.out.println("hander excuted");
         Map<String, Object> response = new HashMap<>();
         try {
-//            String fileName = saveFile(file, uploadPath);
-//            String fileUrl = url + fileName;
+            String fileName = saveFile(file, uploadPath);
+            String fileUrl = url + fileName;
 
             response.put("uploaded", 1);
-//            response.put("fileName", fileName);
-//            response.put("url", fileUrl);
+            response.put("fileName", fileName);
+            response.put("url", fileUrl);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             response.put("uploaded", 0);
             response.put("error", Collections.singletonMap("message", "File upload failed"));
