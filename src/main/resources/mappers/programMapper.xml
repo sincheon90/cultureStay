@@ -8,7 +8,16 @@
 	<!--///////// 가장 첫 메인 홈 화면 ///////// -->
 	<!-- 인기 프로그램 --><!-- 수정해야댐 -->
 	<select id="homePopular" resultType="Program">
-		select * from Program
+		SELECT P.*
+		FROM Program P
+		JOIN (
+		SELECT programNum, COUNT(*) AS like_count
+		FROM Program_like
+		WHERE inputdate >= SYSDATE - 14
+		GROUP BY programNum
+		) PL ON P.programNum = PL.programNum
+		WHERE P.inputdate >= SYSDATE - 14
+		ORDER BY PL.like_count DESC
 	</select>
 	<!-- 유저별 추천 프로그램 -->	<!-- 수정해야댐 -->
 	<select id="homeRecommend" parameterType="String"
@@ -42,19 +51,22 @@
 		,detailed_address
 		, price
 
-		, start_date
+		,
+		start_date
 		, end_date
 
 		) values (
 		programNum_seq.nextval
 		, #{userid}
-		, #{title}
+		,
+		#{title}
 		, #{content}
 		, #{address}
 		,#{detailed_address}
 		, #{price}
 
-		, #{start_date}
+		,
+		#{start_date}
 		, #{end_date}
 		)
 	</insert>
@@ -72,19 +84,19 @@
 
 	<!-- 수정해야댐 -->
 	<insert id="recentClick" parameterType="map">
-	insert into recentClick
+		insert into recentClick
 		(
-		
+
 		clickNum
 		,programNum
 		, userid
-	
+
 
 		) values (
 		clickNum_seq.nextval
 		, #{programNum}
 		, #{userid}
-	
+
 		)
 
 	</insert>
@@ -105,7 +117,8 @@
 		update
 		Program
 		set
-		hits = hits + 1
+		hits =
+		hits + 1
 		where
 		programNum = #{programNum}
 	</update>
@@ -122,9 +135,11 @@
 
 	<!-- 좋아요 -->
 	<select id="likeCheck" parameterType="map" resultType="Integer">
-		SELECT count(*)
+		SELECT
+		count(*)
 		FROM Program_like
-		WHERE programNum = #{programNum} AND userid = #{userid}
+		WHERE programNum = #{programNum} AND userid =
+		#{userid}
 	</select>
 
 
@@ -132,7 +147,8 @@
 
 	<insert id="createLike" parameterType="map">
 		insert into Program_like
-		( p_like_num
+		(
+		p_like_num
 		,userid
 		,programNum
 		)
@@ -159,7 +175,8 @@
 		resultType="Integer">
 		SELECT count(*)
 		FROM Program_bookmark
-		WHERE programNum = #{programNum} AND userid = #{userid}
+		WHERE programNum =
+		#{programNum} AND userid = #{userid}
 	</select>
 
 	<insert id="createBookmark" parameterType="map">

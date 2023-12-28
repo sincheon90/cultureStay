@@ -40,7 +40,9 @@ public class ProgramController {
 	
 		//인기게시물 -조회수+좋아요 ----sql 수정
 		ArrayList<Program> popular = service.homePopular();
-		model.addAttribute("popular", popular);
+		log.debug("인기순{}",popular);
+
+		model.addAttribute("programList", popular);
 
 		
 		return "program/list";
