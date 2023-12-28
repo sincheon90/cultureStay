@@ -23,7 +23,10 @@
         , gender
         , birth
         , phone
-        , address
+        , address_postcode
+        , address_address
+        , address_detailAddress
+        , address_extraAddress
         , email
         <if test="ogProfileImage != null and svProfileImage != null">
 			, ogProfileImage
@@ -38,7 +41,10 @@
         , #{gender}
         , #{birth}
         , #{phone}
-        , #{address}
+        , #{address_postcode}
+        , #{address_address}
+        , #{address_detailAddress}
+        , #{address_extraAddress}
         , #{email}
         <if test="ogProfileImage != null and svProfileImage != null">
 			, #{ogProfileImage}

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>join</title>
 </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
    function idCheck() {
       // url경로, 이름, 속성
@@ -13,13 +14,14 @@
 
     function checkValid(){
         let userid = document.querySelector('#userid');
-      let password = document.querySelector('#password');
-      let password2 = document.querySelector('#password2');
-      let name = document.querySelector('#name');
+      	let password = document.querySelector('#password');
+      	let password2 = document.querySelector('#password2');
+      	let name = document.querySelector('#name');
         let gender = document.querySelector('#gender');
         let birth = document.querySelector('#birth');
         let phone = document.querySelector('#phone');
-        let address = document.querySelector('#address');
+        let address_postcode = document.querySelector('#address_postcode');
+        let address_address = document.querySelector('#address_address');
         let email = document.querySelector('#email');
         let file = document.querySelector('#upload');
         
@@ -57,7 +59,11 @@
          alert("연락처를 입력하세요.");
          return false;
       }
-      if (address.value == '') {
+      if (address_postcode.value == '') {
+         alert("주소를 입력하세요.");
+         return false;
+      }
+      if (address_address.value == '') {
          alert("주소를 입력하세요.");
          return false;
       }
@@ -116,6 +122,41 @@ function uploadAndPreview() {
         window.onload = function() {
             setExternalImage();
         };
+        
+        //카카오 주소입력 api
+        function address() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = '';
+                var extraAddr = '';
+
+                if (data.userSelectedType === 'R') {
+                    addr = data.roadAddress;
+                } else {
+                    addr = data.jibunAddress;
+                }
+
+                if (data.userSelectedType === 'R') {
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraAddr += data.bname;
+                    }
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if (extraAddr !== '') {
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    document.getElementById("address_extraAddress").value = extraAddr;
+                } else {
+                    document.getElementById("address_extraAddress").value = '';
+                }
+
+                document.getElementById('address_postcode').value = data.zonecode;
+                document.getElementById("address_address").value = addr;
+                document.getElementById("address_detailAddress").focus();
+            }
+        }).open();
+    }
 </script>
 <body>
     <h1>회원가입</h1>
@@ -166,12 +207,22 @@ function uploadAndPreview() {
                 <input type="text" name="phone" id="phone" placeholder="전화번호 입력">
              </td>
           </tr>
-          <tr>
+<!--          <tr>
              <th>주소</th>
              <td>
                 <input type="text" name="address" id="address" placeholder="주소입력">
              </td>
-          </tr>
+          </tr>  -->
+          <tr>
+			  <th>주소</th>
+			  <td>
+			  	<input type="text" name="address_postcode" id="address_postcode" placeholder="우편번호">
+    		  	<input type="button" onclick="address()" value="우편번호 찾기"><br>
+    		  	<input type="text" name="address_address" id="address_address" placeholder="주소"><br>
+    		  	<input type="text" name="address_detailAddress" id="address_detailAddress" placeholder="상세주소">
+    		  	<input type="text" name="address_extraAddress" id="address_extraAddress" placeholder="참고항목">
+    		  </td>
+		  </tr>
           <tr>
              <th>이메일</th>
              <td>
