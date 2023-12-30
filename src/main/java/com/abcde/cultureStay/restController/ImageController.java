@@ -30,16 +30,19 @@ public class ImageController {
 
     // 이미지를 저장하고 저장한 이미지를 여러개? return
     @PostMapping("upload")
-    public ResponseEntity<?> upload(@RequestParam("upload") MultipartFile file) {
+    public ResponseEntity<?> upload(@RequestParam("upload") MultipartFile mFile) {
         Map<String, Object> response = new HashMap<>();
         try {
-            String fileName = saveFile(file, saveLocation);
+            String fileName = saveFile(mFile, saveLocation);
             String fileUrl = url + fileName;
 
             response.put("uploaded", 1);
             response.put("fileName", fileName);
             response.put("url", fileUrl);
-            return ResponseEntity.ok(response);
+
+            return ResponseEntity
+                    .ok(response);
+
         } catch (Exception e) {
             response.put("uploaded", 0);
             response.put("error", Collections.singletonMap("message", "File upload failed"));
