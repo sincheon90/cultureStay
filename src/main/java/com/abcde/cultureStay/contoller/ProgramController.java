@@ -35,8 +35,7 @@ public class ProgramController {
 	
 	//인기베스트 리스트
 	@GetMapping("popular")
-	public String popularList(@AuthenticationPrincipal UserDetails user,
-			Model model) {
+	public String popularList(Model model) {
 	
 		//인기게시물 -조회수+좋아요 ----sql 수정
 		ArrayList<Program> popular = service.homePopular();
@@ -48,14 +47,14 @@ public class ProgramController {
 		return "program/list";
 	}
 	
-	//추천 리스트
+	//추천 리스트-로그인 안되어 있으면 다르게 보이기로
 		@GetMapping("recommend")
 		public String recommendList(@AuthenticationPrincipal UserDetails user,
 				Model model) {
 			
 			//추천게시물 -최근방문+좋아요+북마크 ----sql 수정
 			ArrayList<Program> recommend = service.homeRecommend(user.getUsername());
-			model.addAttribute("recommend", recommend);
+			model.addAttribute("programList", recommend);
 		
 			return "program/list";
 		}

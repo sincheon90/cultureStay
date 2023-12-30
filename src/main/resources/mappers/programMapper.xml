@@ -22,7 +22,55 @@
 	<!-- 유저별 추천 프로그램 -->	<!-- 수정해야댐 -->
 	<select id="homeRecommend" parameterType="String"
 		resultType="Program">
-		select * from Program
+		 <![CDATA[
+        WITH CombinedData AS (
+            SELECT programNum, inputdate
+            FROM (
+                SELECT
+                    programNum,
+                    inputdate,
+                    ROW_NUMBER() OVER (PARTITION BY programNum ORDER BY inputdate DESC) AS rn
+                FROM recentClick
+                WHERE userid = #{id}
+            )
+            WHERE rn = 1
+
+            UNION
+
+            SELECT programNum, inputdate
+            FROM (
+                SELECT
+                    programNum,
+                    inputdate,
+                    ROW_NUMBER() OVER (PARTITION BY programNum ORDER BY inputdate DESC) AS rn
+                FROM Program_bookmark
+                WHERE userid = #{id}
+                AND ROWNUM <= 5
+            )
+            
+            UNION
+
+            SELECT programNum, inputdate
+            FROM (
+                SELECT
+                    programNum,
+                    inputdate,
+                    ROW_NUMBER() OVER (PARTITION BY programNum ORDER BY inputdate DESC) AS rn
+                FROM Program_like
+                WHERE userid = #{id}
+                AND ROWNUM <= 5
+            )
+        )
+        SELECT cd.programNum, p.*
+        FROM CombinedData cd
+        JOIN Program p ON cd.programNum = p.programNum
+        JOIN (
+            SELECT programNum, MAX(inputdate) AS maxInputDate
+            FROM CombinedData
+            GROUP BY programNum
+        ) maxData ON cd.programNum = maxData.programNum AND cd.inputdate = maxData.maxInputDate
+        ORDER BY p.hits DESC
+        ]]>
 	</select>
 
 	<!-- ///////////프로그램 화면////////////// --><!-- 수정해야댐 -->
