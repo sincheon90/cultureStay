@@ -6,9 +6,6 @@
 </head>
 <body>
 <h2>프로그램 디테일</h2>
-
-	<a th:href="@{/program/apply}" th:text="신청하기"></a>
-<br><br>
 -사진<br>
 -기본정보(제목,호스트, 위치, 리뷰, 가격, 날짜, 조회수)<br>
 -컨텐츠<br>
@@ -38,7 +35,20 @@
 				<pre th:text="${program.content}"></pre>
 			</td>
 		</tr>
+		<tr>
+			<th>시작일</th>
 		
+			<td>
+				<pre th:text="${program.start_date}"></pre>
+			</td>
+		</tr>
+			<tr>
+			<th>마감</th>
+		
+			<td>
+				<pre th:text="${program.end_date}"></pre>
+			</td>
+		</tr>
 		
 		<tr>
 			<th>좋아요여부</th>
@@ -72,6 +82,26 @@
      <input type="hidden" name="programNum" th:value="${program.programNum}">
 
 </form>
+<br>
+<form th:action="@{/program/apply}" method="get">
+	날짜선택(달력)
+	<table>
+			<tr>
+			<th>start_date</th>
+			<td>
+				<textarea name="start_date"  ></textarea>
+			</td>
+		</tr><tr>
+			<th>end_date</th>
+			<td>
+				<textarea name="end_date"  ></textarea>
+			</td>
+		</tr>
+	</table>
+	
+    <button type="submit">예약하기</button>
+     <input type="hidden" name="programNum" th:value="${program.programNum}">
 
+</form>
 </body>
 </html>

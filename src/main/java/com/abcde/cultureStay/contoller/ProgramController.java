@@ -198,7 +198,14 @@ public class ProgramController {
 	
 	//프로그램 신청화면
 		@GetMapping("apply")
-		public String applyForm() {
+		public String applyForm(String start_date,String end_date,Model model) {
+			log.debug("시작일 : {}", start_date);
+			log.debug("끝 : {}", end_date);
+			model.addAttribute("start_date", start_date);
+			model.addAttribute("end_date", end_date);
+
+			
+			
 			return "program/apply";
 		}
 	//프로그램 신청
