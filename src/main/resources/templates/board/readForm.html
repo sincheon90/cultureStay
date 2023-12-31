@@ -53,9 +53,9 @@
 			<th colspan="6">내용</th>
 		</tr>
 		<tr>
-			<td colspan="6" style="height: 250px;">
-				<pre th:text="${board.contents}"></pre>
-			</td>
+			<div class="custom-ckeditor-content">
+				<pre th:utext="${board.contents}"></pre>
+			</div>
 		</tr>
 		<tr>
 			<th>첨부파일</th>
