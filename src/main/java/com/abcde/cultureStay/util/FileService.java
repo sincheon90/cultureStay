@@ -36,12 +36,12 @@ public class FileService {
 		String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		String newFileName = date + "-" + UUID.randomUUID() + fileExtension;
 
+		// Path로 저장할 경로를 생성(savePath + newFileName)
+		Path destionPath = Paths.get(savePath).resolve(newFileName); // savePath + "/" + newFileName
+
 		// 저장할 파일의 폴더가 없으면 새로 생성
 		File directory = new File(savePath);
 		if (!directory.exists()) directory.mkdirs();
-
-		// Path로 저장할 경로를 생성(savePath + newFileName)
-		Path destionPath = Paths.get(savePath).resolve(newFileName); // savePath + "/" + newFileName
 
 		// 파일 저장
 		try {
