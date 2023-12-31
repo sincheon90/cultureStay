@@ -88,12 +88,9 @@ public class BoardController {
 	public String writeForm(Board board, MultipartFile upload
 			, @AuthenticationPrincipal UserDetails user) {
 		
-		log.debug("write_board: {}", board);
-		log.debug("write_upload: {}", upload.getOriginalFilename());
-		
 		board.setUserid(user.getUsername());
-		
-		if(!upload.isEmpty()) {
+
+		if(upload != null && !upload.isEmpty()) {
 			String savedfile = FileService.saveFile(upload, uploadPath);
 			board.setOriginalfile(upload.getOriginalFilename());
 			board.setSavedfile(savedfile);
