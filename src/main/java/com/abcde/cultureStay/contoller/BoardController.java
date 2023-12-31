@@ -62,6 +62,7 @@ public class BoardController {
 		
 		// DB의 spring5_board 테이블의 전 데이터를 가져오기
 		ArrayList<Board> boardList = service.selectList(navi, type, searchWord);
+
 		// model에다가 저장하기
 		model.addAttribute("navi", navi);
 		model.addAttribute("boardList", boardList);

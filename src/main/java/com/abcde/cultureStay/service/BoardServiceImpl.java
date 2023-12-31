@@ -11,6 +11,8 @@ import com.abcde.cultureStay.dao.BoardDAO;
 import com.abcde.cultureStay.util.PageNavigator;
 import com.abcde.cultureStay.vo.Board;
 
+import static com.abcde.cultureStay.util.TextParsingUtil.extractTextFromHtml;
+
 @Service
 public class BoardServiceImpl implements BoardService{
 	@Autowired
@@ -37,9 +39,16 @@ public class BoardServiceImpl implements BoardService{
 		// MyBatis 에서 제공해주는 record를 관리하는 객체 RowBounds
 		// param 2개 : 1=시작레코드, 2=몇개가져올지 
 		RowBounds rb = new RowBounds(navi.getStartRecord(), navi.getCountPerPage());
-		
-		ArrayList<Board> result = dao.selectList(map, rb);
-		return result;
+
+		ArrayList<Board> boards = dao.selectList(map, rb);
+
+		ArrayList<Board> results = new ArrayList<>();
+		for (Board board: boards) {
+			board.setContents(extractTextFromHtml(board.getContents(),8));
+			results.add(board);
+		}
+
+		return results;
 	}
 
 	private HashMap<String, String> getMap(String type, String searchWord) {
