@@ -215,7 +215,10 @@ drop table image;
 
 -- 체크리스트 테이블
 CREATE TABLE Checklist(     
-	checklistID 	number 				primary key, -- 첨부파일 ID (PK) 
+	checklistID 	number 				primary key, -- 첨부파일 ID (PK)
+	programNum	number		            references Program(programNum),  
+	userid          varchar2(255)		references cultureStay_member(userid),
+
 	one 			number	default 0,
 	two 			number	default 0,
 	three 			number	default 0,
@@ -226,6 +229,7 @@ CREATE TABLE Checklist(
 	eight 			number	default 0,
 	nine 			number	default 0,
 	ten 			number	default 0,
+	note 			varchar(255),
 	inputdate       date            default sysdate     -- 업로드 일자
 );
 create sequence checklistID_seq;

@@ -210,9 +210,20 @@ public class ProgramController {
 		}
 	//프로그램 신청
 		@PostMapping("apply")
-		public String applyForm(Checklist chlist, Reservation reserveForm) {
-			//태그x 체크리스트, 예약테이블 넘기기
+		public String applyForm(Checklist chlist, Reservation reserveForm,
+				@AuthenticationPrincipal UserDetails user) {
+			//태그x 체크리스트, 예약테이블 넘기기 int programNum,
+
+			chlist.setUserid(user.getUsername());
+		//	chlist.setProgramNum(programNum);
+			log.debug("체크리스트 : {}", chlist);
 			
+			Reservation reserve = new Reservation()
+		//	reserve.set
+
+//			service.insertChlist(chlist);
+//			service.makeReserve();
+//			
 			return "program/apply";
 		}
 	
