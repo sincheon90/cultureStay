@@ -1,42 +1,66 @@
 <!DOCTYPE html>
-<html xmlns:th="thymeleaf.org">
+<html xmlns:th="thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>글쓰기</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>글쓰기 화면</title>
+	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/main_style.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<style>
+		input[type="text"], textarea {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+        }
+
+	</style>
 </head>
 <body>
 
-	<header>
-		<h1>글쓰기</h1>
-	</header>
+<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
 
+
+<main>
+	<h2>글쓰기</h2>
 	<form th:action="@{/board/write}" method="post" enctype="multipart/form-data">
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>
-				<input type="text" name="title" id="title" style="width:398px;">
-			</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>
-				<textarea name="contents" id="contents"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<th>첨부파일</th>
-			<td>
-				<input type="file" name="upload">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" class="white" style="text-align: center;">
-				<input type="submit" value="저장">
-			</td>
-		</tr>
-	</table>
-	</form>
+		<div>
+			<input type="text" id="title" name="title" placeholder="제목">
+		</div>
 
+		<div>
+			<textarea id="contents" name="contents"></textarea>
+		</div>
+
+		<br>
+		<div class="button-right">
+			<button type="submit">작성</button>
+		</div>
+		<div class="button-right">
+			<button type="submit">취소</button>
+		</div>
+	</form>
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
+
+<script>
+	CKEDITOR.replace("contents", {
+		//filebrowserUploadMethod :'form',
+		uploadUrl: "/image/upload",  // 이게 드래그 드롭을 위한 URL
+		filebrowserUploadUrl:  "/image/upload",
+		height: 500, // 에디터 높이를 500px로 설정
+	});
+
+</script>
 </body>
 </html>

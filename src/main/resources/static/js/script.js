@@ -36,3 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 });
+
+
+function truncateContent() {
+    var maxLength = 250;
+    var contents = document.querySelectorAll('.truncate-contents');
+    contents.forEach(function(content) {
+        if (content.textContent.length > maxLength) {
+            content.textContent = content.textContent.substr(0, maxLength) + '...';
+        }
+    });
+}

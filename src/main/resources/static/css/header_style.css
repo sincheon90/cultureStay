@@ -2,6 +2,8 @@
     --primary-color: #1F9CB3; /* 주 색상 */
     --secondary-color: #DF8664; /* 보조 색상 */
 
+    --darkGrey-color: #585858;
+    --grey-color: #808080;
     --lightGrey-color: #ECECEC; /* 보조 색상 */
 
     --accent-color: #E91E63;  /* 강조 색상 */
@@ -79,7 +81,7 @@ footer {
     outline: none; /* 포커스 아웃라인 제거 */
 }
 
-.search-bar button {
+button {
     border: none; /* 버튼 테두리 제거 */
     background-color: var(--primary-color); /* 버튼 배경 색상 빨간색=#ff385c;*/
     color: white; /* 버튼 텍스트 색상 */
@@ -89,8 +91,12 @@ footer {
     outline: none; /* 포커스 아웃라인 제거 */
 }
 
-.search-bar button:hover {
+button:hover {
     background-color: var(--secondary-color); /* 버튼 호버 효과 */
+}
+
+.button-right {
+    text-align: right;
 }
 
 .search-bar .icon-search i {

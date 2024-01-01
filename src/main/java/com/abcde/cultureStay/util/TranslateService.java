@@ -1,4 +1,4 @@
-package com.abcde.cultureStay.service;
+package com.abcde.cultureStay.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;

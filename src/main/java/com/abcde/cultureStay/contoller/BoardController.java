@@ -70,6 +70,7 @@ public class BoardController {
 		
 		// DB의 spring5_board 테이블의 전 데이터를 가져오기
 		ArrayList<Board> boardList = service.selectList(navi, type, searchWord);
+
 		// model에다가 저장하기
 		model.addAttribute("navi", navi);
 		model.addAttribute("boardList", boardList);
@@ -96,12 +97,9 @@ public class BoardController {
 	public String writeForm(Board board, MultipartFile upload
 			, @AuthenticationPrincipal UserDetails user) {
 		
-		log.debug("write_board: {}", board);
-		log.debug("write_upload: {}", upload.getOriginalFilename());
-		
 		board.setUserid(user.getUsername());
-		
-		if(!upload.isEmpty()) {
+
+		if(upload != null && !upload.isEmpty()) {
 			String savedfile = FileService.saveFile(upload, uploadPath);
 			board.setOriginalfile(upload.getOriginalFilename());
 			board.setSavedfile(savedfile);

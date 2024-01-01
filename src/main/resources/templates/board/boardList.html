@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Home</title>
 	<link rel="stylesheet" th:href="@{/css/header_style.css}">
-	<link rel="stylesheet" th:href="@{/css/main_style_test.css}">
+	<link rel="stylesheet" th:href="@{/css/main_style.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
@@ -92,9 +92,15 @@
 
 			<article class="content-article">
 <!--				<h2>제목</h2>-->
-				<p class="board-to-detail clickable" th:data-boardnum="${board.boardnum}" th:text="${board.contents}">콘텐츠</p>
+				<div>
+					<p class="board-to-detail clickable truncate-contents"
+					   th:text="${board.contents}" th:data-boardnum="${board.boardnum}"></p>
+				</div>
 				<div class="content-article-footer">
-					<p>#태그 #태그 </p>
+					<div class="tags">
+						<a class="tag clickable">#태그1</a>
+						<a class="tag clickable">#태그2</a>
+					</div>
 				</div>
 			</article>
 		</div>
@@ -110,5 +116,8 @@
 <footer th:replace="layouts/footer::footer"></footer>
 
 <script th:src="@{/js/script.js}"></script>
+<script>
+	document.addEventListener('DOMContentLoaded', truncateContent);
+</script>
 </body>
 </html>
