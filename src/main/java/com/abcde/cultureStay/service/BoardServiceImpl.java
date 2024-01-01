@@ -11,8 +11,7 @@ import com.abcde.cultureStay.dao.BoardDAO;
 import com.abcde.cultureStay.util.PageNavigator;
 import com.abcde.cultureStay.vo.Board;
 
-import static com.abcde.cultureStay.util.HtmlUtils.extractTextFromHtml;
-import static com.abcde.cultureStay.util.HtmlUtils.extractTextWithLines;
+import static com.abcde.cultureStay.util.HtmlUtils.*;
 
 @Service
 public class BoardServiceImpl implements BoardService{
