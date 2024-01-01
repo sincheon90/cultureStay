@@ -11,7 +11,8 @@ import com.abcde.cultureStay.dao.BoardDAO;
 import com.abcde.cultureStay.util.PageNavigator;
 import com.abcde.cultureStay.vo.Board;
 
-import static com.abcde.cultureStay.util.TextParsingUtil.extractTextFromHtml;
+import static com.abcde.cultureStay.util.HtmlUtils.extractTextFromHtml;
+import static com.abcde.cultureStay.util.HtmlUtils.extractTextWithLines;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -42,13 +43,11 @@ public class BoardServiceImpl implements BoardService{
 
 		ArrayList<Board> boards = dao.selectList(map, rb);
 
-		ArrayList<Board> results = new ArrayList<>();
 		for (Board board: boards) {
-			board.setContents(extractTextFromHtml(board.getContents(),8));
-			results.add(board);
+			board.setContents(extractTextWithLines(board.getContents(),8));
 		}
 
-		return results;
+		return boards;
 	}
 
 	private HashMap<String, String> getMap(String type, String searchWord) {
