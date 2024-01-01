@@ -25,9 +25,9 @@ public class HtmlUtils {
         System.out.println(extractTextWithLines(html, 5));
     }
 
-    public static String extractTextWithLength(String html, int maxLength) {
+    public static String extractTextWithLength(String _html, int maxLength) {
         // html tag 삭제, 줄바꿈 허용
-        String text = Jsoup.clean(html
+        String text = Jsoup.clean(_html
                 , "http://localhost"
                 , Safelist.none().preserveRelativeLinks(true)
                 , new Document.OutputSettings().prettyPrint(false));
@@ -35,7 +35,9 @@ public class HtmlUtils {
         text = text.replaceAll("&nbsp;", "");
 
         // 지정된 길이로 텍스트 자르기
-        return text.length() > maxLength ? text.substring(0, maxLength) + "..." : text;
+        text = text.length() > maxLength ? text.substring(0, maxLength) + "..." : text;
+        System.out.println(text);
+        return text;
     }
 
     public static String extractTextWithLines(String html, int maxLines) {
@@ -48,8 +50,10 @@ public class HtmlUtils {
         text = text.replaceAll("&nbsp;", "");
 
         String[] lines = text.split("\\R");
-        return Arrays.stream(lines, 0, Math.min(lines.length, maxLines))
+        text = Arrays.stream(lines, 0, Math.min(lines.length, maxLines))
                 .collect(Collectors.joining("\n")).trim();
+        System.out.println(text);
+        return text;
     }
 
 }

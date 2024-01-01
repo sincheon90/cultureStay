@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService{
 		ArrayList<Board> boards = dao.selectList(map, rb);
 
 		for (Board board: boards) {
-			board.setContents(extractTextWithLines(board.getContents(),8));
+			board.setContents(extractTextWithLines(board.getContents(),10));
 		}
 
 		return boards;
