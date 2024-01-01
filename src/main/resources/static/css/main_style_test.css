@@ -168,6 +168,11 @@
 
 .content-article-footer {
     display: flex;
+    justify-content: space-between;
+}
+
+.tags {
+    display: flex;
 }
 
 .tag {
