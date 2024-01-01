@@ -134,13 +134,6 @@
     /*background-color: var(--secondary-color);*/
 }
 
-
-.content-article-footer {
-    display: flex;
-    justify-content: space-between;
-}
-
-
 .add_link a {
     text-decoration: none; /* 밑줄 제거 */
     color: var(--primary-color); /* 원하는 색상으로 설정 (파란색으로 지정) */
@@ -156,4 +149,27 @@
 
 .clickable {
     cursor: pointer; /* 마우스 호버 시 포인터 모양 변경 */
+}
+
+.clickable:hover {
+    text-decoration: underline; /* 호버 상태에서 밑줄 추가 */
+}
+
+
+.truncate-contents {
+    display: -webkit-box;
+    -webkit-line-clamp: 9; /* 표시하고 싶은 줄의 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 450px; /* 원하는 최대 너비 설정 */
+    color: var(--grey-color);
+}
+
+.content-article-footer {
+    display: flex;
+}
+
+.tag {
+    margin-right: 10px; /* 태그 사이 간격 조정 */
 }

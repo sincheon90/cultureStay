@@ -2,12 +2,16 @@ package com.abcde.cultureStay.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.safety.Safelist;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class HtmlUtils {
+
+    static int maxLength = 500;
+    static int maxLines = 15;
 
     public static void main(String[] args) {
         String html =
@@ -25,25 +29,11 @@ public class HtmlUtils {
                 "<h1>타루 커뮤니티 홈스테이</h1>\n" +
                 "<p>공유하기</p>\n" +
                 "<td>&nbsp;</td>";
-        System.out.println(extractTextWithLines(html, 5));
+
+        System.out.println(extractText(html));
     }
 
-    public static String extractTextWithLength(String _html, int maxLength) {
-        // html tag 삭제, 줄바꿈 허용
-        String text = Jsoup.clean(_html
-                , "http://localhost"
-                , Safelist.none().preserveRelativeLinks(true)
-                , new Document.OutputSettings().prettyPrint(false));
-
-        text = text.replaceAll("&nbsp;", "");
-
-        // 지정된 길이로 텍스트 자르기
-        text = text.length() > maxLength ? text.substring(0, maxLength) + "..." : text;
-        System.out.println(text);
-        return text;
-    }
-
-    public static String extractTextWithLines(String html, int maxLines) {
+    public static String extractTextWithLines(String html) {
         // html tag 삭제, 줄바꿈 허용
         String text = Jsoup.clean(html
                 , "http://localhost"
@@ -65,6 +55,37 @@ public class HtmlUtils {
                 .collect(Collectors.joining("\n")).trim();
 //        System.out.println(text.replace("\n","\\n"));
         return text.replace("\n","\\n");
+    }
+
+
+    public static String extractTextWithLength(String _html) {
+        // html tag 삭제, 줄바꿈 허용
+        String text = Jsoup.clean(_html
+                , "http://localhost"
+                , Safelist.none().preserveRelativeLinks(true)
+                , new Document.OutputSettings().prettyPrint(false));
+
+        text = text.replaceAll("&nbsp;", "");
+
+        // 지정된 길이로 텍스트 자르기
+        text = text.length() > maxLength ? text.substring(0, maxLength) + "..." : text;
+        System.out.println(text);
+        return text;
+    }
+
+    public static String extractHtmlSummary(String htmlContent) {
+        Document document = Jsoup.parse(htmlContent);
+        Element firstParagraph = document.select("p").first(); // 첫 번째 단락만 추출
+        return firstParagraph != null ? firstParagraph.outerHtml() : "";
+    }
+
+    public static String extractText(String html) {
+        String text = Jsoup.clean(html, Safelist.none());
+        text = text.replaceAll("&nbsp;", "");
+
+        // 지정된 길이로 텍스트 자르기
+        text = text.length() > maxLength ? text.substring(0, maxLength) : text;
+        return text;
     }
 
 }
