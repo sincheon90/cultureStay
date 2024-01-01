@@ -93,7 +93,7 @@
 			<article class="content-article">
 <!--				<h2>제목</h2>-->
 				<p class="board-to-detail clickable" th:data-boardnum="${board.boardnum}">
-					<span th:utext="${#strings.replace(board.contents, '\n', '<br/>')}"></span>
+					<span th:utext="${#strings.replace(board.contents, '\n', '<br>')}"></span>
 				</p>
 				<div class="content-article-footer">
 					<p>#태그 #태그 </p>

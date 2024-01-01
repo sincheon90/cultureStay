@@ -12,6 +12,9 @@ public class HtmlUtils {
     public static void main(String[] args) {
         String html =
                 "<h1>타루 커뮤니티 홈스테이</h1>\n" +
+                        "\n" +
+                        " \n" +
+                        "<td>&nbsp;</td>"+
                 "<p>공유하기</p>\n" +
                 "<h1>타루 커뮤니티 홈스테이</h1>\n" +
                 "<p>공유하기</p>\n" +
@@ -50,10 +53,18 @@ public class HtmlUtils {
         text = text.replaceAll("&nbsp;", "");
 
         String[] lines = text.split("\\R");
-        text = Arrays.stream(lines, 0, Math.min(lines.length, maxLines))
+
+        // Filter out empty or whitespace-only lines
+        String[] filteredLines = Arrays.stream(lines)
+                .filter(line -> !line.trim().isEmpty())
+                .toArray(String[]::new);
+
+//        System.out.println(Arrays.toString(filteredLines));
+
+        text = Arrays.stream(filteredLines, 0, Math.min(lines.length, maxLines))
                 .collect(Collectors.joining("\n")).trim();
-        System.out.println(text);
-        return text;
+//        System.out.println(text.replace("\n","\\n"));
+        return text.replace("\n","\\n");
     }
 
 }
