@@ -163,7 +163,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 450px; /* 원하는 최대 너비 설정 */
-    color: var(--grey-color);
+    color: var(--darkGrey-color);
 }
 
 .content-article-footer {
