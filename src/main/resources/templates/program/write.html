@@ -1,62 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>작성 화면</title>
+	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/main_style_write.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<style>
+
+	</style>
 </head>
 <body>
-<h2>프로그램 글쓰기</h2> 
-<form th:action="@{/program/write}" method="post" enctype="multipart/form-data">
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>
-				<input type="text" name="title"  style="width:398px;">
-			</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>
-				<textarea name="content"  ></textarea>
-			</td>
-		</tr>
-	<tr>
-			<th>주소</th>
-			<td>
-				<textarea name="address"  ></textarea>
-			</td>
-		</tr>
-		<tr>
-			<th>detailed_address</th>
-			<td>
-				<textarea name="detailed_address"  ></textarea>
-			</td>
-		</tr><tr>
-			<th>price</th>
-			<td>
-				<textarea name="price"  ></textarea>
-			</td>
-		</tr>
-		<tr>
-			<th>start_date</th>
-			<td>
-				<textarea name="start_date"  ></textarea>
-			</td>
-		</tr><tr>
-			<th>end_date</th>
-			<td>
-				<textarea name="end_date"  ></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" class="white" style="text-align: center;">
-				<input type="submit" value="저장">
-			</td>
-		</tr>
-	</table>
+
+<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
+
+
+<main>
+	<h2>프로그램 글쓰기</h2>
+
+	<form th:action="@{/program/write}" method="post" enctype="multipart/form-data">
+		<div>
+			<input type="text" id="title" name="title" placeholder="제목">
+		</div>
+
+		<div>
+			<textarea id="content" name="content" placeholder="내용"></textarea>
+			<br>
+		</div>
+
+		<div>
+			<input type="text" id="address" name="address" placeholder="주소"></input>
+		</div>
+
+		<div>
+			<input type="text" id="detailed_address" name="detailed_address" placeholder="상세 주소"></input>
+		</div>
+
+		<div>
+			<input type="text" id="price" name="price" placeholder="가격"></input>
+		</div>
+
+		<div>
+			<input type="text" id="start_date" name="start_date" placeholder="시작 날짜"></input>
+		</div>
+
+		<div>
+			<input type="text" id="end_date" name="end_date" placeholder="종료 날짜"></input>
+		</div>
+
+		<br>
+
+		<div class="button-right">
+			<button type="submit">저장</button>
+		</div>
+
+		<div class="button-right">
+			<button type="reset">취소</button>
+		</div>
 	</form>
-	
-	
+
+
+
 	태그 칸도 추가
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
+
+<script>
+	CKEDITOR.replace("content", {
+		//filebrowserUploadMethod :'form',
+		uploadUrl: "/image/upload",  // 이게 드래그 드롭을 위한 URL
+		filebrowserUploadUrl:  "/image/upload",
+    	width: '100%',
+		height: 300, // 에디터 높이를 500px로 설정
+	});
+
+</script>
 </body>
 </html>
