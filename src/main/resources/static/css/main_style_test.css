@@ -6,6 +6,12 @@
     padding: 0;
 }
 
+.board-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
 .board-title-right {
     display: flex;
 /*    justify-content: space-between;*/
