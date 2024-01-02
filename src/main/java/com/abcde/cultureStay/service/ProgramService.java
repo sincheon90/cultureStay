@@ -39,6 +39,8 @@ public interface ProgramService {
 
 	int insertReserveForm(Reservation reserveForm);
 
+	ArrayList<Reservation> newReser(String username);
+
 
 //
 //	void insertChlist(Checklist chlist);

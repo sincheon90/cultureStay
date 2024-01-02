@@ -1,5 +1,7 @@
 package com.abcde.cultureStay.contoller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -56,7 +58,9 @@ public class ReservationController {
 		log.debug("끝success{}",request);
 		log.debug("끝success{}",end_date);
 		Reservation reserveForm = new Reservation();
+		Program program = service.readProgram(programNum);
 		reserveForm.setProgramNum(programNum);
+		reserveForm.setHostid(program.getUserid());
 		reserveForm.setUserid(user.getUsername());
 		reserveForm.setStart_date(start_date);
 		reserveForm.setEnd_date(end_date);
@@ -66,6 +70,13 @@ public class ReservationController {
 		return "program/success";
 	}
 	
+	@GetMapping("check")
+	public String check(@AuthenticationPrincipal UserDetails user, Model model) {
+		ArrayList<Reservation> reservation = service.newReser(user.getUsername());
+
+		model.addAttribute("reservation",reservation);
+		return "program/check";
+	}
 	
 	
 //	service.insertChlist(chlist); //체크리스트 디비 저장

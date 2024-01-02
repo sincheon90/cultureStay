@@ -151,6 +151,7 @@ drop table Review;
 CREATE TABLE Reservation (
 	reserNum	number		            primary key,
 	programNum	number		            references Program(programNum), 
+	hostid 		varchar2(255),	
 	userid	    varchar2(255)		    references cultureStay_member(userid),
 	start_date	date		    		NOT NULL,
 	end_date	date		    		NOT NULL,

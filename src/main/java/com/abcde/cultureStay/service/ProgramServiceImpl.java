@@ -174,6 +174,10 @@ public class ProgramServiceImpl implements ProgramService{
 		int result = dao.insertReserveForm(reserveForm);		
 		return result;
 	}
-
+	@Override
+	public ArrayList<Reservation> newReser(String userid) {
+		ArrayList<Reservation> result = dao.newReser(userid);
+		return result;
+	}
 
 }

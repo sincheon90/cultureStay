@@ -49,6 +49,8 @@ public interface ProgramDAO {
 
 	int insertReserveForm(Reservation reserveForm);
 
+	ArrayList<Reservation> newReser(String userid);
+
 
 
 
