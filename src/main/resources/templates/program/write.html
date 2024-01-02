@@ -8,11 +8,20 @@
 
 	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- 달력 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 	<link rel="stylesheet" th:href="@{/css/header_style.css}">
 	<link rel="stylesheet" th:href="@{/css/main_style_write.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+	<script th:src="@{/js/script.js}"></script>
 	<style>
 
 	</style>
@@ -55,15 +64,17 @@
 		</div>
 
 		<div>
-			<input type="number" class="priceInput" id="price" name="price" placeholder="가격"></input>
+			<input type="number" class="price-input" id="price" name="price" placeholder="가격"></input>
+		</div>
+
+		<div class="dateinput" id="dateinput"></div>
+
+		<div>
+			<input type="text" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"></input>
 		</div>
 
 		<div>
-			<input type="text" id="start_date" name="start_date" placeholder="시작 날짜"></input>
-		</div>
-
-		<div>
-			<input type="text" id="end_date" name="end_date" placeholder="종료 날짜"></input>
+			<input type="text" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"></input>
 		</div>
 
 		<br>
@@ -93,6 +104,8 @@
 		height: 300, // 에디터 높이를 500px로 설정
 	});
 
+
+
 	document.addEventListener('DOMContentLoaded', function() {
 		// 클래스 이름을 기반으로 모든 요소 선택
 		var addressElements = document.querySelectorAll('.address');
@@ -101,6 +114,21 @@
 		addressElements.forEach(function(element) {
 			element.addEventListener('click', openAddressSearch);
 		});
+
+		// 날짜값 입력시 placeholder 값이 보이게 type 변경 이벤트 함수 추가
+		var dates = document.querySelectorAll(".date-input");
+
+		dates.forEach(function(date) {
+			date.addEventListener('click', function() {
+				this.type = 'date';
+			});
+
+			date.addEventListener('blur', function() {
+				if(this.value === '') {
+					this.type='text';
+				}
+			})
+		})
 
 	});
 
