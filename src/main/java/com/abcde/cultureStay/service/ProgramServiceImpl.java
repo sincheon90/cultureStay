@@ -14,6 +14,8 @@ import com.abcde.cultureStay.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
+import static com.abcde.cultureStay.util.HtmlUtils.extractText;
+
 @Service
 @Slf4j
 public class ProgramServiceImpl implements ProgramService{
@@ -50,6 +52,10 @@ public class ProgramServiceImpl implements ProgramService{
 		map.put("end_date", searchProgram.getEnd_date());
 
 		ArrayList<Program> result = dao.programMainlist(map);
+
+		for (Program r : result) {
+			r.setContent(extractText(r.getContent()));
+		}
 		log.debug("검색결과 {}",result);
 	
 		return result;
