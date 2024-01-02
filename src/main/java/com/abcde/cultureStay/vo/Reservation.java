@@ -16,4 +16,5 @@ public class Reservation {
 	String request;	
     int payment; 	
     int status;	
+    String inputdate;
 }

@@ -6,8 +6,10 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.abcde.cultureStay.vo.Checklist;
 import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.ProgramTag;
+import com.abcde.cultureStay.vo.Reservation;
 import com.abcde.cultureStay.vo.Review;
 
 @Mapper
@@ -42,6 +44,10 @@ public interface ProgramDAO {
 	void createBookmark(HashMap<String, Object> map);
 
 	void deleteBookmark(HashMap<String, Object> map);
+
+	void insertChlist(Checklist chlist);
+
+	int insertReserveForm(Reservation reserveForm);
 
 
 

@@ -195,38 +195,82 @@ public class ProgramController {
 		return "redirect:/program/detail?programNum="+programNum;
 	}
 	
-	
-	//프로그램 신청화면
-		@GetMapping("apply")
-		public String applyForm(String start_date,String end_date,Model model) {
-			log.debug("시작일 : {}", start_date);
-			log.debug("끝 : {}", end_date);
-			model.addAttribute("start_date", start_date);
-			model.addAttribute("end_date", end_date);
-
-			
-			
-			return "program/apply";
-		}
-	//프로그램 신청
-		@PostMapping("apply")
-		public String applyForm(Checklist chlist, Reservation reserveForm,
-				@AuthenticationPrincipal UserDetails user) {
-			//태그x 체크리스트, 예약테이블 넘기기 int programNum,
-
-			chlist.setUserid(user.getUsername());
-		//	chlist.setProgramNum(programNum);
-			log.debug("체크리스트 : {}", chlist);
-			
-			Reservation reserve = new Reservation()
-		//	reserve.set
-
-//			service.insertChlist(chlist);
-//			service.makeReserve();
+//	 
+//	//프로그램 신청화면
+//		@GetMapping("apply")
+//		public String applyForm(@AuthenticationPrincipal UserDetails user,
+//				String start_date,String end_date,Model model,
+//				int programNum) {
+//			log.debug("시작일 : {}", start_date);
+//			log.debug("끝 : {}", end_date);
+//			log.debug("프로그램넘버 : {}", programNum);
+//
+//			//프로그램 정보 가져오기
+//			Program program = service.readProgram(programNum);
+//			log.debug("program넘버 : {}", program);
+//
+//			Reservation check = service.getReserveForm(programNum, user.getUsername());
+//			log.debug("reserve넘버 : {}", check.getReserNum());
+//
+//		
+//			if(check!=null) {
+//				//만약 예약중인 정보 있으면 업데이트만
+//				service.updateApply(start_date,end_date,check.getReserNum());
+//			}
+//			else {
+//				//아니면 새로 만들기
+//				Reservation reserve = new Reservation();
+//				reserve.setStart_date(start_date);
+//				reserve.setEnd_date(end_date);
+//				
+//				reserve.setProgramNum(programNum);
+//				reserve.setUserid(user.getUsername());
+//				service.insertReserve(reserve);
+//				
+//			}
+//		
+//			model.addAttribute("start_date", start_date);
+//			model.addAttribute("end_date", end_date);
+//			model.addAttribute("program", program);
+//
+//			return "program/apply";
+//		}
+//	//프로그램 결제화면
+//		@PostMapping("payment")
+//		public String payment(int programNum, int totalPrice,
+//				Checklist chlist, String request,
+//				@AuthenticationPrincipal UserDetails user, Model model) {
 //			
-			return "program/apply";
-		}
-	
-	
+//			log.debug("프로그램넘버 : {}", programNum);
+//			Reservation reserveForm = service.getReserveForm(programNum, user.getUsername());
+//
+//			//service.updateStatus(reserveForm.getReserNum(),request,user.getUsername(),programNum);
+//			
+//			log.debug("예약폼 : {}", reserveForm);
+//			
+//			
+////			chlist.setUserid(user.getUsername());
+////			chlist.setReserNum(reserveForm.getReserNum());
+//			log.debug("체크리스트 : {}", chlist);
+//	
+//			log.debug("reserveForm : {}", reserveForm);
+//
+//			model.addAttribute("totalPrice", totalPrice);
+//			model.addAttribute("reserveForm", reserveForm);
+//
+//			service.insertChlist(chlist); //체크리스트 디비 저장
+//		
+//			return "program/payment";
+//		}
+//	
+//	@PostMapping("success")
+//	public String reservationSuccess() {
+//		//Reservation reserveForm = get
+//		
+//
+//		
+//		
+//		return "program/success";
+//	}
 	
 }

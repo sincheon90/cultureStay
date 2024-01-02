@@ -7,6 +7,38 @@
 <body>
 <h2>프로그램 신청화면</h2>
 
+<h2>checklist</h2>
+
+<form th:action="@{/program/checklist}" method="post">
+	<input type="hidden" name="programNum" th:value="${program.programNum}">
+	<input type="hidden" name="totalPrice" th:value="${program.price}">
+
+
+	<div>
+		<h4>1. 1번질문</h4>		
+		<input type = "radio" name = "one" value = "1"> yes
+		<input type = "radio" name = "one" value = "0"> no
+	</div>
+	<div>
+		<h4>2. 2번질문</h4>		
+		<input type = "radio" name = "two" value = "1"> yes
+		<input type = "radio" name = "two" value = "0"> no
+	</div>
+	<div>
+		<h4>3. 3번질문</h4>		
+		<input type = "radio" name = "three" value = "1"> yes
+		<input type = "radio" name = "three" value = "0"> no
+	</div>
+		
+	<br>
+		<input type="submit" value="저장하기"> 
+
+
+	</form>
+
+
+<form th:action="@{/program/payment}" method="post">
+<br><br>
 <table>
 	<tr>
 			<th>start_date</th>
@@ -23,29 +55,27 @@
 				<pre th:text="${end_date}"></pre>
 			</td>
 		</tr>
+		<tr>
+			<th>가격</th>
+		
+			<td>
+				<pre th:text="${program.price}"></pre>(일수만큼 곱하기)
+			</td>
+		</tr>
+		<tr>
+			<th>요청사항</th>
+			<td><input type = "text" name = "request"></td>
+		</tr>
 </table>
-<br>
-<h2>checklist</h2>
-<form th:action="@{/program/apply}" method="post">
+<input type="hidden" name="start_date" th:value="${start_date}">
+<input type="hidden" name="end_date" th:value="${end_date}">
+<input type="hidden" name="programNum" th:value="${program.programNum}">
+<input type="hidden" name="totalPrice" th:value="${program.price}">
 
-	<div>
-		<h4>1. 일번질문</h4>		
-		<input type = "radio" name = "one" value = "1"> yes
-		<input type = "radio" name = "one" value = "0"> no
-	</div>
-	<div>
-		<h4>2. 이번질문</h4>		
-		<input type = "radio" name = "two" value = "1"> yes
-		<input type = "radio" name = "two" value = "0"> no
-	</div>
-	
-		<input type = "text" name = "note" value = "비고">
-<br>
-<input type="submit" value="저장"> 
+<input type="submit" value="결제하기"> 
 
 </form>
-
-
+<br>
 
 </body>
 </html>
