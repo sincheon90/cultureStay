@@ -22,7 +22,7 @@
 <section class="search-section">
 		<div class="header-container header-bottom">
 			<div class="search-bar">
-				<form id="pagingForm" method="get" th:action="@{/program/list}">
+				<form method="get" th:action="@{/program/list}">
 				<!-- 지역 입력란 -->
 				<input type="text" name="address" placeholder="지역 검색" aria-label="지역">
 
@@ -72,14 +72,16 @@
 					</div>
 				</div>
 
-				<div class="image-container-sub program-to-detail clickable" th:data-programnum="${programList.programNum}">
+				<div class="image-container-sub program-to-detail clickable"
+					 th:data-programnum="${programList.programNum}">
 					<h4 th:text="${programList.title}">프로그램 이름</h4>
 				</div>
 			</article>
 
 			<article class="content-article">
 				<!--				<h2>제목</h2>-->
-				<p class="program-to-detail clickable" th:data-programnum="${programList.programNum}" th:text="${programList.content}">콘텐츠</p>
+				<p class="program-to-detail clickable truncate-contents"
+				   th:data-programnum="${programList.programNum}" th:text="${programList.content}">콘텐츠</p>
 				<div class="content-article-footer">
 					<div class="tags">
 						<a class="tag clickable">#태그1</a>
@@ -163,11 +165,6 @@
 	</section>
 
 <script th:src="@{/js/script.js}">
-
-	// JavaScript 함수 정의
-    function showMessage() {
-        alert('버튼이 클릭되었습니다!');
-    }
 
 </script>
 </body>

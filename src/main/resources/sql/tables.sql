@@ -23,14 +23,15 @@ drop table cultureStay_member;
 --프로그램 테이블 
 CREATE TABLE Program (
 	programNum	number	            primary key,
-	userid	    varchar2(255)	references cultureStay_member(userid), 
+	userid	    varchar2(255),
 	title	    varchar2(255)	NOT NULL,
-	content	    varchar2(4000)	NOT NULL,
+	content	    CLOB	NOT NULL,
+	postcode    varchar2(255)   NOT NULL,
 	address	    varchar2(255)	NOT NULL,
 	detailed_address varchar2(255)	NOT NULL,
 	price	    number		        NOT NULL,
-	start_date	date		    NOT NULL,
-	end_date	date		    NOT NULL,
+	start_date	date		    ,
+	end_date	date		    ,
 	inputdate       date                default sysdate, 
     hits            number              default 0 --인기프로그램용 조회수
 );
@@ -243,3 +244,23 @@ drop table Checklist;
 --	hostid	        varchar2(255)		references User(userid)
 --);
 --create sequence chatNum_seq;
+
+
+
+
+
+-- CULTURESTAY_BOARD 테이블 컬럼 변경
+-- 데이터 있는 경우 컬럼을 추가하여 데이터 이동후 컬럼명 변경
+ALTER TABLE CULTURESTAY_BOARD ADD (CONTENTS_CLOB CLOB);
+UPDATE CULTURESTAY_BOARD SET CONTENTS_CLOB = TO_CLOB(CONTENTS);
+ALTER TABLE CULTURESTAY_BOARD DROP COLUMN CONTENTS;
+ALTER TABLE CULTURESTAY_BOARD RENAME COLUMN CONTENTS_CLOB TO CONTENTS;
+
+-- Program 테이블 컬럼 추가 및, 컬럼 변경
+--컬럼 추가
+ALTER TABLE Program ADD (postcode CLOB);
+-- 데이터 있는 경우 컬럼을 추가하여 데이터 이동후 컬럼명 변경
+ALTER TABLE Program ADD (CONTENTS_CLOB CLOB);
+UPDATE Program SET CONTENTS_CLOB = TO_CLOB(content);
+ALTER TABLE Program DROP COLUMN content;
+ALTER TABLE Program RENAME COLUMN CONTENTS_CLOB TO content;

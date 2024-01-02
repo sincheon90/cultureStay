@@ -1,62 +1,238 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>작성 화면</title>
+
+	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- 달력 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/main_style_write.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+	<script th:src="@{/js/script.js}"></script>
+	<style>
+
+	</style>
+	<script>
+
+
+
+	</script>
 </head>
 <body>
-<h2>프로그램 글쓰기</h2> 
-<form th:action="@{/program/write}" method="post" enctype="multipart/form-data">
-	<table>
-		<tr>
-			<th>제목</th>
-			<td>
-				<input type="text" name="title"  style="width:398px;">
-			</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>
-				<textarea name="content"  ></textarea>
-			</td>
-		</tr>
-	<tr>
-			<th>주소</th>
-			<td>
-				<textarea name="address"  ></textarea>
-			</td>
-		</tr>
-		<tr>
-			<th>detailed_address</th>
-			<td>
-				<textarea name="detailed_address"  ></textarea>
-			</td>
-		</tr><tr>
-			<th>price</th>
-			<td>
-				<textarea name="price"  ></textarea>
-			</td>
-		</tr>
-		<tr>
-			<th>start_date</th>
-			<td>
-				<textarea name="start_date"  ></textarea>
-			</td>
-		</tr><tr>
-			<th>end_date</th>
-			<td>
-				<textarea name="end_date"  ></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" class="white" style="text-align: center;">
-				<input type="submit" value="저장">
-			</td>
-		</tr>
-	</table>
+
+<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
+
+
+<main>
+	<h2>프로그램 작성</h2>
+
+	<form th:action="@{/program/write}" method="post" enctype="multipart/form-data">
+		<div>
+			<input type="text" id="title" name="title" placeholder="제목">
+		</div>
+
+		<div>
+			<textarea id="content" name="content" placeholder="내용"></textarea>
+			<br>
+		</div>
+
+		<div>
+			<input class ="address" type="text" id="postcode" name="postcode" placeholder="우편번호"></input>
+		</div>
+
+		<div>
+			<input class ="address" type="text" id="address" name="address" placeholder="주소"></input>
+			<input type="text" id="extraAddress" style="display: none;" />
+		</div>
+
+		<div>
+			<input type="text" id="detailed_address" name="detailed_address" placeholder="상세 주소"></input>
+		</div>
+
+		<div>
+			<input type="number" class="price-input" id="price" name="price" placeholder="가격"></input>
+		</div>
+
+		<div class="dateinput" id="dateinput"></div>
+
+		<div>
+			<input type="text" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"></input>
+		</div>
+
+		<div>
+			<input type="text" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"></input>
+		</div>
+
+		<br>
+
+		<hr>
+
+		<div class="checklist-container">
+			<!-- 프로그램 테마 태그 -->
+			<div>
+				<h3>프로그램 테마</h3>
+				<label><input type="checkbox" name="active" value="1">활동적</label>
+				<label><input type="checkbox" name="creative" value="1">창의적</label>
+				<label><input type="checkbox" name="healing" value="1">힐링</label>
+				<label><input type="checkbox" name="traditional" value="1">전통</label>
+				<label><input type="checkbox" name="cookingExperience" value="1">요리체험</label>
+				<label><input type="checkbox" name="scenicView" value="1">뷰</label>
+				<label><input type="checkbox" name="countryside" value="1">시골</label>
+				<label><input type="checkbox" name="city" value="1">도시</label>
+				<label><input type="checkbox" name="festival" value="1">축제</label>
+				<label><input type="checkbox" name="drive" value="1">드라이브</label>
+				<label><input type="checkbox" name="socializing" value="1">친목</label>
+				<label><input type="checkbox" name="tranquil" value="1">한적한</label>
+			</div>
+
+			<hr>
+
+			<!-- 호스트용 체크리스트 -->
+			<div>
+				<h3>호스트용 체크리스트</h3>
+				<label><input type="checkbox" name="separateBathroom" value="1">화장실과 욕실 분리 여부</label>
+				<label><input type="checkbox" name="bathtub" value="1">욕조 유무</label>
+				<label><input type="checkbox" name="wifi" value="1">와이파이 유무</label>
+				<label><input type="checkbox" name="transformer" value="1">변압기 유무</label>
+				<label><input type="checkbox" name="pajamasProvided" value="1">파자마(잠옷) 제공 여부</label>
+				<label><input type="checkbox" name="hairdryer" value="1">헤어드라이기 유무</label>
+				<label><input type="checkbox" name="basicToiletriesProvided" value="1">기본 세면도구 제공 여부 (수건, 샴푸, 린스, 치약, 칫솔, 바디워시)</label>
+				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반 가능 여부</label>
+				<label><input type="checkbox" name="roomAlone" value="1">방 혼자 사용 가능 여부 및 최대 인원</label>
+				<label><input type="checkbox" name="langJapanese" value="1">언어 대응 가능 여부 (일본어)</label>
+				<label><input type="checkbox" name="langEnglish" value="1">언어 대응 가능 여부 (영어)</label>
+				<label><input type="checkbox" name="langKorean" value="1">언어 대응 가능 여부 (한국어)</label>
+			</div>
+
+			<hr>
+
+			<!-- 게스트용 체크리스트 -->
+			<div>
+				<h3>게스트용 체크리스트</h3>
+				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반 여부 (체크 시 예약 후 메신저 기능으로 대화)</label>
+				<label><input type="checkbox" name="allergyFriendly" value="1">알러지 유무 (체크 시 예약 후 메신저 기능으로 대화)</label>
+				<label><input type="checkbox" name="chronicIllness" value="1">지병 유무 (체크 시 예약 후 메신저 기능으로 대화)</label>
+				<label><input type="checkbox" name="foodPreference" value="1">기피하는 음식 유무 (선호하는 식단 - 밥, 빵, 상관없음, 생략) (체크 시 예약 후 메신저 기능으로 대화)</label>
+				<label><input type="checkbox" name="privateTime" value="1">개인시간 원하는지 여부 (방해받고 싶지 않은 시간: 주관식)</label>
+				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (역사유적지탐방, 현지일상생활, 문화체험, 호스트와 생활)</label>
+				<label><input type="checkbox" name="languageSupport" value="1">언어대응 가능 여부 (예: 한국어, 영어)</label>
+				<label><input type="checkbox" name="smoking" value="1">흡연 유무 (흡연, 비흡연)</label>
+			</div>
+
+
+			<hr>
+			<br>
+
+			<div class="right-align">
+				<button type="submit" class="btn-save">작성</button>
+				<button type="reset" class="btn-cancel">취소</button>
+			</div>
+		</div>
 	</form>
-	
-	
-	태그 칸도 추가
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
+
+<script>
+	CKEDITOR.replace("content", {
+		//filebrowserUploadMethod :'form',
+		uploadUrl: "/image/upload",  // 이게 드래그 드롭을 위한 URL
+		filebrowserUploadUrl:  "/image/upload",
+    	width: '100%',
+		height: 300, // 에디터 높이를 500px로 설정
+	});
+
+
+
+	document.addEventListener('DOMContentLoaded', function() {
+		// 클래스 이름을 기반으로 모든 요소 선택
+		var addressElements = document.querySelectorAll('.address');
+
+		// 각 요소에 이벤트 리스너 추가
+		addressElements.forEach(function(element) {
+			element.addEventListener('click', openAddressSearch);
+		});
+
+		// 날짜값 입력시 placeholder 값이 보이게 type 변경 이벤트 함수 추가
+		var dates = document.querySelectorAll(".date-input");
+
+		dates.forEach(function(date) {
+			date.addEventListener('click', function() {
+				this.type = 'date';
+			});
+
+			date.addEventListener('blur', function() {
+				if(this.value === '') {
+					this.type='text';
+				}
+			})
+		})
+
+	});
+
+	// 카카오 주소입력 API를 사용하는 함수
+	function openAddressSearch() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("extraAddress").value = extraAddr;
+
+                } else {
+                    document.getElementById("extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("detailed_address").focus();
+            }
+        }).open();
+    }
+
+</script>
 </body>
 </html>

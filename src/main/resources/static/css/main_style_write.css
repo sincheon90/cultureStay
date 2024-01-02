@@ -1,0 +1,39 @@
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.cke {
+    width: 100% !important;
+    border: 1px solid var(--grey-color) !important; /* Custom border color */
+}
+
+
+
+/* 체크리스트 컨테이너 스타일 */
+checklist-container {
+    margin-bottom: 20px; /* 각 체크리스트 사이의 간격 */
+}
+
+.checklist-container h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* 라벨 스타일 */
+label {
+    display: block; /* 각 체크박스를 새 줄에 표시 */
+    margin-bottom: 10px; /* 체크박스 사이의 간격 */
+}
+
+/* 체크박스 스타일 */
+input[type="checkbox"] {
+    margin-right: 10px; /* 체크박스와 텍스트 사이의 간격 */
+}

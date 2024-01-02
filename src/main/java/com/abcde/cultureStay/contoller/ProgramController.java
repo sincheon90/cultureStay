@@ -99,15 +99,17 @@ public class ProgramController {
 	@PostMapping("write")
 	public String pWriteForm(Program program, Image img, ProgramTag tag,
 			@AuthenticationPrincipal UserDetails user) {
-		
+
+		log.debug("[write] 프로그램 태그 : {}", tag);
+
 		log.debug("호스트아이디 : {}",user.getUsername());
 		
 		program.setUserid(user.getUsername());
 			log.debug("프로그램 : {}",program);
 
 		//일단 파일은 어떻게 첨부할지 고민해보기,호스트용 체크리스트 생성해야됨
-		int result = service.pWrite(program);
-		log.debug("프로그램 저장 성공 체크 : {}",result);
+//		int result = service.pWrite(program);
+//		log.debug("프로그램 저장 성공 체크 : {}",result);
 
 		return "redirect:/program/list";
 	}
@@ -195,82 +197,7 @@ public class ProgramController {
 		return "redirect:/program/detail?programNum="+programNum;
 	}
 	
-//	 
-//	//프로그램 신청화면
-//		@GetMapping("apply")
-//		public String applyForm(@AuthenticationPrincipal UserDetails user,
-//				String start_date,String end_date,Model model,
-//				int programNum) {
-//			log.debug("시작일 : {}", start_date);
-//			log.debug("끝 : {}", end_date);
-//			log.debug("프로그램넘버 : {}", programNum);
-//
-//			//프로그램 정보 가져오기
-//			Program program = service.readProgram(programNum);
-//			log.debug("program넘버 : {}", program);
-//
-//			Reservation check = service.getReserveForm(programNum, user.getUsername());
-//			log.debug("reserve넘버 : {}", check.getReserNum());
-//
-//		
-//			if(check!=null) {
-//				//만약 예약중인 정보 있으면 업데이트만
-//				service.updateApply(start_date,end_date,check.getReserNum());
-//			}
-//			else {
-//				//아니면 새로 만들기
-//				Reservation reserve = new Reservation();
-//				reserve.setStart_date(start_date);
-//				reserve.setEnd_date(end_date);
-//				
-//				reserve.setProgramNum(programNum);
-//				reserve.setUserid(user.getUsername());
-//				service.insertReserve(reserve);
-//				
-//			}
-//		
-//			model.addAttribute("start_date", start_date);
-//			model.addAttribute("end_date", end_date);
-//			model.addAttribute("program", program);
-//
-//			return "program/apply";
-//		}
-//	//프로그램 결제화면
-//		@PostMapping("payment")
-//		public String payment(int programNum, int totalPrice,
-//				Checklist chlist, String request,
-//				@AuthenticationPrincipal UserDetails user, Model model) {
-//			
-//			log.debug("프로그램넘버 : {}", programNum);
-//			Reservation reserveForm = service.getReserveForm(programNum, user.getUsername());
-//
-//			//service.updateStatus(reserveForm.getReserNum(),request,user.getUsername(),programNum);
-//			
-//			log.debug("예약폼 : {}", reserveForm);
-//			
-//			
-////			chlist.setUserid(user.getUsername());
-////			chlist.setReserNum(reserveForm.getReserNum());
-//			log.debug("체크리스트 : {}", chlist);
-//	
-//			log.debug("reserveForm : {}", reserveForm);
-//
-//			model.addAttribute("totalPrice", totalPrice);
-//			model.addAttribute("reserveForm", reserveForm);
-//
-//			service.insertChlist(chlist); //체크리스트 디비 저장
-//		
-//			return "program/payment";
-//		}
-//	
-//	@PostMapping("success")
-//	public String reservationSuccess() {
-//		//Reservation reserveForm = get
-//		
-//
-//		
-//		
-//		return "program/success";
-//	}
+
+
 	
 }
