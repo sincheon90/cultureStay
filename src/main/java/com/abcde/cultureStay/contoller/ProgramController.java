@@ -99,7 +99,9 @@ public class ProgramController {
 	@PostMapping("write")
 	public String pWriteForm(Program program, Image img, ProgramTag tag,
 			@AuthenticationPrincipal UserDetails user) {
-		
+
+		log.debug("tag : {}", tag);
+
 		log.debug("호스트아이디 : {}",user.getUsername());
 		
 		program.setUserid(user.getUsername());
