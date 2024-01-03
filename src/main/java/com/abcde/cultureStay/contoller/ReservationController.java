@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Checklist;
@@ -90,16 +91,48 @@ public class ReservationController {
 	
 	@GetMapping("check")
 	public String check(@AuthenticationPrincipal UserDetails user, Model model) {
-		ArrayList<Reservation> reservation = service.newReser(user.getUsername());
+		
+		//내프로그램 리스트
+		ArrayList<Program> programList = service.myProgram(user.getUsername());
+		model.addAttribute("programList",programList);
 
+		
+		//예약 리스트
+		ArrayList<Reservation> reservation = service.newReser(user.getUsername());
 		model.addAttribute("reservation",reservation);
+		
+		
+		//내가 예약한 리스트
+		ArrayList<Reservation> myReservation = service.myReservation(user.getUsername());
+		model.addAttribute("myReservation",myReservation);
+		
+		
 		return "program/check";
 	}
 	
 	@GetMapping("accept")
-	public String accept(@AuthenticationPrincipal UserDetails user, Model model) {
-		 
+	public String accept(@AuthenticationPrincipal UserDetails user, Model model,
+			int reserNum) {
+		log.debug("예약번호 {}",	reserNum);
+		
+		Reservation reservation = service.getReservation(reserNum);
+		log.debug("예약신청정보 {}", reservation);
+		model.addAttribute("reservation", reservation);
+		
+		Program program = service.readProgram(reservation.getProgramNum());
+		log.debug("프로그램정보 {}",program);
+		model.addAttribute("program",program);
+
 		return "program/accept";
 	}
- 
+	
+	//예약수락
+	@PostMapping("accept")
+    public String accept(int reserNum) {
+		log.debug("예약하기 {}",	reserNum);
+        service.acceptReser(reserNum); 
+        
+        return "redirect:/program/accept?reserNum="+reserNum;
+    }
+	
 }

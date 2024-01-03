@@ -51,6 +51,14 @@ public interface ProgramService {
 
 	void setReserNum(int reserNum, int programNum, String userid);
 
+	ArrayList<Program> myProgram(String userid);
+
+	Reservation getReservation(int reserNum);
+
+	void acceptReser(int reserNum);
+
+	ArrayList<Reservation> myReservation(String userid);
+
 
 
 }

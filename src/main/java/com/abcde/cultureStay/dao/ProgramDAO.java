@@ -61,6 +61,14 @@ public interface ProgramDAO {
 
 	void setReserNum(HashMap<String, Object> map);
 
+	ArrayList<Program> myProgram(String userid);
+
+	Reservation getReservation(int reserNum);
+
+	void acceptReser(int reserNum);
+
+	ArrayList<Reservation> myReservation(String userid);
+
 
 
 
