@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.abcde.cultureStay.dao.ProgramDAO;
+import com.abcde.cultureStay.vo.Checklist;
 import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.ProgramTag;
+import com.abcde.cultureStay.vo.Reservation;
 import com.abcde.cultureStay.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
@@ -160,9 +162,22 @@ public class ProgramServiceImpl implements ProgramService{
 		HashMap<String, Object> map = getMap(programNum, userid);
 		dao.deleteBookmark(map);
 	}
-	
 
-	
-
+//	
+//	@Override
+//	public void insertChlist(Checklist chlist) {
+//		dao.insertChlist(chlist);
+//		
+//	}
+	@Override
+	public int insertReserveForm(Reservation reserveForm) {
+		int result = dao.insertReserveForm(reserveForm);		
+		return result;
+	}
+	@Override
+	public ArrayList<Reservation> newReser(String userid) {
+		ArrayList<Reservation> result = dao.newReser(userid);
+		return result;
+	}
 
 }

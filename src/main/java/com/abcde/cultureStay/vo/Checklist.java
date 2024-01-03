@@ -8,9 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Checklist {
+	
 	int checklistID;
 	int programNum;
+	int reserNum; //예약번호
 	String userid;
+	
 	int one;	 
 	int two;		 
 	int three; 		 
@@ -20,7 +23,6 @@ public class Checklist {
 	int seven; 			 
 	int eight; 			 
 	int nine; 			 
-	int ten; 			 
-	String note; 			 
+	int ten; 			 			 
 	String inputdate;          
 }

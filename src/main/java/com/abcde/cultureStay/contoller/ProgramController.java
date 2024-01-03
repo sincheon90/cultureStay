@@ -197,38 +197,7 @@ public class ProgramController {
 		return "redirect:/program/detail?programNum="+programNum;
 	}
 	
-	
-	//프로그램 신청화면
-		@GetMapping("apply")
-		public String applyForm(String start_date,String end_date,Model model) {
-			log.debug("시작일 : {}", start_date);
-			log.debug("끝 : {}", end_date);
-			model.addAttribute("start_date", start_date);
-			model.addAttribute("end_date", end_date);
 
-			
-			
-			return "program/apply";
-		}
-	//프로그램 신청
-		@PostMapping("apply")
-		public String applyForm(Checklist chlist, Reservation reserveForm,
-				@AuthenticationPrincipal UserDetails user) {
-			//태그x 체크리스트, 예약테이블 넘기기 int programNum,
 
-			chlist.setUserid(user.getUsername());
-		//	chlist.setProgramNum(programNum);
-			log.debug("체크리스트 : {}", chlist);
-			
-			Reservation reserve = new Reservation();
-		//	reserve.set
-
-//			service.insertChlist(chlist);
-//			service.makeReserve();
-//			
-			return "program/apply";
-		}
-	
-	
 	
 }

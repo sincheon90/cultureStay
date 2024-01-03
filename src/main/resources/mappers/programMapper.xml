@@ -76,15 +76,16 @@
 	<!-- ///////////프로그램 화면////////////// --><!-- 수정해야댐 -->
 	<select id="programMainlist" parameterType="Map"
 		resultType="Program">
-		SELECT *
-		FROM Program
-		<if test="searchWord != null">
-			<where>
-				upper(title) like '%' || upper(#{searchWord}) || '%'
-			</where>
-		</if>
-
-
+	
+	SELECT *
+	FROM Program
+	<if test="searchWord != null">
+	    <where>
+	        upper(title) like '%' || upper(#{searchWord}) || '%'
+	    </where>
+	</if>
+	ORDER BY inputdate DESC
+	
 	</select>
 
 	<!-- 글쓰기 -->
@@ -250,5 +251,78 @@
 		and userid = #{userid}
 	</delete>
 
+	<insert id="insertReserveForm" parameterType="Reservation">
+		insert into Reservation
+		(
+		reserNum
+		, programNum
+		, hostid	
+		, userid
+		, start_date
+		, end_date
+		, request
+		
 
+		) values (
+		reserNum_seq.nextval
+		,#{programNum}
+		,#{hostid}
+		,#{userid}
+		,#{start_date}
+		,#{end_date}
+		,#{request}		
+		)
+	</insert>
+	
+
+	<insert id="insertChlist" parameterType="Checklist">
+		insert into Checklist
+		(
+		checklistID
+		, programNum
+		, reserNum
+		, userid
+		
+		, one
+		, two
+		, three
+		, four
+		, five
+		, six
+		, seven
+		, eight
+		, nine
+		, ten
+	
+		) values (
+		checklistID_seq.nextval
+		,#{programNum}
+		,#{reserNum}
+		,#{userid}
+		
+		,#{one}
+		,#{two}
+		,#{three}
+		,#{four}
+		,#{five}
+		,#{six}
+		,#{seven}
+		,#{eight}
+		,#{nine}
+		,#{ten}
+		)
+	</insert>
+	
+	
+	<select id="newReser" parameterType="String" resultType="Reservation">
+		select
+			*
+		from
+			Reservation
+		where
+			hostid = #{userid}
+			and status = 0
+	</select>
+	
+	
 </mapper>

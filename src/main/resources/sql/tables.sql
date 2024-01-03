@@ -151,12 +151,14 @@ drop table Review;
 CREATE TABLE Reservation (
 	reserNum	number		            primary key,
 	programNum	number		            references Program(programNum), 
+	hostid 		varchar2(255),	
 	userid	    varchar2(255)		    references cultureStay_member(userid),
 	start_date	date		    		NOT NULL,
 	end_date	date		    		NOT NULL,
     request	    varchar2(255)			NULL, --요청사항
 	payment 	number					NULL,   --결제수단(0,1,2,3)
-	status	    number					default 0       --예약상태(0,1,2,3)
+	status	    number					default 0,       --예약상태(0:예약신청완료,1:예약확정,2:완료된프로그램)
+	inputdate       date            default sysdate     -- 업로드 일자
 );
 create sequence reserNum_seq;
 select * from Reservation;
@@ -218,8 +220,8 @@ drop table image;
 CREATE TABLE Checklist(     
 	checklistID 	number 				primary key, -- 첨부파일 ID (PK)
 	programNum	number		            references Program(programNum),  
+	reserNum	number					references Reservation(reserNum),
 	userid          varchar2(255)		references cultureStay_member(userid),
-
 	one 			number	default 0,
 	two 			number	default 0,
 	three 			number	default 0,
@@ -230,7 +232,6 @@ CREATE TABLE Checklist(
 	eight 			number	default 0,
 	nine 			number	default 0,
 	ten 			number	default 0,
-	note 			varchar(255),
 	inputdate       date            default sysdate     -- 업로드 일자
 );
 create sequence checklistID_seq;

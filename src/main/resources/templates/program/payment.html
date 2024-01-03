@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>payment</title>
+</head>
+<body>
+payment
+<h3>총 결제금액</h3>
+<pre th:text="${totalPrice}"></pre>
+
+<h3>결제방식</h3>
+<h3>결제 동의 체크 </h3>
+
+<form th:action="@{/program/success}" method="post">
+
+	<table>
+			<tr>
+				<th>start_date</th>
+				<td>
+				<pre th:text="${start_date}"></pre>	
+				</td>
+			</tr>
+			<tr>
+				<th>end_date</th>
+				<td>
+					<pre th:text="${end_date}"></pre> 
+
+				</td>
+		</tr>
+		 
+	</table>
+<input type="hidden" name="start_date" th:value="${start_date}">
+<input type="hidden" name="end_date" th:value="${end_date}">
+<input type="hidden" name="programNum" th:value="${program.programNum}">
+<input type="hidden" name="totalPrice" th:value="${program.price}">
+<input type="hidden" name="request" th:value="${request}">
+
+
+    <button type="submit">예약하기</button>
+
+</form>
+
+</body>
+</html>

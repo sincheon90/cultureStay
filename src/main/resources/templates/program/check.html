@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>예약현황 확인</h1>
+
+	<table>
+		<h3>새로운 예약 신청</h3>
+			<tr th:each="reservation: ${reservation}">		
+			<th>신청자</th><td th:text="${reservation.userid}"></td>
+			<td>
+				<a th:href="@{/program/accept(reserNum=${reservation.reserNum})}" 
+					th:text="수락"></a>
+			</td>
+			
+		</tr>
+	</table>
+	<br>
+	신청자닉네임,날짜,자세히보기,수락버튼, 거절?..
+</body>
+</html>

@@ -9,11 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Reservation {
 	int reserNum;
-	int programNum;	 
+	int programNum;	
+	String hostid;
 	String userid;	
 	String start_date;
 	String end_date;
 	String request;	
     int payment; 	
     int status;	
+    String inputdate;
 }

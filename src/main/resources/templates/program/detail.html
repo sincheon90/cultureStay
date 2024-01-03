@@ -42,14 +42,20 @@
 				<pre th:text="${program.start_date}"></pre>
 			</td>
 		</tr>
-			<tr>
+		<tr>
 			<th>마감</th>
 		
 			<td>
 				<pre th:text="${program.end_date}"></pre>
 			</td>
 		</tr>
+			<tr>
+			<th>가격(1박기준)</th>
 		
+			<td>
+				<pre th:text="${program.price}"></pre>
+			</td>
+		</tr>
 		<tr>
 			<th>좋아요여부</th>
 		
@@ -89,18 +95,18 @@
 			<tr>
 			<th>start_date</th>
 			<td>
-				<textarea name="start_date"  ></textarea>
+				<textarea name="start_date" ></textarea>
 			</td>
 		</tr><tr>
 			<th>end_date</th>
 			<td>
-				<textarea name="end_date"  ></textarea>
+				<textarea name="end_date" ></textarea>
 			</td>
 		</tr>
 	</table>
-	
+	<input type="hidden" name="programNum" th:value="${program.programNum}">
+
     <button type="submit">예약하기</button>
-     <input type="hidden" name="programNum" th:value="${program.programNum}">
 
 </form>
 </body>
