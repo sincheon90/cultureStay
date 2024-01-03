@@ -24,6 +24,25 @@
 		}
 	</script>
 	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	
+	<script th:src="@{/js/jquery-3.6.0.js}"></script>
+	<script>
+				$(function () {
+					$('#btn').click(function () {
+						$.ajax({
+							url: 'recommend',
+							type: 'post',
+							data: {boardnum: $(this).attr('boardnum')},
+							success: function (n) {
+								$('#cnt').html(n);
+							},
+							error: function () {
+								alert('error');
+							}
+						});
+					});
+				});
+			</script>
 <script>
 	/*$(function () { 
 		   var liked = false;
@@ -139,16 +158,21 @@
 			<th>추천수</th>
 		
 			<td>
-				<pre th:text="${board_recommend}"></pre>
+				<input type="button" id="btn" th:boardnum="${board.boardnum}" value="추천">
+								<p id="cnt" th:text="${board.recommend}"></p> 
+				<!--<pre th:text="${board_recommend}"></pre>-->
 			</td>
 		</tr>
 	</table>
-	<form th:action="@{/board/recommend}" method="post">
+	
+<!--	<form th:action="@{/board/recommend}" method="post">
     <button type="submit">추천</button>
     
     <input type="hidden" name="boardnum" th:value="${board.boardnum}">
+    
+    
 
-</form>
+	</form>-->
 
 <!--	th:if="${#authentication.name == board.userid}"-->
 	<div  style="text-align: center;">

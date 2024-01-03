@@ -100,17 +100,23 @@ public class ProgramController {
 	public String pWriteForm(Program program, Image img, ProgramTag tag,
 			@AuthenticationPrincipal UserDetails user) {
 
-		log.debug("[write] 프로그램 태그 : {}", tag);
 
 		log.debug("호스트아이디 : {}",user.getUsername());
 		
 		program.setUserid(user.getUsername());
 			log.debug("프로그램 : {}",program);
 
-		//일단 파일은 어떻게 첨부할지 고민해보기,호스트용 체크리스트 생성해야됨
+		
 		int result = service.pWrite(program);
 		log.debug("프로그램 저장 성공 체크 : {}",result);
+		int programNum = service.pnumCheck(user.getUsername());
+		log.debug("프로그램넘버 가져오기 : {}",programNum);
+		tag.setProgramNum(programNum);
+		log.debug("[write] 프로그램 태그 : {}", tag);
 
+		int resultTag = service.tagInsert(tag);
+		log.debug("프로그램 태그 성공 체크 : {}",resultTag);
+		
 		return "redirect:/program/list";
 	}
 	
@@ -159,6 +165,8 @@ public class ProgramController {
 		model.addAttribute("programTag", programTag);
 		model.addAttribute("pReviewList", pReviewList);
 	
+		
+		//호스트정보,체크리스트-
 		return "program/detail";
 	}
 	

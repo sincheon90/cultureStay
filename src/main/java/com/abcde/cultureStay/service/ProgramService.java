@@ -41,8 +41,16 @@ public interface ProgramService {
 
 	ArrayList<Reservation> newReser(String username);
 
+	int pnumCheck(String username);
 
-//
-//	void insertChlist(Checklist chlist);
-//
+	int tagInsert(ProgramTag tag);
+
+	void reserveChecklist(Checklist checklist);
+
+	int getReserNum(int programNum, String userid);
+
+	void setReserNum(int reserNum, int programNum, String userid);
+
+
+
 }

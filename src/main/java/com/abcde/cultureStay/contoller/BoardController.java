@@ -122,14 +122,11 @@ public class BoardController {
 		ArrayList<Reply> replyList = rService.replyList(boardnum);
 		
 		//좋아요 상태(좋아요:1, 없음:0)
-		int recommendCnt =  service.recommendCnt(boardnum);
-	//	int program_like =  service.likeCheck(programNum,"aaa");//test용
-
-		log.debug("좋아요 상태: {}", recommendCnt);
-
-		
-		
-		model.addAttribute("board_recommend", recommendCnt);
+//		int recommendCnt =  service.recommendCnt(boardnum);
+//
+//		log.debug("좋아요 상태: {}", recommendCnt);
+//
+//		model.addAttribute("board_recommend", recommendCnt);
 		
 		// model 객체를 이용해 readForm.html에 출력하기
 		model.addAttribute("board", board);
@@ -244,22 +241,52 @@ public class BoardController {
 		
 		return "redirect:/board/read?boardnum=" + board.getBoardnum();
 	}
+//	@PostMapping("recommend")
+//	public String recommend(int boardnum,@AuthenticationPrincipal UserDetails user) {
+//		log.debug("추천 게시판 넘버 {}",boardnum);
+//			int board_recommend =  service.recommendCheck(boardnum,user.getUsername());
+//		//	int program_like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
+//			if(board_recommend==0) {
+//				//추천테이블 생성
+//				service.createRecommend(boardnum,user.getUsername());
+//				log.debug("췤케");
+//				}
+//			else {
+//				//테이블 삭제
+//				service.deleteRecommend(boardnum,user.getUsername());
+//				}
+//			
+//		return "redirect:/board/read?boardnum="+boardnum;	
+//	}
+	
+	@ResponseBody
 	@PostMapping("recommend")
-	public String recommend(int boardnum,@AuthenticationPrincipal UserDetails user) {
-		log.debug("추천 게시판 넘버 {}",boardnum);
-			int board_recommend =  service.recommendCheck(boardnum,user.getUsername());
-		//	int program_like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
-			if(board_recommend==0) {
-				//추천테이블 생성
-				service.createRecommend(boardnum,user.getUsername());
-				log.debug("췤케");
-				}
-			else {
-				//테이블 삭제
-				service.deleteRecommend(boardnum,user.getUsername());
-				}
-			
-		return "redirect:/board/read?boardnum="+boardnum;	
+	public int recommend(int boardnum, @AuthenticationPrincipal UserDetails user) {
+		// 현재 로그인한 유저의 id를 세팅
+		String id = user.getUsername();	
+		log.debug("아이디:{}", id);
+		log.debug("보드넘:{}", boardnum);
+		
+//		좋아요 테이블에 게시글번호, 유저아이디가 동시에 매칭되는 열이 있는지 체크 있으면 1 없음면 0
+		int check = service.checkLike(boardnum, id);
+		log.debug("체크:{}", check);
+//		좋아요 수를 담을 cnt
+		int cnt = 0;
+		
+		if (check == 0) {
+			log.debug("추천안했음");
+			service.addLike(boardnum, id);
+			service.upLike(boardnum);
+			cnt = service.selectCnt(boardnum);
+			return cnt;
+		} else {
+			log.debug("추천이미했음");
+			service.deleteLike(boardnum, id);
+			service.downLike(boardnum);
+			cnt = service.selectCnt(boardnum);
+			return cnt;
+		}
+		
 	}
 	
 	

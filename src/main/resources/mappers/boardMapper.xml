@@ -155,6 +155,56 @@
 	where
 		boardnum = #{boardnum}
 </update>
+
+<select id="checkLike" parameterType="map" resultType="int">
+		select
+		count(*)
+		from Board_like
+		where userid = #{id} and boardnum = #{boardnum}
+	</select>
+
+	<insert id="addLike" parameterType="map">
+		insert into
+		Board_like(userid,
+		boardnum)
+		values
+		(#{id}, #{boardnum})
+	</insert>
+
+	<update id="upLike" parameterType="int">
+		update
+		cultureStay_board
+		set
+		recommend =
+		recommend + 1
+		where
+		boardnum = #{boardnum}
+	</update>
+
+	<delete id="deleteLike" parameterType="map">
+		delete from Board_like
+		where
+		userid = #{id} and boardnum = #{boardnum}
+	</delete>
+
+	<update id="downLike" parameterType="int">
+		update
+		cultureStay_board
+		set
+		recommend
+		= recommend - 1
+		where
+		boardnum = #{boardnum}
+	</update>
+
+	<select id="selectCnt" parameterType="int" resultType="int">
+		select
+		recommend
+		from
+		cultureStay_board
+		where
+		boardnum = #{boardnum}
+	</select>
 	
 
 </mapper>

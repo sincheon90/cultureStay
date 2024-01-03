@@ -73,28 +73,28 @@ drop table recentClick;
 CREATE TABLE ProgramTag(
 	programNum	    number		  primary key references Program(programNum), 
 	--인원수
-	maxhito	    number,
+	--maxhito	    number,
 	--건물 유형
 	apartment      number     default 0, --아파트
     detached      number     default 0, --단독주택
 
 	--접근성 및 편의시설:와이파이,세탁기,에어컨,주자창,개인욕실,대중교통, 운전지원
-	wifi      		number     default 0,
-    laundry     	number     default 0,
-    aircon     		number     default 0,
-    parking    		number     default 0,
-    private_bath     	number     default 0,
-	public_transport    number     default 0,
-    car    		number     default 0,
-    nine   		number     default 0,
-    ten      	number     default 0,
+	separateBathroom      		number     default 0,
+    bathtub     	number     default 0,
+    wifi     		number     default 0,
+    transformer    		number     default 0,
+    pajamasProvided     	number     default 0,
+	hairdryer    number     default 0,
+    basicToiletriesProvided    		number     default 0,
+    petFriendly   		number     default 0,
+    roomAlone      	number     default 0,
 	
 
 	--호스트언어:한국어, 일본어, 영어, 중국어
-	kr      number     default 0,
-    eng     number     default 0,
-    jp    	number     default 0,
-    cn    	number     default 0,
+	langJapanese      number     default 0,
+    langEnglish     number     default 0,
+    langKorean    	number     default 0,
+ 
 
 
 	--추천,집계 위한 태그:
@@ -102,14 +102,14 @@ CREATE TABLE ProgramTag(
     creative     	number     default 0, --창의적
     healing    		number     default 0, --힐링
     traditional     number     default 0, --전통
-    cooking      	number     default 0, --요리체험
-    viewtag      		number     default 0, --뷰
+    cookingExperience      	number     default 0, --요리체험
+    scenicView      		number     default 0, --뷰
     countryside    	number     default 0, --시골
     city    		number     default 0, --도시
     festival     	number     default 0, --축제
     drive      		number     default 0, --드라이브
 	socializing     number     default 0, --친목
-	secluded      	number     default 0  --한적한
+	tranquil      	number     default 0  --한적한
 );
 select * from ProgramTag;
 drop table ProgramTag;
@@ -219,19 +219,19 @@ drop table image;
 -- 체크리스트 테이블
 CREATE TABLE Checklist(     
 	checklistID 	number 				primary key, -- 첨부파일 ID (PK)
-	programNum	number		            references Program(programNum),  
-	reserNum	number					references Reservation(reserNum),
+	programNum		number		        references Program(programNum),  
+	reserNum		number,
 	userid          varchar2(255)		references cultureStay_member(userid),
-	one 			number	default 0,
-	two 			number	default 0,
-	three 			number	default 0,
-	four 			number	default 0,
-	five 			number	default 0,
-	six 			number	default 0,
-	seven 			number	default 0,
-	eight 			number	default 0,
-	nine 			number	default 0,
-	ten 			number	default 0,
+	
+	petFriendly 				number	default 0,
+	allergyFriendly 			number	default 0,
+	chronicIllness 				number	default 0,
+	foodPreference 				number	default 0,
+	privateTime 				number	default 0,
+	preferredProgramType 		number	default 0,
+	languageSupport 			number	default 0,
+	smoking 					number	default 0,
+	
 	inputdate       date            default sysdate     -- 업로드 일자
 );
 create sequence checklistID_seq;
