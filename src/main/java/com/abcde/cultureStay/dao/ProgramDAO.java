@@ -51,6 +51,10 @@ public interface ProgramDAO {
 
 	ArrayList<Reservation> newReser(String userid);
 
+	int pnumCheck(String username);
+
+	int tagInsert(ProgramTag tag);
+
 
 
 

@@ -70,6 +70,17 @@ public class ProgramServiceImpl implements ProgramService{
 		return result;
 	}
 	
+	@Override
+	public int pnumCheck(String username) {
+		int result = dao.pnumCheck(username);		
+		return result;
+	}
+	
+	@Override
+	public int tagInsert(ProgramTag tag) {
+		int result = dao.tagInsert(tag);		
+		return result;
+	}
 	//프로그램 상세화면
 	@Override
 	public Program readProgram(int programNum) {

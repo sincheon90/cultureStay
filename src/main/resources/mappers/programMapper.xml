@@ -119,7 +119,15 @@
 		, #{end_date}
 		)
 	</insert>
+	<select id="pnumCheck" parameterType="String"
+		resultType="int">
+	SELECT programNum
+	FROM program
+	WHERE userid = #{username}
+	ORDER BY inputdate DESC
+	FETCH FIRST 1 ROW ONLY
 
+		</select>
 
 	<select id="readProgram" parameterType="int"
 		resultType="Program">
@@ -130,12 +138,79 @@
 		programNum = #{programNum}
 
 	</select>
+	
+	<!-- 글쓰기-태그넣기 -->
+	<insert id="tagInsert" parameterType="ProgramTag">
+		insert into ProgramTag
+		(
+		programNum
+		, apartment
+		, detached
+		
+		, active
+		, creative
+		, healing
+		, traditional
+		, cookingExperience
+		, scenicView
+		, countryside
+		, city
+		, festival
+		, drive
+		, socializing
+		, tranquil
+		
+		, separateBathroom
+		, bathtub
+		, wifi
+		, transformer
+		, pajamasProvided
+		, hairdryer
+		, basicToiletriesProvided
+		, petFriendly
+		, roomAlone
+		, langJapanese
+		, langEnglish
+		, langKorean
+		
+		) values (
+		 #{programNum}
+		,#{apartment}
+		,#{detached}
+		
+		,#{active}
+		,#{creative}
+		,#{healing}
+		,#{traditional}
+		,#{cookingExperience}
+		,#{scenicView}
+		,#{countryside}
+		,#{city}
+		,#{festival}
+		,#{drive}
+		,#{socializing}
+		,#{tranquil}
+		
+		,#{separateBathroom}
+		,#{bathtub}
+		,#{wifi}
+		,#{transformer}
+		,#{pajamasProvided}
+		,#{hairdryer}
+		,#{basicToiletriesProvided}
+		,#{petFriendly}
+		,#{roomAlone}
+		,#{langJapanese}
+		,#{langEnglish}
+		,#{langKorean}
+		)
+	</insert>
+
 
 	<!-- 수정해야댐 -->
 	<insert id="recentClick" parameterType="map">
 		insert into recentClick
 		(
-
 		clickNum
 		,programNum
 		, userid

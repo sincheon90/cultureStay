@@ -14,15 +14,14 @@ public class Checklist {
 	int reserNum; //예약번호
 	String userid;
 	
-	int one;	 
-	int two;		 
-	int three; 		 
-	int four; 			 
-	int five; 		 
-	int six;		 
-	int seven; 			 
-	int eight; 			 
-	int nine; 			 
-	int ten; 			 			 
+	// 게스트용 체크리스트
+		private int allergyFriendly; // 알러지 유무
+		private int chronicIllness; // 지병 유무
+		private int foodPreference; // 식단 선호도
+		private int privateTime; // 개인시간 원하는지 여부
+		private int preferredProgramType; // 선호하는 프로그램 유형
+		private int languageSupport; // 언어대응 가능 여부
+		private int smoking; // 흡연 유무
+		
 	String inputdate;          
 }
