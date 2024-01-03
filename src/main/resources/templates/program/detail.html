@@ -28,10 +28,23 @@
 	<!-- 프로그램 설명 컨테이너-->
 	<div>
 		<div class="like-bookmark-container">
-			<i class="far fa-heart" onclick="like(this, {{ post.post_id }})"></i>
-			<i class="fas fa-heart" onclick="unlike(this, {{ post.post_id }})"></i>
-			<i class="far fa-bookmark" onclick="bookmark(this, {{ post.post_id }})"></i>
-			<i class="fas fa-bookmark" onclick="unbookmark(this, {{ post.post_id }})"></i>
+			<form th:action="@{/program/like}" method="post">
+				<button type="submit">좋아요</button>
+
+				<input type="hidden" name="programNum" th:value="${program.programNum}">
+
+			</form>
+
+			<form th:action="@{/program/bookmark}" method="post">
+				<button type="submit">북마크</button>
+				<input type="hidden" name="programNum" th:value="${program.programNum}">
+
+			</form>
+
+			<i th:if="${program_like == 0}" class="far fa-heart" onclick="like(this, {{ post.post_id }})"></i>
+			<i th:if="${program_like == 1}" class="fas fa-heart" onclick="unlike(this, {{ post.post_id }})"></i>
+			<i th:if="${program_bookmark == 0}" class="far fa-bookmark" onclick="bookmark(this, {{ post.post_id }})"></i>
+			<i th:if="${program_bookmark == 1}" class="fas fa-bookmark" onclick="unbookmark(this, {{ post.post_id }})"></i>
 		</div>
 		<div class="with-reservation-container">
 			<div class="reservation-left">
@@ -63,7 +76,7 @@
 					</div>
 
 					<div class="button-wrapper">
-						<button type="submit" class="btn-save">작성</button>
+						<button type="submit" class="btn-save">예약하기</button>
 					</div>
 
 					<div class="price-sum">
@@ -168,18 +181,7 @@
 	<br><br>
 비회원은 클릭 못하도록 설정
 <br>
-<form th:action="@{/program/like}" method="post">
-    <button type="submit">좋아요</button>
-    
-    <input type="hidden" name="programNum" th:value="${program.programNum}">
 
-</form>
-
-<form th:action="@{/program/bookmark}" method="post">
-    <button type="submit">북마크</button>
-     <input type="hidden" name="programNum" th:value="${program.programNum}">
-
-</form>
 <br>
 <form th:action="@{/program/apply}" method="get">
 	날짜선택(달력)
