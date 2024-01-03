@@ -78,7 +78,11 @@
 					</div>
 
 					<div class="price-sum">
-						<p>price</p>
+						<p>가격(1박기준)</p>
+						<pre th:text="${program.price}"></pre>
+
+						<p>가격(1박기준 * 일수)</p>
+						<pre th:text="${program.price} + ' * 5 = '"></pre>
 					</div>
 				</article>
 			</div>
@@ -157,21 +161,6 @@
 		
 			<td>
 				<pre th:text="${program.price}"></pre>
-			</td>
-		</tr>
-		<tr>
-			<th>좋아요여부</th>
-		
-			<td>
-				<pre th:text="${program_like}"></pre>
-			</td>
-		</tr>
-		
-		<tr>
-			<th>북마크여부</th>
-		
-			<td>
-				<pre th:text="${program_bookmark}"></pre>
 			</td>
 		</tr>
 		
