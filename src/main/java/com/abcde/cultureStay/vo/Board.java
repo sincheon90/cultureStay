@@ -16,6 +16,6 @@ public class Board {
 	    int hits;
 	    String originalfile;
 	    String savedfile;
-	    int likehit=0;
+	    int recommend;
 
 }

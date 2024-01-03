@@ -32,6 +32,18 @@ public interface BoardDAO {
 	void deleteRecommend(HashMap<String, Object> recommendMap);
 
 	Integer recommendCnt(int boardnum);
+
+	void addLike(HashMap<String, Object> map);
+
+	int checkLike(HashMap<String, Object> map);
+
+	void upLike(int boardnum);
+
+	int selectCnt(int boardnum);
+
+	void deleteLike(HashMap<String, Object> map);
+
+	void downLike(int boardnum);
 	
 
 }

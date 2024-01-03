@@ -19,12 +19,24 @@ public interface BoardService {
 
 	int updateBoard(Board board);
 
-	int recommendCheck(int boardnum, String userid);
+//	int recommendCheck(int boardnum, String userid);
+//
+//	void createRecommend(int boardnum, String userid);
+//
+//	void deleteRecommend(int boardnum, String userid);
+//
+//	int recommendCnt(int boardnum);
 
-	void createRecommend(int boardnum, String userid);
+	void addLike(int boardnum, String id);
 
-	void deleteRecommend(int boardnum, String userid);
+	int checkLike(int boardnum, String id);
 
-	int recommendCnt(int boardnum);
+	void upLike(int boardnum);
+
+	int selectCnt(int boardnum);
+
+	void deleteLike(int boardnum, String id);
+
+	void downLike(int boardnum);
 
 }

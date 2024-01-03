@@ -86,47 +86,92 @@ public class BoardServiceImpl implements BoardService{
 		return result;
 	}
 
+//	@Override
+//	public int recommendCheck(int boardnum, String userid) {
+//		HashMap<String, Object> recommendMap =  getMap(boardnum, userid);
+//		log.debug("맵 {}",recommendMap);
+//		Integer result =  dao.recommendCheck(recommendMap);
+//		if(result == null) {
+//			result = 0;
+//		}
+//		return result;
+//	}
+
+//	private HashMap<String, Object> getMap(int boardnum, String userid) {
+//		HashMap<String, Object> recommendMap = new HashMap<>();
+//		recommendMap.put("boardnum", boardnum);
+//		recommendMap.put("userid", userid);
+//		return recommendMap;
+//	}
+
+//	@Override
+//	public void createRecommend(int boardnum, String userid) {
+//
+//
+//		HashMap<String, Object> recommendMap = getMap(boardnum, userid);
+//		dao.createRecommend(recommendMap);
+//
+//	}
+//
+//	@Override
+//	public void deleteRecommend(int boardnum, String userid) {
+//		HashMap<String, Object> recommendMap = getMap(boardnum, userid);
+//		dao.deleteRecommend(recommendMap);
+//
+//	}
+//
+//	@Override
+//	public int recommendCnt(int boardnum) {
+//		Integer result =  dao.recommendCnt(boardnum);
+//		if(result == null) {
+//			result = 0;
+//		}
+//		return result;
+//	}
+
 	@Override
-	public int recommendCheck(int boardnum, String userid) {
-		HashMap<String, Object> recommendMap =  getMap(boardnum, userid);
-		log.debug("맵 {}",recommendMap);
-		Integer result =  dao.recommendCheck(recommendMap);
-		if(result == null) {
-			result = 0;
-		}
-		return result;
+	public void addLike(int boardnum, String id) {
+		HashMap<String, Object> map = getMap(boardnum, id);
+		dao.addLike(map);
 	}
 
-	private HashMap<String, Object> getMap(int boardnum, String userid) {
-		HashMap<String, Object> recommendMap = new HashMap<>();
-		recommendMap.put("boardnum", boardnum);
-		recommendMap.put("userid", userid);
-		return recommendMap;
+	private HashMap<String, Object> getMap(int boardnum, String id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("boardnum", boardnum);
+		map.put("id" , id);
+		return map;
+	}
+	
+	@Override
+	public int checkLike(int boardnum, String id) {
+		HashMap<String, Object> map = getMap(boardnum, id);
+		int check = dao.checkLike(map);
+		return check;
 	}
 
 	@Override
-	public void createRecommend(int boardnum, String userid) {
-
-
-		HashMap<String, Object> recommendMap = getMap(boardnum, userid);
-		dao.createRecommend(recommendMap);
-
+	public void upLike(int boardnum) {
+		dao.upLike(boardnum);
+		
 	}
 
 	@Override
-	public void deleteRecommend(int boardnum, String userid) {
-		HashMap<String, Object> recommendMap = getMap(boardnum, userid);
-		dao.deleteRecommend(recommendMap);
-
+	public int selectCnt(int boardnum) {
+		int cnt = dao.selectCnt(boardnum);
+		return cnt;
 	}
 
 	@Override
-	public int recommendCnt(int boardnum) {
-		Integer result =  dao.recommendCnt(boardnum);
-		if(result == null) {
-			result = 0;
-		}
-		return result;
+	public void deleteLike(int boardnum, String id) {
+		HashMap<String, Object> map = getMap(boardnum, id);
+		dao.deleteLike(map);
+		
+	}
+
+	@Override
+	public void downLike(int boardnum) {
+		dao.downLike(boardnum);
+		
 	}
 
 }
