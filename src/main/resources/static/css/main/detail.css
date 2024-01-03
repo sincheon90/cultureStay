@@ -82,3 +82,7 @@ input[type="text"] {
 .like-bookmark-wrapper .mark {
     padding: 10px;
 }
+
+.clickable {
+    cursor: pointer; /* 마우스 호버 시 포인터 모양 변경 */
+}

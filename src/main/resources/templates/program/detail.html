@@ -43,10 +43,10 @@
 					</div>
 
 					<div class="like-bookmark-wrapper">
-						<img class="mark" th:if="${program_like == 0}" th:src="@{/img/mark/heart.png}" alt="heart" style="width: 20px; height: 20px;">
-						<img class="mark" th:if="${program_like == 1}" th:src="@{/img/mark/unheart.png}" alt="unheart" style="width: 20px; height: 20px;">
-						<img class="mark" th:if="${program_bookmark == 0}" th:src="@{/img/mark/bookmark.png}" alt="bookmark" style="width: 20px; height: 20px;">
-						<img class="mark" th:if="${program_bookmark == 1}" th:src="@{/img/mark/unbookmark.png}" alt="unbookmark" style="width: 20px; height: 20px;">
+						<img class="mark clickable" th:if="${program_like == 0}" th:src="@{/img/mark/heart.png}" alt="heart" style="width: 20px; height: 20px;">
+						<img class="mark clickable" th:if="${program_like == 1}" th:src="@{/img/mark/unheart.png}" alt="unheart" style="width: 20px; height: 20px;">
+						<img class="mark clickable" th:if="${program_bookmark == 0}" th:src="@{/img/mark/bookmark.png}" alt="bookmark" style="width: 20px; height: 20px;">
+						<img class="mark clickable" th:if="${program_bookmark == 1}" th:src="@{/img/mark/unbookmark.png}" alt="unbookmark" style="width: 20px; height: 20px;">
 					</div>
 				</div>
 		
