@@ -218,7 +218,7 @@ public class ProgramController {
 		//	chlist.setProgramNum(programNum);
 			log.debug("체크리스트 : {}", chlist);
 			
-			Reservation reserve = new Reservation()
+			Reservation reserve = new Reservation();
 		//	reserve.set
 
 //			service.insertChlist(chlist);

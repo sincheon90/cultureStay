@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정</title>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 function checkValid(){
         let userid = document.querySelector('#userid');
@@ -12,7 +13,8 @@ function checkValid(){
         let gender = document.querySelector('#gender');
         let birth = document.querySelector('#birth');
         let phone = document.querySelector('#phone');
-        let address = document.querySelector('#address');
+        let address_postcode = document.querySelector('#address_postcode');
+        let address_address = document.querySelector('#address_address');
         let email = document.querySelector('#email');
         let profileImage = document.querySelector('#profileImage');
 
@@ -31,10 +33,14 @@ function checkValid(){
 			alert("연락처를 입력하세요.");
 			return false;
 		}
-		if (address.value == '') {
-			alert("주소를 입력하세요.");
-			return false;
-		}
+		if (address_postcode.value == '') {
+         alert("주소를 입력하세요.");
+         return false;
+      	}
+      	if (address_address.value == '') {
+         	alert("주소를 입력하세요.");
+         	return false;
+      	}
 		if (email.value == '') {
 			alert("메일주소를 입력하세요.");
 			return false;
@@ -51,6 +57,41 @@ function checkValid(){
     function checkLength(obj){
         if(obj.length < 3 || obj.length >=10) return false;
         return true;
+    }
+    
+     //카카오 주소입력 api
+        function address() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = '';
+                var extraAddr = '';
+
+                if (data.userSelectedType === 'R') {
+                    addr = data.roadAddress;
+                } else {
+                    addr = data.jibunAddress;
+                }
+
+                if (data.userSelectedType === 'R') {
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraAddr += data.bname;
+                    }
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if (extraAddr !== '') {
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    document.getElementById("address_extraAddress").value = extraAddr;
+                } else {
+                    document.getElementById("address_extraAddress").value = '';
+                }
+
+                document.getElementById('address_postcode').value = data.zonecode;
+                document.getElementById("address_address").value = addr;
+                document.getElementById("address_detailAddress").focus();
+            }
+        }).open();
     }
     
 </script>
@@ -94,12 +135,22 @@ function checkValid(){
                 <input type="text" name="phone" id="phone" th:value="${member.phone}">
              </td>
           </tr>
-          <tr>
+          <!--<tr>
              <th>주소</th>
              <td>
                 <input type="text" name="address" id="address" th:value="${member.address}">
              </td>
-          </tr>
+          </tr> -->
+          <tr>
+			  <th>주소</th>
+			  <td>
+			  	<input type="text" name="address_postcode" id="address_postcode" placeholder="우편번호" th:value="${member.address_postcode}">
+    		  	<input type="button" onclick="address()" value="우편번호 찾기"><br>
+    		  	<input type="text" name="address_address" id="address_address" placeholder="주소" th:value="${member.address_address}"><br>
+    		  	<input type="text" name="address_detailAddress" id="address_detailAddress" placeholder="상세주소" th:value="${member.address_detailAddress}">
+    		  	<input type="text" name="address_extraAddress" id="address_extraAddress" placeholder="참고항목" th:value="${member.address_extraAddress}">
+    		  </td>
+		  </tr>
           <tr>
              <th>이메일</th>
              <td>

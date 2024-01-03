@@ -4,6 +4,22 @@
 <head>
 <meta charset="UTF-8">
 <title>글수정</title>
+<div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
+	
+<!-- 구글번역 api -->	
+	<script>
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement({
+				pageLanguage: 'en',
+				includedLanguages: 'ko,en,ja,zh-CN,fr',
+				//layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+				autoDisplay: false,
+				multilanguagePage: true
+			}, 'google_translate_element');
+		}
+	</script>
+	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- 구글번역 api -->	
 <script>
 //글수정폼 확인
 function validation() {

@@ -5,6 +5,23 @@
 <title>join</title>
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
+	
+	
+	<script>
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement({
+				pageLanguage: 'en',
+				includedLanguages: 'ko,en,ja,zh-CN,fr',
+				//layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+				autoDisplay: false,
+				multilanguagePage: true
+			}, 'google_translate_element');
+		}
+	</script>
+	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <script>
    function idCheck() {
       // url경로, 이름, 속성
@@ -189,16 +206,28 @@ function uploadAndPreview() {
                 <input type="text" name="name" id="name" placeholder="이름 입력">
              </td>
           </tr>
-          <tr>
+         <!-- <tr>
              <th>성별</th>
              <td>
                 <input type="text" name="gender" id="gender" placeholder="성별 ex)남:m,여:f">
+             </td>
+          </tr> -->
+          <tr>
+             <th>성별</th>
+             <td>
+                <select id="gender" name="gender">
+					<option value="남자" th:selected="${gender} == 'male'">남자</option>
+					<option value="여자" th:selected="${gender} == 'female'">여자</option>
+				</select>
              </td>
           </tr>
           <tr>
              <th>생년월일</th>
              <td>
-                <input type="number" name="birth" id="birth" placeholder="숫자8자리 ex)20231211">
+                <!--<input type="number" name="birth" id="birth" placeholder="숫자8자리 ex)20231211">-->
+                <form>
+      				<p><input type="date" name="birth" id="birth"></p>
+    			</form>
              </td>
           </tr>
           <tr>

@@ -63,7 +63,10 @@
 		set
 			
 			 phone = #{phone}
-			, address = #{address}
+			, address_postcode = #{address_postcode}
+			, address_address = #{address_address}
+			, address_detailAddress = #{address_detailAddress}
+			, address_extraAddress = #{address_extraAddress}
 			, email = #{email}
 			
 			<if test="password != null or password != ''">
