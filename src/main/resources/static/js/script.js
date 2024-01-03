@@ -1,6 +1,6 @@
-document.querySelector('.dropbtn').addEventListener('click', function() {
-  document.querySelector('.dropdown-content').classList.toggle('show');
-});
+//document.querySelector('.dropbtn').addEventListener('click', function() {
+//  document.querySelector('.dropdown-content').classList.toggle('show');
+//});
 
 // 메뉴 외부를 클릭할 경우 드롭다운 닫기
 window.onclick = function(event) {
@@ -47,3 +47,35 @@ function truncateContent() {
         }
     });
 }
+
+
+$(document).ready(function() {
+  $('#dateinput').daterangepicker({
+    autoUpdateInput: false,
+    timePicker: false,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(48, 'hour'),
+    locale: {
+            cancelLabel: 'Clear',
+            separator: " ~ ",
+            applyLabel: "적용",
+            cancelLabel: "취소",
+            fromLabel: "From",
+            toLabel: "To",
+            customRangeLabel: "Custom",
+            daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+            monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+            format: 'YYYY/MM/DD'
+        }
+  });
+
+    $('#dateinput').on('apply.daterangepicker', function(ev, picker) {
+      $('input[name="start_date"]').val(picker.startDate.format('YYYYMMDD'));
+      $('input[name="end_date"]').val(picker.endDate.format('YYYYMMDD'));
+    });
+
+    $('.dateinput').click(function() {
+        $('#dateinput').data('daterangepicker').show();
+    });
+
+});

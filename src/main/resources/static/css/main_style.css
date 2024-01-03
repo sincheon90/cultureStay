@@ -76,9 +76,6 @@
     transition: transform 0.3s ease; /* 부드러운 transition 효과 */
 }
 
-.search-section {
-    /*background-color: var(--secondary-color);*/
-}
 
 
 
@@ -136,9 +133,6 @@
     z-index: 10; /* Ensure the scaled item is above others */
 }
 
-.search-section {
-    /*background-color: var(--secondary-color);*/
-}
 
 .add_link a {
     text-decoration: none; /* 밑줄 제거 */
@@ -175,6 +169,7 @@
 .content-article-footer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .tags {
@@ -184,3 +179,6 @@
 .tag {
     margin-right: 10px; /* 태그 사이 간격 조정 */
 }
+
+
+
