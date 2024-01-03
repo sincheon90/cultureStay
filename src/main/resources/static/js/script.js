@@ -51,6 +51,7 @@ function truncateContent() {
 
 $(document).ready(function() {
   $('#dateinput').daterangepicker({
+//    opens: 'left',
     autoUpdateInput: false,
     timePicker: false,
     startDate: moment().startOf('hour'),
@@ -72,6 +73,7 @@ $(document).ready(function() {
     $('#dateinput').on('apply.daterangepicker', function(ev, picker) {
       $('input[name="start_date"]').val(picker.startDate.format('YYYYMMDD'));
       $('input[name="end_date"]').val(picker.endDate.format('YYYYMMDD'));
+      $('input[id="dateinput"]').val(picker.startDate.format('YYYYMMDD') + " ~ " + picker.endDate.format('YYYYMMDD'))
     });
 
     $('.dateinput').click(function() {
