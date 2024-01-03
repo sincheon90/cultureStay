@@ -96,6 +96,10 @@ public class ReservationController {
 		return "program/check";
 	}
 	
-	
-//	service.insertChlist(chlist); //체크리스트 디비 저장
+	@GetMapping("accept")
+	public String accept(@AuthenticationPrincipal UserDetails user, Model model) {
+		 
+		return "program/accept";
+	}
+ 
 }
