@@ -165,6 +165,8 @@ public class ProgramController {
 		model.addAttribute("programTag", programTag);
 		model.addAttribute("pReviewList", pReviewList);
 	
+		
+		//호스트정보,체크리스트-
 		return "program/detail";
 	}
 	

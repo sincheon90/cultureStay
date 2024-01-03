@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.abcde.cultureStay.service.ProgramService;
+import com.abcde.cultureStay.vo.Checklist;
 import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.Reservation;
 
@@ -27,7 +28,7 @@ public class ReservationController {
 	
 	@GetMapping("apply")
 	public String apply(Model model,
-			String start_date, String end_date, int programNum) {
+		String start_date, String end_date, int programNum) {
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		Program program = service.readProgram(programNum);
@@ -36,10 +37,22 @@ public class ReservationController {
 		return "program/apply";
 	}
 	
+	//고객체크리스트 저장
+	@PostMapping("checklist")
+	public String checklist(@AuthenticationPrincipal UserDetails user,Checklist checklist) {
+		checklist.setUserid(user.getUsername());
+		log.debug("체크리스트{}",checklist);
+		
+		service.reserveChecklist(checklist);
+		
+		return "redirect:/program/apply";
+	}
+	
+	
 	@PostMapping("payment")
 	public String payment(Model model,String request,
 			String start_date, String end_date, int programNum, int totalPrice) {
-//		log.debug("끝{}",programNum);
+ 
 		log.debug("끝{}",request);
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
@@ -66,6 +79,11 @@ public class ReservationController {
 		reserveForm.setEnd_date(end_date);
 		reserveForm.setRequest(request);
 		int result = service.insertReserveForm(reserveForm);
+		log.debug("예약체크리스트 전 예약테이블확인{}",reserveForm);
+		int reserNum = service.getReserNum(programNum,user.getUsername());
+		log.debug("성공 reserNum{}",reserNum);
+
+		service.setReserNum(reserNum,programNum,user.getUsername());
 		
 		return "program/success";
 	}

@@ -55,6 +55,12 @@ public interface ProgramDAO {
 
 	int tagInsert(ProgramTag tag);
 
+	void reserveChecklist(Checklist checklist);
+
+	int getReserNum(HashMap<String, Object> map);
+
+	void setReserNum(HashMap<String, Object> map);
+
 
 
 

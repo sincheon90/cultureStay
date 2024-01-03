@@ -45,8 +45,12 @@ public interface ProgramService {
 
 	int tagInsert(ProgramTag tag);
 
+	void reserveChecklist(Checklist checklist);
 
-//
-//	void insertChlist(Checklist chlist);
-//
+	int getReserNum(int programNum, String userid);
+
+	void setReserNum(int reserNum, int programNum, String userid);
+
+
+
 }

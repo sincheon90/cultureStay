@@ -11,28 +11,11 @@
 <h2>checklist</h2>
 
 <form th:action="@{/program/checklist}" method="post">
-	<input type="hidden" name="programNum" th:value="${program.programNum}">
-	<input type="hidden" name="totalPrice" th:value="${program.price}">
+<input type="hidden" name="start_date" th:value="${start_date}">
+<input type="hidden" name="end_date" th:value="${end_date}">
+<input type="hidden" name="programNum" th:value="${program.programNum}">
+<input type="hidden" name="totalPrice" th:value="${program.price}">
 
-
-	<div>
-		<h4>1. 1번질문</h4>		
-		<input type = "radio" name = "one" value = "1"> yes
-		<input type = "radio" name = "one" value = "0"> no
-	</div>
-	<div>
-		<h4>2. 2번질문</h4>		
-		<input type = "radio" name = "two" value = "1"> yes
-		<input type = "radio" name = "two" value = "0"> no
-	</div>
-	<div>
-		<h4>3. 3번질문</h4>		
-		<input type = "radio" name = "three" value = "1"> yes
-		<input type = "radio" name = "three" value = "0"> no
-	</div>
-		
-	<br>
-	<div class="checklist-container">
 	<!-- 게스트용 체크리스트 -->
 			<div>
 				<h3>게스트용 체크리스트</h3>
@@ -48,8 +31,8 @@
 
 		<input type="submit" value="저장하기"> 
 
-</div>
-	</form>
+	</div>
+</form>
 
 
 <form th:action="@{/program/payment}" method="post">
@@ -72,7 +55,7 @@
 		</tr>
 		<tr>
 			<th>가격</th>
-		
+
 			<td>
 				<pre th:text="${program.price}"></pre>(일수만큼 곱하기)
 			</td>

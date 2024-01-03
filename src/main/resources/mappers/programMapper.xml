@@ -205,7 +205,42 @@
 		,#{langKorean}
 		)
 	</insert>
+		<!-- 글쓰기-태그넣기 -->
+	<insert id="reserveChecklist" parameterType="Checklist">
+		insert into Checklist
+		(
+		checklistID
+		, programNum
+		, reserNum
+		, userid
+		
+		, petFriendly
+		, allergyFriendly
+		, chronicIllness
+		, foodPreference
+		, privateTime
+		, preferredProgramType
+		, languageSupport
+		, smoking
+		
+		) values (
+		checklistID_seq.nextval		
+		,#{programNum}
+		,#{reserNum}
+		,#{userid}
+		
+		,#{petFriendly}
+		,#{allergyFriendly}
+		,#{chronicIllness}
+		,#{foodPreference}
+		,#{privateTime}
+		,#{preferredProgramType}
+		,#{languageSupport}
+		,#{smoking}
 
+		)
+	</insert>
+	
 
 	<!-- 수정해야댐 -->
 	<insert id="recentClick" parameterType="map">
@@ -399,5 +434,25 @@
 			and status = 0
 	</select>
 	
-	
+	<select id="getReserNum" parameterType="map"
+		resultType="int">
+	SELECT reserNum
+	FROM Reservation
+	WHERE programNum = #{programNum}
+		and userid = #{userid}
+	ORDER BY inputdate DESC
+	FETCH FIRST 1 ROW ONLY
+		</select>
+	 
+	<update id="setReserNum" parameterType="map">
+		update
+		Checklist
+		set
+		reserNum = #{reserNum}
+		where
+		programNum = #{programNum}
+		and userid = #{userid}
+		AND inputdate = (SELECT MAX(inputdate) FROM Checklist WHERE programNum = #{programNum} AND userid = #{userid})
+
+	</update>
 </mapper>

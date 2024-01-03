@@ -15,6 +15,7 @@ public class Checklist {
 	String userid;
 	
 	// 게스트용 체크리스트
+		private int petFriendly; //반려동물 유무
 		private int allergyFriendly; // 알러지 유무
 		private int chronicIllness; // 지병 유무
 		private int foodPreference; // 식단 선호도

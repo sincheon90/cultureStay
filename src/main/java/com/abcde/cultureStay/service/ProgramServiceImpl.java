@@ -190,5 +190,22 @@ public class ProgramServiceImpl implements ProgramService{
 		ArrayList<Reservation> result = dao.newReser(userid);
 		return result;
 	}
+	
+	@Override
+	public void reserveChecklist(Checklist checklist) {
+		dao.reserveChecklist(checklist);		
+	}
+	@Override
+	public int getReserNum(int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		int result = dao.getReserNum(map);	
+		return result;
+	}
+	@Override
+	public void setReserNum(int reserNum, int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		map.put("reserNum", reserNum);
+		dao.setReserNum(map);	
+	}
 
 }

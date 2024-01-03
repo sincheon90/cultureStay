@@ -219,19 +219,19 @@ drop table image;
 -- 체크리스트 테이블
 CREATE TABLE Checklist(     
 	checklistID 	number 				primary key, -- 첨부파일 ID (PK)
-	programNum	number		            references Program(programNum),  
-	reserNum	number					references Reservation(reserNum),
+	programNum		number		        references Program(programNum),  
+	reserNum		number,
 	userid          varchar2(255)		references cultureStay_member(userid),
-	one 			number	default 0,
-	two 			number	default 0,
-	three 			number	default 0,
-	four 			number	default 0,
-	five 			number	default 0,
-	six 			number	default 0,
-	seven 			number	default 0,
-	eight 			number	default 0,
-	nine 			number	default 0,
-	ten 			number	default 0,
+	
+	petFriendly 				number	default 0,
+	allergyFriendly 			number	default 0,
+	chronicIllness 				number	default 0,
+	foodPreference 				number	default 0,
+	privateTime 				number	default 0,
+	preferredProgramType 		number	default 0,
+	languageSupport 			number	default 0,
+	smoking 					number	default 0,
+	
 	inputdate       date            default sysdate     -- 업로드 일자
 );
 create sequence checklistID_seq;
