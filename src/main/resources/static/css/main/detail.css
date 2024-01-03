@@ -66,5 +66,19 @@ input[type="text"] {
 
 
 
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
 
-/* 좋아요와 북마크 아이콘 스타일 */
+.like-bookmark-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Align icons to the right */
+    align-items: center; /* Center items vertically */
+    margin-top: auto; /* Push to the bottom of the container */
+}
+
+.like-bookmark-wrapper .mark {
+    padding: 10px;
+}

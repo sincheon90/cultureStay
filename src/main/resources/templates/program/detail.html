@@ -19,15 +19,9 @@
 
 <main>
 
-	<!-- -사진<br>-->
-	<!-- -기본정보(제목,호스트, 위치, 리뷰, 가격, 날짜, 조회수)<br>-->
-	<!-- -컨텐츠<br>-->
-	<!-- -프로그램 태그(접근성 및 편의시설, 건물유형, 위치지도?,호스트언어,태그)<br>-->
-	<!-- -좋아요, 북마크 상태(0이면 없음, 1이면 있음)-->
-
 	<!-- 프로그램 설명 컨테이너-->
 	<div>
-		<div class="like-bookmark-container">
+
 			<form th:action="@{/program/like}" method="post">
 				<button type="submit">좋아요</button>
 
@@ -41,15 +35,19 @@
 
 			</form>
 
-			<i th:if="${program_like == 0}" class="far fa-heart" onclick="like(this, {{ post.post_id }})"></i>
-			<i th:if="${program_like == 1}" class="fas fa-heart" onclick="unlike(this, {{ post.post_id }})"></i>
-			<i th:if="${program_bookmark == 0}" class="far fa-bookmark" onclick="bookmark(this, {{ post.post_id }})"></i>
-			<i th:if="${program_bookmark == 1}" class="fas fa-bookmark" onclick="unbookmark(this, {{ post.post_id }})"></i>
-		</div>
 		<div class="with-reservation-container">
 			<div class="reservation-left">
-				<div>
-					<h2 th:text="${program.title}"></h2>
+				<div class="title-container">
+					<div class="title-wrapper">
+						<h2 th:text="${program.title}"></h2>
+					</div>
+
+					<div class="like-bookmark-wrapper">
+						<img class="mark" th:if="${program_like == 0}" th:src="@{/img/mark/heart.png}" alt="heart" style="width: 20px; height: 20px;">
+						<img class="mark" th:if="${program_like == 1}" th:src="@{/img/mark/unheart.png}" alt="unheart" style="width: 20px; height: 20px;">
+						<img class="mark" th:if="${program_bookmark == 0}" th:src="@{/img/mark/bookmark.png}" alt="bookmark" style="width: 20px; height: 20px;">
+						<img class="mark" th:if="${program_bookmark == 1}" th:src="@{/img/mark/unbookmark.png}" alt="unbookmark" style="width: 20px; height: 20px;">
+					</div>
 				</div>
 		
 				<div>
