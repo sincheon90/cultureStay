@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h2>프로그램 디테일</h2>
+-사진<br>
+-기본정보(제목,호스트, 위치, 리뷰, 가격, 날짜, 조회수)<br>
+-컨텐츠<br>
+-프로그램 태그(접근성 및 편의시설, 건물유형, 위치지도?,호스트언어,태그)<br>
+-좋아요, 북마크 상태(0이면 없음, 1이면 있음)
+<br><br>
+	
+<table>
+		<tr>
+			<th>글번호</th>
+			<td style="width: 80px;" th:text="${program.programNum}"></td>
+			<th>조회수</th>
+			<td style="width: 50px;" th:text="${program.hits}"></td>
+			<th>작성일</th>
+			<td style="width: 150px;" th:text="${program.inputdate}"></td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td colspan="3" th:text="${program.title}"></td>
+			<th>작성자</th>
+			<td th:text="${program.userid}"></td>
+		</tr>
+		<tr>
+			<th>내용</th>
+		
+			<td>
+				<pre th:utext="${program.content}"></pre>
+			</td>
+		</tr>
+		<tr>
+			<th>시작일</th>
+		
+			<td>
+				<pre th:text="${program.start_date}"></pre>
+			</td>
+		</tr>
+		<tr>
+			<th>마감</th>
+		
+			<td>
+				<pre th:text="${program.end_date}"></pre>
+			</td>
+		</tr>
+			<tr>
+			<th>가격(1박기준)</th>
+		
+			<td>
+				<pre th:text="${program.price}"></pre>
+			</td>
+		</tr>
+		<tr>
+			<th>좋아요여부</th>
+		
+			<td>
+				<pre th:text="${program_like}"></pre>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>북마크여부</th>
+		
+			<td>
+				<pre th:text="${program_bookmark}"></pre>
+			</td>
+		</tr>
+		
+	</table>(1:좋아요, 0:좋아요아님)
+	<br><br>
+비회원은 클릭 못하도록 설정
+<br>
+<form th:action="@{/program/like}" method="post">
+    <button type="submit">좋아요</button>
+    
+    <input type="hidden" name="programNum" th:value="${program.programNum}">
+
+</form>
+
+<form th:action="@{/program/bookmark}" method="post">
+    <button type="submit">북마크</button>
+     <input type="hidden" name="programNum" th:value="${program.programNum}">
+
+</form>
+<br>
+<form th:action="@{/program/apply}" method="get">
+	날짜선택(달력)
+	<table>
+			<tr>
+			<th>start_date</th>
+			<td>
+				<textarea name="start_date" ></textarea>
+			</td>
+		</tr><tr>
+			<th>end_date</th>
+			<td>
+				<textarea name="end_date" ></textarea>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="programNum" th:value="${program.programNum}">
+
+    <button type="submit">예약하기</button>
+
+</form>
+</body>
+</html>

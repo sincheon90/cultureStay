@@ -17,7 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 	<link rel="stylesheet" th:href="@{/css/header_style.css}">
-	<link rel="stylesheet" th:href="@{/css/main_style_write.css}">
+	<link rel="stylesheet" th:href="@{/css/main/write.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
@@ -104,18 +104,22 @@
 			<!-- 호스트용 체크리스트 -->
 			<div>
 				<h3>호스트용 체크리스트</h3>
-				<label><input type="checkbox" name="separateBathroom" value="1">화장실과 욕실 분리 여부</label>
-				<label><input type="checkbox" name="bathtub" value="1">욕조 유무</label>
-				<label><input type="checkbox" name="wifi" value="1">와이파이 유무</label>
-				<label><input type="checkbox" name="transformer" value="1">변압기 유무</label>
-				<label><input type="checkbox" name="pajamasProvided" value="1">파자마(잠옷) 제공 여부</label>
-				<label><input type="checkbox" name="hairdryer" value="1">헤어드라이기 유무</label>
-				<label><input type="checkbox" name="basicToiletriesProvided" value="1">기본 세면도구 제공 여부 (수건, 샴푸, 린스, 치약, 칫솔, 바디워시)</label>
-				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반 가능 여부</label>
-				<label><input type="checkbox" name="roomAlone" value="1">방 혼자 사용 가능 여부 및 최대 인원</label>
-				<label><input type="checkbox" name="langJapanese" value="1">언어 대응 가능 여부 (일본어)</label>
-				<label><input type="checkbox" name="langEnglish" value="1">언어 대응 가능 여부 (영어)</label>
-				<label><input type="checkbox" name="langKorean" value="1">언어 대응 가능 여부 (한국어)</label>
+				<label><input type="checkbox" name="separateBathroom" value="1">화장실</label>
+				<label><input type="checkbox" name="bathroom" value="1">욕실</label>
+				<label><input type="checkbox" name="bathtub" value="1">욕조</label>
+				<label><input type="checkbox" name="wifi" value="1">와이파이</label>
+				<label><input type="checkbox" name="transformer" value="1">변압기</label>
+				<label><input type="checkbox" name="pajamasProvided" value="1">파자마(잠옷)</label>
+				<label><input type="checkbox" name="hairdryer" value="1">헤어드라이</label>
+				<label><input type="checkbox" name="towel" value="1">수건</label>
+				<label><input type="checkbox" name="ShampooAndBodywash" value="1">샴푸,바디워시</label>
+				<label><input type="checkbox" name="tooth" value="1">치약,칫솔</label>
+				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반</label>
+				<label><input type="checkbox" name="roomAlone" value="1">1인실</label>
+				<label><input type="checkbox" name="roomTogether" value="1">1~2인실</label>
+				<label><input type="checkbox" name="langJapanese" value="1">일본어</label>
+				<label><input type="checkbox" name="langEnglish" value="1">영어</label>
+				<label><input type="checkbox" name="langKorean" value="1">한국어</label>
 			</div>
 
 			<hr>
@@ -123,14 +127,20 @@
 			<!-- 게스트용 체크리스트 -->
 			<div>
 				<h3>게스트용 체크리스트</h3>
-				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반 여부 (체크 시 예약 후 메신저 기능으로 대화)</label>
-				<label><input type="checkbox" name="allergyFriendly" value="1">알러지 유무 (체크 시 예약 후 메신저 기능으로 대화)</label>
-				<label><input type="checkbox" name="chronicIllness" value="1">지병 유무 (체크 시 예약 후 메신저 기능으로 대화)</label>
-				<label><input type="checkbox" name="foodPreference" value="1">기피하는 음식 유무 (선호하는 식단 - 밥, 빵, 상관없음, 생략) (체크 시 예약 후 메신저 기능으로 대화)</label>
-				<label><input type="checkbox" name="privateTime" value="1">개인시간 원하는지 여부 (방해받고 싶지 않은 시간: 주관식)</label>
-				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (역사유적지탐방, 현지일상생활, 문화체험, 호스트와 생활)</label>
-				<label><input type="checkbox" name="languageSupport" value="1">언어대응 가능 여부 (예: 한국어, 영어)</label>
-				<label><input type="checkbox" name="smoking" value="1">흡연 유무 (흡연, 비흡연)</label>
+				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반</label>
+				<label><input type="checkbox" name="allergyFriendly" value="1">알러지</label>
+				<label><input type="checkbox" name="chronicIllness" value="1">지병</label>
+				<label><input type="checkbox" name="foodPreference" value="1">싫어하는 음식</label>
+				<label><input type="checkbox" name="privateTime" value="1">개인시간 원하는지</label>
+				<!--(방해받고 싶지 않은 시간 : 주관식)  (호스트가 24시간 함께해야하는지 아니면 일정시간 자율적으로 생활하고싶은지)-->
+				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (역사유적지탐방)</label>
+				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (현지일상생활)</label>
+				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (문화체험)</label>
+				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (호스트와 생활)</label>
+				<label><input type="checkbox" name="smoking" value="1">흡연</label>
+				<label><input type="checkbox" name="langJapanese" value="1">일본어</label>
+				<label><input type="checkbox" name="langEnglish" value="1">영어</label>
+				<label><input type="checkbox" name="langKorean" value="1">한국어</label>
 			</div>
 
 

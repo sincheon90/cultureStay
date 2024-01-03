@@ -1,12 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>조회</title>
+
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/main/write.css}">
+	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 </head>
 <body>
-<h2>프로그램 디테일</h2>
 
+<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
+
+<main>
+
+	<!-- 프로그램 설명 컨테이너-->
+	<div>
+
+			<form th:action="@{/program/like}" method="post">
+				<button type="submit">좋아요</button>
+
+				<input type="hidden" name="programNum" th:value="${program.programNum}">
+
+			</form>
+
+			<form th:action="@{/program/bookmark}" method="post">
+				<button type="submit">북마크</button>
+				<input type="hidden" name="programNum" th:value="${program.programNum}">
+
+			</form>
+
+		<div class="with-reservation-container">
+			<div class="reservation-left">
+				<div class="title-container">
+					<div class="title-wrapper">
+						<h2 th:text="${program.title}"></h2>
+					</div>
+
+					<div class="like-bookmark-wrapper">
+						<img class="mark clickable" th:if="${program_like == 0}" th:src="@{/img/mark/heart.png}" alt="heart" style="width: 20px; height: 20px;">
+						<img class="mark clickable" th:if="${program_like == 1}" th:src="@{/img/mark/unheart.png}" alt="unheart" style="width: 20px; height: 20px;">
+						<img class="mark clickable" th:if="${program_bookmark == 0}" th:src="@{/img/mark/bookmark.png}" alt="bookmark" style="width: 20px; height: 20px;">
+						<img class="mark clickable" th:if="${program_bookmark == 1}" th:src="@{/img/mark/unbookmark.png}" alt="unbookmark" style="width: 20px; height: 20px;">
+					</div>
+				</div>
+		
+				<div>
+					<p th:utext="${program.content}"></p>
+				</div>
+		
+				<div>
+					체크 리스트
+				</div>
+			</div>
+
+			<div class="reservation-container">
+				<article class="reservation-article">
+					<div class="date-wrapper">
+						<div class="dateinput" id="dateinput"></div>
+
+						<div>
+							<input type="text" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"></input>
+						</div>
+
+						<div>
+							<input type="text" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"></input>
+						</div>
+					</div>
+
+					<div class="button-wrapper">
+						<button type="submit" class="btn-save">예약하기</button>
+					</div>
+
+					<div class="price-sum">
+						<p>가격(1박기준)</p>
+						<pre th:text="${program.price}"></pre>
+
+						<p>가격(1박기준 * 일수)</p>
+						<pre th:text="${program.price} + ' * 5 = '"></pre>
+					</div>
+				</article>
+			</div>
+		</div>
+
+		<br><hr><br>
+
+		<div style="width: 100%;">
+			<!--리뷰-->
+			<h2>리뷰</h2>
+			<img th:src="@{/img/review.png}" alt="review" style="width: 100%;">
+			<img th:src="@{/img/review_button.png}" alt="review">
+		</div>
+
+		<br><hr><br>
+
+		<div style="width: 100%;">
+			<h2>호스팅 지역</h2>
+			<img th:src="@{/img/seoul.jpeg}" alt="map" style="width: 100%;">
+		</div>
+
+		<br><hr><br>
+
+		<div style="width: 100%;">
+			<h2>호스트 정보</h2>
+			<img th:src="@{/img/host_info.png}" alt="host_info" style="width: 100%;">
+		</div>
+
+		<div>
+			<!--주의사항: 알아두어야 할 사항-->
+		</div>
+	</div>
+
+<br><br>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	
 <table>
 		<tr>
@@ -19,7 +131,7 @@
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="3" th:text="${program.title}"></td>
+			<td colspan="3" ></td>
 			<th>작성자</th>
 			<td th:text="${program.userid}"></td>
 		</tr>
@@ -27,7 +139,7 @@
 			<th>내용</th>
 		
 			<td>
-				<pre th:utext="${program.content}"></pre>
+
 			</td>
 		</tr>
 		<tr>
@@ -51,38 +163,12 @@
 				<pre th:text="${program.price}"></pre>
 			</td>
 		</tr>
-		<tr>
-			<th>좋아요여부</th>
-		
-			<td>
-				<pre th:text="${program_like}"></pre>
-			</td>
-		</tr>
-		
-		<tr>
-			<th>북마크여부</th>
-		
-			<td>
-				<pre th:text="${program_bookmark}"></pre>
-			</td>
-		</tr>
 		
 	</table>(1:좋아요, 0:좋아요아님)
 	<br><br>
 비회원은 클릭 못하도록 설정
 <br>
-<form th:action="@{/program/like}" method="post">
-    <button type="submit">좋아요</button>
-    
-    <input type="hidden" name="programNum" th:value="${program.programNum}">
 
-</form>
-
-<form th:action="@{/program/bookmark}" method="post">
-    <button type="submit">북마크</button>
-     <input type="hidden" name="programNum" th:value="${program.programNum}">
-
-</form>
 <br>
 <form th:action="@{/program/apply}" method="get">
 	날짜선택(달력)
@@ -104,5 +190,10 @@
     <button type="submit">예약하기</button>
 
 </form>
+
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
+
 </body>
 </html>
