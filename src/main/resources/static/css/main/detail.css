@@ -1,22 +1,70 @@
 /* Program Detail Style*/
 .with-reservation-container {
     display: flex;
+    justify-content: space-between;
 }
 
 .reservation-left{
-    width: 50%;
+    width: 60%;
 }
 
 .reservation-container {
-    width: 50%;
+    width: 40%;
     display: flex; /* Flex container 설정 */
     justify-content: center; /* 수평 가운데 정렬 설정 */
 }
 
 .reservation-article{
-    width: 80%;
+    width: 300px; /* 너비 조절 */
+    height: 300px;
+    display: flex; /* Flex container 설정 */
+    flex-direction: column;
+    align-items: center;
+
+    /* stick로 스크롤에 따라가기*/
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px; /* 헤더 높이에 따라 조정 */
+    bottom: 100px; /* 푸터 높이에 따라 조정 */
+    margin-top: 20px; /* 헤더와의 간격 */
+    margin-bottom: 20px; /* 푸터와의 간격 */
+    margin-left: auto; /* 오른쪽 정렬 */
+    right: 0;
+    z-index: 5; /* 다른 요소들 위에 표시 */
+
+    border-radius: 10px; /* 라운드 처리 */
+    padding: 20px; /* 여백 추가 */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+}
+
+.date-wrapper {
+    width: 100%;
+    text-align: center;
 }
 
 input[type="text"] {
-    width: 200px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
+
+.button-wrapper {
+    width: 100%;
+    text-align: center; /* 버튼 가운데 정렬 */
+}
+
+.btn-save {
+    width: 100%;
+}
+
+.price-sum {
+    margin-top: 20px;
+    text-align: center; /* 가운데 정렬 */
+}
+
+
+
+
+/* 좋아요와 북마크 아이콘 스타일 */

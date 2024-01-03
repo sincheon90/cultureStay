@@ -27,6 +27,12 @@
 
 	<!-- 프로그램 설명 컨테이너-->
 	<div>
+		<div class="like-bookmark-container">
+			<i class="far fa-heart" onclick="like(this, {{ post.post_id }})"></i>
+			<i class="fas fa-heart" onclick="unlike(this, {{ post.post_id }})"></i>
+			<i class="far fa-bookmark" onclick="bookmark(this, {{ post.post_id }})"></i>
+			<i class="fas fa-bookmark" onclick="unbookmark(this, {{ post.post_id }})"></i>
+		</div>
 		<div class="with-reservation-container">
 			<div class="reservation-left">
 				<div>
@@ -44,7 +50,7 @@
 
 			<div class="reservation-container">
 				<article class="reservation-article">
-					<div class="date-select">
+					<div class="date-wrapper">
 						<div class="dateinput" id="dateinput"></div>
 
 						<div>
@@ -66,17 +72,28 @@
 				</article>
 			</div>
 		</div>
-		
-		<div>
+
+		<br><hr><br>
+
+		<div style="width: 100%;">
 			<!--리뷰-->
+			<h2>리뷰</h2>
+			<img th:src="@{/img/review.png}" alt="review" style="width: 100%;">
+			<img th:src="@{/img/review_button.png}" alt="review">
 		</div>
 
-		<div>
-			지도
+		<br><hr><br>
+
+		<div style="width: 100%;">
+			<h2>호스팅 지역</h2>
+			<img th:src="@{/img/seoul.jpeg}" alt="map" style="width: 100%;">
 		</div>
 
-		<div>
-			호스트 정보
+		<br><hr><br>
+
+		<div style="width: 100%;">
+			<h2>호스트 정보</h2>
+			<img th:src="@{/img/host_info.png}" alt="host_info" style="width: 100%;">
 		</div>
 
 		<div>
