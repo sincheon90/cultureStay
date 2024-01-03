@@ -1,2 +1,22 @@
 /* Program Detail Style*/
-with-reservation-container
+.with-reservation-container {
+    display: flex;
+}
+
+.reservation-left{
+    width: 50%;
+}
+
+.reservation-container {
+    width: 50%;
+    display: flex; /* Flex container 설정 */
+    justify-content: center; /* 수평 가운데 정렬 설정 */
+}
+
+.reservation-article{
+    width: 80%;
+}
+
+input[type="text"] {
+    width: 200px;
+}
