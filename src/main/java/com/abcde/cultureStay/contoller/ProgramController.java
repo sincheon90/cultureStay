@@ -126,7 +126,7 @@ public class ProgramController {
 		
 		if(user != null) {
 			//최근방문에 추가
-			service.recentClick(programNum,user.getUsername());
+//			service.recentClick(programNum,user.getUsername());
 			
 			
 		//좋아요 상태(좋아요:1, 없음:0)

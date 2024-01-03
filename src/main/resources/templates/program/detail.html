@@ -6,7 +6,8 @@
 	<title>조회</title>
 
 	<link rel="stylesheet" th:href="@{/css/header_style.css}">
-	<link rel="stylesheet" th:href="@{/css/main_style_write.css}">
+	<link rel="stylesheet" th:href="@{/css/main/write.css}">
+	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
@@ -18,13 +19,72 @@
 
 <main>
 
-<h2>프로그램 디테일</h2>
--사진<br>
--기본정보(제목,호스트, 위치, 리뷰, 가격, 날짜, 조회수)<br>
--컨텐츠<br>
--프로그램 태그(접근성 및 편의시설, 건물유형, 위치지도?,호스트언어,태그)<br>
--좋아요, 북마크 상태(0이면 없음, 1이면 있음)
+	<!-- -사진<br>-->
+	<!-- -기본정보(제목,호스트, 위치, 리뷰, 가격, 날짜, 조회수)<br>-->
+	<!-- -컨텐츠<br>-->
+	<!-- -프로그램 태그(접근성 및 편의시설, 건물유형, 위치지도?,호스트언어,태그)<br>-->
+	<!-- -좋아요, 북마크 상태(0이면 없음, 1이면 있음)-->
+
+	<!-- 프로그램 설명 컨테이너-->
+	<div>
+		<div class="with-reservation-container">
+			<div class="reservation-left">
+				<div>
+					<h2 th:text="${program.title}"></h2>
+				</div>
+		
+				<div>
+					<p th:utext="${program.content}"></p>
+				</div>
+		
+				<div>
+					체크 리스트
+				</div>
+			</div>
+
+			<div class="reservation-container">
+				<div class="date-select">
+					<div class="dateinput" id="dateinput"></div>
+
+					<div>
+						<input type="text" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"></input>
+					</div>
+			
+					<div>
+						<input type="text" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"></input>
+					</div>
+				</div>
+
+				<div class="button-wrapper">
+					<button type="submit" class="btn-save">작성</button>
+				</div>
+
+				<div class="price-sum">
+					<p>price</p>
+				</div>
+			</div>
+		</div>
+		
+		<div>
+			<!--리뷰-->
+		</div>
+
+		<div>
+			지도
+		</div>
+
+		<div>
+			호스트 정보
+		</div>
+
+		<div>
+			<!--주의사항: 알아두어야 할 사항-->
+		</div>
+	</div>
+
 <br><br>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	
 <table>
 		<tr>
@@ -37,7 +97,7 @@
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="3" th:text="${program.title}"></td>
+			<td colspan="3" ></td>
 			<th>작성자</th>
 			<td th:text="${program.userid}"></td>
 		</tr>
@@ -45,7 +105,7 @@
 			<th>내용</th>
 		
 			<td>
-				<pre th:utext="${program.content}"></pre>
+
 			</td>
 		</tr>
 		<tr>
