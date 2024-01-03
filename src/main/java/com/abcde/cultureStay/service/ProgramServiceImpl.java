@@ -70,6 +70,17 @@ public class ProgramServiceImpl implements ProgramService{
 		return result;
 	}
 	
+	@Override
+	public int pnumCheck(String username) {
+		int result = dao.pnumCheck(username);		
+		return result;
+	}
+	
+	@Override
+	public int tagInsert(ProgramTag tag) {
+		int result = dao.tagInsert(tag);		
+		return result;
+	}
 	//프로그램 상세화면
 	@Override
 	public Program readProgram(int programNum) {
@@ -178,6 +189,23 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Reservation> newReser(String userid) {
 		ArrayList<Reservation> result = dao.newReser(userid);
 		return result;
+	}
+	
+	@Override
+	public void reserveChecklist(Checklist checklist) {
+		dao.reserveChecklist(checklist);		
+	}
+	@Override
+	public int getReserNum(int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		int result = dao.getReserNum(map);	
+		return result;
+	}
+	@Override
+	public void setReserNum(int reserNum, int programNum, String userid) {
+		HashMap<String, Object> map = getMap(programNum, userid);
+		map.put("reserNum", reserNum);
+		dao.setReserNum(map);	
 	}
 
 }

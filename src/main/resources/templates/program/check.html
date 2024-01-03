@@ -11,6 +11,9 @@
 		<h3>새로운 예약 신청</h3>
 			<tr th:each="reservation: ${reservation}">		
 			<th>신청자</th><td th:text="${reservation.userid}"></td>
+			<td th:text="${reservation.start_date}"></td>
+			<td th:text="${reservation.end_date}"></td>
+
 			<td>
 				<a th:href="@{/program/accept(reserNum=${reservation.reserNum})}" 
 					th:text="수락"></a>

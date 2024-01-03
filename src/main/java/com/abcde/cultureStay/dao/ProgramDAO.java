@@ -51,6 +51,16 @@ public interface ProgramDAO {
 
 	ArrayList<Reservation> newReser(String userid);
 
+	int pnumCheck(String username);
+
+	int tagInsert(ProgramTag tag);
+
+	void reserveChecklist(Checklist checklist);
+
+	int getReserNum(HashMap<String, Object> map);
+
+	void setReserNum(HashMap<String, Object> map);
+
 
 
 
