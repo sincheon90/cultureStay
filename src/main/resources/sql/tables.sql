@@ -259,7 +259,7 @@ ALTER TABLE CULTURESTAY_BOARD RENAME COLUMN CONTENTS_CLOB TO CONTENTS;
 
 -- Program 테이블 컬럼 추가 및, 컬럼 변경
 --컬럼 추가
-ALTER TABLE Program ADD (postcode CLOB);
+ALTER TABLE Program ADD (postcode varchar2(255));
 -- 데이터 있는 경우 컬럼을 추가하여 데이터 이동후 컬럼명 변경
 ALTER TABLE Program ADD (CONTENTS_CLOB CLOB);
 UPDATE Program SET CONTENTS_CLOB = TO_CLOB(content);

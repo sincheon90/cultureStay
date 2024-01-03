@@ -1,22 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>조회</title>
-
-	<link rel="stylesheet" th:href="@{/css/header_style.css}">
-	<link rel="stylesheet" th:href="@{/css/main_style_write.css}">
-	<link rel="stylesheet" th:href="@{/css/footer.css}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
 <body>
-
-<!-- 헤더 섹션-->
-<header th:replace="layouts/header::header"></header>
-
-<main>
 
 <h2>프로그램 디테일</h2>
 -사진<br>
@@ -122,10 +110,5 @@
     <button type="submit">예약하기</button>
 
 </form>
-
-</main>
-
-<footer th:replace="layouts/footer::footer"></footer>
-
 </body>
 </html>
