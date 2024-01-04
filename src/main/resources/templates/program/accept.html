@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>수락창</h3>
+	
+	
+<table>
+	<h3>프로그램 정보</h3>
+		<tr>
+			<th>글번호</th>
+			<td style="width: 80px;" th:text="${program.programNum}"></td>
+			 
+			<th>작성일</th>
+			<td style="width: 150px;" th:text="${program.inputdate}"></td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td colspan="3" th:text="${program.title}"></td>
+			 
+		</tr>
+	</table>	
+
+	<table>
+	<h3>예약정보</h3>
+		<tr>
+			<th>예약번호</th>
+			<td style="width: 80px;" th:text="${reservation.reserNum}"></td>
+			 
+			<th>예약자</th>
+			<td style="width: 80px;" th:text="${reservation.userid}"></td>
+			 
+			<th>신청기간</th>
+			<td style="width: 150px;" th:text="${reservation.start_date}"></td>
+			
+			<th>예약상태</th>
+			<td style="width: 150px;" th:text="${reservation.status}"></td>
+			
+			
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td colspan="3" th:text="${program.title}"></td>
+			 
+		</tr>
+		
+	</table>
+	
+	<form th:action="@{/program/accept}" method="post">	
+	<input type="hidden" name="reserNum" th:value="${reservation.reserNum}">
+    <button type="submit">수락하기</button>
+	</form>
+</body>
+</html>

@@ -5,23 +5,46 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>예약현황 확인</h1>
-
+	
+<h3>내 프로그램 관리</h3>
 	<table>
-		<h3>새로운 예약 신청</h3>
-			<tr th:each="reservation: ${reservation}">		
-			<th>신청자</th><td th:text="${reservation.userid}"></td>
-			<td th:text="${reservation.start_date}"></td>
-			<td th:text="${reservation.end_date}"></td>
-
+		<tr th:each="program: ${programList}">	
+			<th th:text="${program.programNum}"></th>
+ 			<td><a th:href="@{/program/detail(programNum=${program.programNum})}" 
+					 th:text="${program.title}"></a></td>
+		</tr>
+		</table>
+		
+<h3>예약현황</h3>		
+	<table>
+			<tr th:each="reservation: ${reservation}">	 
+			<th>프로그램 번호</th>
+			<td th:text="${reservation.programNum}"></td>
 			<td>
 				<a th:href="@{/program/accept(reserNum=${reservation.reserNum})}" 
-					th:text="수락"></a>
+					th:text="new"></a>
 			</td>
-			
+			<td th:text="${reservation.inputdate}"></td>
+			<th>예약상태(0:수락대기/1:수락완료/2:프로그램종료)</th>
+			<td th:text="${reservation.status}"></td>
 		</tr>
 	</table>
 	<br>
-	신청자닉네임,날짜,자세히보기,수락버튼, 거절?..
+	
+	<h3>내가 신청한 프로그램</h3>		
+	<table>
+			<tr th:each="myReservation: ${myReservation}">	 
+			<th>프로그램 번호</th>
+			<td th:text="${myReservation.programNum}"></td>
+			<td>
+				<a th:href="@{/program/detail(programNum=${myReservation.programNum})}" 
+					th:text="프로그램정보"></a>
+			</td>
+			<th>예약날짜</th>
+			<td th:text="${myReservation.start_date}"></td>
+			<th>예약상태</th>
+			<td th:text="${myReservation.status}"></td>
+		</tr>
+	</table>
 </body>
 </html>

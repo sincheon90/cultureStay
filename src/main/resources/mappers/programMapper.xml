@@ -431,7 +431,8 @@
 			Reservation
 		where
 			hostid = #{userid}
-			and status = 0
+		ORDER BY inputdate ASC
+		
 	</select>
 	
 	<select id="getReserNum" parameterType="map"
@@ -455,4 +456,31 @@
 		AND inputdate = (SELECT MAX(inputdate) FROM Checklist WHERE programNum = #{programNum} AND userid = #{userid})
 
 	</update>
+	
+	<select id="myProgram" parameterType="String" resultType="Program">
+	SELECT *
+	FROM Program
+	WHERE userid = #{userid}
+		</select>
+		
+	<select id="getReservation" parameterType="int" resultType="Reservation">
+	SELECT *
+	FROM Reservation
+	WHERE reserNum = #{reserNum}
+	</select>
+	
+	<update id="acceptReser" parameterType="int">
+		update
+		Reservation
+		set
+		status = 1
+		where
+		reserNum = #{reserNum}
+	</update>
+	
+	<select id="myReservation" parameterType="String" resultType="Reservation">
+	SELECT *
+	FROM Reservation
+	WHERE userid = #{userid}
+	</select>
 </mapper>

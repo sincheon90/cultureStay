@@ -207,5 +207,26 @@ public class ProgramServiceImpl implements ProgramService{
 		map.put("reserNum", reserNum);
 		dao.setReserNum(map);	
 	}
-
+	
+	@Override
+	public ArrayList<Program> myProgram(String userid) {
+		ArrayList<Program> programList = dao.myProgram(userid);
+		return programList;
+	}
+	@Override
+	public Reservation getReservation(int reserNum) {
+		Reservation result = dao.getReservation(reserNum);
+		return result;
+	}
+	
+	@Override
+	public void acceptReser(int reserNum) {
+		dao.acceptReser(reserNum);		
+	}
+	
+	@Override
+	public ArrayList<Reservation> myReservation(String userid) {
+		ArrayList<Reservation> result = dao.myReservation(userid);
+		return result;
+	}
 }
