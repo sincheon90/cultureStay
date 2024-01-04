@@ -27,7 +27,10 @@
 			</td>
 			<td th:text="${reservation.inputdate}"></td>
 			<th>예약상태</th>
-			<td th:text="${reservation.status}"></td>
+			<td th:text="${reservation.status}">
+				<a th:href="@{/program/review(reserNum=${reservation.reserNum})}" 
+					th:text="리뷰"></a>
+			</td>
 		</tr>
 	</table>
 	<br>

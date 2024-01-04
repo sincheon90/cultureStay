@@ -20,8 +20,8 @@
 	
 <h4>예약상태(0:수락대기/1:수락완료/2:프로그램종료)<br> 2이면 리뷰쓰기 버튼 활성화</h4> 
 		
-<h3>예약현황</h3>		
-
+<h3>예약현황</h3>	
+<h4>(게스트에 대한 리뷰)</h4>	
 	<table>
 			<tr th:each="reservation: ${reservation}">	 
 			<th>프로그램 번호</th>
@@ -32,12 +32,16 @@
 			</td>
 			<td th:text="${reservation.inputdate}"></td>
 			<th>예약상태</th>
-			<td th:text="${reservation.status}"></td>
+			<td th:text="${reservation.status}">
+				<a th:href="@{/program/guestReview(reserNum=${reservation.reserNum})}" 
+					th:text="리뷰"></a>
+			</td>
 		</tr>
 	</table>
 	<br>
 	
  <h3>내가 신청한 프로그램</h3>		
+ <h4>(프로그램,호스트에 대한 리뷰)</h4>	
 	<table>
 			<tr th:each="myReservation: ${myReservation}">	 
 			<th>프로그램 번호</th>
@@ -49,7 +53,12 @@
 			<th>예약날짜</th>
 			<td th:text="${myReservation.start_date}"></td>
 			<th>예약상태</th>
-			<td th:text="${myReservation.status}"></td>
+			<td th:text="${myReservation.status}">
+				<a th:href="@{/program/programReview(reserNum=${myReservation.reserNum})}" 
+					th:text="프로그램리뷰"></a>
+				<a th:href="@{/program/hostReview(reserNum=${myReservation.reserNum})}" 
+					th:text="리뷰"></a>
+			</td>
 		</tr>
 	</table>
 

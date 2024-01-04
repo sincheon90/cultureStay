@@ -139,10 +139,10 @@ CREATE TABLE Review (
 	customerID	    varchar2(255)			references cultureStay_member(userid), 
 	hostID	        varchar2(255)			references cultureStay_member(userid), 
 	reviewerID	    varchar2(255)			references cultureStay_member(userid), 
-	stars	        number	    	        NOT NULL,
+	reserNum		number		            references Reservation(reserNum), 
+	stars	        number	    	        default 5,
 	content	        varchar2(2000)  		NOT NULL,
-	reviewPic	    varchar2(255)	    	NULL,
-	start_date	    date		        	NOT NULL
+	inputdate	    date		        	NOT NULL
 );
 create sequence reviewNum_seq;
 select * from Review;
