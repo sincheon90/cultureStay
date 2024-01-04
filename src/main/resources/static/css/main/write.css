@@ -46,7 +46,7 @@ input[type="checkbox"] {
 
 
 /* Style the form */
-form {
+.apply-class {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -102,4 +102,8 @@ form input[type="submit"]:hover {
 pre {
     margin: 0;
     font-family: inherit;
+}
+
+textarea[name="request"] {
+    height: 200px;
 }

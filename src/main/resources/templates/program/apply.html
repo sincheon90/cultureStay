@@ -23,7 +23,7 @@
 
 	<hr>
 
-	<form th:action="@{/program/checklist}" method="post">
+	<form class="apply-class" th:action="@{/program/checklist}" method="post">
 		<input type="hidden" name="start_date" th:value="${start_date}">
 		<input type="hidden" name="end_date" th:value="${end_date}">
 		<input type="hidden" name="programNum" th:value="${program.programNum}">
@@ -63,7 +63,7 @@
 
 <br><br>
 
-	<form th:action="@{/program/payment}" method="post">
+	<form class="apply-class" th:action="@{/program/payment}" method="post">
 		<br><br>
 		<table>
 			<tr>
@@ -90,7 +90,7 @@
 			</tr>
 			<tr>
 				<th>요청사항</th>
-				<td><textarea type = "text" name = "request"></textarea></td>
+				<td><textarea name = "request"></textarea></td>
 			</tr>
 		</table>
 		<input type="hidden" name="start_date" th:value="${start_date}">
