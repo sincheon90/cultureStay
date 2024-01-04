@@ -16,7 +16,7 @@
 
 .reservation-article{
     width: 300px; /* 너비 조절 */
-    height: 300px;
+    height: 320px;
     display: flex; /* Flex container 설정 */
     flex-direction: column;
     align-items: center;
@@ -60,11 +60,15 @@ input[type="text"] {
 }
 
 .price-sum {
+    width: 100%;
     margin-top: 20px;
-    text-align: center; /* 가운데 정렬 */
 }
 
-
+.price-detail {
+    display: flex;
+    justify-content: space-between;
+    /* Additional styling */
+}
 
 .title-container {
     display: flex;
@@ -86,3 +90,12 @@ input[type="text"] {
 .clickable {
     cursor: pointer; /* 마우스 호버 시 포인터 모양 변경 */
 }
+
+.price {
+    font-size: 20px; /* Example size */
+}
+
+.per-night {
+    font-size: 16px; /* Example smaller size */
+}
+
