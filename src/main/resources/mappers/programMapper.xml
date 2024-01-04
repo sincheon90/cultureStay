@@ -96,29 +96,29 @@
 		, userid
 		, title
 		, content
+		, postcode
 		, address
-		,detailed_address
+		, detailed_address
 		, price
 
-		,
-		start_date
+		, start_date
 		, end_date
 
 		) values (
 		programNum_seq.nextval
 		, #{userid}
-		,
-		#{title}
+		, #{title}
 		, #{content}
+		, #{postcode}
 		, #{address}
-		,#{detailed_address}
+		, #{detailed_address}
 		, #{price}
 
-		,
-		#{start_date}
+		, #{start_date}
 		, #{end_date}
 		)
 	</insert>
+	
 	<select id="pnumCheck" parameterType="String"
 		resultType="int">
 	SELECT programNum
@@ -126,8 +126,7 @@
 	WHERE userid = #{username}
 	ORDER BY inputdate DESC
 	FETCH FIRST 1 ROW ONLY
-
-		</select>
+	</select>
 
 	<select id="readProgram" parameterType="int"
 		resultType="Program">

@@ -5,7 +5,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
+<h2>My Page</h2>
+
+<a th:href="@{/member/update}" th:text="회원정보수정"></a>
+<br>
 <h3>내 프로그램 관리</h3>
 	<table>
 		<tr th:each="program: ${programList}">	
@@ -46,5 +49,6 @@
 			<td th:text="${myReservation.status}"></td>
 		</tr>
 	</table>
+
 </body>
 </html>

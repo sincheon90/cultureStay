@@ -107,7 +107,7 @@ public class ReservationController {
 		model.addAttribute("myReservation",myReservation);
 		
 		
-		return "program/check";
+		return "member/check";
 	}
 	
 	@GetMapping("accept")

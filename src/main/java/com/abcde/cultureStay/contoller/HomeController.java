@@ -28,7 +28,11 @@ public class HomeController {
 	@Autowired
 	ProgramService pService;
 	
-	
+	  @GetMapping("member/mypage")
+	    public String mypage() {
+	        return "member/mypage";
+	    }
+	  
 	//홈화면
 //	@GetMapping("")
 //	public String homeList(@AuthenticationPrincipal UserDetails user,

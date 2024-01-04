@@ -36,8 +36,7 @@ CREATE TABLE Program (
     hits            number              default 0 --인기프로그램용 조회수
 );
 create sequence programNum_seq;
-select * from Program;
-drop table Program;
+
 
 --좋아요한 프로그램 테이블
 CREATE TABLE Program_like(     

@@ -24,7 +24,7 @@
                     <div sec:authorize="not isAuthenticated()"><a th:href="@{/member/join}" th:text="회원가입"></a></div>
                     <div sec:authorize="not isAuthenticated()"><a th:href="@{/member/loginForm}" th:text="로그인"></a></div>
                     <div sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}" th:text="로그아웃"></a></div>
-                    <div sec:authorize="isAuthenticated()"><a th:href="@{/member/update}" th:text="회원정보수정"></a></div>
+                    <div sec:authorize="isAuthenticated()"><a th:href="@{/member/mypage}" th:text="마이페이지"></a></div>
                     <hr>
                     <a href="#">도움말</a>
                 </div>
