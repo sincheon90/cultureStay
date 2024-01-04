@@ -16,6 +16,7 @@
 	</table>
 		
 <h3>예약현황</h3>		
+<h4>예약상태(0:수락대기/1:수락완료/2:프로그램종료)</h4>
 	<table>
 			<tr th:each="reservation: ${reservation}">	 
 			<th>프로그램 번호</th>
@@ -25,7 +26,7 @@
 					th:text="new"></a>
 			</td>
 			<td th:text="${reservation.inputdate}"></td>
-			<th>예약상태(0:수락대기/1:수락완료/2:프로그램종료)</th>
+			<th>예약상태</th>
 			<td th:text="${reservation.status}"></td>
 		</tr>
 	</table>

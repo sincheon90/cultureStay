@@ -59,11 +59,13 @@ CREATE TABLE Program_bookmark(
 create sequence bookmark_num_seq;
 select * from Program_bookmark;
 drop table Program_bookmark;
+
 --최근 방문 프로그램 테이블
 CREATE TABLE recentClick(     
-   userid       varchar2(255)       primary key references cultureStay_member(userid),
-   programNum   number              references Program(programNum),
-   inputdate       date            default sysdate     --작성일
+	clickNum   	number		         primary key,
+	userid	    varchar2(255)	    references cultureStay_member(userid),
+	programNum	number              references Program(programNum),
+	inputdate       date            default sysdate     --작성일
 );
 create sequence clickNum_seq;
 select * from recentClick;
@@ -130,7 +132,7 @@ create table tagClick_cnt(
 select * from tagclick_cnt;
 drop table tagclick_cnt;
 
---프로그램 리뷰(사진5 추가하기) 테이블
+--프로그램 리뷰 테이블
 CREATE TABLE Review (
 	reviewNum   	number		            primary key,
 	programNum	    number		            references Program(programNum), 
