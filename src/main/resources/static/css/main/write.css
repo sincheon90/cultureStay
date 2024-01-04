@@ -47,7 +47,7 @@ input[type="checkbox"] {
 
 /* Style the form */
 .apply-class {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -92,16 +92,6 @@ form input[type="submit"] {
     color: white;
     font-size: 16px;
     cursor: pointer;
-}
-
-form input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-/* Additional styling */
-pre {
-    margin: 0;
-    font-family: inherit;
 }
 
 textarea[name="request"] {

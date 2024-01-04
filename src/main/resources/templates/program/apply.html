@@ -85,7 +85,9 @@
 				<th>가격</th>
 
 				<td>
-					<pre th:text="${program.price}"></pre>(일수만큼 곱하기)
+					<span>₩<span th:text="${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span> x 5박</span>
+					<span> = </span>
+					<span class="price-total">₩<span th:text="${#numbers.formatDecimal(program.price * 5, 0, 'COMMA', 2, 'POINT')}"></span></span>
 				</td>
 			</tr>
 			<tr>
@@ -98,8 +100,9 @@
 		<input type="hidden" name="programNum" th:value="${program.programNum}">
 		<input type="hidden" name="totalPrice" th:value="${program.price}">
 
-		<input type="submit" value="결제하기">
-
+		<div class="right-align">
+			<button type="submit" >결제</button>
+		</div>
 	</form>
 	<br>
 </main>
