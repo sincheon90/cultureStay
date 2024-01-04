@@ -6,7 +6,6 @@
 	<title>조회</title>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script th:src="@{/js/script.js}"></script>
 
 	<!-- 달력 daterangepicker -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -32,20 +31,6 @@
 
 	<!-- 프로그램 설명 컨테이너-->
 	<div>
-
-			<form th:action="@{/program/like}" method="post">
-				<button type="submit">좋아요</button>
-
-				<input type="hidden" name="programNum" th:value="${program.programNum}">
-
-			</form>
-
-			<form th:action="@{/program/bookmark}" method="post">
-				<button type="submit">북마크</button>
-				<input type="hidden" name="programNum" th:value="${program.programNum}">
-
-			</form>
-
 		<div class="with-reservation-container">
 			<div class="reservation-left">
 				<div class="title-container">
@@ -54,10 +39,11 @@
 					</div>
 
 					<div class="like-bookmark-wrapper">
-						<img class="mark clickable" th:if="${program_like == 0}" th:src="@{/img/mark/heart.png}" alt="heart" style="width: 20px; height: 20px;">
-						<img class="mark clickable" th:if="${program_like == 1}" th:src="@{/img/mark/unheart.png}" alt="unheart" style="width: 20px; height: 20px;">
-						<img class="mark clickable" th:if="${program_bookmark == 0}" th:src="@{/img/mark/bookmark.png}" alt="bookmark" style="width: 20px; height: 20px;">
-						<img class="mark clickable" th:if="${program_bookmark == 1}" th:src="@{/img/mark/unbookmark.png}" alt="unbookmark" style="width: 20px; height: 20px;">
+						<input name="like" th:value="${program_like}" hidden="hidden"></input>
+						<input name="bookmark" th:value="${program_bookmark}" hidden="hidden"></input>
+
+						<img class="mark clickable" id="like_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
+						<img class="mark clickable" id="bookmark_img" src="/img/mark/unbookmark.png" alt="unbookmark" style="width: 20px; height: 20px;">
 					</div>
 				</div>
 		
@@ -206,5 +192,6 @@
 
 <footer th:replace="layouts/footer::footer"></footer>
 
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

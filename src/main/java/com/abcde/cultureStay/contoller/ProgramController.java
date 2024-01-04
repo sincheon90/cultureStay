@@ -171,38 +171,40 @@ public class ProgramController {
 	}
 	
 	//추천post
+	@ResponseBody
 	@PostMapping("like")
-	public String like(int programNum,@AuthenticationPrincipal UserDetails user) {
+	public int like(int programNum,@AuthenticationPrincipal UserDetails user) {
 		log.debug("좋아요 프로그램 넘버 {}",programNum);
-			int program_like =  service.likeCheck(programNum,user.getUsername());
-		//	int program_like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
-			if(program_like==0) {
-				//좋아요테이블 생성
-				service.createLike(programNum,user.getUsername());
-				}
-			else {
-				//테이블 삭제
-				service.deleteLike(programNum,user.getUsername());
-				}
-			
-		return "redirect:/program/detail?programNum="+programNum;	
+		int program_like =  service.likeCheck(programNum,user.getUsername());
+	//	int program_like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
+		if(program_like==0) {
+			//좋아요테이블 생성
+			service.createLike(programNum,user.getUsername());
+			return 1;
+		}
+		else {
+			//테이블 삭제
+			service.deleteLike(programNum,user.getUsername());
+			return 0;
+		}
 	}
 	
 	//북마크post
+	@ResponseBody
 	@PostMapping("bookmark")
-	public String bookmark(int programNum,@AuthenticationPrincipal UserDetails user) {
-			int program_bookmark = service.bookmarkCheck(programNum,user.getUsername());
-		//	int program_bookmark = service.bookmarkCheck(program.getProgramNum(),"aaa");//test용
-			if(program_bookmark==0) {
-				//좋아요테이블 생성
-				service.createBookmark(programNum,user.getUsername());
-			}
-			else {
-				//테이블 삭제
-				service.deleteBookmark(programNum,user.getUsername());
-			}
-		
-		return "redirect:/program/detail?programNum="+programNum;
+	public int bookmark(int programNum,@AuthenticationPrincipal UserDetails user) {
+		int program_bookmark = service.bookmarkCheck(programNum,user.getUsername());
+	//	int program_bookmark = service.bookmarkCheck(program.getProgramNum(),"aaa");//test용
+		if(program_bookmark==0) {
+			//좋아요테이블 생성
+			service.createBookmark(programNum,user.getUsername());
+			return 1;
+		}
+		else {
+			//테이블 삭제
+			service.deleteBookmark(programNum,user.getUsername());
+			return 0;
+		}
 	}
 	
 
