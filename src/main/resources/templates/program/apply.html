@@ -56,12 +56,12 @@
 			</div>
 		</div>
 
-		<hr>
-
-		<button class="right-align" type="submit">저장</button>
-
+		<div class="right-align">
+			<button type="submit">저장</button>
+		</div>
 	</form>
 
+<br><br>
 
 	<form th:action="@{/program/payment}" method="post">
 		<br><br>
@@ -90,7 +90,7 @@
 			</tr>
 			<tr>
 				<th>요청사항</th>
-				<td><input type = "text" name = "request"></td>
+				<td><textarea type = "text" name = "request"></textarea></td>
 			</tr>
 		</table>
 		<input type="hidden" name="start_date" th:value="${start_date}">
