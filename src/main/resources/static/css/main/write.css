@@ -27,6 +27,12 @@ checklist-container {
     margin-bottom: 15px;
 }
 
+.two-column-checklist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates a two-column grid */
+    gap: 10px; /* Space between items */
+}
+
 /* 라벨 스타일 */
 label {
     display: block; /* 각 체크박스를 새 줄에 표시 */

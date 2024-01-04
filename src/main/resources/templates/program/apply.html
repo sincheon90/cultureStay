@@ -1,79 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+	<title>작성 화면</title>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/script.js}"></script>
+
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/main/write.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 </head>
 <body>
-<h2>프로그램 신청화면</h2>
 
-<h2>checklist</h2>
+<header th:replace="layouts/header::header"></header>
 
-<form th:action="@{/program/checklist}" method="post">
-<input type="hidden" name="start_date" th:value="${start_date}">
-<input type="hidden" name="end_date" th:value="${end_date}">
-<input type="hidden" name="programNum" th:value="${program.programNum}">
-<input type="hidden" name="totalPrice" th:value="${program.price}">
+<main>
+	<h2>프로그램 신청화면</h2>
 
-	<!-- 게스트용 체크리스트 -->
-			<div>
-				<h3>게스트용 체크리스트</h3>
-				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반 여부 (체크 시 예약 후 메신저 기능으로 대화)</label>
-				<label><input type="checkbox" name="allergyFriendly" value="1">알러지 유무 (체크 시 예약 후 메신저 기능으로 대화)</label>
-				<label><input type="checkbox" name="chronicIllness" value="1">지병 유무 (체크 시 예약 후 메신저 기능으로 대화)</label>
-				<label><input type="checkbox" name="foodPreference" value="1">기피하는 음식 유무 (선호하는 식단 - 밥, 빵, 상관없음, 생략) (체크 시 예약 후 메신저 기능으로 대화)</label>
-				<label><input type="checkbox" name="privateTime" value="1">개인시간 원하는지 여부 (방해받고 싶지 않은 시간: 주관식)</label>
-				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (역사유적지탐방, 현지일상생활, 문화체험, 호스트와 생활)</label>
-				<label><input type="checkbox" name="languageSupport" value="1">언어대응 가능 여부 (예: 한국어, 영어)</label>
-				<label><input type="checkbox" name="smoking" value="1">흡연 유무 (흡연, 비흡연)</label>
+	<hr>
+
+	<form th:action="@{/program/checklist}" method="post">
+		<input type="hidden" name="start_date" th:value="${start_date}">
+		<input type="hidden" name="end_date" th:value="${end_date}">
+		<input type="hidden" name="programNum" th:value="${program.programNum}">
+		<input type="hidden" name="totalPrice" th:value="${program.price}">
+
+		<div class="checklist-container">
+			<h3>게스트용 체크리스트</h3>
+			<div class="two-column-checklist">
+				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반 여부</label>
+				<label><input type="checkbox" name="allergyFriendly" value="1">알러지 유무 (체크 시 요청사항에 입력)</label>
+				<label><input type="checkbox" name="chronicIllness" value="1">지병 유무 (체크 시 요청사항에 입력)</label>
+				<label><input type="checkbox" name="foodPreference" value="1">기피하는 음식 유무 (체크 시 요청사항에 입력)</label>
+				<label><input type="checkbox" name="privateTime" value="1">개인시간 원하는지 여부 (체크 시 요청사항에 입력)</label>
+				<label><input type="checkbox" name="smoking" value="1">흡연</label>
+				<label><input type="checkbox" name="langJapanese" value="1">일본어</label><!--여기부터 추가-->
+				<label><input type="checkbox" name="langEnglish" value="1">영어</label>
+				<label><input type="checkbox" name="langKorean" value="1">한국어</label>
+				<label><input type="checkbox" name="active" value="1">활동적</label>
+				<label><input type="checkbox" name="creative" value="1">창의적</label>
+				<label><input type="checkbox" name="healing" value="1">힐링</label>
+				<label><input type="checkbox" name="traditional" value="1">전통</label>
+				<label><input type="checkbox" name="cookingExperience" value="1">요리체험</label>
+				<label><input type="checkbox" name="scenicView" value="1">뷰</label>
+				<label><input type="checkbox" name="countryside" value="1">시골</label>
+				<label><input type="checkbox" name="city" value="1">도시</label>
+				<label><input type="checkbox" name="festival" value="1">축제</label>
+				<label><input type="checkbox" name="drive" value="1">드라이브</label>
+				<label><input type="checkbox" name="socializing" value="1">친목</label>
+				<label><input type="checkbox" name="tranquil" value="1">한적한</label>
 			</div>
+		</div>
 
-		<input type="submit" value="저장하기"> 
+		<hr>
 
-	</div>
-</form>
+		<button class="right-align" type="submit">저장</button>
+
+	</form>
 
 
-<form th:action="@{/program/payment}" method="post">
-<br><br>
-<table>
-	<tr>
-			<th>start_date</th>
-		
-			<td>
-				<pre th:text="${start_date}"></pre>
-			</td>
-		</tr>
-		
-		<tr>
-			<th>end_date</th>
-		
-			<td>
-				<pre th:text="${end_date}"></pre>
-			</td>
-		</tr>
-		<tr>
-			<th>가격</th>
+	<form th:action="@{/program/payment}" method="post">
+		<br><br>
+		<table>
+			<tr>
+				<th>start_date</th>
 
-			<td>
-				<pre th:text="${program.price}"></pre>(일수만큼 곱하기)
-			</td>
-		</tr>
-		<tr>
-			<th>요청사항</th>
-			<td><input type = "text" name = "request"></td>
-		</tr>
-</table>
-<input type="hidden" name="start_date" th:value="${start_date}">
-<input type="hidden" name="end_date" th:value="${end_date}">
-<input type="hidden" name="programNum" th:value="${program.programNum}">
-<input type="hidden" name="totalPrice" th:value="${program.price}">
+				<td>
+					<pre th:text="${start_date}"></pre>
+				</td>
+			</tr>
 
-<input type="submit" value="결제하기"> 
+			<tr>
+				<th>end_date</th>
 
-</form>
-<br>
+				<td>
+					<pre th:text="${end_date}"></pre>
+				</td>
+			</tr>
+			<tr>
+				<th>가격</th>
+
+				<td>
+					<pre th:text="${program.price}"></pre>(일수만큼 곱하기)
+				</td>
+			</tr>
+			<tr>
+				<th>요청사항</th>
+				<td><input type = "text" name = "request"></td>
+			</tr>
+		</table>
+		<input type="hidden" name="start_date" th:value="${start_date}">
+		<input type="hidden" name="end_date" th:value="${end_date}">
+		<input type="hidden" name="programNum" th:value="${program.programNum}">
+		<input type="hidden" name="totalPrice" th:value="${program.price}">
+
+		<input type="submit" value="결제하기">
+
+	</form>
+	<br>
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
 
 </body>
 </html>
