@@ -15,7 +15,7 @@ public class Program {
 	String content;
 	String address;
 	String detailed_address;
-
+	String postcode;
 	int price;
 	String start_date;
 	String end_date;

@@ -23,20 +23,20 @@ drop table cultureStay_member;
 --프로그램 테이블 
 CREATE TABLE Program (
 	programNum	number	            primary key,
-	userid	    varchar2(255)	references cultureStay_member(userid), 
+	userid	    varchar2(255),
 	title	    varchar2(255)	NOT NULL,
-	content	    varchar2(4000)	NOT NULL,
+	content	    CLOB	NOT NULL,
+	postcode    varchar2(255)   NOT NULL,
 	address	    varchar2(255)	NOT NULL,
 	detailed_address varchar2(255)	NOT NULL,
 	price	    number		        NOT NULL,
-	start_date	date		    NOT NULL,
-	end_date	date		    NOT NULL,
+	start_date	date		    ,
+	end_date	date		    ,
 	inputdate       date                default sysdate, 
     hits            number              default 0 --인기프로그램용 조회수
 );
 create sequence programNum_seq;
-select * from Program;
-drop table Program;
+
 
 --좋아요한 프로그램 테이블
 CREATE TABLE Program_like(     
@@ -146,17 +146,20 @@ create sequence reviewNum_seq;
 select * from Review;
 drop table Review;
 
---예약테이블
+-예약테이블
 CREATE TABLE Reservation (
 	reserNum	number		            primary key,
 	programNum	number		            references Program(programNum), 
+    hostid 		varchar2(255),	
 	userid	    varchar2(255)		    references cultureStay_member(userid),
 	start_date	date		    		NOT NULL,
 	end_date	date		    		NOT NULL,
     request	    varchar2(255)			NULL, --요청사항
 	payment 	number					NULL,   --결제수단(0,1,2,3)
-	status	    number					default 0       --예약상태(0,1,2,3)
+	status	    number					default 0,       --예약상태(0,1,2,3)
+    inputdate   date    default sysdate    
 );
+
 create sequence reserNum_seq;
 select * from Reservation;
 drop table Reservation;
@@ -171,7 +174,7 @@ CREATE TABLE cultureStay_board(
     hits            number              default 0,   
     originalfile    varchar2(300),      --첨부파일의 원래이름 사진.jpg -> 20220727.jpg
     savedfile       varchar2(100),
-	recommend       number              default 0       
+	recommend       number       
 );
 create sequence cultureStay_boardnum_seq;
 select * from cultureStay_board;
@@ -191,8 +194,8 @@ drop table cultureStay_reply;
 
 --게시판 좋아요
 CREATE TABLE Board_like(     
-	userid	    varchar2(255),	     
-	boardnum	   number	                
+	userid	    varchar2(255)	    references cultureStay_member(userid), 
+	boardnum	   number	         references cultureStay_board(boardnum)        
 );
 create sequence b_like_num_seq;
 select * from Board_like;
@@ -212,9 +215,9 @@ create sequence imgID_seq;
 select * from image;
 drop table image;
 
--- 체크리스트 테이블
+-- 고객용 체크리스트 테이블
 CREATE TABLE Checklist(     
-	checklistID 	number 				primary key, -- 첨부파일 ID (PK)
+	checklistID 	number 				primary key, 
 	programNum		number		        references Program(programNum),  
 	reserNum		number,
 	userid          varchar2(255)		references cultureStay_member(userid),
@@ -227,6 +230,7 @@ CREATE TABLE Checklist(
 	preferredProgramType 		number	default 0,
 	languageSupport 			number	default 0,
 	smoking 					number	default 0,
+	
 	inputdate       date            default sysdate     -- 업로드 일자
 );
 create sequence checklistID_seq;
@@ -241,6 +245,10 @@ drop table Checklist;
 --);
 --create sequence chatNum_seq;
 
+
+
+
+
 -- CULTURESTAY_BOARD 테이블 컬럼 변경
 -- 데이터 있는 경우 컬럼을 추가하여 데이터 이동후 컬럼명 변경
 ALTER TABLE CULTURESTAY_BOARD ADD (CONTENTS_CLOB CLOB);
@@ -250,12 +258,9 @@ ALTER TABLE CULTURESTAY_BOARD RENAME COLUMN CONTENTS_CLOB TO CONTENTS;
 
 -- Program 테이블 컬럼 추가 및, 컬럼 변경
 --컬럼 추가
-ALTER TABLE Program ADD (postcode varchar2(255));
+ALTER TABLE Program ADD (postcode CLOB);
 -- 데이터 있는 경우 컬럼을 추가하여 데이터 이동후 컬럼명 변경
 ALTER TABLE Program ADD (CONTENTS_CLOB CLOB);
 UPDATE Program SET CONTENTS_CLOB = TO_CLOB(content);
 ALTER TABLE Program DROP COLUMN content;
 ALTER TABLE Program RENAME COLUMN CONTENTS_CLOB TO content;
-
-
-
