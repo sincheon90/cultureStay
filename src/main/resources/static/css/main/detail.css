@@ -99,3 +99,18 @@ input[type="text"] {
     font-size: 16px; /* Example smaller size */
 }
 
+/*태그 체크리스트 출력 스타일*/
+.theme-print ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.theme-print li {
+    background-color: #f2f2f2;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: inline-block; /* for horizontal layout */
+    margin-right: 5px;
+}
+
