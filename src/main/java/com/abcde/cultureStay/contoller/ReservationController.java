@@ -16,6 +16,7 @@ import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Checklist;
 import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.Reservation;
+import com.abcde.cultureStay.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -89,26 +90,8 @@ public class ReservationController {
 		return "program/success";
 	}
 	
-	@GetMapping("check")
-	public String check(@AuthenticationPrincipal UserDetails user, Model model) {
-		
-		//내프로그램 리스트
-		ArrayList<Program> programList = service.myProgram(user.getUsername());
-		model.addAttribute("programList",programList);
+	
 
-		
-		//예약 리스트
-		ArrayList<Reservation> reservation = service.newReser(user.getUsername());
-		model.addAttribute("reservation",reservation);
-		
-		
-		//내가 예약한 리스트
-		ArrayList<Reservation> myReservation = service.myReservation(user.getUsername());
-		model.addAttribute("myReservation",myReservation);
-		
-		
-		return "member/check";
-	}
 	
 	@GetMapping("accept")
 	public String accept(@AuthenticationPrincipal UserDetails user, Model model,
@@ -125,6 +108,7 @@ public class ReservationController {
 
 		return "program/accept";
 	}
+	
 	
 	//예약수락
 	@PostMapping("accept")

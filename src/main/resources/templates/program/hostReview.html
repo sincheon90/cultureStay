@@ -5,6 +5,28 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>Host Review</h2>
+<h2>호스트에 대한 후기를 작성해주세요!</h2>
+
+
+    <form th:action="@{/program/hostReview}" method="post" enctype="multipart/form-data">
+        <div>
+            <input type="text" id="title" name="stars" placeholder="별점">
+        </div>
+
+        <div>
+            <textarea id="content" name="content" placeholder="후기를 작성해주세요!"></textarea>
+            <br>
+        </div>
+
+        <div class="right-align">
+            <button type="submit" class="btn-save">작성</button>
+            <button type="reset" class="btn-cancel">취소</button>
+        </div>
+        
+        <input type="hidden" name="reserNum" th:value="${reservation.reserNum}">
+        <input type="hidden" name="programNum" th:value="${program.programNum}">
+
+
+    </form>
 </body>
 </html>

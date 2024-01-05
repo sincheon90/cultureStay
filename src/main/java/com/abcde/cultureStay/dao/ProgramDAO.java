@@ -69,6 +69,12 @@ public interface ProgramDAO {
 
 	ArrayList<Reservation> myReservation(String userid);
 
+	void guestReview(Review review);
+
+	void hostReview(Review review);
+
+	void programReview(Review review);
+
 
 
 
