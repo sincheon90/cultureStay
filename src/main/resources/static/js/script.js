@@ -51,6 +51,7 @@ function truncateContent() {
 
 $(document).ready(function() {
   $('#dateinput').daterangepicker({
+//    opens: 'left',
     autoUpdateInput: false,
     timePicker: false,
     startDate: moment().startOf('hour'),
@@ -72,10 +73,46 @@ $(document).ready(function() {
     $('#dateinput').on('apply.daterangepicker', function(ev, picker) {
       $('input[name="start_date"]').val(picker.startDate.format('YYYYMMDD'));
       $('input[name="end_date"]').val(picker.endDate.format('YYYYMMDD'));
+      $('input[id="dateinput"]').val(picker.startDate.format('YYYYMMDD') + " ~ " + picker.endDate.format('YYYYMMDD'))
     });
 
     $('.dateinput').click(function() {
         $('#dateinput').data('daterangepicker').show();
     });
 
+    //좋아요 북마크 관련 코드
+    var programNum = $('input[name="programNum"]').val();
+    var like = $('input[name="like"]').val();
+    var bookmark = $('input[name="bookmark"]').val();
+
+    updateButtonImage('like', like);
+    updateButtonImage('bookmark', bookmark);
+
+    $('#like_img').click(function() {
+        toggleState('like', programNum);
+    });
+
+    $('#bookmark_img').click(function() {
+        toggleState('bookmark', programNum);
+    });
+
+    function toggleState(type, programNum) {
+        $.ajax({
+            url: type,
+            type:'post',
+            data: {'programNum' : programNum},
+            success: function (value) {
+                updateButtonImage(type, value);
+            },
+            error: function () {alert('error');}
+        });
+    }
+
+    function updateButtonImage(type, value){
+        var imgSrc = (type == 'like') ?
+            (value == 1 ? '/img/mark/heart.png' : '/img/mark/unheart.png' ) :
+            (value == 1 ? '/img/mark/bookmark.png' : '/img/mark/unbookmark.png' );
+
+        $('#' + type + '_img').attr('src', imgSrc);
+    }
 });

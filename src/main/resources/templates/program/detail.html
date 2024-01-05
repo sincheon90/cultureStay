@@ -5,11 +5,21 @@
 	<meta charset="UTF-8">
 	<title>조회</title>
 
-	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- 달력 daterangepicker -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
 	<link rel="stylesheet" th:href="@{/css/main/write.css}">
 	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
 	<link rel="stylesheet" th:href="@{/css/footer.css}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
 
 </head>
 <body>
@@ -21,20 +31,6 @@
 
 	<!-- 프로그램 설명 컨테이너-->
 	<div>
-
-			<form th:action="@{/program/like}" method="post">
-				<button type="submit">좋아요</button>
-
-				<input type="hidden" name="programNum" th:value="${program.programNum}">
-
-			</form>
-
-			<form th:action="@{/program/bookmark}" method="post">
-				<button type="submit">북마크</button>
-				<input type="hidden" name="programNum" th:value="${program.programNum}">
-
-			</form>
-
 		<div class="with-reservation-container">
 			<div class="reservation-left">
 				<div class="title-container">
@@ -43,48 +39,108 @@
 					</div>
 
 					<div class="like-bookmark-wrapper">
-						<img class="mark clickable" th:if="${program_like == 0}" th:src="@{/img/mark/heart.png}" alt="heart" style="width: 20px; height: 20px;">
-						<img class="mark clickable" th:if="${program_like == 1}" th:src="@{/img/mark/unheart.png}" alt="unheart" style="width: 20px; height: 20px;">
-						<img class="mark clickable" th:if="${program_bookmark == 0}" th:src="@{/img/mark/bookmark.png}" alt="bookmark" style="width: 20px; height: 20px;">
-						<img class="mark clickable" th:if="${program_bookmark == 1}" th:src="@{/img/mark/unbookmark.png}" alt="unbookmark" style="width: 20px; height: 20px;">
+						<input name="like" th:value="${program_like}" hidden="hidden"></input>
+						<input name="bookmark" th:value="${program_bookmark}" hidden="hidden"></input>
+
+						<img class="mark clickable" id="like_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
+						<img class="mark clickable" id="bookmark_img" src="/img/mark/unbookmark.png" alt="unbookmark" style="width: 20px; height: 20px;">
 					</div>
 				</div>
 		
 				<div>
 					<p th:utext="${program.content}"></p>
 				</div>
-		
-				<div>
-					체크 리스트
+
+				<br><hr><br>
+
+				<div class="feature-container">
+					<div class="theme-print">
+						<h3>프로그램 테마</h3>
+						<ul>
+							<li th:if="${programTag.active}">활동적</li>
+							<li th:if="${programTag.creative}">창의적</li>
+							<li th:if="${programTag.healing}">힐링</li>
+							<li th:if="${programTag.traditional}">전통</li>
+							<li th:if="${programTag.cookingExperience}">요리체험</li>
+							<li th:if="${programTag.scenicView}">뷰</li>
+							<li th:if="${programTag.countryside}">시골</li>
+							<li th:if="${programTag.city}">도시</li>
+							<li th:if="${programTag.festival}">축제</li>
+							<li th:if="${programTag.drive}">드라이브</li>
+							<li th:if="${programTag.socializing}">친목</li>
+							<li th:if="${programTag.tranquil}">한적한</li>
+						</ul>
+
+					</div>
+
+					<hr>
+
+					<div class="theme-print">
+						<h3>호스트용 체크리스트</h3>
+						<ul>
+							<li th:if="${programTag.separateBathroom}">화장실과 욕실 분리</li>
+							<li th:if="${programTag.bathtub}">욕조</li>
+							<li th:if="${programTag.wifi}">와이파이</li>
+							<li th:if="${programTag.transformer}">변압기</li>
+							<li th:if="${programTag.pajamasProvided}">파자마(잠옷)</li>
+							<li th:if="${programTag.hairdryer}">헤어드라이기</li>
+							<li th:if="${programTag.basicToiletriesProvided}">기본 세면도구</li>
+							<li th:if="${programTag.petFriendly}">반려동물 동반 가능</li>
+							<li th:if="${programTag.roomAlone}">방 호자 사용</li>
+							<li th:if="${programTag.langJapanese}">일본어 가능</li>
+							<li th:if="${programTag.langEnglish}">영어 가능</li>
+							<li th:if="${programTag.langKorean}">한국어 가능</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 
 			<div class="reservation-container">
-				<article class="reservation-article">
-					<div class="date-wrapper">
-						<div class="dateinput" id="dateinput"></div>
-
-						<div>
-							<input type="text" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"></input>
+				<form th:action="@{/program/apply}" method="get">
+					<article class="reservation-article">
+						<div class="price-per">
+							<span class="price" th:text="'₩' + ${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span>
+							<span class="per-night"> /박</span>
 						</div>
 
-						<div>
-							<input type="text" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"></input>
+						<br>
+
+						<div class="date-wrapper">
+							<div class="dateinput" id="dateinput"></div>
+
+							<div>
+								<input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"></input>
+							</div>
+
+							<div>
+								<input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"></input>
+							</div>
 						</div>
-					</div>
 
-					<div class="button-wrapper">
-						<button type="submit" class="btn-save">예약하기</button>
-					</div>
+						<br>
 
-					<div class="price-sum">
-						<p>가격(1박기준)</p>
-						<pre th:text="${program.price}"></pre>
+						<div class="button-wrapper">
+							<button type="submit" class="btn-save">예약하기</button>
+							<input type="hidden" name="programNum" th:value="${program.programNum}">
+						</div>
 
-						<p>가격(1박기준 * 일수)</p>
-						<pre th:text="${program.price} + ' * 5 = '"></pre>
-					</div>
-				</article>
+						<div class="price-sum">
+							<!-- Price per night multiplied by number of nights -->
+							<div class="price-detail">
+								<span>₩<span th:text="${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span> x 5박</span>
+								<span class="price-total">₩<span th:text="${#numbers.formatDecimal(program.price * 5, 0, 'COMMA', 2, 'POINT')}"></span></span>
+							</div>
+
+							<br><hr><br>
+
+							<!-- Total sum -->
+							<div class="price-detail">
+								<span>총 합계</span>
+								<span class="price-total">₩<span th:text="${#numbers.formatDecimal((program.price * 5) + 143314, 0, 'COMMA', 2, 'POINT')}"></span></span> <!-- Sum of price and fee -->
+							</div>
+						</div>
+					</article>
+				</form>
 			</div>
 		</div>
 
@@ -118,82 +174,11 @@
 
 <br><br>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	
-<table>
-		<tr>
-			<th>글번호</th>
-			<td style="width: 80px;" th:text="${program.programNum}"></td>
-			<th>조회수</th>
-			<td style="width: 50px;" th:text="${program.hits}"></td>
-			<th>작성일</th>
-			<td style="width: 150px;" th:text="${program.inputdate}"></td>
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td colspan="3" ></td>
-			<th>작성자</th>
-			<td th:text="${program.userid}"></td>
-		</tr>
-		<tr>
-			<th>내용</th>
-		
-			<td>
-
-			</td>
-		</tr>
-		<tr>
-			<th>시작일</th>
-		
-			<td>
-				<pre th:text="${program.start_date}"></pre>
-			</td>
-		</tr>
-		<tr>
-			<th>마감</th>
-		
-			<td>
-				<pre th:text="${program.end_date}"></pre>
-			</td>
-		</tr>
-			<tr>
-			<th>가격(1박기준)</th>
-		
-			<td>
-				<pre th:text="${program.price}"></pre>
-			</td>
-		</tr>
-		
-	</table>(1:좋아요, 0:좋아요아님)
-	<br><br>
-비회원은 클릭 못하도록 설정
-<br>
-
-<br>
-<form th:action="@{/program/apply}" method="get">
-	날짜선택(달력)
-	<table>
-			<tr>
-			<th>start_date</th>
-			<td>
-				<textarea name="start_date" ></textarea>
-			</td>
-		</tr><tr>
-			<th>end_date</th>
-			<td>
-				<textarea name="end_date" ></textarea>
-			</td>
-		</tr>
-	</table>
-	<input type="hidden" name="programNum" th:value="${program.programNum}">
-
-    <button type="submit">예약하기</button>
-
-</form>
-
 </main>
 
 <footer th:replace="layouts/footer::footer"></footer>
+
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>

@@ -1,35 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>작성 화면</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작성 화면</title>
 
-	<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
 
-	<!-- 달력 -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
-	<link rel="stylesheet" th:href="@{/css/header_style.css}">
-	<link rel="stylesheet" th:href="@{/css/main/write.css}">
-	<link rel="stylesheet" th:href="@{/css/footer.css}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
-	<script th:src="@{/js/script.js}"></script>
-	<style>
-
-	</style>
-	<script>
+    <!-- 달력 daterangepicker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
 
+    <link rel="stylesheet" th:href="@{/css/main/write.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
-	</script>
+
 </head>
 <body>
 
@@ -38,164 +31,145 @@
 
 
 <main>
-	<h2>프로그램 작성</h2>
+    <h2>프로그램 작성</h2>
 
-	<form th:action="@{/program/write}" method="post" enctype="multipart/form-data">
-		<div>
-			<input type="text" id="title" name="title" placeholder="제목">
-		</div>
+    <form th:action="@{/program/write}" method="post" enctype="multipart/form-data">
+        <div>
+            <input type="text" id="title" name="title" placeholder="제목">
+        </div>
 
-		<div>
-			<textarea id="content" name="content" placeholder="내용"></textarea>
-			<br>
-		</div>
+        <div>
+            <textarea id="content" name="content" placeholder="내용"></textarea>
+            <br>
+        </div>
 
-		<div>
-			<input class ="address" type="text" id="postcode" name="postcode" placeholder="우편번호"></input>
-		</div>
+        <div>
+            <input class="address" type="text" id="postcode" name="postcode" placeholder="우편번호"></input>
+        </div>
 
-		<div>
-			<input class ="address" type="text" id="address" name="address" placeholder="주소"></input>
-			<input type="text" id="extraAddress" style="display: none;" />
-		</div>
+        <div>
+            <input class="address" type="text" id="address" name="address" placeholder="주소"></input>
+            <input type="text" id="extraAddress" style="display: none;"/>
+        </div>
 
-		<div>
-			<input type="text" id="detailed_address" name="detailed_address" placeholder="상세 주소"></input>
-		</div>
+        <div>
+            <input type="text" id="detailed_address" name="detailed_address" placeholder="상세 주소"></input>
+        </div>
 
-		<div>
-			<input type="number" class="price-input" id="price" name="price" placeholder="가격"></input>
-		</div>
+        <div>
+            <input type="number" class="price-input" id="price" name="price" placeholder="가격"></input>
+        </div>
 
-		<div class="dateinput" id="dateinput"></div>
+        <div class="dateinput" id="dateinput"></div>
 
-		<div>
-			<input type="text" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"></input>
-		</div>
+        <div>
+            <input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date"
+                   placeholder="시작 날짜"></input>
+        </div>
 
-		<div>
-			<input type="text" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"></input>
-		</div>
+        <div>
+            <input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date"
+                   placeholder="종료 날짜"></input>
+        </div>
 
-		<br>
+        <br>
 
-		<hr>
+        <hr>
 
-		<div class="checklist-container">
-			<!-- 프로그램 테마 태그 -->
-			<div>
-				<h3>프로그램 테마</h3>
-				<label><input type="checkbox" name="active" value="1">활동적</label>
-				<label><input type="checkbox" name="creative" value="1">창의적</label>
-				<label><input type="checkbox" name="healing" value="1">힐링</label>
-				<label><input type="checkbox" name="traditional" value="1">전통</label>
-				<label><input type="checkbox" name="cookingExperience" value="1">요리체험</label>
-				<label><input type="checkbox" name="scenicView" value="1">뷰</label>
-				<label><input type="checkbox" name="countryside" value="1">시골</label>
-				<label><input type="checkbox" name="city" value="1">도시</label>
-				<label><input type="checkbox" name="festival" value="1">축제</label>
-				<label><input type="checkbox" name="drive" value="1">드라이브</label>
-				<label><input type="checkbox" name="socializing" value="1">친목</label>
-				<label><input type="checkbox" name="tranquil" value="1">한적한</label>
-			</div>
+        <div class="checklist-container">
+            <!-- 프로그램 테마 태그 -->
+            <div>
+                <h3>프로그램 테마</h3>
+                <label><input type="checkbox" name="active" value="1">활동적</label>
+                <label><input type="checkbox" name="creative" value="1">창의적</label>
+                <label><input type="checkbox" name="healing" value="1">힐링</label>
+                <label><input type="checkbox" name="traditional" value="1">전통</label>
+                <label><input type="checkbox" name="cookingExperience" value="1">요리체험</label>
+                <label><input type="checkbox" name="scenicView" value="1">뷰</label>
+                <label><input type="checkbox" name="countryside" value="1">시골</label>
+                <label><input type="checkbox" name="city" value="1">도시</label>
+                <label><input type="checkbox" name="festival" value="1">축제</label>
+                <label><input type="checkbox" name="drive" value="1">드라이브</label>
+                <label><input type="checkbox" name="socializing" value="1">친목</label>
+                <label><input type="checkbox" name="tranquil" value="1">한적한</label>
+            </div>
 
-			<hr>
+            <hr>
 
-			<!-- 호스트용 체크리스트 -->
-			<div>
-				<h3>호스트용 체크리스트</h3>
-				<label><input type="checkbox" name="separateBathroom" value="1">화장실</label>
-				<label><input type="checkbox" name="bathroom" value="1">욕실</label>
-				<label><input type="checkbox" name="bathtub" value="1">욕조</label>
-				<label><input type="checkbox" name="wifi" value="1">와이파이</label>
-				<label><input type="checkbox" name="transformer" value="1">변압기</label>
-				<label><input type="checkbox" name="pajamasProvided" value="1">파자마(잠옷)</label>
-				<label><input type="checkbox" name="hairdryer" value="1">헤어드라이</label>
-				<label><input type="checkbox" name="towel" value="1">수건</label>
-				<label><input type="checkbox" name="ShampooAndBodywash" value="1">샴푸,바디워시</label>
-				<label><input type="checkbox" name="tooth" value="1">치약,칫솔</label>
-				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반</label>
-				<label><input type="checkbox" name="roomAlone" value="1">1인실</label>
-				<label><input type="checkbox" name="roomTogether" value="1">1~2인실</label>
-				<label><input type="checkbox" name="langJapanese" value="1">일본어</label>
-				<label><input type="checkbox" name="langEnglish" value="1">영어</label>
-				<label><input type="checkbox" name="langKorean" value="1">한국어</label>
-			</div>
+            <!-- 호스트용 체크리스트 -->
+            <div>
+                <h3>호스트용 체크리스트</h3>
+                <label><input type="checkbox" name="separateBathroom" value="1">화장실</label>
+                <label><input type="checkbox" name="bathroom" value="1">욕실</label>
+                <label><input type="checkbox" name="bathtub" value="1">욕조</label>
+                <label><input type="checkbox" name="wifi" value="1">와이파이</label>
+                <label><input type="checkbox" name="transformer" value="1">변압기</label>
+                <label><input type="checkbox" name="pajamasProvided" value="1">파자마(잠옷)</label>
+                <label><input type="checkbox" name="hairdryer" value="1">헤어드라이</label>
+                <label><input type="checkbox" name="towel" value="1">수건</label>
+                <label><input type="checkbox" name="ShampooAndBodywash" value="1">샴푸,바디워시</label>
+                <label><input type="checkbox" name="tooth" value="1">치약,칫솔</label>
+                <label><input type="checkbox" name="petFriendly" value="1">반려동물 동반</label>
+                <label><input type="checkbox" name="roomAlone" value="1">1인실</label>
+                <label><input type="checkbox" name="roomTogether" value="1">1~2인실</label>
+                <label><input type="checkbox" name="langJapanese" value="1">일본어</label>
+                <label><input type="checkbox" name="langEnglish" value="1">영어</label>
+                <label><input type="checkbox" name="langKorean" value="1">한국어</label>
+            </div>
 
-			<hr>
+        </div>
 
-			<!-- 게스트용 체크리스트 -->
-			<div>
-				<h3>게스트용 체크리스트</h3>
-				<label><input type="checkbox" name="petFriendly" value="1">반려동물 동반</label>
-				<label><input type="checkbox" name="allergyFriendly" value="1">알러지</label>
-				<label><input type="checkbox" name="chronicIllness" value="1">지병</label>
-				<label><input type="checkbox" name="foodPreference" value="1">싫어하는 음식</label>
-				<label><input type="checkbox" name="privateTime" value="1">개인시간 원하는지</label>
-				<!--(방해받고 싶지 않은 시간 : 주관식)  (호스트가 24시간 함께해야하는지 아니면 일정시간 자율적으로 생활하고싶은지)-->
-				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (역사유적지탐방)</label>
-				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (현지일상생활)</label>
-				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (문화체험)</label>
-				<label><input type="checkbox" name="preferredProgramType" value="1">선호하는 프로그램 유형 (호스트와 생활)</label>
-				<label><input type="checkbox" name="smoking" value="1">흡연</label>
-				<label><input type="checkbox" name="langJapanese" value="1">일본어</label>
-				<label><input type="checkbox" name="langEnglish" value="1">영어</label>
-				<label><input type="checkbox" name="langKorean" value="1">한국어</label>
-			</div>
+        <hr>
+        <br>
 
-
-			<hr>
-			<br>
-
-			<div class="right-align">
-				<button type="submit" class="btn-save">작성</button>
-				<button type="reset" class="btn-cancel">취소</button>
-			</div>
-		</div>
-	</form>
+        <div class="right-align">
+            <button type="submit" class="btn-save">작성</button>
+            <button type="reset" class="btn-cancel">취소</button>
+        </div>
+    </form>
 </main>
 
 <footer th:replace="layouts/footer::footer"></footer>
 
 <script>
-	CKEDITOR.replace("content", {
-		//filebrowserUploadMethod :'form',
-		uploadUrl: "/image/upload",  // 이게 드래그 드롭을 위한 URL
-		filebrowserUploadUrl:  "/image/upload",
-    	width: '100%',
-		height: 300, // 에디터 높이를 500px로 설정
-	});
+    CKEDITOR.replace("content", {
+        //filebrowserUploadMethod :'form',
+        uploadUrl: "/image/upload",  // 이게 드래그 드롭을 위한 URL
+        filebrowserUploadUrl:  "/image/upload",
+        width: '100%',
+        height: 300, // 에디터 높이를 500px로 설정
+    });
 
 
 
-	document.addEventListener('DOMContentLoaded', function() {
-		// 클래스 이름을 기반으로 모든 요소 선택
-		var addressElements = document.querySelectorAll('.address');
+    document.addEventListener('DOMContentLoaded', function() {
+        // 클래스 이름을 기반으로 모든 요소 선택
+        var addressElements = document.querySelectorAll('.address');
 
-		// 각 요소에 이벤트 리스너 추가
-		addressElements.forEach(function(element) {
-			element.addEventListener('click', openAddressSearch);
-		});
+        // 각 요소에 이벤트 리스너 추가
+        addressElements.forEach(function(element) {
+            element.addEventListener('click', openAddressSearch);
+        });
 
-		// 날짜값 입력시 placeholder 값이 보이게 type 변경 이벤트 함수 추가
-		var dates = document.querySelectorAll(".date-input");
+        // 날짜값 입력시 placeholder 값이 보이게 type 변경 이벤트 함수 추가
+        var dates = document.querySelectorAll(".date-input");
 
-		dates.forEach(function(date) {
-			date.addEventListener('click', function() {
-				this.type = 'date';
-			});
+        dates.forEach(function(date) {
+            date.addEventListener('click', function() {
+                this.type = 'date';
+            });
 
-			date.addEventListener('blur', function() {
-				if(this.value === '') {
-					this.type='text';
-				}
-			})
-		})
+            date.addEventListener('blur', function() {
+                if(this.value === '') {
+                    this.type='text';
+                }
+            })
+        })
 
-	});
+    });
 
-	// 카카오 주소입력 API를 사용하는 함수
-	function openAddressSearch() {
+    // 카카오 주소입력 API를 사용하는 함수
+    function openAddressSearch() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
