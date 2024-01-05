@@ -1,45 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>payment</title>
+	<meta charset="UTF-8">
+	<title>결제</title>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/main/write.css}">
+	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
+	<link rel="stylesheet" th:href="@{/css/footer.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 </head>
 <body>
-payment
-<h3>총 결제금액</h3>
-<pre th:text="${totalPrice}"></pre>
 
-<h3>결제방식</h3>
-<h3>결제 동의 체크 </h3>
+<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
 
-<form th:action="@{/program/success}" method="post">
+<main>
+	<h3>총 결제금액</h3>
+	<pre th:text="${totalPrice}"></pre>
 
-	<table>
-			<tr>
-				<th>start_date</th>
-				<td>
-				<pre th:text="${start_date}"></pre>	
-				</td>
+	<h3>결제방식</h3>
+	<h3>결제 동의 체크 </h3>
+
+	<form th:action="@{/program/success}" method="post">
+
+		<table>
+				<tr>
+					<th>start_date</th>
+					<td>
+					<pre th:text="${start_date}"></pre>
+					</td>
+				</tr>
+				<tr>
+					<th>end_date</th>
+					<td>
+						<pre th:text="${end_date}"></pre>
+
+					</td>
 			</tr>
-			<tr>
-				<th>end_date</th>
-				<td>
-					<pre th:text="${end_date}"></pre> 
 
-				</td>
-		</tr>
-		 
-	</table>
-<input type="hidden" name="start_date" th:value="${start_date}">
-<input type="hidden" name="end_date" th:value="${end_date}">
-<input type="hidden" name="programNum" th:value="${program.programNum}">
-<input type="hidden" name="totalPrice" th:value="${program.price}">
-<input type="hidden" name="request" th:value="${request}">
+		</table>
+	<input type="hidden" name="start_date" th:value="${start_date}">
+	<input type="hidden" name="end_date" th:value="${end_date}">
+	<input type="hidden" name="programNum" th:value="${program.programNum}">
+	<input type="hidden" name="totalPrice" th:value="${program.price}">
+	<input type="hidden" name="request" th:value="${request}">
 
 
-    <button type="submit">예약하기</button>
+		<button type="submit">결제하기</button>
 
-</form>
+	</form>
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
+
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>
