@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8">
-	<title>결제</title>
+    <meta charset="UTF-8">
+    <title>결제</title>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-	<link rel="stylesheet" th:href="@{/css/header_style.css}">
-	<link rel="stylesheet" th:href="@{/css/main/write.css}">
-	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
-	<link rel="stylesheet" th:href="@{/css/footer.css}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/header_style.css}">
+    <link rel="stylesheet" th:href="@{/css/main/write.css}">
+    <link rel="stylesheet" th:href="@{/css/main/detail.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 </head>
 <body>
@@ -20,40 +20,79 @@
 <header th:replace="layouts/header::header"></header>
 
 <main>
-	<h3>총 결제금액</h3>
-	<pre th:text="${totalPrice}"></pre>
+    <form class="apply-class" th:action="@{/program/success}" method="post">
 
-	<h3>결제방식</h3>
-	<h3>결제 동의 체크 </h3>
+        <h3>총 결제금액</h3>
+        <div>
+            <span>₩<span th:text="${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span> x 5박</span>
+            <span> = </span>
+            <span class="price-total">₩<span
+                    th:text="${#numbers.formatDecimal(program.price * 5, 0, 'COMMA', 0, 'POINT')}"></span></span>
+        </div>
 
-	<form th:action="@{/program/success}" method="post">
+        <br>
 
-		<table>
-				<tr>
-					<th>start_date</th>
-					<td>
-					<pre th:text="${start_date}"></pre>
-					</td>
-				</tr>
-				<tr>
-					<th>end_date</th>
-					<td>
-						<pre th:text="${end_date}"></pre>
+        <table>
+            <tr>
+                <th>start_date</th>
+                <td>
+                    <pre th:text="${start_date}"></pre>
+                </td>
+            </tr>
+            <tr>
+                <th>end_date</th>
+                <td>
+                    <pre th:text="${end_date}"></pre>
 
-					</td>
-			</tr>
+                </td>
+            </tr>
 
-		</table>
-	<input type="hidden" name="start_date" th:value="${start_date}">
-	<input type="hidden" name="end_date" th:value="${end_date}">
-	<input type="hidden" name="programNum" th:value="${program.programNum}">
-	<input type="hidden" name="totalPrice" th:value="${program.price}">
-	<input type="hidden" name="request" th:value="${request}">
+        </table>
 
+        <hr>
 
-		<button type="submit">결제하기</button>
+        <h3>결제 수단</h3>
+        <div>
+            <select name="paymentMethod">
+                <option value="creditCard">신용카드</option>
+                <option value="paypal">페이팔</option>
+                <option value="bankTransfer">은행 송금</option>
+                <option value="mobilePay">모바일 결제</option>
+                <!-- Add more payment methods as needed -->
+            </select>
+        </div>
 
-	</form>
+        <hr>
+
+        <h3>환불 정책</h3>
+        <div>
+            환불 정책
+            1월 7일 전에 취소하면 부분 환불을 받으실 수 있습니다. 그 이후에는 취소 시점에 따라 환불액이 결정됩니다.
+            <a href="#" class="detailed-info">자세히 알아보기</a>
+        </div>
+
+        <br>
+        <hr>
+
+        <h3>기본 규칙</h3>
+        <div>
+            훌륭한 게스트가 되기 위한 몇 가지 간단한 규칙을 지켜주실 것을 모든 게스트에게 당부드리고 있습니다.
+            숙소 이용규칙을 준수하세요.
+            호스트의 집도 자신의 집처럼 아껴주세요.
+        </div>
+
+        <br>
+
+        <div class="right-align">
+            <input type="hidden" name="start_date" th:value="${start_date}">
+            <input type="hidden" name="end_date" th:value="${end_date}">
+            <input type="hidden" name="programNum" th:value="${program.programNum}">
+            <input type="hidden" name="totalPrice" th:value="${program.price}">
+            <input type="hidden" name="request" th:value="${request}">
+
+            <button type="submit">결제하기</button>
+        </div>
+    </form>
 </main>
 
 <footer th:replace="layouts/footer::footer"></footer>

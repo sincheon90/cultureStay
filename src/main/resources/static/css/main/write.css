@@ -103,3 +103,24 @@ pre {
 textarea[name="request"] {
     height: 200px;
 }
+
+/* Style the select box */
+form select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+/* Style options - limited by browser, but basic styling can be applied */
+form select option {
+    padding: 5px;
+}
+
+.detailed-info {
+    font-weight: bold;  /* Make text bold */
+    text-decoration: underline;  /* Underline the text */
+    color: black;  /* Optional: Change color to make it look more like a traditional hyperlink */
+}
