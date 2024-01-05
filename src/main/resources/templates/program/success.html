@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>결제 상태</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        main {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-	결제성공(예약성공)
+
+<main>
+    <div>
+        <p>결제성공(예약성공)</p>
+    </div>
+<br>
+    <div>
+        <a th:href="@{/}">홈으로</a>
+    </div>
+</main>
+
+<header th:replace="layouts/header::header"></header>
+
+<footer th:replace="layouts/footer::footer"></footer>
 </body>
 </html>
