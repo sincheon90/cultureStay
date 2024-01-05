@@ -37,6 +37,7 @@ main {
 footer {
     padding: 20px 200px; /* 헤더 패딩 */
 }
+
 .header-container {
     width: 100%;
     margin: 0;
@@ -192,3 +193,8 @@ button:hover {
 }
 
 
+.google-translate-container {
+    margin-left: auto; /* auto로 설정하여 오른쪽으로 정렬 */
+    display: flex;
+    align-items: center;
+}
