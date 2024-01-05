@@ -2,7 +2,6 @@ package com.abcde.cultureStay.contoller;
 
 import java.util.ArrayList;
 
-import com.abcde.cultureStay.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.abcde.cultureStay.dao.MemberDAO;
 import com.abcde.cultureStay.service.ProgramService;
-import com.abcde.cultureStay.vo.Checklist;
 import com.abcde.cultureStay.vo.Image;
+import com.abcde.cultureStay.vo.Member;
 import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.ProgramTag;
-import com.abcde.cultureStay.vo.Reservation;
 import com.abcde.cultureStay.vo.Review;
-
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +30,9 @@ public class ProgramController {
 
 	@Autowired
 	ProgramService service;
+	
+	@Autowired
+	MemberDAO mDao;
 	
 	//인기베스트 리스트
 	@GetMapping("popular")
@@ -126,6 +127,10 @@ public class ProgramController {
 			Model model,@AuthenticationPrincipal UserDetails user) {
 		log.debug("프로그램 넘버: {}", programNum);
 
+		//호스트 정보 가져오기
+		Member host = mDao.selectUser(user.getUsername());
+		log.debug("호스트 디테일: {}", host);
+		
 		//프로그램 정보 가져오기
 		Program program = service.readProgram(programNum);
 		log.debug("프로그램 디테일: {}", program);

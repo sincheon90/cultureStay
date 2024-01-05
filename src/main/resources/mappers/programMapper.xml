@@ -128,6 +128,7 @@
 	FETCH FIRST 1 ROW ONLY
 	</select>
 
+
 	<select id="readProgram" parameterType="int"
 		resultType="Program">
 
@@ -482,4 +483,89 @@
 	FROM Reservation
 	WHERE userid = #{userid}
 	</select>
+	
+	
+<!-- 후기 -->
+	<insert id="guestReview" parameterType="Review">
+		insert into Review
+		(
+		reviewNum
+		, programNum
+		, customerID
+		, hostID
+		, reviewerID
+		, reserNum
+		
+		, stars
+		, content
+		, who
+ 
+		) values (
+		reviewNum_seq.nextval
+		, #{programNum}
+		, #{customerID}
+		, #{hostID}
+		, #{reviewerID}
+		, #{reserNum}
+		
+		, #{stars}
+		, #{content}
+		, 'g'
+		)
+	</insert>
+	
+	<insert id="hostReview" parameterType="Review">
+		insert into Review
+		(
+		reviewNum
+		, programNum
+		, customerID
+		, hostID
+		, reviewerID
+		, reserNum
+		
+		, stars
+		, content
+ 		, who
+		) values (
+		reviewNum_seq.nextval
+		, #{programNum}
+		, #{customerID}
+		, #{hostID}
+		, #{reviewerID}
+		, #{reserNum}
+		
+		, #{stars}
+		, #{content}
+		, 'h'
+		)
+	</insert>
+	
+	<insert id="programReview" parameterType="Review">
+		insert into Review
+		(
+		reviewNum
+		, programNum
+		, customerID
+		, hostID
+		, reviewerID
+		, reserNum
+		
+		, stars
+		, content
+		, who
+ 
+		) values (
+		reviewNum_seq.nextval
+		, #{programNum}
+		, #{customerID}
+		, #{hostID}
+		, #{reviewerID}
+		, #{reserNum}
+		
+		, #{stars}
+		, #{content}
+		, 'p'
+		)
+	</insert>
 </mapper>

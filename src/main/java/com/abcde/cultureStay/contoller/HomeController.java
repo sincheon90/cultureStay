@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Program;
+import com.abcde.cultureStay.vo.Reservation;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +30,24 @@ public class HomeController {
 	ProgramService pService;
 	
 	  @GetMapping("member/mypage")
-	    public String mypage() {
+	  public String check(@AuthenticationPrincipal UserDetails user, Model model) {
+			
+			//내프로그램 리스트
+			ArrayList<Program> programList = pService.myProgram(user.getUsername());
+			model.addAttribute("programList",programList);
+
+			
+			//예약 리스트
+			ArrayList<Reservation> reservation = pService.newReser(user.getUsername());
+			model.addAttribute("reservation",reservation);
+			
+			
+			//내가 예약한 리스트
+			ArrayList<Reservation> myReservation = pService.myReservation(user.getUsername());
+			model.addAttribute("myReservation",myReservation);
+			
+			
+		  
 	        return "member/mypage";
 	    }
 	  
