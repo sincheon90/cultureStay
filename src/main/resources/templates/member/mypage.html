@@ -1,12 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"> 
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#mypage-nav {
+
+		background-color:#eee;
+		color:white;
+		width:200px;
+		position: fixed;
+		height: 100%;
+		float:left;
+
+	}
+	 #content {
+            margin-left: 220px; /* 네비게이션 너비 + 여유 여백 */
+        }
+</style>
 </head>
 <body>
-<h2>My Page</h2>
+<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
+<div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
+<!-- 왼쪽 네비 섹션-->
+<nav id="mypage-nav" >
+	<ul>
+		<li><a href="#" th:onclick="|loadContent('updateForm', event)|" th:text="회원정보수정"></a></li>
+        <li><a href="#" th:onclick="|loadContent('myProgram', event)|" th:text="프로그램"></a></li>
+        <li><a href="#" th:onclick="|loadContent('myReview', event)|" th:text="리뷰관리"></a></li>
 
+	</ul>
+</nav> 
+<!-- 동적으로 로드되는 컨텐츠 부분 -->
+<div id="content">
+    <!-- 여기에 동적으로 로드될 컨텐츠가 들어갑니다. -->
+</div>
+
+<!-- JavaScript 부분 -->
+<script th:inline="javascript">
+	 document.addEventListener('DOMContentLoaded', function() {
+        // 페이지 로드 시 초기 메뉴 활성화
+        loadContent('updateForm', new Event('click'));
+    });
+    function loadContent(url, event) {
+        event.preventDefault();
+        var contentDiv = document.getElementById('content');
+        
+        // Thymeleaf의 동적 URL 생성
+        var dynamicUrl = /*[[@{/}]] + */ url;
+        
+        // AJAX를 이용하여 동적으로 페이지 로드
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', dynamicUrl, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                contentDiv.innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+</script>
+
+    
+<!--
 <a th:href="@{/member/update}" th:text="회원정보수정"></a>
 <br>
 <h3>내 프로그램 관리</h3>
@@ -72,6 +130,6 @@
 	</table>
 <h3>내가 쓴 리뷰</h3>	
 <h3>나에 대한 리뷰</h3>	
-
+-->
 </body>
 </html>

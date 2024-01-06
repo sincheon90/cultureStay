@@ -78,7 +78,7 @@ public class MemberController {
 		return "member/loginForm";
 	}
     
-    @GetMapping("update")
+    @GetMapping("updateForm")
 	public String updateForm(@AuthenticationPrincipal UserDetails user
 			, Model model) {
 		log.debug("update경로_UserDetails 정보: {}", user);
@@ -103,4 +103,16 @@ public class MemberController {
 		return "redirect:/";
 	}
   
+  
+    @GetMapping("myProgram")
+ 	public String myProgram() {
+ 		 
+ 		return "member/myProgram";
+ 	}
+    @GetMapping("myReview")
+ 	public String myReview() {
+ 		 
+ 		return "member/myReview";
+ 	}
+    
 }

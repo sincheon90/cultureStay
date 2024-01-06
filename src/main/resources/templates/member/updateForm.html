@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <title>회원정보수정</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+	
+</style>
 <script>
 function checkValid(){
         let userid = document.querySelector('#userid');
@@ -97,6 +100,7 @@ function checkValid(){
 </script>
 </head>
 <body>
+   
 	<h1>회원정보 수정</h1>
 	<form th:action="@{/member/update}" method="post" onsubmit="return checkValid()" enctype="multipart/form-data">
        <table>
@@ -170,6 +174,6 @@ function checkValid(){
          </tr>
        </table>
     </form>
-
+ 
 </body>
 </html>
