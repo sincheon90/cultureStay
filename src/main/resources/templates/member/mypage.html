@@ -4,32 +4,60 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	#mypage-nav {
-
-		background-color:#eee;
-		color:white;
-		width:200px;
-		position: fixed;
-		height: 100%;
-		float:left;
-
-	}
-	 #content {
-            margin-left: 220px; /* 네비게이션 너비 + 여유 여백 */
+   <style>
+	  
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
         }
-</style>
+
+      #mypage-nav {
+            background-color: #eee;
+            color: white;
+            width: 200px;
+            position: fixed;
+            height: 100%;
+            overflow: hidden;
+            transition: 0.5s;
+            padding-top: 20px;
+        }
+
+        #mypage-nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #mypage-nav a {
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #1F9CB3;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #mypage-nav a:hover {
+            background-color: #1F9CB3;
+            color: white;
+        }
+
+        #content {
+            margin-left: 220px; /* 네비게이션 너비 + 여유 여백 */
+            padding: 16px;
+        }
+    </style>
 </head>
 <body>
 <!-- 헤더 섹션-->
-<header th:replace="layouts/header::header"></header>
+<header th:replace="layouts/header::header" style="z-index: 1000;"></header>
 <div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
 <!-- 왼쪽 네비 섹션-->
 <nav id="mypage-nav" >
 	<ul>
 		<li><a href="#" th:onclick="|loadContent('updateForm', event)|" th:text="회원정보수정"></a></li>
         <li><a href="#" th:onclick="|loadContent('myProgram', event)|" th:text="프로그램"></a></li>
-        <li><a href="#" th:onclick="|loadContent('myReview', event)|" th:text="리뷰관리"></a></li>
+        <li><a href="#" th:onclick="|loadContent('myReview', event)|" th:text="내예약"></a></li>
 
 	</ul>
 </nav> 
@@ -98,7 +126,6 @@
 					th:text="게스트리뷰작성하기"></a> </p>
 			    <p th:case="*" >알 수 없는 상태입니다.</p>
 			</td>
-			
 		</tr>
 	</table>
 	<br>

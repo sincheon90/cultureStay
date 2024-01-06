@@ -568,4 +568,35 @@
 		, 'p'
 		)
 	</insert>
+	
+	
+	
+	
+	<!-- get리뷰들 -->
+	<select id="getHostReview" parameterType="String" resultType="Review">
+	SELECT *
+	FROM Review
+	WHERE hostID = #{userid}
+		and who = 'h'
+	</select>
+	<select id="getProgramReview" parameterType="String" resultType="Review">
+	SELECT *
+	FROM Review
+	WHERE hostID = #{userid}
+		and who = 'p'
+	</select>
+	
+	<select id="getGuestReview" parameterType="String" resultType="Review">
+	SELECT *
+	FROM Review
+	WHERE customerID = #{userid}
+		and who = 'g'
+	</select>
+	<select id="getMyReview" parameterType="String" resultType="Review">
+	SELECT *
+	FROM Review
+	WHERE reviewerID = #{userid}
+		
+	</select>
+	
 </mapper>

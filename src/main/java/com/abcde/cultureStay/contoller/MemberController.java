@@ -98,21 +98,10 @@ public class MemberController {
 		int result = service.updateUser(member);
 		log.debug("update 결과: {}", result);
 		
-		
-		
 		return "redirect:/";
 	}
   
   
-    @GetMapping("myProgram")
- 	public String myProgram() {
- 		 
- 		return "member/myProgram";
- 	}
-    @GetMapping("myReview")
- 	public String myReview() {
- 		 
- 		return "member/myReview";
- 	}
+   
     
 }
