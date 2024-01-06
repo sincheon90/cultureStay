@@ -30,7 +30,7 @@ public class ReservationController {
 	
 	@GetMapping("apply")
 	public String apply(Model model,
-		String start_date, String end_date, int programNum) {
+		String start_date, String end_date, @RequestParam(defaultValue = "0") int programNum) {
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		Program program = service.readProgram(programNum);

@@ -51,7 +51,7 @@ function truncateContent() {
 
 $(document).ready(function() {
   $('#dateinput').daterangepicker({
-//    opens: 'left',
+    opens: 'center',
     autoUpdateInput: false,
     timePicker: false,
     startDate: moment().startOf('hour'),

@@ -10,7 +10,7 @@
 
 
 	<link rel="stylesheet" th:href="@{/css/main/write.css}">
-	<link rel="stylesheet" th:href="@{/css/footer.css}">
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 </head>
@@ -97,7 +97,7 @@
 		</table>
 		<input type="hidden" name="start_date" th:value="${start_date}">
 		<input type="hidden" name="end_date" th:value="${end_date}">
-		<input type="hidden" name="programNum" th:value="${program.programNum}">
+		<input type="text" name="programNum" th:value="${program.programNum}">
 		<input type="hidden" name="totalPrice" th:value="${program.price}">
 
 		<div class="right-align">

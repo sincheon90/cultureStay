@@ -16,7 +16,7 @@
 
 
 	<link rel="stylesheet" th:href="@{/css/main/list.css}">
-	<link rel="stylesheet" th:href="@{/css/footer.css}">
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 </head>
@@ -36,7 +36,7 @@
 				<input type="text" name="address" placeholder="지역 검색" aria-label="지역">
 
 				<!-- 날짜 선택 -->
-				<input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택"></input>
+				<input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택" readonly></input>
 
 				<input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"
 					   hidden="hidden"></input>
@@ -113,68 +113,6 @@
 </main>
 
 <footer th:replace="layouts/footer::footer"></footer>
-
-
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-	<a sec:authorize="isAuthenticated()" th:href="@{/program/write}" th:text="글쓰기"></a>
-<br><br><br>
-<table>
-
-		<tr>
-			<th>글번호</th>
-			<th>작성자</th>
-			<th style="width:230px;">제목</th>
-			<th>조회수</th>
-			<th style="width:150px;">작성일</th>
-		</tr>
-		<!-- controller에서 model로 부터 받아온 데이터를 출력하는 부분 -->
-		<tr th:each="programList : ${programList}">
-			<td th:text="${programList.programNum}"></td>
-			<td th:text="${programList.userid}"></td>
-			<td>
-				<a th:href="@{/program/detail(programNum=${programList.programNum})}"
-				   th:text="${programList.title}"></a>
-			</td>
-			<td th:text="${programList.hits}"></td>
-			<td th:text="${programList.inputdate}"></td>
-
-		</tr>
-	</table>
-	
-		<!-- 검색폼-->
-
-	<section class="search-section">
-	<form id="pagingForm" method="get" th:action="@{/program/list}">
-		<div class="header-container header-bottom">
-			<div class="search-bar">
-				<!-- 지역 입력란 -->
-				<input type="text"  th:value="${address}" placeholder="지역 검색" aria-label="지역">
-
-				<!-- 체크인 날짜 선택 -->
-				<input type="date" th:value="${start_date}" aria-label="체크인 날짜">
-
-				<!-- 체크아웃 날짜 선택 -->
-				<input type="date" th:value="${end_date}" aria-label="체크아웃 날짜">
-
-				<!-- 프로그램 입력란 -->
-				<input type="text" th:value="${searchWord}" placeholder="프로그램 검색" aria-label="프로그램">
-
-				<!-- 검색 버튼 -->
-				<input type="submit"  aria-label="검색" >
-					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
-				</input>
-			</div>
-		</div>
-	</form>
-	</section>
 
 <script th:src="@{/js/script.js}">
 
