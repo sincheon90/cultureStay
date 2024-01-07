@@ -1,89 +1,62 @@
 package com.abcde.cultureStay.service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.abcde.cultureStay.dao.ChatDAO;
-import com.abcde.cultureStay.vo.ChatMessage;
 import com.abcde.cultureStay.vo.ChatRoom;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ChatServiceImpl implements ChatService{
 	@Autowired
 	ChatDAO dao;
+	
+	@Autowired
+	ObjectMapper objectMapper;
+	
+	//private final ObjectMapper objectMapper;
+    private Map<String, ChatRoom> chatRooms;
+
+    @PostConstruct
+    private void init() {
+        chatRooms = new LinkedHashMap<>();
+    }
 
 	@Override
-	public ArrayList<ChatRoom> showChatRoomAll(String userid) {
-		 log.info("id: {}", userid);
-		    ArrayList<ChatRoom> chatRooms = dao.showChatRoomAll(userid);
-		    log.info("chatRoom service: {}", chatRooms);
-			return chatRooms;
+	public List<ChatRoom> findAllRoom() {
+		return new ArrayList<>(chatRooms.values());
 	}
 
 	@Override
-	public ArrayList<ChatMessage> findByMessage(ChatRoom chatRoom) {
-		ArrayList<ChatMessage> chatMessage = dao.findByMessage(chatRoom);
-		return chatMessage;
+	public ChatRoom createRoom(String name) {
+		  String randomId = UUID.randomUUID().toString();
+	        ChatRoom chatRoom = ChatRoom.builder()
+	                .roomId(randomId)
+	                .name(name)
+	                .build();
+	        chatRooms.put(randomId, chatRoom);
+	        return chatRoom;
 	}
 
 	@Override
-	public int selectChatRoom(ChatRoom chatRoom) {
-		int ChatRoomNum = dao.selectChatRoom(chatRoom);
-		return ChatRoomNum;
+	public ChatRoom findRoomById(String roomId) {
+		return chatRooms.get(roomId);
 	}
 
-	@Override
-	public ArrayList<ChatRoom> showChatRoom(int bbno) {
-		ArrayList<ChatRoom> chatRoom = dao.showChatRoom(bbno);
-		return chatRoom;
-	}
-
-	@Override
-	public void createChatRoom(ChatRoom chatRoom) {
-		dao.createChatRoom(chatRoom);
-		
-	}
-
-	@Override
-	public ChatRoom findRoomById(ChatRoom chatRoom) {
-		ChatRoom result = dao.findRoomById(chatRoom);
-		return result;
-	}
-
-	@Override
-	public ChatRoom selectByChatRoom(int roomId) {
-		ChatRoom chatRoom = dao.selectByChatRoom(roomId);
-		return chatRoom;
-	}
-
-	@Override
-	public void saveMessage(ChatMessage message) {
-		log.info("board_id {}", message.getWriter());
-		dao.saveMessage(message);
-		
-	}
-
-	@Override
-	public String findByBoardId(int roomId) {
-		String boardId = dao.findByBoardId(roomId);
-		return boardId;
-	}
-
-	@Override
-	public String findByMemberId(int roomId) {
-		String memberId = dao.findByMemberId(roomId);
-		return memberId;
-	}
-
-	@Override
-	public int findByBbno(int roomId) {
-		int bbno = dao.findByBbno(roomId);
-		return bbno;
-	}
+	
 
 }

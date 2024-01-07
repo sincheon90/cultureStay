@@ -1,35 +1,21 @@
 package com.abcde.cultureStay.service;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.abcde.cultureStay.vo.ChatMessage;
 import com.abcde.cultureStay.vo.ChatRoom;
+
+
 
 @Service
 public interface ChatService {
 
-	ArrayList<ChatRoom> showChatRoomAll(String userid);
+	List<ChatRoom> findAllRoom();
 
-	ArrayList<ChatMessage> findByMessage(ChatRoom chatRoom);
+	ChatRoom createRoom(String name);
 
-	int selectChatRoom(ChatRoom chatRoom);
-
-	ArrayList<ChatRoom> showChatRoom(int bbno);
-
-	void createChatRoom(ChatRoom chatRoom);
-
-	ChatRoom findRoomById(ChatRoom chatRoom);
-
-	ChatRoom selectByChatRoom(int roomId);
-
-	void saveMessage(ChatMessage message);
-
-	String findByBoardId(int roomId);
-
-	String findByMemberId(int roomId);
-
-	int findByBbno(int roomId);
+	ChatRoom findRoomById(String roomId);
 
 }
