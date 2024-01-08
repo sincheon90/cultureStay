@@ -8,11 +8,13 @@
 
 <title>Insert title here</title>
  <style>
-         
+        body{
+			background-color: #e8e8e8;
+		}
 		.container {
-			background-color: #EAEAEA;
-			border: 1.5px solid #1F9CB3;
-			width: 70%;
+			background-color: #f7f7cb;
+			border: 1.5px solid #cfcfc6;
+			width: 60%;
 			height: auto;
  			border-radius: 10q;
 			padding: 20px; /* h3 요소 아래 여백 추가 */
@@ -29,16 +31,32 @@
             font-size: 14px;
         }
         
+        
         body {
             text-align: center; /* 전체 내용을 가운데 정렬 */
         }
+        
+        #item{
+						flex-direction : row;
+
+		}
+       
+        
     </style>
 </head>
 <body>
 	<div class="container">
- <h2><span class="badge" style="background-color: #E91E63;" >예약정보</span></h2> 
-
-	
+ <h2>예약정보</h2> 
+ <hr>
+	 <div style="width: 18rem; background-color: transparent;" id="item">
+	  		<img th:src="@{/img/board/img_3.png}" class="card-img-top" alt="...">
+		 <div class="card-body">
+		    <p class="card-text" th:text="${program.title}"> </p>
+		  </div>
+	</div>
+		
+ 
+	 
 	<div class="form-floating mb-3">
 	  <input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput"  th:value="${reservation.userid}">
 	  <label for="floatingPlaintextInput" >예약자</label>
@@ -47,16 +65,9 @@
 	  <input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput"  th:value="${reservation.start_date}">
 	  <label for="floatingPlaintextInput" >신청기간</label>
 	</div>
-	
-	<table>
 	 
-		<tr>
-			<th>제목</th>
-			<td colspan="3" th:text="${program.title}"></td>
-			 
-		</tr>
-		
-	</table>
+	
+	
 	<hr>
 	체크리스트
 	

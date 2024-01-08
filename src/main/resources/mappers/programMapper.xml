@@ -580,8 +580,7 @@
 	<select id="getHostReview" parameterType="int" resultType="Review">
 	SELECT *
 	FROM Review
-	WHERE programNum = #{programNum}
-		and who = 'h'
+	WHERE who = 'h'
 	ORDER BY inputdate DESC
 	</select>
 	<select id="getProgramReview" parameterType="int" resultType="Review">
@@ -621,6 +620,10 @@
 		WHERE reserNum = #{reserNum}
     </select>
 	
-	
+	 <select id="hostAvg" parameterType="String" resultType="double">
+	    SELECT ROUND(AVG(stars), 1) AS avgStars
+        FROM Review
+        WHERE hostID = #{userid}
+    </select>
 	
 </mapper>

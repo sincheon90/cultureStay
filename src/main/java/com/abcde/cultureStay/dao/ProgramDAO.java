@@ -87,6 +87,8 @@ public interface ProgramDAO {
 
 	Checklist getChecklist(int reserNum);
 
+	double hostAvg(String userid);
+
 
 
 

@@ -121,7 +121,7 @@ public class ReservationController {
 		log.debug("예약하기 {}",	reserNum);
         service.acceptReser(reserNum); 
         
-        return "redirect:/program/accept?reserNum="+reserNum;
+        return "redirect:/member/mypage";
     }
 	
 	

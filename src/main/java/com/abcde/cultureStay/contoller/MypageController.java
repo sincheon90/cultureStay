@@ -84,6 +84,10 @@ public class MypageController {
 			//호스트 리뷰 리스트
 				ArrayList<Review> hostReview = dao.getHostReview(programNum);
 				model.addAttribute("hostReview",hostReview);
+				
+				double hostAvg = dao.hostAvg(user.getUsername());
+				model.addAttribute("hostAvg",hostAvg);
+
 			//프로그램 리뷰 리스트
 				ArrayList<Review> programReview = dao.getProgramReview(programNum);
 				model.addAttribute("programReview",programReview);
