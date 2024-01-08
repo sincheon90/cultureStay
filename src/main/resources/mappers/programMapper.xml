@@ -607,7 +607,7 @@
 		
 	</select>
 	
-	 <select id="getmyBookmark" resultType="Program">
+	 <select id="getmyBookmark" parameterType="String" resultType="Program">
         SELECT p.*
         FROM Program p
         JOIN Program_bookmark pb ON p.programNum = pb.programNum
@@ -615,6 +615,11 @@
         ORDER BY pb.inputdate DESC
     </select>
 	
+	 <select id="getChecklist" parameterType="int" resultType="Checklist">
+	    SELECT *
+		FROM Checklist
+		WHERE reserNum = #{reserNum}
+    </select>
 	
 	
 	

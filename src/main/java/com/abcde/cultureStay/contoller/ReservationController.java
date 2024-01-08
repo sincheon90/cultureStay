@@ -106,6 +106,11 @@ public class ReservationController {
 		log.debug("프로그램정보 {}",program);
 		model.addAttribute("program",program);
 
+//		Checklist checklist = dao.getChecklist(reserNum);
+//		log.debug("고객 체크리스트 정보 {}",checklist);
+//		model.addAttribute("checklist",checklist);
+		
+		
 		return "program/accept";
 	}
 	
