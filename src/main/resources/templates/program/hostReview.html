@@ -11,6 +11,7 @@
 
 
 </style>
+
 </head>
 <body>
 	<!-- 헤더 섹션-->
@@ -29,16 +30,16 @@
 <div class="items">
 <form th:action="@{/program/hostReview}" method="post" enctype="multipart/form-data">
     <div class="stars">
-        <input type="radio" id="star5" name="stars" value="5" />
-        <label for="star5"></label>
-        <input type="radio" id="star4" name="stars" value="4" />
-        <label for="star4"></label>
-        <input type="radio" id="star3" name="stars" value="3" />
-        <label for="star3"></label>
-        <input type="radio" id="star2" name="stars" value="2" />
-        <label for="star2"></label>
         <input type="radio" id="star1" name="stars" value="1" />
-        <label for="star1"></label>
+        <label for="star1"></label> 
+         <input type="radio" id="star2" name="stars" value="2" />
+        <label for="star2"></label> 
+        <input type="radio" id="star3" name="stars" value="3" />
+        <label for="star3"></label> 
+         <input type="radio" id="star4" name="stars" value="4" />
+        <label for="star4"></label>
+        <input type="radio" id="star5" name="stars" value="5" checked="checked"/>
+        <label for="star5"></label>    
     </div>
 
     <div>
@@ -56,5 +57,14 @@
     <input type="hidden" name="programNum" th:value="${program.programNum}">
 </form></div></div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script>
+	const rating_input = document.querySelector('.rating input');
+	const rating_star = document.querySelector('.rating_star');
+	
+	// 별점 드래그 할 때
+	rating_input.addEventListener('input', () => {
+	  rating_star.style.width = `${rating_input.value * 10}%`;
+	});
+</script>
 </body>
 </html>
