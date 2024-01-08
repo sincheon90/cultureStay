@@ -2,7 +2,6 @@ package com.abcde.cultureStay.contoller;
 
 import java.util.ArrayList;
 
-import com.abcde.cultureStay.dao.ProgramDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,83 +28,45 @@ public class ReservationController {
 	@Autowired
 	ProgramService service;
 
-	@Autowired
-	ProgramDAO dao;
-
 	@GetMapping("apply")
 	public String apply(Model model,
-						@RequestParam(required = false) String start_date,
-						@RequestParam(required = false) String end_date,
-						@RequestParam(defaultValue = "0") int programNum) {
-
-		if (programNum != 0) {
-			Program program = service.readProgram(programNum);
-			log.info("Program: {}", program); // Ensure the log shows a non-null object
-			model.addAttribute("program", program);
-		} else {
-			// Handle the case when the program is not found
-			model.addAttribute("errorMessage", "Program not found.");
-			return "redirect:/errorPage";
-		}
-
-
+		String start_date, String end_date, int programNum) {
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
-		model.addAttribute("checklist", dao.getChecklist(programNum));
+		Program program = service.readProgram(programNum);
 
+		model.addAttribute("program", program);
 		return "program/apply";
 	}
 	
 	//고객체크리스트 저장
-	// Assuming Checklist is a model class that corresponds to your form
 	@PostMapping("checklist")
-	public String checklist(Model model,
-							@RequestParam(required = false) String start_date,
-							@RequestParam(required = false) String end_date,
-							@AuthenticationPrincipal UserDetails user, Checklist checklist) {
-		try {
-			checklist.setUserid(user.getUsername());
-			log.debug("체크리스트{}", checklist);
+	public String checklist(@AuthenticationPrincipal UserDetails user,Checklist checklist) {
+		checklist.setUserid(user.getUsername());
+		log.debug("체크리스트{}",checklist);
 
-			service.reserveChecklist(checklist);
-		} catch (Exception e) {
-			log.error("Error saving checklist", e);
-			model.addAttribute("errorMessage", "Error saving checklist.");
-			return "program/error"; // Redirect to an error page or handle the error
-		}
+		service.reserveChecklist(checklist);
 
-		return "redirect:/program/apply?start_date=" + start_date +
-				"&end_date=" + end_date + "&programNum=" + checklist.getProgramNum();
+		return "redirect:/program/apply";
 	}
 	
 	
 	@PostMapping("payment")
 	public String payment(Model model,String request,
-						  @RequestParam(required = false) String start_date,
-						  @RequestParam(required = false) String end_date,
-						  @RequestParam(defaultValue = "0") int programNum,
-						  int totalPrice,
-						  Checklist checklist,
-						  @AuthenticationPrincipal UserDetails user) {
- 
+			String start_date, String end_date, int programNum, int totalPrice,
+						  @AuthenticationPrincipal UserDetails user,Checklist checklist) {
+
+		checklist.setUserid(user.getUsername());
+		log.debug("체크리스트{}",checklist);
+
+		service.reserveChecklist(checklist);
+
 		log.debug("끝{}",request);
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		model.addAttribute("totalPrice", totalPrice);
 		Program program = service.readProgram(programNum);
 
-		// 체크리스트 저장
-		try {
-			checklist.setUserid(user.getUsername());
-			log.debug("체크리스트{}", checklist);
-
-			service.reserveChecklist(checklist);
-		} catch (Exception e) {
-			log.error("Error saving checklist", e);
-			model.addAttribute("errorMessage", "Error saving checklist.");
-			return "program/error"; // Redirect to an error page or handle the error
-		}
-		
 		model.addAttribute("program", program);
 		model.addAttribute("request", request);
 
