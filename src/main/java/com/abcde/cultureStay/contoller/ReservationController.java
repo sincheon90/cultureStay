@@ -2,6 +2,7 @@ package com.abcde.cultureStay.contoller;
 
 import java.util.ArrayList;
 
+import com.abcde.cultureStay.dao.ProgramDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,9 @@ public class ReservationController {
 	@Autowired
 	ProgramService service;
 
+	@Autowired
+	ProgramDAO dao;
+
 	@GetMapping("apply")
 	public String apply(Model model,
 						@RequestParam(required = false) String start_date,
@@ -38,18 +42,16 @@ public class ReservationController {
 			Program program = service.readProgram(programNum);
 			log.info("Program: {}", program); // Ensure the log shows a non-null object
 			model.addAttribute("program", program);
-			if (program != null) {
-				model.addAttribute("program", program);
-			} else {
-				// Handle the case when the program is not found
-				model.addAttribute("errorMessage", "Program not found.");
-				return "redirect:/errorPage";
-			}
+		} else {
+			// Handle the case when the program is not found
+			model.addAttribute("errorMessage", "Program not found.");
+			return "redirect:/errorPage";
 		}
+
 
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
-//		model.addAttribute("end_date",);
+		model.addAttribute("checklist", dao.getChecklist(programNum));
 
 		return "program/apply";
 	}
@@ -79,13 +81,30 @@ public class ReservationController {
 	
 	@PostMapping("payment")
 	public String payment(Model model,String request,
-			String start_date, String end_date, int programNum, int totalPrice) {
+						  @RequestParam(required = false) String start_date,
+						  @RequestParam(required = false) String end_date,
+						  @RequestParam(defaultValue = "0") int programNum,
+						  int totalPrice,
+						  Checklist checklist,
+						  @AuthenticationPrincipal UserDetails user) {
  
 		log.debug("끝{}",request);
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		model.addAttribute("totalPrice", totalPrice);
 		Program program = service.readProgram(programNum);
+
+		// 체크리스트 저장
+		try {
+			checklist.setUserid(user.getUsername());
+			log.debug("체크리스트{}", checklist);
+
+			service.reserveChecklist(checklist);
+		} catch (Exception e) {
+			log.error("Error saving checklist", e);
+			model.addAttribute("errorMessage", "Error saving checklist.");
+			return "program/error"; // Redirect to an error page or handle the error
+		}
 		
 		model.addAttribute("program", program);
 		model.addAttribute("request", request);
