@@ -82,9 +82,14 @@ public class ProgramController {
 			
 			ArrayList<Program> programList = service.programMainlist(searchProgram,tag);	
 
-			
+			// 이미지 추출
+			String imagePath1 = "https://www.newstown.co.kr/news/photo/201507/213083_85657_112.jpg";
+			for (Program program: programList) {
+				program.setImagePath1(imagePath1);
+				program.setImagePath2(imagePath1);
+			}
+
 			model.addAttribute("programList", programList);
-			
 			return "program/list";
 		}
 		
