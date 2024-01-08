@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+<title>Insert title here</title>
+<style>
+ .btn{
+  background-color: #1F9CB3;
+  border: none;
+}
+
+.btn:hover {
+      background-color:#E91E63;
+       transition: 0.5s;
+  }
+  
+   .container {
+    display: flex;
+     justify-content: left;
+      justify-content: flex-start;
+	flex-wrap: wrap;
+  }
+
+  .card {
+    /*  flex: 1;각 박스가 동일한 너비를 가지도록 */
+    margin: 10px;
+    width: 30%;
+      
+  }
+</style>
+</head>
+<body>
+myBookmark
+<h3>내 북마크 숙소 </h3>
+<div class="container">
+<div class="card" style="width: 18rem;" th:each="program: ${bookmarkList}">
+  <img th:src="@{/img/board/img_3.png}" class="card-img-top" alt="...">
+  <div class="card-body">  
+    <h5 class="card-title" th:text="${program.title}">Card title</h5>
+    <a th:href="@{/program/detail(programNum=${program.programNum})}" class="btn btn-primary"  >프로그램 보기</a>
+    <a th:href="@{/program/review(programNum=${program.programNum})}" class="btn btn-primary"  >리뷰 보기</a>
+ </div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+</body>
+</html>

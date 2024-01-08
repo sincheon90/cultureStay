@@ -91,5 +91,28 @@ public class MypageController {
 			
 		        return "member/programReview";
 		    }
-	  
+	    @GetMapping("member/myBookmark")
+		  public String myBookmark(
+				   @AuthenticationPrincipal UserDetails user, Model model
+				  ) {
+				
+				//내 북마크 리스트
+				ArrayList<Program> bookmarkList = dao.getmyBookmark(user.getUsername());
+				model.addAttribute("bookmarkList",bookmarkList);
+
+//				
+//				//예약 리스트
+//				ArrayList<Reservation> reservation = pService.newReser(user.getUsername());
+//				model.addAttribute("reservation",reservation);
+//				
+//				
+//				//내가 예약한 리스트
+//				ArrayList<Reservation> myReservation = pService.myReservation(user.getUsername());
+//				model.addAttribute("myReservation",myReservation);
+//				
+				
+			  
+		        return "member/myBookmark";
+		    }
+		 
 }

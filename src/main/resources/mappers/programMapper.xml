@@ -607,4 +607,17 @@
 		
 	</select>
 	
+	 <select id="getmyBookmark" resultType="Program">
+        SELECT *
+        FROM Program
+        WHERE programNum IN (
+            SELECT programNum
+            FROM Program_bookmark
+            WHERE userid = #{userid}
+        )
+    </select>
+	
+	
+	
+	
 </mapper>
