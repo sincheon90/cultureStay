@@ -83,7 +83,9 @@ public interface ProgramDAO {
 
 	ArrayList<Review> getMyReview(String userid);
 
-	ArrayList<Program> getmyBookmark(String username);
+	ArrayList<Program> getmyBookmark(String userid);
+
+	Checklist getChecklist(int reserNum);
 
 
 
