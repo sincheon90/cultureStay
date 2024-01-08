@@ -220,6 +220,13 @@ public class ProgramServiceImpl implements ProgramService{
 	@Override
 	public ArrayList<Program> myProgram(String userid) {
 		ArrayList<Program> programList = dao.myProgram(userid);
+		
+
+		for (Program r : programList) {
+			r.setContent(extractText(r.getContent()));
+		}
+
+		
 		return programList;
 	}
 	@Override

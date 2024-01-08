@@ -268,6 +268,7 @@
 		Review
 		where
 		programNum = #{programNum}
+		and who = 'p'
 		order by
 		reviewNum
 	</select>
@@ -461,12 +462,14 @@
 	SELECT *
 	FROM Program
 	WHERE userid = #{userid}
+	ORDER BY inputdate DESC
 		</select>
 		
 	<select id="getReservation" parameterType="int" resultType="Reservation">
 	SELECT *
 	FROM Reservation
 	WHERE reserNum = #{reserNum}
+	ORDER BY inputdate DESC
 	</select>
 	
 	<update id="acceptReser" parameterType="int">
@@ -482,6 +485,7 @@
 	SELECT *
 	FROM Reservation
 	WHERE userid = #{userid}
+	ORDER BY inputdate DESC
 	</select>
 	
 	
@@ -568,4 +572,39 @@
 		, 'p'
 		)
 	</insert>
+	
+	
+	
+	
+	<!-- get리뷰들 -->
+	<select id="getHostReview" parameterType="int" resultType="Review">
+	SELECT *
+	FROM Review
+	WHERE programNum = #{programNum}
+		and who = 'h'
+	ORDER BY inputdate DESC
+	</select>
+	<select id="getProgramReview" parameterType="int" resultType="Review">
+	SELECT *
+	FROM Review
+	WHERE programNum = #{programNum}
+		and who = 'p'
+	ORDER BY inputdate DESC
+	</select>
+	
+	<select id="getGuestReview" parameterType="String" resultType="Review">
+	SELECT *
+	FROM Review
+	WHERE customerID = #{userid}
+		and who = 'g'
+	ORDER BY inputdate DESC
+	</select>
+	<select id="getMyReview" parameterType="String" resultType="Review">
+	SELECT *
+	FROM Review
+	WHERE reviewerID = #{userid}
+	ORDER BY inputdate DESC
+		
+	</select>
+	
 </mapper>

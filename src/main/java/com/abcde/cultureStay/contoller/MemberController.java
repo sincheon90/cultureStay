@@ -78,7 +78,7 @@ public class MemberController {
 		return "member/loginForm";
 	}
     
-    @GetMapping("update")
+    @GetMapping("updateForm")
 	public String updateForm(@AuthenticationPrincipal UserDetails user
 			, Model model) {
 		log.debug("update경로_UserDetails 정보: {}", user);
@@ -98,9 +98,10 @@ public class MemberController {
 		int result = service.updateUser(member);
 		log.debug("update 결과: {}", result);
 		
-		
-		
 		return "redirect:/";
 	}
   
+  
+   
+    
 }
