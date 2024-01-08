@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" th:href="@{/css/main/home.css}">
 <link rel="stylesheet" th:href="@{/css/main/list.css}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 <style>
 
 </style>
@@ -27,7 +27,7 @@
 <main>
 	<section class="board-container">
 		<div class="board-title">
-			<h2>인기 게시글 or 최신</h2>
+			<h2>인기 게시글</h2>
 		</div>
 
 		<div class="board-card">
@@ -76,7 +76,12 @@
 
 	<section class="board-container">
 		<div class="board-title">
-			<h2>00님을 위한 추천 프로그램</h2>
+			<h2 sec:authorize="isAuthenticated()">
+				<span th:text="${#authentication.name} + '님을 위한 추천 프로그램'">00님을 위한 추천 프로그램</span>
+			</h2>
+			<h2 sec:authorize="!isAuthenticated()">
+				추천 프로그램
+			</h2>
 			<div class="add_link"><a th:href="@{/program/recommend}">더보기</a></div>
 		</div>
 

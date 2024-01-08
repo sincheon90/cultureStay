@@ -17,7 +17,7 @@
 
 	<link rel="stylesheet" th:href="@{/css/main/list.css}">
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
 
 </head>
 <body>
@@ -76,11 +76,11 @@
 			<article class="image-article">
 				<div class="image-container">
 					<div class="image-wrapper">
-						<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
+						<img th:src="${programList.imagePath1}" alt="이미지1">
 					</div>
 
 					<div class="image-wrapper">
-						<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
+						<img th:src="${programList.imagePath2}" alt="이미지2">
 					</div>
 				</div>
 

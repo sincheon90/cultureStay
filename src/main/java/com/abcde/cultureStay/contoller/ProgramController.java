@@ -82,9 +82,7 @@ public class ProgramController {
 			
 			ArrayList<Program> programList = service.programMainlist(searchProgram,tag);	
 
-			
 			model.addAttribute("programList", programList);
-			
 			return "program/list";
 		}
 		

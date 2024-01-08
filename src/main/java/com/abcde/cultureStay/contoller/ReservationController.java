@@ -27,14 +27,14 @@ public class ReservationController {
 	
 	@Autowired
 	ProgramService service;
-	
+
 	@GetMapping("apply")
 	public String apply(Model model,
-		String start_date, String end_date, @RequestParam(defaultValue = "0") int programNum) {
+		String start_date, String end_date, int programNum) {
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		Program program = service.readProgram(programNum);
-		
+
 		model.addAttribute("program", program);
 		return "program/apply";
 	}
@@ -44,23 +44,29 @@ public class ReservationController {
 	public String checklist(@AuthenticationPrincipal UserDetails user,Checklist checklist) {
 		checklist.setUserid(user.getUsername());
 		log.debug("체크리스트{}",checklist);
-		
+
 		service.reserveChecklist(checklist);
-		
+
 		return "redirect:/program/apply";
 	}
 	
 	
 	@PostMapping("payment")
 	public String payment(Model model,String request,
-			String start_date, String end_date, int programNum, int totalPrice) {
- 
+			String start_date, String end_date, int programNum, int totalPrice,
+						  @AuthenticationPrincipal UserDetails user,Checklist checklist) {
+
+		checklist.setUserid(user.getUsername());
+		log.debug("체크리스트{}",checklist);
+
+		service.reserveChecklist(checklist);
+
 		log.debug("끝{}",request);
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		model.addAttribute("totalPrice", totalPrice);
 		Program program = service.readProgram(programNum);
-		
+
 		model.addAttribute("program", program);
 		model.addAttribute("request", request);
 
