@@ -41,18 +41,6 @@
 				<label><input type="checkbox" name="langJapanese" value="1">일본어</label><!--여기부터 추가-->
 				<label><input type="checkbox" name="langEnglish" value="1">영어</label>
 				<label><input type="checkbox" name="langKorean" value="1">한국어</label>
-				<label><input type="checkbox" name="active" value="1">활동적</label>
-				<label><input type="checkbox" name="creative" value="1">창의적</label>
-				<label><input type="checkbox" name="healing" value="1">힐링</label>
-				<label><input type="checkbox" name="traditional" value="1">전통</label>
-				<label><input type="checkbox" name="cookingExperience" value="1">요리체험</label>
-				<label><input type="checkbox" name="scenicView" value="1">뷰</label>
-				<label><input type="checkbox" name="countryside" value="1">시골</label>
-				<label><input type="checkbox" name="city" value="1">도시</label>
-				<label><input type="checkbox" name="festival" value="1">축제</label>
-				<label><input type="checkbox" name="drive" value="1">드라이브</label>
-				<label><input type="checkbox" name="socializing" value="1">친목</label>
-				<label><input type="checkbox" name="tranquil" value="1">한적한</label>
 			</div>
 		</div>
 
@@ -97,7 +85,7 @@
 		</table>
 		<input type="hidden" name="start_date" th:value="${start_date}">
 		<input type="hidden" name="end_date" th:value="${end_date}">
-		<input type="text" name="programNum" th:value="${program.programNum}">
+		<input type="hidden" name="programNum" th:value="${program.programNum}">
 		<input type="hidden" name="totalPrice" th:value="${program.price}">
 
 		<div class="right-align">
