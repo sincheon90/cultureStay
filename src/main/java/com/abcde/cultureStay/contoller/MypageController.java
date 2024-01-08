@@ -1,7 +1,7 @@
 package com.abcde.cultureStay.contoller;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -95,20 +95,18 @@ public class MypageController {
 	 		return "member/myReview";
 	 	}
 	    
-//	    @GetMapping("program/review")
-//		  public String myProgramreview(@RequestParam(name = "programNum", defaultValue = "0") int programNum,
-//				  @AuthenticationPrincipal UserDetails user, Model model) {
-//				
-//	    	log.debug("programNum: {}",programNum);
-//	    	//프로그램 정보
-//	    	
-//			//프로그램 리뷰 리스트
-//				ArrayList<Review> programReview = dao.getProgramReview(programNum);
-//				model.addAttribute("programReview",programReview);
-//				
+	    @GetMapping("program/request")
+		  public String myProgramreview(
+				  @AuthenticationPrincipal UserDetails user, Model model) {
+				
+	    	
+			//예약 리스트
+			ArrayList<Reservation> reservation = pService.newReser(user.getUsername());
+			model.addAttribute("reservation",reservation);
 //			
-//		        return "member/programReview";
-//		    }
+			
+		        return "program/request";
+		    }
 	    @GetMapping("member/myBookmark")
 		  public String myBookmark(
 				   @AuthenticationPrincipal UserDetails user, Model model
@@ -118,11 +116,7 @@ public class MypageController {
 				ArrayList<Program> bookmarkList = dao.getmyBookmark(user.getUsername());
 				model.addAttribute("bookmarkList",bookmarkList);
 
-//				
-//				//예약 리스트
-//				ArrayList<Reservation> reservation = pService.newReser(user.getUsername());
-//				model.addAttribute("reservation",reservation);
-//				
+//			
 //				
 //				//내가 예약한 리스트
 //				ArrayList<Reservation> myReservation = pService.myReservation(user.getUsername());
