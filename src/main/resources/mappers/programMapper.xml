@@ -608,13 +608,11 @@
 	</select>
 	
 	 <select id="getmyBookmark" resultType="Program">
-        SELECT *
-        FROM Program
-        WHERE programNum IN (
-            SELECT programNum
-            FROM Program_bookmark
-            WHERE userid = #{userid}
-        )
+        SELECT p.*
+        FROM Program p
+        JOIN Program_bookmark pb ON p.programNum = pb.programNum
+        WHERE pb.userid = #{userid}
+        ORDER BY pb.inputdate DESC
     </select>
 	
 	
