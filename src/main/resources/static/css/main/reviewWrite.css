@@ -1,0 +1,92 @@
+   body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+    }
+
+    .stars {
+        display: inline-block;
+    }
+
+    .stars input {
+        display: none;
+    }
+
+    .stars label {
+        font-size: 24px;
+        color: #ccc;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .stars label:before {
+        content: '★';
+        margin-right: 5px;
+    }
+
+    .stars input:checked ~ label {
+        color: #ffcc00;
+    }
+
+    .right-align {
+        text-align: right;
+    }
+
+    .btn-save, .btn-cancel {
+        padding: 10px 15px;
+        margin-right: 5px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 3px;
+    }
+
+    .btn-cancel {
+        background-color: #f44336;
+    }
+
+ .btn{
+  background-color: #1F9CB3;
+  border: none;
+}
+
+.btn:hover {
+      background-color:#E91E63;
+       transition: 0.5s;
+  }
+  
+   .container {
+    display: flex;
+     justify-content: center;
+	flex-wrap: wrap;
+  }
+
+  .items {
+    /*  flex: 1;각 박스가 동일한 너비를 가지도록 */
+    margin: 10px;
+ 
+      
+  }

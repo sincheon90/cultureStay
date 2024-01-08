@@ -2,31 +2,59 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<title>게스트 후기 작성</title>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<link rel="stylesheet" th:href="@{/css/main/reviewWrite.css}">
+
+
+</style>
 </head>
 <body>
-<h2>호스트에 대한 후기를 작성해주세요!</h2>
+	<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
 
+<br>
+<h2>프로그램 호스트에 대한 후기를 작성해주세요!</h2>
+<div class="container">
+<div class="items" style="width: 18rem;">
+  <img th:src="@{/img/board/img_3.png}" class="card-img-top" alt="...">
+  <div class="card-body">  
+    <h5 class="card-title" th:text="${program.title}">Card title</h5>
+    <a th:href="@{/program/detail(programNum=${program.programNum})}" class="btn btn-primary"  >프로그램 보기</a>
+ </div>
+</div>
+<div class="items">
+<form th:action="@{/program/hostReview}" method="post" enctype="multipart/form-data">
+    <div class="stars">
+        <input type="radio" id="star5" name="stars" value="5" />
+        <label for="star5"></label>
+        <input type="radio" id="star4" name="stars" value="4" />
+        <label for="star4"></label>
+        <input type="radio" id="star3" name="stars" value="3" />
+        <label for="star3"></label>
+        <input type="radio" id="star2" name="stars" value="2" />
+        <label for="star2"></label>
+        <input type="radio" id="star1" name="stars" value="1" />
+        <label for="star1"></label>
+    </div>
 
-    <form th:action="@{/program/hostReview}" method="post" enctype="multipart/form-data">
-        <div>
-            <input type="text" id="title" name="stars" placeholder="별점">
-        </div>
+    <div>
+        <textarea name="content" placeholder="후기를 작성해주세요!"
+        class="form-control" id="exampleFormControlTextarea1" rows="3" style="width: 30rem;"></textarea>
+        <br>
+    </div>
 
-        <div>
-            <textarea id="content" name="content" placeholder="후기를 작성해주세요!"></textarea>
-            <br>
-        </div>
+    <div class="right-align">
+        <button type="submit" class="btn-save">작성</button>
+        <button type="reset" class="btn-cancel">clear</button>
+    </div>
 
-        <div class="right-align">
-            <button type="submit" class="btn-save">작성</button>
-            <button type="reset" class="btn-cancel">취소</button>
-        </div>
-        
-        <input type="hidden" name="reserNum" th:value="${reservation.reserNum}">
-        <input type="hidden" name="programNum" th:value="${program.programNum}">
-
-
-    </form>
+    <input type="hidden" name="reserNum" th:value="${reservation.reserNum}">
+    <input type="hidden" name="programNum" th:value="${program.programNum}">
+</form></div></div>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

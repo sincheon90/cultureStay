@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.abcde.cultureStay.dao.ProgramDAO;
 import com.abcde.cultureStay.service.ProgramService;
@@ -55,19 +56,40 @@ public class MypageController {
 	 	public String myReview(@AuthenticationPrincipal UserDetails user, Model model) {
 	 		
 	    	//내 호스트 리뷰
-	    	ArrayList<Review> hostReview = dao.getHostReview(user.getUsername());
-			model.addAttribute("hostReview",hostReview);
+	    	//ArrayList<Review> hostReview = dao.getHostReview(user.getUsername());
+			//model.addAttribute("hostReview",hostReview);
 			//내 프로그램 리뷰
-	    	ArrayList<Review> programReview = dao.getProgramReview(user.getUsername());
-			model.addAttribute("programReview",programReview);
+	    	//ArrayList<Review> programReview = dao.getProgramReview(user.getUsername());
+		//	model.addAttribute("programReview",programReview);
 			//내 게스트 리뷰
 	    	ArrayList<Review> guestReview = dao.getGuestReview(user.getUsername());
 			model.addAttribute("guestReview",guestReview);
 			//내가 작성한 리뷰
 	    	ArrayList<Review> myReview = dao.getMyReview(user.getUsername());
 			model.addAttribute("myReview",myReview);
-
+			//내가 예약한 리스트
+			ArrayList<Reservation> myReservation = pService.myReservation(user.getUsername());
+			model.addAttribute("myReservation",myReservation);
+			
 	 		return "member/myReview";
 	 	}
+	    
+	    @GetMapping("program/review")
+		  public String myProgramreview(@RequestParam(name = "programNum", defaultValue = "0") int programNum,
+				  @AuthenticationPrincipal UserDetails user, Model model) {
+				
+	    	log.debug("programNum: {}",programNum);
+	    	//프로그램 정보
+	    	
+			//호스트 리뷰 리스트
+				ArrayList<Review> hostReview = dao.getHostReview(programNum);
+				model.addAttribute("hostReview",hostReview);
+			//프로그램 리뷰 리스트
+				ArrayList<Review> programReview = dao.getProgramReview(programNum);
+				model.addAttribute("programReview",programReview);
+				
+			
+		        return "member/programReview";
+		    }
 	  
 }

@@ -8,28 +8,68 @@
 
 	<title>Insert title here</title>
 	 <style>
-       
-    </style>
+ .btn{
+  background-color: #1F9CB3;
+  border: none;
+}
+
+.btn:hover {
+      background-color:#E91E63;
+       transition: 0.5s;
+  }
+  
+   .container {
+    display: flex;
+     justify-content: left;
+      justify-content: flex-start;
+	flex-wrap: wrap;
+  }
+
+  .card {
+    /*  flex: 1;각 박스가 동일한 너비를 가지도록 */
+    margin: 10px;
+    width: 30%;
+      
+  }
+</style>
 </head>
 
 <body>
-	<h3>내 호스트 리뷰</h3>
-	<table>
-		<tr th:each="hostReview: ${hostReview}">
-			<th th:text="${hostReview.reviewerID}"></th>
-			<th th:text="${hostReview.stars}"></th>
-			<td th:text="${hostReview.content}"> </td>
-		</tr>
-	</table>
- <h3>내 프로그램 리뷰</h3>
-	
-<div class="form-floating mb-3"  th:each="programReview: ${programReview}">
-  <input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput" th:value="${programReview.content}">
-  <label for="floatingPlaintextInput" th:text="${programReview.reviewerID}">Input with value</label>
+ 
+ 
+ <h3>내가 신청한 프로그램</h3>		
+ <h4>(프로그램,호스트에 대한 리뷰)</h4>	
+<div class="container">
+<div class="card" style="width: 18rem;" th:each="myReservation: ${myReservation}">
+  <img th:src="@{/img/board/img_3.png}" class="card-img-top" alt="...">
+  <div class="card-body">  
+   <a th:href="@{/program/hostReview(reserNum=${myReservation.reserNum})}" th:text="호스트리뷰"></a> 
+
+ <ul class="list-group list-group-flush">
+    <li class="list-group-item"> <span th:text="${myReservation.start_date }"></span>
+   <br> <span th:text="'~ '+${myReservation.end_date}"></span>  </li>
+    <li class="list-group-item">
+		<span>예약상태 </span>
+    <span th:switch="${myReservation.status}">
+			    <p th:case="0">예약이 확인 대기 중입니다.</p>
+			    <p th:case="1">예약이 확인되었습니다.</p>
+			    <p th:case="2">프로그램 종료</p>
+			    <p th:case="*" >오류</p>
+	</span></li>
+    <li class="list-group-item"> <a th:href="@{/program/detail(programNum=${myReservation.programNum})}" class="btn btn-primary"  >프로그램 보기</a>
+</li>
+  </ul>
+  </div>
 </div>
-	
-	
+</div>
+
+
+
+
  <h3>내 게스트 리뷰</h3>
+ <!--<a th:href="@{/program/programReview(reserNum=${myReservation.reserNum})}" th:text="프로그램리뷰"></a> 
+<a th:href="@{/program/hostReview(reserNum=${myReservation.reserNum})}" th:text="호스트리뷰"></a> 
+-->
 	<table>
 		<tr th:each="guestReview: ${guestReview}">
 			<th th:text="${guestReview.reviewerID}"></th>
@@ -37,6 +77,7 @@
 			<td th:text="${guestReview.content}"> </td>
 		</tr>
 	</table>
+	
  <h3>내 작성한 리뷰</h3>
 	<table>
 		<tr th:each="myReview: ${myReview}">

@@ -573,16 +573,16 @@
 	
 	
 	<!-- get리뷰들 -->
-	<select id="getHostReview" parameterType="String" resultType="Review">
+	<select id="getHostReview" parameterType="int" resultType="Review">
 	SELECT *
 	FROM Review
-	WHERE hostID = #{userid}
+	WHERE programNum = #{programNum}
 		and who = 'h'
 	</select>
-	<select id="getProgramReview" parameterType="String" resultType="Review">
+	<select id="getProgramReview" parameterType="int" resultType="Review">
 	SELECT *
 	FROM Review
-	WHERE hostID = #{userid}
+	WHERE programNum = #{programNum}
 		and who = 'p'
 	</select>
 	
