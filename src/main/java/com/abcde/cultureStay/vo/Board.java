@@ -17,5 +17,9 @@ public class Board {
 	    String originalfile;
 	    String savedfile;
 	    int recommend;
+	    
+	    //추출한 이미지파일 경로
+	    String imagePath1;
+	    String imagePath2;
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.abcde.cultureStay.dao.BoardDAO;
 import com.abcde.cultureStay.util.PageNavigator;
 import com.abcde.cultureStay.vo.Board;
+import com.abcde.cultureStay.vo.Program;
 
 import static com.abcde.cultureStay.util.HtmlUtils.*;
 
@@ -172,6 +173,15 @@ public class BoardServiceImpl implements BoardService{
 	public void downLike(int boardnum) {
 		dao.downLike(boardnum);
 		
+	}
+
+	@Override
+	public ArrayList<Board> popularBoards() {
+		ArrayList<Board> result = dao.popularBoards();
+
+		result = extractPreview2(result);
+
+		return result;
 	}
 
 }

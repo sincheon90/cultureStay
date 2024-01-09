@@ -44,6 +44,8 @@ public interface BoardDAO {
 	void deleteLike(HashMap<String, Object> map);
 
 	void downLike(int boardnum);
+
+	ArrayList<Board> popularBoards();
 	
 
 }

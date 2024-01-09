@@ -206,5 +206,19 @@
 		boardnum = #{boardnum}
 	</select>
 	
+	<!-- 인기 프로그램 --><!-- 수정해야댐 -->
+	<select id="popularBoards" resultType="Board">
+		SELECT B.*
+		FROM Board B
+		JOIN (
+		SELECT boardNum, COUNT(*) AS recommend_count
+		FROM Board_like
+		WHERE inputdate >= SYSDATE - 14
+		GROUP BY boardNum
+		) BL ON B.boardNum = BL.boardNum
+		WHERE B.inputdate >= SYSDATE - 14
+		ORDER BY BL.recommend_count DESC
+	</select>
+	
 
 </mapper>

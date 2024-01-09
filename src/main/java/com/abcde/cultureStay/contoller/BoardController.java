@@ -289,6 +289,46 @@ public class BoardController {
 		
 	}
 	
+	@GetMapping("popularBoards")
+    public String popularBoards(@AuthenticationPrincipal UserDetails user,
+                           Model model) {
+        int maxElements = 3;
+        ArrayList<Board> limitedRecommends = new ArrayList<>();
+
+//        //추천게시물 -최근방문+좋아요+북마크 ----sql 수정
+//        ArrayList<Program> recommends = new ArrayList<>();
+//
+//        if(user != null && user.getUsername() != null){
+//            recommends = pService.homeRecommend(user.getUsername());
+//        }
+//
+//        for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
+//            limitedRecommends.add(recommends.get(i));
+//        }
+//        model.addAttribute("recommends", limitedRecommends);
+//
+//        //인기게시물 -조회수+좋아요 ----sql 수정
+//        ArrayList<Program> populars = pService.homePopular();
+//
+//        limitedRecommends = new ArrayList<>();
+//        for (int i = 0; i < Math.min(populars.size(), maxElements); i++) {
+//            limitedRecommends.add(populars.get(i));
+//        }
+//        model.addAttribute("populars", limitedRecommends);
+
+
+        // 인기 게시글(커뮤니티)
+        ArrayList<Board> popularBoards = service.popularBoards();
+
+        limitedRecommends = new ArrayList<>();
+        for (int i = 0; i < Math.min(popularBoards.size(), 2); i++) {
+            limitedRecommends.add(popularBoards.get(i));
+        }
+        model.addAttribute("popularBoards", limitedRecommends);
+
+        return "boardList";
+    }
+	
 	
 	
 	
