@@ -56,6 +56,8 @@ public class MypageController {
 			//내프로그램 리스트
 			ArrayList<Program> programList = pService.myProgram(user.getUsername());
 			model.addAttribute("programList",programList);
+ 			model.addAttribute("hasPrograms",programList.size());
+
 			
 //			//내 프로그램 리뷰 리스트
 //			ArrayList<Review> programReview = dao.myProgramReview(user.getUsername());
@@ -73,7 +75,7 @@ public class MypageController {
 	        return "member/myProgram";
 	    }
 	 
-	    @GetMapping("member/myReview")
+	    @GetMapping("member/myReservation")
 	 	public String myReview(@AuthenticationPrincipal UserDetails user, Model model) {
 	 		
 	    	//내 호스트 리뷰
@@ -92,7 +94,7 @@ public class MypageController {
 			ArrayList<Reservation> myReservation = pService.myReservation(user.getUsername());
 			model.addAttribute("myReservation",myReservation);
 			
-	 		return "member/myReview";
+	 		return "member/myReservation";
 	 	}
 	    
 	    @GetMapping("program/request")

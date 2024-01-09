@@ -3,9 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;600;700&family=Jua&family=Nanum+Gothic+Coding:wght@400;700&display=swap');
+	
+		body {
+			font-family: 'IBM Plex Sans KR', sans-serif;
+		}
+		#title {
+			font-size: 25px;
+			font-weight: 600;
+
+		}
+</style>
 </head>
 <body>
-<h2>프로그램에 대한 후기를 작성해주세요!</h2>
+<h3 id="title">프로그램에 대한 후기를 작성해주세요!</h3>
 <form th:action="@{/program/programReview}" method="post" enctype="multipart/form-data">
         <div>
             <input type="text" id="title" name="stars" placeholder="별점">
