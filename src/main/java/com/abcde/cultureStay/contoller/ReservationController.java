@@ -28,9 +28,15 @@ public class ReservationController {
 
 	@GetMapping("apply")
 	public String apply(Model model,
-		String start_date, String end_date, int programNum) {
+		String start_date, String end_date, int programNum, String days,String totalPrice) {
+		log.debug("몇박 {}",days);
+		log.debug("총가격 {}",totalPrice);
+
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
+		model.addAttribute("days", days);
+		model.addAttribute("totalPrice", totalPrice);
+
 		Program program = service.readProgram(programNum);
 
 		model.addAttribute("program", program);
@@ -51,7 +57,7 @@ public class ReservationController {
 	
 	@PostMapping("payment")
 	public String payment(Model model,String request,
-			String start_date, String end_date, int programNum, int totalPrice,
+			String start_date, String end_date, int programNum, String totalPrice,String days,
 						  @AuthenticationPrincipal UserDetails user,Checklist checklist) {
 
 		checklist.setUserid(user.getUsername());
@@ -63,6 +69,8 @@ public class ReservationController {
 		model.addAttribute("start_date", start_date);
 		model.addAttribute("end_date", end_date);
 		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("days", days);
+
 		Program program = service.readProgram(programNum);
 
 		model.addAttribute("program", program);
