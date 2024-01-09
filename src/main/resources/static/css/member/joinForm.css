@@ -66,4 +66,5 @@ main input[type="button"]:hover {
 main img#preview {
     display: block;
     margin-top: 10px;
+    border-radius: 15px; /* 둥근 모서리 */
 }
