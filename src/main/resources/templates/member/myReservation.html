@@ -63,12 +63,16 @@
 						<span th:switch="${myReservation.status}">
 							<p th:case="0">예약이 확인 대기 중입니다.</p>
 							<p th:case="1">예약이 확인되었습니다.</p>
-							<p th:case="2">프로그램 종료  <a th:href="@{/program/hostReview(reserNum=${myReservation.reserNum})}" 
-						class="btn btn-primary">리뷰 작성하기</a></p>
+							<p th:case="2">프로그램 종료<br><br> <a
+									th:href="@{/program/hostReview(reserNum=${myReservation.reserNum})}"
+									class="btn btn-primary">호스트 리뷰</a>
+								<a th:href="@{/program/hostReview(reserNum=${myReservation.reserNum})}"
+									class="btn btn-primary">프로그램 리뷰</a>
+							</p>
 							<p th:case="*">오류</p>
 						</span>
 					</li>
-					 
+
 				</ul>
 			</div>
 		</div>

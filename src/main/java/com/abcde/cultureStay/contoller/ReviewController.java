@@ -103,7 +103,7 @@ public class ReviewController {
 
 	        dao.hostReview(review); 
 	        
-	        return "redirect:/member/mypage";
+	        return "redirect:/program/detail?programNum="+programNum;
 	    }
 		
 		//게스트가 프로그램 후기
