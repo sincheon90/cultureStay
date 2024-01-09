@@ -30,11 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     boardClicks.forEach(function(element) {
-            element.addEventListener('click', function() {
-                var boardnum = this.getAttribute('data-boardnum');
-                window.location.href = '/board/read?boardnum=' + boardnum;
-            });
+        element.addEventListener('click', function() {
+            var boardnum = this.getAttribute('data-boardnum');
+            window.location.href = '/board/read?boardnum=' + boardnum;
         });
+    });
 });
 
 
