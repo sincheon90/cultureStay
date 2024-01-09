@@ -1,5 +1,6 @@
 package com.abcde.cultureStay.util;
 
+import com.abcde.cultureStay.vo.Board;
 import com.abcde.cultureStay.vo.Program;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -67,6 +68,31 @@ public class HtmlUtils {
             program.setContent(extractText(program.getContent()));
         }
         return programList;
+    }
+    public static ArrayList<Board> extractPreview2(ArrayList<Board> boardList) {
+        for (Board board : boardList) {
+            // 미리보기용 이미지 추출
+            ArrayList<String> imageList = extractTwoImages(board.getContents());
+
+            // 이미지 리스트 검사 및 안전한 할당
+            if (!imageList.isEmpty()) {
+            	board.setImagePath1(imageList.get(0));
+                if (imageList.size() > 1) {
+                	board.setImagePath2(imageList.get(1));
+                } else {
+                    // 이미지가 하나만 있는 경우 또는 대체할 기본 이미지 경로
+                	board.setImagePath2("defaultImagePath2");
+                }
+            } else {
+                // 이미지가 없는 경우 기본 이미지 경로 할당
+            	board.setImagePath1(defaultImage1);
+            	board.setImagePath2(defaultImage2);
+            }
+
+            // 미리보기용 텍스트 추출
+            board.setContents(extractText(board.getContents()));
+        }
+        return boardList;
     }
 
 
