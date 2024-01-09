@@ -75,13 +75,21 @@ public interface ProgramDAO {
 
 	void programReview(Review review);
 
-	ArrayList<Review> getHostReview(int programNum);
+	ArrayList<Review> getHostReview(String userid);
 
 	ArrayList<Review> getProgramReview(int programNum);
 
-	ArrayList<Review> getGuestReview(String username);
+	ArrayList<Review> getGuestReview(String userid);
 
 	ArrayList<Review> getMyReview(String userid);
+
+	ArrayList<Program> getmyBookmark(String userid);
+
+	Checklist getChecklist(int reserNum);
+
+	double hostAvg(String userid);
+
+	ArrayList<Review> myProgramReview(String userid);
 
 
 

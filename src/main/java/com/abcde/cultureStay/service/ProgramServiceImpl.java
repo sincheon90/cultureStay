@@ -16,7 +16,7 @@ import com.abcde.cultureStay.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
-import static com.abcde.cultureStay.util.HtmlUtils.extractText;
+import static com.abcde.cultureStay.util.HtmlUtils.*;
 
 @Service
 @Slf4j
@@ -30,9 +30,7 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Program> homeRecommend(String id) {
 		ArrayList<Program> result = dao.homeRecommend(id);
 
-		for (Program r : result) {
-			r.setContent(extractText(r.getContent()));
-		}
+		result = extractPreview(result);
 
 		log.debug("추천id:{}",id);
 		return result;
@@ -42,9 +40,7 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Program> homePopular() {
 		ArrayList<Program> result = dao.homePopular();
 
-		for (Program r : result) {
-			r.setContent(extractText(r.getContent()));
-		}
+		result = extractPreview(result);
 
 		return result;
 	}
@@ -63,10 +59,9 @@ public class ProgramServiceImpl implements ProgramService{
 		map.put("end_date", searchProgram.getEnd_date());
 
 		ArrayList<Program> result = dao.programMainlist(map);
+		// 미리보기용 이미지 및 텍스트 추출
+		result = extractPreview(result);
 
-		for (Program r : result) {
-			r.setContent(extractText(r.getContent()));
-		}
 		log.debug("검색결과 {}",result);
 	
 		return result;
@@ -245,6 +240,4 @@ public class ProgramServiceImpl implements ProgramService{
 		ArrayList<Reservation> result = dao.myReservation(userid);
 		return result;
 	}
-	
-	
 }

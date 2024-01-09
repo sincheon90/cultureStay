@@ -5,16 +5,17 @@
 }
 
 .reservation-left{
-    width: 60%;
+    width: 65%;
 }
 
 .reservation-container {
-    width: 40%;
+    width: 30%;
     display: flex; /* Flex container 설정 */
     justify-content: center; /* 수평 가운데 정렬 설정 */
 }
 
 .reservation-article{
+    background-color: white;
     width: 300px; /* 너비 조절 */
     height: 320px;
     display: flex; /* Flex container 설정 */

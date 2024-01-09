@@ -577,12 +577,13 @@
 	
 	
 	<!-- get리뷰들 -->
-	<select id="getHostReview" parameterType="int" resultType="Review">
+	<select id="getHostReview" parameterType="String" resultType="Review">
 	SELECT *
 	FROM Review
-	WHERE programNum = #{programNum}
-		and who = 'h'
+	WHERE hostID = #{userid}
+			and who = 'h'
 	ORDER BY inputdate DESC
+	
 	</select>
 	<select id="getProgramReview" parameterType="int" resultType="Review">
 	SELECT *
@@ -607,4 +608,28 @@
 		
 	</select>
 	
+	 <select id="getmyBookmark" parameterType="String" resultType="Program">
+        SELECT p.*
+        FROM Program p
+        JOIN Program_bookmark pb ON p.programNum = pb.programNum
+        WHERE pb.userid = #{userid}
+        ORDER BY pb.inputdate DESC
+    </select>
+	
+	 <select id="getChecklist" parameterType="int" resultType="Checklist">
+	    SELECT *
+		FROM Checklist
+		WHERE reserNum = #{reserNum}
+    </select>
+	
+	 <select id="hostAvg" parameterType="String" resultType="double">
+	    SELECT ROUND(AVG(stars), 1) AS avgStars
+        FROM Review
+        WHERE hostID = #{userid}
+    </select>
+	<select id="myProgramReview" parameterType="String" resultType="Review">
+	   SELECT *
+		FROM Review
+		WHERE hostID = #{userid}
+    </select>
 </mapper>
