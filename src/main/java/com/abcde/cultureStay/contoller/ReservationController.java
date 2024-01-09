@@ -1,13 +1,12 @@
 package com.abcde.cultureStay.contoller;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +15,6 @@ import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Checklist;
 import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.Reservation;
-import com.abcde.cultureStay.vo.Review;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -107,7 +105,7 @@ public class ReservationController {
 		Reservation reservation = service.getReservation(reserNum);
 		log.debug("예약신청정보 {}", reservation);
 		model.addAttribute("reservation", reservation);
-		
+ 
 		Program program = service.readProgram(reservation.getProgramNum());
 		log.debug("프로그램정보 {}",program);
 		model.addAttribute("program",program);
@@ -123,11 +121,11 @@ public class ReservationController {
 	
 	//예약수락
 	@PostMapping("accept")
-    public String accept(int reserNum) {
+    public String accept(@RequestParam(name = "reserNum", defaultValue = "0") int reserNum) {
 		log.debug("예약하기 {}",	reserNum);
         service.acceptReser(reserNum); 
         
-        return "redirect:/member/mypage";
+        return "redirect:/program/request";
     }
 	
 	

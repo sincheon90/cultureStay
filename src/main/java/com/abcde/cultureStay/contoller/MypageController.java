@@ -103,6 +103,7 @@ public class MypageController {
 	    	
 			//예약 리스트
 			ArrayList<Reservation> reservation = pService.newReser(user.getUsername());
+			log.debug("예약리스트 {}",reservation);
 			model.addAttribute("reservation",reservation);
 //			
 			
