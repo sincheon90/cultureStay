@@ -7,10 +7,15 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- 달력 daterangepicker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
     <link rel="stylesheet" th:href="@{/css/main/write.css}">
     <link rel="stylesheet" th:href="@{/css/main/detail.css}">
-
-    <script th:src="@{/js/jquery-3.6.0.js}"></script>
 </head>
 
 <body>
@@ -25,10 +30,10 @@
         </div>
 
         <div class="like-bookmark-wrapper">
-            <input type="text" name="boardnum" id="btn" th:value="${board.boardnum}">
+            <input type="text" name="boardnum" th:value="${board.boardnum}">
 
-            <input name="recommend" th:value="${board.recommend}" hidden="hidden"></input>
-            <img class="mark clickable" id="like_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
+            <input type="text" name="recommend" th:value="${board.recommend}"></input>
+            <img class="mark clickable" id="recommend_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
         </div>
     </div>
 

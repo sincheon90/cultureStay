@@ -262,6 +262,8 @@ public class BoardController {
 	@ResponseBody
 	@PostMapping("recommend")
 	public int recommend(int boardnum, @AuthenticationPrincipal UserDetails user) {
+		System.out.println("recomkmend excuted");
+
 		// 현재 로그인한 유저의 id를 세팅
 		String id = user.getUsername();	
 		log.debug("아이디:{}", id);
@@ -276,15 +278,15 @@ public class BoardController {
 		if (check == 0) {
 			log.debug("추천안했음");
 			service.addLike(boardnum, id);
-			service.upLike(boardnum);
-			cnt = service.selectCnt(boardnum);
-			return cnt;
+//			service.upLike(boardnum);
+//			cnt = service.selectCnt(boardnum);
+			return 1;
 		} else {
 			log.debug("추천이미했음");
 			service.deleteLike(boardnum, id);
-			service.downLike(boardnum);
-			cnt = service.selectCnt(boardnum);
-			return cnt;
+//			service.downLike(boardnum);
+//			cnt = service.selectCnt(boardnum);
+			return 0;
 		}
 		
 	}

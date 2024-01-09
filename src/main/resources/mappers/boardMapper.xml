@@ -164,11 +164,17 @@
 	</select>
 
 	<insert id="addLike" parameterType="map">
-		insert into
-		Board_like(userid,
-		boardnum)
+		insert into Board_like (
+			b_like_num
+			, userid
+			, boardnum
+		)
 		values
-		(#{id}, #{boardnum})
+		(
+			b_like_num_seq.nextval
+			, #{id}
+			, #{boardnum}
+		)
 	</insert>
 
 	<update id="upLike" parameterType="int">
