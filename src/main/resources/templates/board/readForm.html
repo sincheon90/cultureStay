@@ -30,9 +30,9 @@
         </div>
 
         <div class="like-bookmark-wrapper">
-            <input type="text" name="boardnum" th:value="${board.boardnum}">
+            <input type="hidden" name="boardnum" th:value="${board.boardnum}"></input>
 
-            <input type="text" name="recommend" th:value="${board.recommend}"></input>
+            <input type="hidden" name="recommend" th:value="${board.recommend}"></input>
             <img class="mark clickable" id="recommend_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
         </div>
     </div>

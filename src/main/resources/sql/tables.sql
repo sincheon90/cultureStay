@@ -268,3 +268,23 @@ ALTER TABLE Program ADD (CONTENTS_CLOB CLOB);
 UPDATE Program SET CONTENTS_CLOB = TO_CLOB(content);
 ALTER TABLE Program DROP COLUMN content;
 ALTER TABLE Program RENAME COLUMN CONTENTS_CLOB TO content;
+
+
+
+--게시판 좋아요
+drop TABLE Board_like;
+CREATE TABLE Board_like(
+	b_like_num 	number 				primary key,
+	userid	    varchar2(255)	    ,
+	boardnum	   number,
+	inputdate       date            default sysdate     --작성일
+);
+
+-- cultureStay_board recommend 기본값 null 수정
+ALTER TABLE cultureStay_board
+MODIFY recommend INT DEFAULT 0;
+
+UPDATE cultureStay_board
+SET recommend = 0;
+
+commit;
