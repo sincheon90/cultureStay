@@ -3,7 +3,8 @@
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8">
-	<title>Home</title>
+	<title>Community</title>
+	<link rel="stylesheet" th:href="@{/css/main/home.css}">
 	<link rel="stylesheet" th:href="@{/css/main/list.css}">
 
 
@@ -59,18 +60,6 @@
 
 	<br><br>
 
-<!--
-<tr th:each="board : ${boardList}">
-	<td th:text="${board.boardnum}"></td>
-	<td th:text="${board.userid}"></td>
-	<td>
-		<a th:href="@{/board/read(boardnum=${board.boardnum})}"
-		   th:text="${board.title}"></a>
-	</td>
-	<td th:text="${board.hits}"></td>
-	<td th:text="${board.inputdate}"></td>
-</tr>
--->
 	<section class="board-container">
 		<div class="board-title-right">
 			<div class="add_link"><a th:href="@{/board/write}">글쓰기</a></div>

@@ -52,12 +52,6 @@
     /* 추가 스타일 */
 }
 
-/* Hover effect */
-.board-card article:hover img {
-    transform: scale(1.1); /* Enlarges the article on hover */
-    z-index: 10; /* Ensure the scaled item is above others */
-}
-
 .search-section {
     /*background-color: var(--secondary-color);*/
 }
