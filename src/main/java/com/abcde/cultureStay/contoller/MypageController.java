@@ -56,7 +56,6 @@ public class MypageController {
 			//내프로그램 리스트
 			ArrayList<Program> programList = pService.myProgram(user.getUsername());
 			model.addAttribute("programList",programList);
- 			model.addAttribute("hasPrograms",programList.size());
 
 			
 //			//내 프로그램 리뷰 리스트
