@@ -35,6 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/board/read?boardnum=' + boardnum;
         });
     });
+
+    // 검색 컨테이너 태그 토글 버튼
+    var toggleIcon = document.getElementById("toggleIcon");
+    toggleIcon.addEventListener('click', function(){
+        toggleTags();
+    });
 });
 
 
@@ -46,6 +52,20 @@ function truncateContent() {
             content.textContent = content.textContent.substr(0, maxLength) + '...';
         }
     });
+}
+
+
+// 검색 컨테이너 태그 토글 버튼
+function toggleTags() {
+    var tagSection = document.getElementById("tagSection");
+
+    if (tagSection.style.display === "none") {
+        tagSection.style.display = "block";
+        toggleIcon.innerHTML = "&#9650;"; // Change to up arrow
+    } else {
+        tagSection.style.display = "none";
+        toggleIcon.innerHTML = "&#9660;"; // Change to down arrow
+    }
 }
 
 

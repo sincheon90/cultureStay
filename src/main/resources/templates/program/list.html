@@ -6,7 +6,6 @@
     <title>Home</title>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script th:src="@{/js/script.js}"></script>
 
     <!-- 달력 daterangepicker -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -55,11 +54,11 @@
                         <span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
                     </button>
 
-                    <!--태그 토글 버트-->
-                    <div id="toggleIcon" onclick="toggleTags()" style="cursor: pointer;">&#9660;</div>
+                    <!--태그 펼치기 버튼-->
+                    <div id="toggleIcon" style="cursor: pointer;">&#9660;</div>
 
                     <!-- Program Tag Selection -->
-                    <div class="program-tag-container" style="display: none;">
+                    <div class="program-tag-container" id="tagSection" style="display:none;">
                         <label>프로그램 태그</label>
                         <div>
                             <input type="checkbox" id="apartment" name="apartment" value="1">
