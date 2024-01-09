@@ -164,11 +164,17 @@
 	</select>
 
 	<insert id="addLike" parameterType="map">
-		insert into
-		Board_like(userid,
-		boardnum)
+		insert into Board_like (
+			b_like_num
+			, userid
+			, boardnum
+		)
 		values
-		(#{id}, #{boardnum})
+		(
+			b_like_num_seq.nextval
+			, #{id}
+			, #{boardnum}
+		)
 	</insert>
 
 	<update id="upLike" parameterType="int">
@@ -179,6 +185,7 @@
 		recommend + 1
 		where
 		boardnum = #{boardnum}
+		and recommend > -1
 	</update>
 
 	<delete id="deleteLike" parameterType="map">
@@ -195,6 +202,7 @@
 		= recommend - 1
 		where
 		boardnum = #{boardnum}
+		and recommend > -1
 	</update>
 
 	<select id="selectCnt" parameterType="int" resultType="int">
@@ -204,6 +212,20 @@
 		cultureStay_board
 		where
 		boardnum = #{boardnum}
+	</select>
+	
+	<!-- 인기 프로그램 --><!-- 수정해야댐 -->
+	<select id="popularBoards" resultType="Board">
+		SELECT B.*
+		FROM Board B
+		JOIN (
+		SELECT boardNum, COUNT(*) AS recommend_count
+		FROM Board_like
+		WHERE inputdate >= SYSDATE - 14
+		GROUP BY boardNum
+		) BL ON B.boardNum = BL.boardNum
+		WHERE B.inputdate >= SYSDATE - 14
+		ORDER BY BL.recommend_count DESC
 	</select>
 	
 

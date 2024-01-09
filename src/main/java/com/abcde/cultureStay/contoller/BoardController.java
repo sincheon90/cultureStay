@@ -262,6 +262,8 @@ public class BoardController {
 	@ResponseBody
 	@PostMapping("recommend")
 	public int recommend(int boardnum, @AuthenticationPrincipal UserDetails user) {
+		System.out.println("recomkmend excuted");
+
 		// 현재 로그인한 유저의 id를 세팅
 		String id = user.getUsername();	
 		log.debug("아이디:{}", id);
@@ -277,17 +279,57 @@ public class BoardController {
 			log.debug("추천안했음");
 			service.addLike(boardnum, id);
 			service.upLike(boardnum);
-			cnt = service.selectCnt(boardnum);
-			return cnt;
+//			cnt = service.selectCnt(boardnum);
+			return 1;
 		} else {
 			log.debug("추천이미했음");
 			service.deleteLike(boardnum, id);
 			service.downLike(boardnum);
-			cnt = service.selectCnt(boardnum);
-			return cnt;
+//			cnt = service.selectCnt(boardnum);
+			return 0;
 		}
 		
 	}
+	
+	@GetMapping("popularBoards")
+    public String popularBoards(@AuthenticationPrincipal UserDetails user,
+                           Model model) {
+        int maxElements = 3;
+        ArrayList<Board> limitedRecommends = new ArrayList<>();
+
+//        //추천게시물 -최근방문+좋아요+북마크 ----sql 수정
+//        ArrayList<Program> recommends = new ArrayList<>();
+//
+//        if(user != null && user.getUsername() != null){
+//            recommends = pService.homeRecommend(user.getUsername());
+//        }
+//
+//        for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
+//            limitedRecommends.add(recommends.get(i));
+//        }
+//        model.addAttribute("recommends", limitedRecommends);
+//
+//        //인기게시물 -조회수+좋아요 ----sql 수정
+//        ArrayList<Program> populars = pService.homePopular();
+//
+//        limitedRecommends = new ArrayList<>();
+//        for (int i = 0; i < Math.min(populars.size(), maxElements); i++) {
+//            limitedRecommends.add(populars.get(i));
+//        }
+//        model.addAttribute("populars", limitedRecommends);
+
+
+        // 인기 게시글(커뮤니티)
+        ArrayList<Board> popularBoards = service.popularBoards();
+
+        limitedRecommends = new ArrayList<>();
+        for (int i = 0; i < Math.min(popularBoards.size(), 2); i++) {
+            limitedRecommends.add(popularBoards.get(i));
+        }
+        model.addAttribute("popularBoards", limitedRecommends);
+
+        return "boardList";
+    }
 	
 	
 	

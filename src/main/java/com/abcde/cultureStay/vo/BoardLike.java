@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardLike {
-	
-	int b_like_num; 	
+	 	
 	String userid;
 	int boardnum;
 

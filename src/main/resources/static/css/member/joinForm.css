@@ -1,0 +1,69 @@
+main {
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+main h1 {
+    color: #444;
+    text-align: center;
+}
+
+main table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+main th, main td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+main input[type="text"],
+main input[type="password"],
+main input[type="email"],
+main input[type="date"],
+main select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+main input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 4px;
+}
+
+main input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+main input[type="button"] {
+    background-color: #008CBA;
+    color: white;
+    padding: 10px 15px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+main input[type="button"]:hover {
+    background-color: #007B9A;
+}
+
+main img#preview {
+    display: block;
+    margin-top: 10px;
+}

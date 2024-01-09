@@ -39,4 +39,6 @@ public interface BoardService {
 
 	void downLike(int boardnum);
 
+	ArrayList<Board> popularBoards();
+
 }

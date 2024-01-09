@@ -28,6 +28,7 @@
         , address_detailAddress
         , address_extraAddress
         , email
+        , introduce
         <if test="ogProfileImage != null and svProfileImage != null">
 			, ogProfileImage
 			, svProfileImage
@@ -46,6 +47,7 @@
         , #{address_detailAddress}
         , #{address_extraAddress}
         , #{email}
+        , #{introduce}
         <if test="ogProfileImage != null and svProfileImage != null">
 			, #{ogProfileImage}
 			, #{svProfileImage}
@@ -68,11 +70,15 @@
 			, address_detailAddress = #{address_detailAddress}
 			, address_extraAddress = #{address_extraAddress}
 			, email = #{email}
+			, introduce = #{introduce}
 			
 			<if test="password != null or password != ''">
 			, password = #{password}
 			</if>
-			
+			<if test="ogProfileImage != null and svProfileImage != null">
+			, ogProfileImage = #{ogProfileImage}
+			, svProfileImage = #{svProfileImage}
+			</if>
         
 		where
 			userid = #{userid}

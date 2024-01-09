@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>조회</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <link rel="stylesheet" th:href="@{/css/main/write.css}">
+    <link rel="stylesheet" th:href="@{/css/main/detail.css}">
+
+
+
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                $.ajax({
+                    url: 'recommend',
+                    type: 'post',
+                    data: {boardnum: $(this).attr('boardnum')},
+                    success: function (n) {
+                        $('#cnt').html(n);
+                    },
+                    error: function () {
+                        alert('error');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        /*$(function () {
+               var liked = false;
+             $('#recommendbtn').click(function () {
+                $.ajax({
+                   url: 'recommend',
+                   type: 'post',
+                   data: {boardnum: $(this).attr('boardnum')},
+                   success: function (n) {
+                      $('#likehit').html(n);
+                      liked = !liked; // 추천 상태 반전
+                       updateButtonText();
+                   },
+                   error: function () {
+                      alert('error');
+                   }
+                });
+             });
+              function updateButtonText() {
+                var buttonText = liked ? '추천 취소' : '추천';
+                $('#recommendbtn').val(buttonText);
+            }
+
+            updateButtonText();
+          });*/
+        function deleteFunc(boardnum){
+            if(confirm('삭제하시겠습니까?')){
+                location.href = 'delete?boardnum=' + boardnum;
+            }
+        }
+
+        //리플 삭제
+        function deleteReply(replynum, boardnum){
+            if(confirm('삭제하시겠습니까?')) {
+                location.href = '../reply/deleteReply?replynum='
+                        + replynum + '&boardnum=' + boardnum;
+            }
+        }
+
+
+          function deleteFunc(boardnum) {
+             if (confirm('삭제하시겠습니까?')) {
+                location.href = 'delete?boardnum=' + boardnum;
+             }
+          }
+
+          //리플 삭제
+          function deleteReply(replynum, boardnum) {
+             if (confirm('삭제하시겠습니까?')) {
+                location.href = '../reply/deleteReply?replynum='
+                   + replynum + '&boardnum=' + boardnum;
+             }
+          }
+
+
+    </script>
+    <style>
+        table td,
+        th {
+           text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<header th:replace="layouts/header::header"></header>
+
+<main>
+
+    <div class="title-container">
+        <div class="title-wrapper">
+            <h2 th:text="${board.title}"></h2>
+        </div>
+
+        <!--<div class="like-bookmark-wrapper">
+            <input name="like" th:value="${program_like}" hidden="hidden"></input>
+            <input name="bookmark" th:value="${program_bookmark}" hidden="hidden"></input>
+
+            <img class="mark clickable" id="like_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
+            <img class="mark clickable" id="bookmark_img" src="/img/mark/unbookmark.png" alt="unbookmark" style="width: 20px; height: 20px;">
+        </div>-->
+    </div>
+
+    <table>
+        <tr>
+            <th>글번호</th>
+            <td style="width: 80px;" th:text="${board.boardnum}"></td>
+            <th>조회수</th>
+            <td style="width: 50px;" th:text="${board.hits}"></td>
+            <th>작성일</th>
+            <td style="width: 150px;" th:text="${board.inputdate}"></td>
+        </tr>
+        <tr>
+            <th>제목</th>
+            <td colspan="3" th:text="${board.title}"></td>
+            <th>작성자</th>
+            <td th:text="${board.userid}"></td>
+        </tr>
+        <tr>
+            <th colspan="6">내용</th>
+        </tr>
+        <tr>
+            <div class="custom-ckeditor-content">
+                <pre th:utext="${board.contents}"></pre>
+            </div>
+        </tr>
+        <tr>
+            <th>첨부파일</th>
+            <td colspan="5" style="text-align: left;">
+                <a th:href="@{/board/download(boardnum=${board.boardnum})}"
+                   th:text="${board.originalfile}"></a>
+            </td>
+        </tr>
+        <!--		<tr>
+                 <th>추천수</th>
+                 <td id="likehit" th:text="${board.likehit}"></td>
+                 <td>
+                    <input type="button" id="recommendbtn" th:boardnum="${board.boardnum}" value="추천">
+
+                 </td>
+              </tr>
+        -->
+        <tr>
+            <th>추천수</th>
+
+            <td>
+                <input type="button" id="btn" th:boardnum="${board.boardnum}" value="추천">
+                <p id="cnt" th:text="${board.recommend}"></p>
+                <!--<pre th:text="${board_recommend}"></pre>-->
+            </td>
+        </tr>
+    </table>
+
+    <!--	<form th:action="@{/board/recommend}" method="post">
+        <button type="submit">추천</button>
+
+        <input type="hidden" name="boardnum" th:value="${board.boardnum}">
+
+
+
+        </form>-->
+
+    <!--	th:if="${#authentication.name == board.userid}"-->
+    <div style="text-align: center;">
+        <a th:href="@{/board/boardList}">목록</a>
+        <a th:href="@{/board/update(boardnum=${board.boardnum})}">수정</a>
+        <a th:href="|javascript:deleteFunc(${board.boardnum})|">삭제</a>
+    </div>
+
+    <section>
+        <!-- 리플 작성 폼 -->
+        <form th:action="@{/reply/writeReply}" method="post">
+            리플내용
+            <input type="hidden" name="boardnum" th:value="${board.boardnum}">
+            <input type="text" name="content" style="width: 500px;">
+            <input type="submit" value="확인">
+        </form>
+
+        <!-- 리플 목록 출력 -->
+        <table class="reply">
+            <tr th:each="reply : ${replyList}">
+                <td class="replyid" th:text="${reply.userid}"></td>
+                <td class="content" th:text="${reply.content}"></td>
+                <td class="replydate" th:text="${reply.inputdate}"></td>
+                <td class="white">
+                    <th:block th:if="${#authentication.name} == ${reply.userid}">
+                        <a th:href="|javascript:deleteReply(${reply.replynum}, ${reply.boardnum})|">
+                            <input type="button" value="삭제">
+                        </a>
+                    </th:block>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <br><br>
+
+</main>
+
+<footer th:replace="layouts/footer::footer"></footer>
+
+<script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>
+

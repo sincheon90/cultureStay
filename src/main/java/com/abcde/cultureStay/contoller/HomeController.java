@@ -2,6 +2,8 @@ package com.abcde.cultureStay.contoller;
 
 import java.util.ArrayList;
 
+import com.abcde.cultureStay.service.BoardService;
+import com.abcde.cultureStay.vo.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,14 +21,25 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HomeController {
 
-    @GetMapping({"","/"})
-    public String hello() {
-        return "home";
+//    @GetMapping({"", "/"})
+//    public String hello() {
+//        return "home";
+//
+//    }
 
+    @Autowired
+    ProgramService pService;
+
+    @Autowired
+    BoardService bService;
+
+    @GetMapping("member/mypage")
+    public String mypage() {
+
+        return "member/mypage";
     }
-    
-	@Autowired
-	ProgramService pService;
+ 
+ 
 	
 	  @GetMapping("member/mypage")
 	  public String mypage(@AuthenticationPrincipal UserDetails user, Model model) {
@@ -62,5 +75,49 @@ public class HomeController {
 //	}
     
     
+ 
+
+    //홈화면
+    @GetMapping("")
+    public String homeList(@AuthenticationPrincipal UserDetails user,
+                           Model model) {
+        int maxElements = 3;
+        ArrayList<Program> limitedRecommends = new ArrayList<>();
+
+        //추천게시물 -최근방문+좋아요+북마크 ----sql 수정
+        ArrayList<Program> recommends = new ArrayList<>();
+
+        if(user != null && user.getUsername() != null){
+            recommends = pService.homeRecommend(user.getUsername());
+        }
+
+        for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
+            limitedRecommends.add(recommends.get(i));
+        }
+        model.addAttribute("recommends", limitedRecommends);
+
+        //인기게시물 -조회수+좋아요 ----sql 수정
+        ArrayList<Program> populars = pService.homePopular();
+
+        limitedRecommends = new ArrayList<>();
+        for (int i = 0; i < Math.min(populars.size(), maxElements); i++) {
+            limitedRecommends.add(populars.get(i));
+        }
+        model.addAttribute("populars", limitedRecommends);
+
+
+        // 인기 게시글(커뮤니티)
+//        ArrayList<Board> popularBoards = bService.getPopularBoard();
+
+        limitedRecommends = new ArrayList<>();
+        for (int i = 0; i < Math.min(populars.size(), 2); i++) {
+            limitedRecommends.add(populars.get(i));
+        }
+        model.addAttribute("popularBoards", limitedRecommends);
+
+        return "home";
+    }
+
+ 
 
 }

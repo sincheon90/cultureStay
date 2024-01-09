@@ -30,9 +30,7 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Program> homeRecommend(String id) {
 		ArrayList<Program> result = dao.homeRecommend(id);
 
-		for (Program r : result) {
-			r.setContent(extractText(r.getContent()));
-		}
+		result = extractPreview(result);
 
 		log.debug("추천id:{}",id);
 		return result;
@@ -42,9 +40,7 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Program> homePopular() {
 		ArrayList<Program> result = dao.homePopular();
 
-		for (Program r : result) {
-			r.setContent(extractText(r.getContent()));
-		}
+		result = extractPreview(result);
 
 		return result;
 	}

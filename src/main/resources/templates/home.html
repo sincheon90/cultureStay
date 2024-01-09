@@ -2,207 +2,194 @@
 <html xmlns:th="thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Home</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
 
-<!-- 달력 daterangepicker -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- 달력 daterangepicker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
-<link rel="stylesheet" th:href="@{/css/main/home.css}">
-<link rel="stylesheet" th:href="@{/css/main/list.css}">
+    <link rel="stylesheet" th:href="@{/css/main/home.css}">
+    <link rel="stylesheet" th:href="@{/css/main/list.css}">
 
-<style>
+    <style>
 
-</style>
+    </style>
 </head>
 <body>
 
 <!-- 헤더 섹션-->
 <header th:replace="layouts/header::header"></header>
-<div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
+<!-- 채팅방 살려죠 -->
+<form action="/chat/createRoom" method="post">
+    <input type="text" name="name" placeholder="채팅방 이름">
+    <button type="submit">방 만들기</button>
+</form>
+
+<table>
+    <tr th:each="room : ${roomList}">
+        <td>
+            <a th:href="@{chatRoom(roomId=${room.roomId} )}"
+               th:text="${room.name}"></a>
+        </td>
+    </tr>
+</table>
+
+<!--구글사이트번역-->
+<div id="google_translate_element" class="hd_lang"
+     style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
 
 <main>
-	<section class="board-container">
-		<div class="board-title">
-			<h2>인기 게시글</h2>
-		</div>
+    <section class="board-container">
+        <div class="board-title">
+            <h2>인기 게시글</h2>
+        </div>
 
-		<div class="board-card">
-			<article class="card-image">
-				<img th:src="@{/img/board/img.png}" alt="게시글 1">
-			</article>
+        <div class="pBoard-container">
+            <article class="pBoard-article" th:each="popularBoard : ${popularBoards}">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img th:src="${popularBoard.imagePath1}" alt="이미지1">
+                    </div>
+                </div>
 
-			<article class="card-image">
-				<img th:src="@{/img/board/img_1.png}" alt="게시글 2">
-			</article>
-		</div>
-	</section>
+                <div class="image-container-sub program-to-detail clickable"
+                     th:data-programnum="${popularBoard.programNum}">
+                    <h4 th:text="${popularBoard.title}">프로그램 이름</h4>
+                </div>
+            </article>
+        </div>
+    </section>
 
-	<br><br>
-	<hr>
-	<br><br>
+    <br><br>
+    <hr>
+    <br><br>
 
-	<section class="search-section">
-		<div class="header-container header-bottom">
-			<div class="search-bar">
-				<form id="pagingForm" method="get" th:action="@{/program/list}">
-				<!-- 지역 입력란 -->
-				<input type="text" name="address" placeholder="지역 검색" aria-label="지역">
+    <section class="search-section">
+        <div class="header-container header-bottom">
+            <div class="search-bar">
+                <form id="pagingForm" method="get" th:action="@{/program/list}">
+                    <!-- 지역 입력란 -->
+                    <input type="text" name="address" placeholder="지역 검색" aria-label="지역">
 
-				<!-- 날짜 선택 -->
-				<input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택" readonly></input>
+                    <!-- 날짜 선택 -->
+                    <input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택" readonly></input>
 
-				<input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"
-					   hidden="hidden"></input>
+                    <input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date"
+                           placeholder="시작 날짜"
+                           hidden="hidden"></input>
 
-				<input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"
-					   hidden="hidden"></input>
+                    <input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date"
+                           placeholder="종료 날짜"
+                           hidden="hidden"></input>
 
-				<!-- 프로그램 입력란 -->
-				<input type="text" name="searchWord" placeholder="프로그램 검색" aria-label="프로그램">
+                    <!-- 프로그램 입력란 -->
+                    <input type="text" name="searchWord" placeholder="프로그램 검색" aria-label="프로그램">
 
-				<!-- 검색 버튼 -->
-				<button type="submit" onclick="showMessage()" aria-label="검색">
-					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
-				</button></form>
-			</div>
-		</div>
-	</section>
+                    <!-- 검색 버튼 -->
+                    <button type="submit" onclick="showMessage()" aria-label="검색">
+                        <span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-	<br><br>
+    <section sec:authorize="isAuthenticated()" class="board-container">
 
-	<section class="board-container">
-		<div class="board-title">
-			<h2 sec:authorize="isAuthenticated()">
-				<span th:text="${#authentication.name} + '님을 위한 추천 프로그램'">00님을 위한 추천 프로그램</span>
-			</h2>
-			<h2 sec:authorize="!isAuthenticated()">
-				추천 프로그램
-			</h2>
-			<div class="add_link"><a th:href="@{/program/recommend}">더보기</a></div>
-		</div>
+        <br><br>
 
-		<div class="board-card">
-			<article class="card-image">
-				<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
-			</article>
+        <div class="board-title">
+            <h2>
+                <span th:text="${#authentication.name} + '님을 위한 추천 프로그램'">00님을 위한 추천 프로그램</span>
+            </h2>
+            <div class="add_link"><a th:href="@{/program/recommend}">더보기</a></div>
+        </div>
 
-			<article class="card-content">
-				<div class="image-container-sub program-to-detail clickable">
-					<h2>서울의 전통과 현대가 어우러진 홈스테이 체험</h2>
-				</div>
-				<p class="program-to-detail clickable"> 안녕하세요! 서울의 중심에서 전통과 현대 문화를 함께 체험할 수 있는 홈스테이 프로그램에 여러분을 초대합니다. 이 프로그램을 통해 한국의 역사적인 궁궐 방문, 전통 시장 탐방, 그리고 현대적인 강남 지역의 밤문화까지 다양한 체험을 할 수 있습니다. 서울의 한 가정과 함께 생활하며 진정한 한국의 가정 문화와 요리를 경험해보세요. 매주 주말에는 한복을 입고 경복궁을 방문하는 특별한 체험도 제공됩니다!</p>
-				<div class="content-article-footer">
-					<div class="tags">
-						<a class="tag clickable">#태그1</a>
-						<a class="tag clickable">#태그2</a>
-					</div>
-					<p>₩999,999</p>
-				</div>
-			</article>
-		</div>
+        <div class="board-card" th:each="recommend : ${recommends}">
+            <article class="card-image">
+                <img th:src="${recommend.imagePath1}" alt="게시글 이미지">
+            </article>
 
-		<div class="board-card">
-			<article class="card-image">
-				<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
-			</article>
+            <article class="card-content">
+                <div class="image-container-sub program-to-detail clickable"
+                     th:data-programnum="${recommend.programNum}">
+                    <h2 th:text="${recommend.title}">전주 한옥마을에서의 전통적 홈스테이</h2>
+                </div>
+                <p class="program-to-detail clickable" th:text="${recommend.content}"
+                   th:data-programnum="${recommend.programNum}"></p>
+                <div class="content-article-footer">
+                    <div class="tags">
+                        <a class="tag clickable">#태그1</a>
+                        <a class="tag clickable">#태그2</a>
+                    </div>
+                    <p><span>₩<span th:text="${#numbers.formatDecimal(recommend.price, 0, 'COMMA', 0, 'POINT')}"></p>
+                </div>
+            </article>
+        </div>
+    </section>
 
-			<article class="card-content">
-				<div class="image-container-sub program-to-detail clickable">
-					<h2>부산의 해안가에서 즐기는 홈스테이</h2>
-				</div>
-				<p class="program-to-detail clickable"> 부산의 아름다운 해안가에서 특별한 홈스테이를 경험해보세요. 부산의 유명한 해운대와 광안리 해변을 방문하며, 해산물 시장에서 신선한 해산물도 맛볼 수 있습니다. 부산의 전통 가정집에서 홈스테이를 하며, 한국의 해양 문화와 지역 특색을 가까이에서 체험할 수 있습니다. 주말에는 부산의 유명한 템플스테이 프로그램에 참여하여 명상과 함께 한국의 불교 문화를 경험하는 시간도 가질 수 있습니다.</p>
-				<div class="content-article-footer">
-					<div class="tags">
-						<a class="tag clickable">#태그1</a>
-						<a class="tag clickable">#태그2</a>
-					</div>
-					<p>₩999,999</p>
-				</div>
-			</article>
-		</div>
-	</section>
+    <br><br>
 
-	<br><br>
+    <section class="board-container">
+        <div class="board-title">
+            <h2>인기 Best</h2>
+            <div class="add_link"><a th:href="@{/program/popular}">더보기</a></div>
+        </div>
 
-	<section class="board-container">
-		<div class="board-title">
-			<h2>인기 Best</h2>
-			<div class="add_link"><a th:href="@{/program/popular}">더보기</a></div>
-		</div>
+        <div class="board-card" th:each="popular : ${populars}">
+            <article class="card-image">
+                <img th:src="${popular.imagePath1}" alt="게시글 이미지">
+            </article>
 
-		<div class="board-card">
-			<article class="card-image">
-				<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
-			</article>
+            <article class="card-content">
+                <div class="image-container-sub program-to-detail clickable"
+                     th:data-programnum="${popular.programNum}">
+                    <h2 th:text="${popular.title}">전주 한옥마을에서의 전통적 홈스테이</h2>
+                </div>
+                <p class="program-to-detail clickable" th:text="${popular.content}"
+                   th:data-programnum="${popular.programNum}"></p>
+                <div class="content-article-footer">
+                    <div class="tags">
+                        <a class="tag clickable">#태그1</a>
+                        <a class="tag clickable">#태그2</a>
+                    </div>
+                    <p><span>₩<span th:text="${#numbers.formatDecimal(popular.price, 0, 'COMMA', 0, 'POINT')}"></p>
+                </div>
+            </article>
+        </div>
+    </section>
 
-			<article class="card-content">
-				<div class="image-container-sub program-to-detail clickable">
-					<h2>전주 한옥마을에서의 전통적 홈스테이</h2>
-				</div>
-				<p class="program-to-detail clickable"> 전주 한옥마을의 고즈넉한 분위기 속에서 진정한 한국의 전통을 체험하는 홈스테이 프로그램에 여러분을 초대합니다. 전주의 전통 한옥에서 머물며 한국의 역사와 문화를 깊이 있게 체험할 수 있습니다. 전주 비빔밥과 한지 만들기 체험, 그리고 전통 차 시음과 같은 다양한 문화 활동을 통해 한국의 전통을 몸소 느낄 수 있습니다. 또한, 한옥마을 주변의 고택과 전통 공예품 가게를 탐방하며 전주만의 매력을 발견할 수 있습니다.</p>
-				<div class="content-article-footer">
-					<div class="tags">
-						<a class="tag clickable">#태그1</a>
-						<a class="tag clickable">#태그2</a>
-					</div>
-					<p>₩999,999</p>
-				</div>
-			</article>
-		</div>
-
-		<div class="board-card">
-			<article class="card-image">
-				<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
-			</article>
-
-			<article class="card-content">
-				<div class="image-container-sub program-to-detail clickable">
-					<h2>서울의 전통과 현대가 어우러진 홈스테이 체험</h2>
-				</div>
-				<p class="program-to-detail clickable"> 안녕하세요! 서울의 중심에서 전통과 현대 문화를 함께 체험할 수 있는 홈스테이 프로그램에 여러분을 초대합니다. 이 프로그램을 통해 한국의 역사적인 궁궐 방문, 전통 시장 탐방, 그리고 현대적인 강남 지역의 밤문화까지 다양한 체험을 할 수 있습니다. 서울의 한 가정과 함께 생활하며 진정한 한국의 가정 문화와 요리를 경험해보세요. 매주 주말에는 한복을 입고 경복궁을 방문하는 특별한 체험도 제공됩니다!</p>
-				<div class="content-article-footer">
-					<div class="tags">
-						<a class="tag clickable">#태그1</a>
-						<a class="tag clickable">#태그2</a>
-					</div>
-					<p>₩999,999</p>
-				</div>
-			</article>
-		</div>
-	</section>
-
-	<section>
-		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	</section>
+    <section>
+        <br><br><br><br><br><br><br>
+    </section>
 </main>
 
 <footer th:replace="layouts/footer::footer"></footer>
 
 <script>
-	// JavaScript 함수 정의
+    // JavaScript 함수 정의
     function showMessage() {
         alert('버튼이 클릭되었습니다!');
     }
 </script>
 
-	<script>
-		function googleTranslateElementInit() {
-			new google.translate.TranslateElement({
-				pageLanguage: 'en',
-				includedLanguages: 'ko,en,ja,zh-CN,fr',
-				//layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-				autoDisplay: false,
-				multilanguagePage: true
-			}, 'google_translate_element');
-		}
-	</script>
-	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'ko,en,ja,zh-CN,fr',
+            //layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+            multilanguagePage: true
+        }, 'google_translate_element');
+    }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-	<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>

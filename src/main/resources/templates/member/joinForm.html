@@ -1,26 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="utf-8">
+   <meta charset="UTF-8">
 <title>join</title>
+   <link rel="stylesheet" th:href="@{/css/member/joinForm.css}">
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-<div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
-	
-	
-	<script>
-		function googleTranslateElementInit() {
-			new google.translate.TranslateElement({
-				pageLanguage: 'en',
-				includedLanguages: 'ko,en,ja,zh-CN,fr',
-				//layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-				autoDisplay: false,
-				multilanguagePage: true
-			}, 'google_translate_element');
-		}
-	</script>
-	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script>
    function idCheck() {
@@ -41,25 +27,25 @@
         let address_address = document.querySelector('#address_address');
         let email = document.querySelector('#email');
         let file = document.querySelector('#upload');
-        
-        
-        
+
+
+
 
       if (userid.value.length < 3 || userid.value.length > 10) {
          alert("ID는 3~10자로 입력하세요.");
          return false;
       }
-      
+
       if (password.value.length < 3 || password.value.length > 10) {
          alert("비밀번호는 3~10자로 입력하세요.");
          return false;
       }
-      
+
       if (password.value != password2.value) {
          alert("비밀번호를 정확하게 입력하세요.");
          return false;
       }
-      
+
       if (name.value == '') {
          alert("이름을 입력하세요.");
          return false;
@@ -88,7 +74,7 @@
          alert("메일주소를 입력하세요.");
          return false;
       }
-      
+
 
       return true;
     }
@@ -130,7 +116,7 @@ function uploadAndPreview() {
                 console.error('Error uploading file:', error);
             });
         }
-        
+
         function setExternalImage() {
             var imageUrl = 'https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w170-h170-rw';
             var preview = document.getElementById('preview');
@@ -139,7 +125,7 @@ function uploadAndPreview() {
         window.onload = function() {
             setExternalImage();
         };
-        
+
         //카카오 주소입력 api
         function address() {
         new daum.Postcode({
@@ -176,102 +162,112 @@ function uploadAndPreview() {
     }
 </script>
 <body>
-    <h1>회원가입</h1>
-   <!--onsubmit="return checkValid();"-->
-    <form th:action="@{/member/join}" method="post" enctype="multipart/form-data">
-       <table>
-          <tr>
-             <th>아이디</th>
-             <td>
-                <input type="text" name="userid" id="userid">
-                <!--readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력"-->
-                <input type="button" value="ID중복검사" onclick="idCheck();">
-             </td>
-          </tr>
-          <tr>
-             <th>비밀번호</th>
-             <td>
-                <input type="password" name="password" id="password" placeholder="비밀번호 입력">
-             </td>
-          </tr>
-          <tr>
-             <th></th>
-             <td>
-                <input type="password" name="password2" id="password2" placeholder="비밀번호 재입력">
-             </td>
-          </tr>
-          <tr>
-             <th>이름</th>
-             <td>
-                <input type="text" name="name" id="name" placeholder="이름 입력">
-             </td>
-          </tr>
-         <!-- <tr>
-             <th>성별</th>
-             <td>
-                <input type="text" name="gender" id="gender" placeholder="성별 ex)남:m,여:f">
-             </td>
-          </tr> -->
-          <tr>
-             <th>성별</th>
-             <td>
-                <select id="gender" name="gender">
-					<option value="남자" th:selected="${gender} == 'male'">남자</option>
-					<option value="여자" th:selected="${gender} == 'female'">여자</option>
-				</select>
-             </td>
-          </tr>
-          <tr>
-             <th>생년월일</th>
-             <td>
-                <!--<input type="number" name="birth" id="birth" placeholder="숫자8자리 ex)20231211">-->
-                <form>
-      				<p><input type="date" name="birth" id="birth"></p>
-    			</form>
-             </td>
-          </tr>
-          <tr>
-             <th>전화번호</th>
-             <td>
-                <input type="text" name="phone" id="phone" placeholder="전화번호 입력">
-             </td>
-          </tr>
-<!--          <tr>
-             <th>주소</th>
-             <td>
-                <input type="text" name="address" id="address" placeholder="주소입력">
-             </td>
-          </tr>  -->
-          <tr>
-			  <th>주소</th>
-			  <td>
-			  	<input type="text" name="address_postcode" id="address_postcode" placeholder="우편번호">
-    		  	<input type="button" onclick="address()" value="우편번호 찾기"><br>
-    		  	<input type="text" name="address_address" id="address_address" placeholder="주소"><br>
-    		  	<input type="text" name="address_detailAddress" id="address_detailAddress" placeholder="상세주소">
-    		  	<input type="text" name="address_extraAddress" id="address_extraAddress" placeholder="참고항목">
-    		  </td>
-		  </tr>
-          <tr>
-             <th>이메일</th>
-             <td>
-                <input type="email" name="email" id="email" placeholder="이메일 입력">
-             </td>
-          </tr>
-          <tr>
-            <th>프로필 사진</th>
-                  <td>
-                     <input type="file" name="upload" id="fileInput" onchange="uploadAndPreview()" accept="image/*">
-                      <br>
-                      <img id="preview" src="#" alt="Preview" style="max-width: 170px; max-height: 170px;">
-                  </td>
-         </tr>
-          <tr>
-            <td colspan="2">
-               <input type="submit" value="가입">
-            </td>
-         </tr>
-       </table>
-    </form>
+   <header th:replace="layouts/header::header"></header>
+
+    <main>
+       <h1>회원가입</h1>
+       <!--onsubmit="return checkValid();"-->
+       <form th:action="@{/member/join}" method="post" enctype="multipart/form-data">
+          <table>
+             <tr>
+                <th>아이디</th>
+                <td>
+                   <input type="text" name="userid" id="userid">
+                   <!--readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력"-->
+                   <input type="button" value="ID중복검사" onclick="idCheck();">
+                </td>
+             </tr>
+             <tr>
+                <th>비밀번호</th>
+                <td>
+                   <input type="password" name="password" id="password" placeholder="비밀번호 입력">
+                </td>
+             </tr>
+             <tr>
+                <th></th>
+                <td>
+                   <input type="password" name="password2" id="password2" placeholder="비밀번호 재입력">
+                </td>
+             </tr>
+             <tr>
+                <th>이름</th>
+                <td>
+                   <input type="text" name="name" id="name" placeholder="이름 입력">
+                </td>
+             </tr>
+             <!-- <tr>
+                 <th>성별</th>
+                 <td>
+                    <input type="text" name="gender" id="gender" placeholder="성별 ex)남:m,여:f">
+                 </td>
+              </tr> -->
+             <tr>
+                <th>성별</th>
+                <td>
+                   <select id="gender" name="gender">
+                      <option value="남자" th:selected="${gender} == 'male'">남자</option>
+                      <option value="여자" th:selected="${gender} == 'female'">여자</option>
+                   </select>
+                </td>
+             </tr>
+             <tr>
+                <th>생년월일</th>
+                <td>
+                   <!--<input type="number" name="birth" id="birth" placeholder="숫자8자리 ex)20231211">-->
+                   <form>
+                      <p><input type="date" name="birth" id="birth"></p>
+                   </form>
+                </td>
+             </tr>
+             <tr>
+                <th>전화번호</th>
+                <td>
+                   <input type="text" name="phone" id="phone" placeholder="전화번호 입력">
+                </td>
+             </tr>
+             <!--          <tr>
+                          <th>주소</th>
+                          <td>
+                             <input type="text" name="address" id="address" placeholder="주소입력">
+                          </td>
+                       </tr>  -->
+             <tr>
+                <th>주소</th>
+                <td>
+                   <input type="text" name="address_postcode" id="address_postcode" placeholder="우편번호">
+                   <input type="button" onclick="address()" value="우편번호 찾기"><br>
+                   <input type="text" name="address_address" id="address_address" placeholder="주소"><br>
+                   <input type="text" name="address_detailAddress" id="address_detailAddress" placeholder="상세주소">
+                   <input type="text" name="address_extraAddress" id="address_extraAddress" placeholder="참고항목">
+                </td>
+             </tr>
+             <tr>
+                <th>이메일</th>
+                <td>
+                   <input type="email" name="email" id="email" placeholder="이메일 입력">
+                </td>
+             </tr>
+             <tr>
+                <th>자기소개</th>
+                <td>
+                   <input type="text" name="introduce" id="introduce" placeholder="자기소개">
+                </td>
+             </tr>
+             <tr>
+                <th>프로필 사진</th>
+                <td>
+                   <input type="file" name="upload" id="fileInput" onchange="uploadAndPreview()" accept="image/*">
+                   <br>
+                   <img id="preview" src="#" alt="Preview" style="max-width: 170px; max-height: 170px;">
+                </td>
+             </tr>
+             <tr>
+                <td colspan="2">
+                   <input type="submit" value="가입">
+                </td>
+             </tr>
+          </table>
+       </form>
+    </main>
 </body>
 </html>

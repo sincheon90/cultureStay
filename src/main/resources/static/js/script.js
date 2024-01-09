@@ -109,10 +109,35 @@ $(document).ready(function() {
     }
 
     function updateButtonImage(type, value){
-        var imgSrc = (type == 'like') ?
-            (value == 1 ? '/img/mark/heart.png' : '/img/mark/unheart.png' ) :
-            (value == 1 ? '/img/mark/bookmark.png' : '/img/mark/unbookmark.png' );
+    console.log(type + value);
+        var imgSrc = (type == 'bookmark') ?
+            (value == 1 ? '/img/mark/bookmark.png' : '/img/mark/unbookmark.png' ) :
+            (value == 1 ? '/img/mark/heart.png' : '/img/mark/unheart.png' );
 
         $('#' + type + '_img').attr('src', imgSrc);
     }
+
+    // 게시글 추천(좋아요)
+    var boardnum = $('input[name="boardnum"]').val();
+    var recommend = $('input[name="recommend"]').val();
+
+    updateButtonImage('recommend', recommend);
+
+    $('#recommend_img').click(function() {
+        console.log("recomned clicked");
+        toggleStateBoard('recommend', boardnum);
+    });
+
+    function toggleStateBoard(type, boardnum) {
+        $.ajax({
+            url: type,
+            type:'post',
+            data: {'boardnum' : boardnum},
+            success: function (value) {
+                updateButtonImage(type, value);
+            },
+            error: function () {alert('error');}
+        });
+    }
+
 });

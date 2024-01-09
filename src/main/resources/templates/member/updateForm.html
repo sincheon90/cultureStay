@@ -95,7 +95,54 @@ function checkValid(){
             }
         }).open();
     }
-    
+    //프로필사진 업데이트
+    function uploadAndPreview() {
+            var fileInput = document.getElementById('fileInput');
+            var preview = document.getElementById('preview');
+
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+
+                // 파일을 서버에 업로드
+                uploadFile(file);
+            } else {
+                preview.src = "#";
+            }
+        }
+
+        function uploadFile(file) {
+            var formData = new FormData();
+            formData.append('file', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('File uploaded:', data.imageUrl);
+                // 여기에서 서버에서 전달한 이미지 URL을 사용하여 추가적인 작업을 수행할 수 있습니다.
+            })
+            .catch(error => {
+                console.error('Error uploading file:', error);
+            });
+        }
+        
+        function setExternalImage() {
+            var imageUrl = 'https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w170-h170-rw';
+            var preview = document.getElementById('preview');
+            preview.src = imageUrl;
+        }
+        window.onload = function() {
+            setExternalImage();
+        };
 </script>
 </head>
 <body>
@@ -161,11 +208,25 @@ function checkValid(){
              </td>
           </tr>
           <tr>
+             <th>자기소개</th>
+             <td>
+                <input type="text" name="introduce" id="introduce" th:value="${member.introduce}">
+             </td>
+          </tr>
+          <tr>
             <th>프로필사진</th>
             <td>
                 <input type="file" name="profileImage" id="profileImage" accept="image/*">
             </td>
         </tr>
+         <tr>
+            <th>프로필 사진</th>
+                  <td>
+                     <input type="file" name="upload" id="fileInput" onchange="uploadAndPreview()" accept="image/*">
+                      <br>
+                      <img id="preview" src="#" alt="Preview" style="max-width: 170px; max-height: 170px;">
+                  </td>
+         </tr>
           <tr>
             <td colspan="2">
                <input type="submit" value="수정">
