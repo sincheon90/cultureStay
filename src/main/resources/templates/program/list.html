@@ -30,6 +30,9 @@
         <div class="header-container header-bottom">
             <div class="search-bar">
                 <form method="get" th:action="@{/program/list}">
+                    <!--태그 펼치기 버튼-->
+                    <span id="toggleIcon" style="cursor: pointer;">&#9660;</span>
+
                     <!-- 지역 입력란 -->
                     <input type="text" name="address" placeholder="지역 검색" aria-label="지역"
                            th:value="${searchProgram.address}">
@@ -54,12 +57,10 @@
                         <span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
                     </button>
 
-                    <!--태그 펼치기 버튼-->
-                    <div id="toggleIcon" style="cursor: pointer;">&#9660;</div>
-
                     <!-- Program Tag Selection -->
-                    <div class="program-tag-container" id="tagSection" style="display:block;">
-                        <label>프로그램 태그</label>
+                    <div class="program-tag-container" id="tagSection" style="display:none;">
+                        <br>
+                        <label><b>프로그램 태그</b></label>
                         <div>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.active} == 1"><label>활동적</label>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.creative} == 1"><label>창의적</label>
@@ -75,14 +76,15 @@
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.tranquil} == 1"><label>한적한</label>
                         </div>
 
-                        <label>호스트 태그</label>
+                        <br>
+                        <label><b>호스트 태그</b></label>
                         <div>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.separateBathroom} == 1"><label>화장실</label>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.bathtub} == 1"><label>욕조</label>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.wifi} == 1"><label>와이파이</label>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.transformer} == 1"><label>변압기</label>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.pajamasProvided} == 1"><label>파자마</label>
-                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.hairdryer} == 1"><label>헤어드라이</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.hairdryer} == 1"><label>헤어드라이기</label>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.petFriendly} == 1"><label>반려동물</label>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.roomAlone} == 1"><label>1인실</label>
                             <input type="checkbox" name="apartment" value="1" th:checked="${programTag.langJapanese} == 1"><label>일본어</label>
