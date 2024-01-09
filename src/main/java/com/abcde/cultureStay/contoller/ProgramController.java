@@ -62,10 +62,12 @@ public class ProgramController {
 	
 	//홈스테이 리스트
 		@GetMapping("list")
-		public String programHome(Model model
-				, String start_date
-				,String end_date,
-				String searchWord,String address, ProgramTag tag) {
+		public String programHome(Model model,
+								  @RequestParam String address,
+								  @RequestParam(required = false) String start_date,
+								  @RequestParam(required = false) String end_date,
+								  @RequestParam String searchWord,
+								  ProgramTag tag) {
 			log.info("=======검색=======");
 			log.debug("주소 {}",address);
 			log.debug("시작날짜 {}",start_date);
@@ -79,8 +81,7 @@ public class ProgramController {
 			searchProgram.setEnd_date(end_date);
 			searchProgram.setStart_date(start_date);
 			
-			
-			ArrayList<Program> programList = service.programMainlist(searchProgram,tag);	
+			ArrayList<Program> programList = service.programMainlist(searchProgram,tag);
 
 			model.addAttribute("programList", programList);
 			return "program/list";

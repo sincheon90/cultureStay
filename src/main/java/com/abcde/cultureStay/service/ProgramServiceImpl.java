@@ -58,7 +58,9 @@ public class ProgramServiceImpl implements ProgramService{
 		map.put("start_date", searchProgram.getStart_date());
 		map.put("end_date", searchProgram.getEnd_date());
 
-		ArrayList<Program> result = dao.programMainlist(map);
+//		ArrayList<Program> result = dao.programMainlist(map);
+		ArrayList<Program> result = dao.searchWithTags(searchProgram, tag);
+
 		// 미리보기용 이미지 및 텍스트 추출
 		result = extractPrgramPreview(result);
 
@@ -240,4 +242,5 @@ public class ProgramServiceImpl implements ProgramService{
 		ArrayList<Reservation> result = dao.myReservation(userid);
 		return result;
 	}
+
 }

@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8">
-	<title>Home</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script th:src="@{/js/script.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
 
-	<!-- 달력 daterangepicker -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- 달력 daterangepicker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
 
-	<link rel="stylesheet" th:href="@{/css/main/list.css}">
-
+    <link rel="stylesheet" th:href="@{/css/main/list.css}">
 
 
 </head>
@@ -27,89 +26,92 @@
 
 <main>
 
-	<br><br>
-<section class="search-section">
-		<div class="header-container header-bottom">
-			<div class="search-bar">
-				<form method="get" th:action="@{/program/list}">
-				<!-- 지역 입력란 -->
-				<input type="text" name="address" placeholder="지역 검색" aria-label="지역">
+    <br><br>
+    <section class="search-section">
+        <div class="header-container header-bottom">
+            <div class="search-bar">
+                <form method="get" th:action="@{/program/list}">
+                    <!-- 지역 입력란 -->
+                    <input type="text" name="address" placeholder="지역 검색" aria-label="지역">
 
-				<!-- 날짜 선택 -->
-				<input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택" readonly></input>
+                    <!-- 날짜 선택 -->
+                    <input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택" readonly></input>
 
-				<input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"
-					   hidden="hidden"></input>
+                    <input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date"
+                           placeholder="시작 날짜"
+                           hidden="hidden"></input>
 
-				<input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"
-					hidden="hidden"></input>
+                    <input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date"
+                           placeholder="종료 날짜"
+                           hidden="hidden"></input>
 
-				<!-- 홈스테이 입력란 -->
-				<input type="text" name="searchWord" placeholder="홈스테이 검색" aria-label="홈스테이">
+                    <!-- 홈스테이 입력란 -->
+                    <input type="text" name="searchWord" placeholder="홈스테이 검색" aria-label="홈스테이">
 
-				<!-- 검색 버튼 -->
-				<button type="submit" onclick="showMessage()" aria-label="검색">
-					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
-				</button></form>
-			</div>
-		</div>
-	</section>
-	<br><br>
+                    <!-- 검색 버튼 -->
+                    <button type="submit" onclick="showMessage()" aria-label="검색">
+                        <span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <br><br>
 
-<!--
-	<tr th:each="programList : ${programList}">
-		<td th:text="${programList.programNum}"></td>
-		<td th:text="${programList.userid}"></td>
-		<td>
-			<a th:href="@{/program/detail(programNum=${programList.programNum})}"
-			   th:text="${programList.title}"></a>
-		</td>
-		<td th:text="${programList.hits}"></td>
-	</tr>
--->
-	<section class="board-container">
-		<div class="board-title-right">
-			<div class="add_link"><a th:href="@{/program/write}">글쓰기</a></div>
-		</div>
+    <!--
+        <tr th:each="programList : ${programList}">
+            <td th:text="${programList.programNum}"></td>
+            <td th:text="${programList.userid}"></td>
+            <td>
+                <a th:href="@{/program/detail(programNum=${programList.programNum})}"
+                   th:text="${programList.title}"></a>
+            </td>
+            <td th:text="${programList.hits}"></td>
+        </tr>
+    -->
+    <section class="board-container">
+        <div class="board-title-right">
+            <div class="add_link"><a th:href="@{/program/write}">글쓰기</a></div>
+        </div>
 
-		<div class="board-card" th:each="programList : ${programList}">
-			<article class="image-article">
-				<div class="image-container">
-					<div class="image-wrapper">
-						<img th:src="${programList.imagePath1}" alt="이미지1">
-					</div>
+        <div class="board-card" th:each="programList : ${programList}">
+            <article class="image-article">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img th:src="${programList.imagePath1}" alt="이미지1">
+                    </div>
 
-					<div class="image-wrapper">
-						<img th:src="${programList.imagePath2}" alt="이미지2">
-					</div>
-				</div>
+                    <div class="image-wrapper">
+                        <img th:src="${programList.imagePath2}" alt="이미지2">
+                    </div>
+                </div>
 
-				<div class="image-container-sub program-to-detail clickable"
-					 th:data-programnum="${programList.programNum}">
-					<h4 th:text="${programList.title}">홈스테이 이름</h4>
-				</div>
-			</article>
+                <div class="image-container-sub program-to-detail clickable"
+                     th:data-programnum="${programList.programNum}">
+                    <h4 th:text="${programList.title}">홈스테이 이름</h4>
+                </div>
+            </article>
 
-			<article class="content-article">
-				<!--				<h2>제목</h2>-->
-				<p class="program-to-detail clickable truncate-contents"
-				   th:data-programnum="${programList.programNum}" th:text="${programList.content}">콘텐츠</p>
-				<div class="content-article-footer">
-					<div class="tags">
-						<a class="tag clickable">#태그1</a>
-						<a class="tag clickable">#태그2</a>
-					</div>
-					<p><span>₩<span th:text="${#numbers.formatDecimal(programList.price, 0, 'COMMA', 0, 'POINT')}"></p>
-				</div>
-			</article>
-		</div>
-	</section>
+            <article class="content-article">
+                <!--				<h2>제목</h2>-->
+                <p class="program-to-detail clickable truncate-contents"
+                   th:data-programnum="${programList.programNum}" th:text="${programList.content}">콘텐츠</p>
+                <div class="content-article-footer">
+                    <div class="tags">
+                        <a class="tag clickable">#태그1</a>
+                        <a class="tag clickable">#태그2</a>
+                    </div>
+                    <p><span>₩<span th:text="${#numbers.formatDecimal(programList.price, 0, 'COMMA', 0, 'POINT')}"></p>
+                </div>
+            </article>
+        </div>
+    </section>
 
-	<br><br>
+    <br><br>
 
-	<section>
-		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	</section>
+    <section>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </section>
 </main>
 
 <footer th:replace="layouts/footer::footer"></footer>

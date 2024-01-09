@@ -2,6 +2,7 @@ package com.abcde.cultureStay.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -11,6 +12,7 @@ import com.abcde.cultureStay.vo.Program;
 import com.abcde.cultureStay.vo.ProgramTag;
 import com.abcde.cultureStay.vo.Reservation;
 import com.abcde.cultureStay.vo.Review;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ProgramDAO {
@@ -91,8 +93,7 @@ public interface ProgramDAO {
 
 	ArrayList<Review> myProgramReview(String userid);
 
-
-
+	ArrayList<Program> searchWithTags(@Param("program") Program program, @Param("tag") ProgramTag tag);
 
 
 }

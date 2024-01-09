@@ -632,4 +632,28 @@
 		FROM Review
 		WHERE hostID = #{userid}
     </select>
+
+	<select id="searchWithTags" resultType="Program">
+		SELECT p.*
+		FROM Program p
+		LEFT JOIN ProgramTag t ON p.programNum = t.programNum
+		WHERE 1=1
+		<if test="program.address != null and program.address != ''">
+			AND p.address = #{program.address}
+		</if>
+		<if test="program.title != null and program.title != ''">
+			AND p.title LIKE CONCAT('%', #{program.title}, '%')
+		</if>
+		<if test="program.start_date != null">
+			AND p.start_date >= #{program.start_date}
+		</if>
+		<if test="program.end_date != null">
+			AND p.end_date <= #{program.end_date}
+		</if>
+		<!-- Add conditions for each tag if they are specified -->
+		<if test="tag.apartment == 1">
+			AND t.apartment = 1
+		</if>
+		<!-- Repeat for other tags -->
+	</select>
 </mapper>
