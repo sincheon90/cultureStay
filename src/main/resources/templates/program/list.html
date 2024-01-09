@@ -99,7 +99,7 @@
 						<a class="tag clickable">#태그1</a>
 						<a class="tag clickable">#태그2</a>
 					</div>
-					<p th:text="'₩' + ${programList.price}">price</p>
+					<p><span>₩<span th:text="${#numbers.formatDecimal(programList.price, 0, 'COMMA', 0, 'POINT')}"></p>
 				</div>
 			</article>
 		</div>

@@ -132,49 +132,29 @@
 			<div class="add_link"><a th:href="@{/program/popular}">더보기</a></div>
 		</div>
 
-		<div class="board-card">
+		<div class="board-card" th:each="popular : ${populars}">
 			<article class="card-image">
-				<img th:src="@{/img/board/img_2.png}" alt="게시글 이미지">
+				<img th:src="${popular.imagePath1}" alt="게시글 이미지">
 			</article>
 
 			<article class="card-content">
 				<div class="image-container-sub program-to-detail clickable">
-					<h2>전주 한옥마을에서의 전통적 홈스테이</h2>
+					<h2 th:text="${popular.title}">전주 한옥마을에서의 전통적 홈스테이</h2>
 				</div>
-				<p class="program-to-detail clickable"> 전주 한옥마을의 고즈넉한 분위기 속에서 진정한 한국의 전통을 체험하는 홈스테이 프로그램에 여러분을 초대합니다. 전주의 전통 한옥에서 머물며 한국의 역사와 문화를 깊이 있게 체험할 수 있습니다. 전주 비빔밥과 한지 만들기 체험, 그리고 전통 차 시음과 같은 다양한 문화 활동을 통해 한국의 전통을 몸소 느낄 수 있습니다. 또한, 한옥마을 주변의 고택과 전통 공예품 가게를 탐방하며 전주만의 매력을 발견할 수 있습니다.</p>
+				<p class="program-to-detail clickable" th:text="${popular.content}"></p>
 				<div class="content-article-footer">
 					<div class="tags">
 						<a class="tag clickable">#태그1</a>
 						<a class="tag clickable">#태그2</a>
 					</div>
-					<p>₩999,999</p>
-				</div>
-			</article>
-		</div>
-
-		<div class="board-card">
-			<article class="card-image">
-				<img th:src="@{/img/board/img_3.png}" alt="게시글 이미지">
-			</article>
-
-			<article class="card-content">
-				<div class="image-container-sub program-to-detail clickable">
-					<h2>서울의 전통과 현대가 어우러진 홈스테이 체험</h2>
-				</div>
-				<p class="program-to-detail clickable"> 안녕하세요! 서울의 중심에서 전통과 현대 문화를 함께 체험할 수 있는 홈스테이 프로그램에 여러분을 초대합니다. 이 프로그램을 통해 한국의 역사적인 궁궐 방문, 전통 시장 탐방, 그리고 현대적인 강남 지역의 밤문화까지 다양한 체험을 할 수 있습니다. 서울의 한 가정과 함께 생활하며 진정한 한국의 가정 문화와 요리를 경험해보세요. 매주 주말에는 한복을 입고 경복궁을 방문하는 특별한 체험도 제공됩니다!</p>
-				<div class="content-article-footer">
-					<div class="tags">
-						<a class="tag clickable">#태그1</a>
-						<a class="tag clickable">#태그2</a>
-					</div>
-					<p>₩999,999</p>
+					<p><span>₩<span th:text="${#numbers.formatDecimal(popular.price, 0, 'COMMA', 0, 'POINT')}"></p>
 				</div>
 			</article>
 		</div>
 	</section>
 
 	<section>
-		<br><br><br><br><br><br><br
+		<br><br><br><br><br><br><br>
 	</section>
 </main>
 
