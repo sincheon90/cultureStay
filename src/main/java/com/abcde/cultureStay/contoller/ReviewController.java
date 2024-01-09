@@ -140,7 +140,7 @@ public class ReviewController {
 
 	        dao.programReview(review); 
 	        
-	        return "redirect:/member/mypage";
+	        return "redirect:/program/detail?programNum="+programNum;
 	    }
 		
 		
