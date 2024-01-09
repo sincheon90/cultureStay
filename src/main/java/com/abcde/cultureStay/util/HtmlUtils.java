@@ -26,7 +26,7 @@ public class HtmlUtils {
         text = text.replaceAll("&nbsp;", "");
 
         // 지정된 길이로 텍스트 자르기
-        text = text.length() > maxLength ? text.substring(0, maxLength) : text;
+        text = text.length() > maxLength ? text.substring(0, maxLength) + "..." : text;
         return text;
     }
 
