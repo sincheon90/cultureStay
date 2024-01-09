@@ -61,10 +61,10 @@ function toggleTags() {
 
     if (tagSection.style.display === "none") {
         tagSection.style.display = "block";
-        toggleIcon.innerHTML = "&#9650;"; // Change to up arrow
+        toggleIcon.innerHTML = "&#9650; 접기"; // Change to up arrow
     } else {
         tagSection.style.display = "none";
-        toggleIcon.innerHTML = "&#9660;"; // Change to down arrow
+        toggleIcon.innerHTML = "&#9660; 태그"; // Change to down arrow
     }
 }
 
