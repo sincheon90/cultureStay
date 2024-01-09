@@ -74,7 +74,7 @@ public class HomeController {
 
         limitedRecommends = new ArrayList<>();
         for (int i = 0; i < Math.min(populars.size(), 2); i++) {
-            limitedRecommends.add(recommends.get(i));
+            limitedRecommends.add(populars.get(i));
         }
         model.addAttribute("popularBoards", limitedRecommends);
 
