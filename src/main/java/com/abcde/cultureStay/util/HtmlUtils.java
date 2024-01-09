@@ -17,8 +17,6 @@ public class HtmlUtils {
     static int maxLength = 500;
     static int maxLines = 15;
 
-    @Value("${image.getImage.url}")
-    String url;
     static String defaultImage1 = "/img/board/img.png";
 
     static String defaultImage2 = "/img/board/img_5.png";
