@@ -278,13 +278,13 @@ public class BoardController {
 		if (check == 0) {
 			log.debug("추천안했음");
 			service.addLike(boardnum, id);
-//			service.upLike(boardnum);
+			service.upLike(boardnum);
 //			cnt = service.selectCnt(boardnum);
 			return 1;
 		} else {
 			log.debug("추천이미했음");
 			service.deleteLike(boardnum, id);
-//			service.downLike(boardnum);
+			service.downLike(boardnum);
 //			cnt = service.selectCnt(boardnum);
 			return 0;
 		}

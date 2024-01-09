@@ -185,6 +185,7 @@
 		recommend + 1
 		where
 		boardnum = #{boardnum}
+		and recommend > -1
 	</update>
 
 	<delete id="deleteLike" parameterType="map">
@@ -201,6 +202,7 @@
 		= recommend - 1
 		where
 		boardnum = #{boardnum}
+		and recommend > -1
 	</update>
 
 	<select id="selectCnt" parameterType="int" resultType="int">
