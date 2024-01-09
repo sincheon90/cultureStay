@@ -33,7 +33,7 @@
             <input type="hidden" name="boardnum" th:value="${board.boardnum}"></input>
 
             <input type="hidden" name="recommend" th:value="${board.recommend}"></input>
-            <img class="mark clickable" id="recommend_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
+            <img class="mark clickable" id="recommend_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;"><span id="cnt" th:text="${board.recommend}"></span>
         </div>
     </div>
 
