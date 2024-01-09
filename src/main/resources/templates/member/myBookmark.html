@@ -38,21 +38,31 @@
 		}
 
 		#title {
-			font-size: 25px;
+			font-size: 30px;
 			font-weight: 600;
 
 		}
+		 .fa-bookmark {
+			color: gold;
+			font-size: 35px;
+
+		}
+
 	</style>
 	
 	<link rel="stylesheet" th:href="@{/css/main/write.css}">
 	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
+	 <link rel="stylesheet" th:href="@{/css/header_style.css}">
+
 </head>
 
 <body>
+	<div style="display: flex; align-items: center; ">
+		 
 	
-	
-	<h4 id="title">내가 북마크한 숙소</h4>
-	<div class="container">
+<h4 id="title">내가 북마크한 숙소</h4>
+<i class="fas fa-regular fa-bookmark" style="margin-left: 15px;"></i>	</div> 
+ 	<div class="container">
 		<div class="card" style="width: 18rem;" th:each="program: ${bookmarkList}">
 			<a th:href="@{/program/detail(programNum=${program.programNum})}"
 				style="text-decoration: none; color: inherit;">
