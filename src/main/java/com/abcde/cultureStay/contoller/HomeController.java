@@ -41,8 +41,8 @@ public class HomeController {
 			Model model) {
 
 		//추천게시물 -최근방문+좋아요+북마크 ----sql 수정
-		//ArrayList<Program> recommend = service.homeRecommend(user.getUsername());
-		ArrayList<Program> recommends = pService.homeRecommend("aaa");
+		ArrayList<Program> recommends = pService.homeRecommend(user.getUsername());
+//		ArrayList<Program> recommends = pService.homeRecommend("aaa");
 		log.debug("추천:{}",recommends);
 		model.addAttribute("recommends", recommends);
 
