@@ -48,7 +48,7 @@
 
                     <!-- 홈스테이 입력란 -->
                     <input type="text" name="searchWord" placeholder="홈스테이 검색" aria-label="홈스테이"
-                           th:value="${searchProgram.searchWord}">
+                           th:value="${searchProgram.title}">
 
                     <!-- Program Tag Selection -->
                     <div class="program-tag-container">
@@ -64,7 +64,8 @@
                         <!-- Repeat for other tags -->
                         <!-- Example for a thematic tag -->
                         <div>
-                            <input type="checkbox" id="countryside" name="countryside" value="1">
+                            <input type="checkbox" id="countryside" name="countryside" value="1"
+                            th:checked="${programTag.countryside} == 1">
                             <label for="countryside">countryside</label>
                         </div>
                         <!-- ... more checkboxes for each tag ... -->
