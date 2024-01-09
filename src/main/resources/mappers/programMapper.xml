@@ -646,14 +646,36 @@
             <if test="program.end_date != null and program.start_date != ''">
                 AND #{program.end_date} &lt;= p.end_date
             </if>
-            <if test="tag.apartment == 1">
-                AND t.apartment = 1
-            </if>
-            <if test="tag.countryside == 1">
-                AND t.countryside = 1
-            </if>
+            <!--태그 검색 조건-->
+            <if test="tag.apartment == 1">AND t.active = 1</if>
+            <if test="tag.apartment == 1">AND t.creative = 1</if>
+            <if test="tag.apartment == 1">AND t.healing = 1</if>
+            <if test="tag.apartment == 1">AND t.traditional = 1</if>
+            <if test="tag.apartment == 1">AND t.cookingExperience = 1</if>
+            <if test="tag.apartment == 1">AND t.scenicView = 1</if>
+            <if test="tag.apartment == 1">AND t.countryside = 1</if>
+            <if test="tag.apartment == 1">AND t.city = 1</if>
+            <if test="tag.apartment == 1">AND t.festival = 1</if>
+            <if test="tag.apartment == 1">AND t.drive = 1</if>
+            <if test="tag.apartment == 1">AND t.socializing = 1</if>
+            <if test="tag.apartment == 1">AND t.tranquil = 1</if>
+            <if test="tag.apartment == 1">AND t.separateBathroom = 1</if>
+            <if test="tag.apartment == 1">AND t.bathroom = 1</if>
+            <if test="tag.apartment == 1">AND t.bathtub = 1</if>
+            <if test="tag.apartment == 1">AND t.wifi = 1</if>
+            <if test="tag.apartment == 1">AND t.transformer = 1</if>
+            <if test="tag.apartment == 1">AND t.pajamasProvided = 1</if>
+            <if test="tag.apartment == 1">AND t.hairdryer = 1</if>
+            <if test="tag.apartment == 1">AND t.towel = 1</if>
+            <if test="tag.apartment == 1">AND t.ShampooAndBodywash = 1</if>
+            <if test="tag.apartment == 1">AND t.tooth = 1</if>
+            <if test="tag.apartment == 1">AND t.petFriendly = 1</if>
+            <if test="tag.apartment == 1">AND t.roomAlone = 1</if>
+            <if test="tag.apartment == 1">AND t.roomTogether = 1</if>
+            <if test="tag.apartment == 1">AND t.langJapanese = 1</if>
+            <if test="tag.apartment == 1">AND t.langEnglish = 1</if>
+            <if test="tag.apartment == 1">AND t.langKorean = 1</if>
         </where>
-        <!-- Repeat for other tags -->
         ORDER BY inputdate DESC
     </select>
 </mapper>
