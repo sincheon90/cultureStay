@@ -32,21 +32,23 @@
             <div class="search-bar">
                 <form method="get" th:action="@{/program/list}">
                     <!-- 지역 입력란 -->
-                    <input type="text" name="address" placeholder="지역 검색" aria-label="지역">
+                    <input type="text" name="address" placeholder="지역 검색" aria-label="지역"
+                           th:value="${searchProgram.address}">
 
                     <!-- 날짜 선택 -->
                     <input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택" readonly></input>
 
-                    <input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date"
+                    <input type="hidden" autocomplete="off" class="dateinput" id="start_date" name="start_date"
                            placeholder="시작 날짜"
-                           hidden="hidden"></input>
+                           th:value="${searchProgram.start_date}"></input>
 
-                    <input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date"
+                    <input type="hidden" autocomplete="off" class="dateinput" id="end_date" name="end_date"
                            placeholder="종료 날짜"
-                           hidden="hidden"></input>
+                           th:value="${searchProgram.end_date}"></input>
 
                     <!-- 홈스테이 입력란 -->
-                    <input type="text" name="searchWord" placeholder="홈스테이 검색" aria-label="홈스테이">
+                    <input type="text" name="searchWord" placeholder="홈스테이 검색" aria-label="홈스테이"
+                           th:value="${searchProgram.searchWord}">
 
                     <!-- Program Tag Selection -->
                     <div class="program-tag-container">
