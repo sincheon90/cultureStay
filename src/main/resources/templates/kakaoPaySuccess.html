@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<table> 
+<h2>카카오페이 결제가 정상적으로 완료되었습니다.</h2>
+	<tr>
+		<th>결제일시</th> 
+		<td>
+			<p th:if="${info != null}" th:text="${info.approved_at}"></p>
+		</td>
+	</tr>
+	<tr>
+		<th>주문번호</th> 
+		<td>
+			<p th:if="${info != null}" th:text="${info.partner_order_id}"></p>
+		</td>
+	</tr>
+	<tr>
+		<th>상품명</th> 
+		<td>
+			<p th:if="${info != null}" th:text="${info.item_name}"></p>
+		</td>
+	</tr>
+	<tr>
+		<th>상품수량</th> 
+		<td>
+			<p th:if="${info != null}" th:text="${info.quantity}"></p>
+		</td>
+	</tr>
+	<tr>
+		<th>결제금액</th> 
+		<td>
+			<p th:if="${info != null}" th:text="${info.amount.total}"></p>
+		</td>
+	</tr>
+	<tr>
+		<th>결제방법</th> 
+		<td>
+			<p th:if="${info != null}" th:text="${info.payment_method_type}"></p>
+		</td>
+	</tr>
+ </table>
+ 
+ 
+<h2>[[${info}]]</h2>
+ 
+</body>
+</html>

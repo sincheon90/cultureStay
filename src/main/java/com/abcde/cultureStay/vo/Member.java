@@ -26,6 +26,7 @@ public class Member implements UserDetails{
 	String address_detailAddress;
 	String address_extraAddress;
 	String email;
+	String introduce;
 	String ogProfileImage;
 	String svProfileImage;
 	boolean enabled;
