@@ -8,22 +8,6 @@
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
-	
-	
-	<script>
-		function googleTranslateElementInit() {
-			new google.translate.TranslateElement({
-				pageLanguage: 'en',
-				includedLanguages: 'ko,en,ja,zh-CN,fr',
-				//layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-				autoDisplay: false,
-				multilanguagePage: true
-			}, 'google_translate_element');
-		}
-	</script>
-	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 <script>
    function idCheck() {
       // url경로, 이름, 속성
@@ -43,25 +27,25 @@
         let address_address = document.querySelector('#address_address');
         let email = document.querySelector('#email');
         let file = document.querySelector('#upload');
-        
-        
-        
+
+
+
 
       if (userid.value.length < 3 || userid.value.length > 10) {
          alert("ID는 3~10자로 입력하세요.");
          return false;
       }
-      
+
       if (password.value.length < 3 || password.value.length > 10) {
          alert("비밀번호는 3~10자로 입력하세요.");
          return false;
       }
-      
+
       if (password.value != password2.value) {
          alert("비밀번호를 정확하게 입력하세요.");
          return false;
       }
-      
+
       if (name.value == '') {
          alert("이름을 입력하세요.");
          return false;
@@ -90,7 +74,7 @@
          alert("메일주소를 입력하세요.");
          return false;
       }
-      
+
 
       return true;
     }
@@ -132,7 +116,7 @@ function uploadAndPreview() {
                 console.error('Error uploading file:', error);
             });
         }
-        
+
         function setExternalImage() {
             var imageUrl = 'https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w170-h170-rw';
             var preview = document.getElementById('preview');
@@ -141,7 +125,7 @@ function uploadAndPreview() {
         window.onload = function() {
             setExternalImage();
         };
-        
+
         //카카오 주소입력 api
         function address() {
         new daum.Postcode({
