@@ -67,7 +67,7 @@ public class ProgramController {
 								  @RequestParam(name = "searchWord", defaultValue = "") String searchWord,
 								  @RequestParam(required = false) String start_date,
 								  @RequestParam(required = false) String end_date,
-								  ProgramTag tag) {
+								  ProgramTag programTag) {
 			log.info("=======검색=======");
 			log.debug("주소 {}",address);
 			log.debug("시작날짜 {}",start_date);
@@ -81,9 +81,11 @@ public class ProgramController {
 			searchProgram.setEnd_date(end_date);
 			searchProgram.setStart_date(start_date);
 			
-			ArrayList<Program> programList = service.programMainlist(searchProgram,tag);
+			ArrayList<Program> programList = service.programMainlist(searchProgram,programTag);
 
 			model.addAttribute("programList", programList);
+			model.addAttribute("searchProgram", searchProgram);
+			model.addAttribute("programTag", programTag);
 			return "program/list";
 		}
 		
