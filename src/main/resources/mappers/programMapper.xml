@@ -635,16 +635,16 @@
         LEFT JOIN ProgramTag t ON p.programNum = t.programNum
         <where>
             <if test="program.address != null and program.address != ''">
-                AND p.address = #{program.address}
+                AND p.address LIKE '%' || #{program.address} || '%'
             </if>
             <if test="program.title != null and program.title != ''">
-                AND p.title LIKE CONCAT('%', #{program.title}, '%')
+                AND p.title LIKE '%' || #{program.title} || '%'
             </if>
-            <if test="program.start_date != null">
-                AND p.start_date &gt;= #{program.start_date}
+            <if test="program.start_date != null and program.start_date != ''">
+                AND #{program.start_date} &gt;= p.start_date
             </if>
-            <if test="program.end_date != null">
-                AND p.end_date &lt;= #{program.end_date}
+            <if test="program.end_date != null and program.start_date != ''">
+                AND #{program.end_date} &lt;= p.end_date
             </if>
             <if test="tag.apartment == 1">
                 AND t.apartment = 1
