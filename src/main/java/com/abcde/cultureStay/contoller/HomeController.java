@@ -33,14 +33,6 @@ public class HomeController {
     @Autowired
     BoardService bService;
 
-    @GetMapping("member/mypage")
-    public String mypage() {
-
-        return "member/mypage";
-    }
- 
- 
-	
 	  @GetMapping("member/mypage")
 	  public String mypage(@AuthenticationPrincipal UserDetails user, Model model) {
 			
