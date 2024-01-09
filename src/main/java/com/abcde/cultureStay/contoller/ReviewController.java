@@ -40,7 +40,7 @@ public class ReviewController {
 			model.addAttribute("reservation", reservation);
 			
 			Program program = service.readProgram(reservation.getProgramNum());
-			log.debug("프로그램정보 {}",program);
+			log.debug("홈스테이정보 {}",program);
 			model.addAttribute("program",program);
 
 			return "program/guestReview";
@@ -79,7 +79,7 @@ public class ReviewController {
 			model.addAttribute("reservation", reservation);
 			
 			Program program = service.readProgram(reservation.getProgramNum());
-			log.debug("프로그램정보 {}",program);
+			log.debug("홈스테이정보 {}",program);
 			model.addAttribute("program",program);
 
 			return "program/hostReview";
@@ -106,7 +106,7 @@ public class ReviewController {
 	        return "redirect:/member/mypage";
 	    }
 		
-		//게스트가 프로그램 후기
+		//게스트가 홈스테이 후기
 		@GetMapping("programReview")
 		public String programReview(@AuthenticationPrincipal UserDetails user, Model model,
 				int reserNum) {
@@ -117,7 +117,7 @@ public class ReviewController {
 			model.addAttribute("reservation", reservation);
 			
 			Program program = service.readProgram(reservation.getProgramNum());
-			log.debug("프로그램정보 {}",program);
+			log.debug("홈스테이정보 {}",program);
 			model.addAttribute("program",program);
 
 			return "program/programReview";
@@ -129,8 +129,8 @@ public class ReviewController {
 			
 			review.setReviewerID(user.getUsername());
 			review.setCustomerID(user.getUsername());
-			log.debug("프로그램리뷰reservation  {}",	reserNum);
-			log.debug("프로그램리뷰program {}",	programNum);
+			log.debug("홈스테이리뷰reservation  {}",	reserNum);
+			log.debug("홈스테이리뷰program {}",	programNum);
 			Reservation reservation = service.getReservation(reserNum);
  
 			review.setHostID(reservation.getHostid());

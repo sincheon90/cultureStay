@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProgramTag {
-	//프로그램 태그, 특징, 서치필터
+	//홈스테이 태그, 특징, 서치필터
 	//1,0으로 특징 구분
 	private int programNum;
 	private int apartment;
 	private int detached; //단독주택
 
-	// 프로그램 테마 태그
+	// 홈스테이 테마 태그
 	private int active; // 활동적
 	private int creative; // 창의적
 	private int healing; // 힐링

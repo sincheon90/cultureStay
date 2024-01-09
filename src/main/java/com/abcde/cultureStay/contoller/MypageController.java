@@ -53,13 +53,13 @@ public class MypageController {
 			
 			
 		  
-			//내프로그램 리스트
+			//내홈스테이 리스트
 			ArrayList<Program> programList = pService.myProgram(user.getUsername());
 			model.addAttribute("programList",programList);
  			model.addAttribute("hasPrograms",programList.size());
 
 			
-//			//내 프로그램 리뷰 리스트
+//			//내 홈스테이 리뷰 리스트
 //			ArrayList<Review> programReview = dao.myProgramReview(user.getUsername());
 //			model.addAttribute("programWithReviews", programWithReviews);
 	
@@ -81,7 +81,7 @@ public class MypageController {
 	    	//내 호스트 리뷰
 	    	//ArrayList<Review> hostReview = dao.getHostReview(user.getUsername());
 			//model.addAttribute("hostReview",hostReview);
-			//내 프로그램 리뷰
+			//내 홈스테이 리뷰
 	    	//ArrayList<Review> programReview = dao.getProgramReview(user.getUsername());
 		//	model.addAttribute("programReview",programReview);
 			//내 게스트 리뷰

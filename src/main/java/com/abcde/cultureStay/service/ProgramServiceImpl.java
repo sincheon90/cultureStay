@@ -45,10 +45,10 @@ public class ProgramServiceImpl implements ProgramService{
 		return result;
 	}
 	
-	//프로그램 리스트 화면
+	//홈스테이 리스트 화면
 	@Override
 	public ArrayList<Program> programMainlist(Program searchProgram, ProgramTag tag) {
-		log.debug("프로그램 검색 {}",searchProgram);
+		log.debug("홈스테이 검색 {}",searchProgram);
 		log.debug("태그 검색 {}",tag);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -67,7 +67,7 @@ public class ProgramServiceImpl implements ProgramService{
 		return result;
 	}
 
-	//프로그램 만들기(호스트)
+	//홈스테이 만들기(호스트)
 	@Override
 	public int pWrite(Program program) {
 		int result = dao.pWrite(program);		
@@ -85,7 +85,7 @@ public class ProgramServiceImpl implements ProgramService{
 		int result = dao.tagInsert(tag);		
 		return result;
 	}
-	//프로그램 상세화면
+	//홈스테이 상세화면
 	@Override
 	public Program readProgram(int programNum) {
 		
@@ -114,7 +114,7 @@ public class ProgramServiceImpl implements ProgramService{
 		return pReviewList;
 	}
 	
-	//프로그램 태그 가져오기
+	//홈스테이 태그 가져오기
 	@Override
 	public ProgramTag readProgramTag(int programNum) {
 		ProgramTag result = dao.readProgramTag(programNum);
@@ -156,7 +156,7 @@ public class ProgramServiceImpl implements ProgramService{
 	@Override
 	public void createLike(int programNum, String userid) {
 		log.debug("유저아이디 {}",userid);
-		log.debug("프로그램넘버 {}",programNum);
+		log.debug("홈스테이넘버 {}",programNum);
 
 		HashMap<String, Object> map = getMap(programNum, userid);
 		dao.createLike(map);

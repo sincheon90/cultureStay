@@ -109,7 +109,7 @@ public class ReservationController {
 		model.addAttribute("reservation", reservation);
 		
 		Program program = service.readProgram(reservation.getProgramNum());
-		log.debug("프로그램정보 {}",program);
+		log.debug("홈스테이정보 {}",program);
 		model.addAttribute("program",program);
 
 //		Checklist checklist = dao.getChecklist(reserNum);

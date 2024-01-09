@@ -71,7 +71,7 @@
 		<h4>(게스트리뷰</h4>
 		<table>
 			<tr th:each="reservation: ${reservation}">
-				<th>프로그램 번호</th>
+				<th>홈스테이 번호</th>
 				<td th:text="${reservation.programNum}"></td>
 				<td><a th:href="@{/program/accept(reserNum=${reservation.reserNum})}" th:text="수락"  ></a>
 

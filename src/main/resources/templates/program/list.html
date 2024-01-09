@@ -44,8 +44,8 @@
 				<input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"
 					hidden="hidden"></input>
 
-				<!-- 프로그램 입력란 -->
-				<input type="text" name="searchWord" placeholder="프로그램 검색" aria-label="프로그램">
+				<!-- 홈스테이 입력란 -->
+				<input type="text" name="searchWord" placeholder="홈스테이 검색" aria-label="홈스테이">
 
 				<!-- 검색 버튼 -->
 				<button type="submit" onclick="showMessage()" aria-label="검색">
@@ -86,7 +86,7 @@
 
 				<div class="image-container-sub program-to-detail clickable"
 					 th:data-programnum="${programList.programNum}">
-					<h4 th:text="${programList.title}">프로그램 이름</h4>
+					<h4 th:text="${programList.title}">홈스테이 이름</h4>
 				</div>
 			</article>
 

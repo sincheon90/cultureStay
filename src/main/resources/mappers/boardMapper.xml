@@ -214,7 +214,7 @@
 		boardnum = #{boardnum}
 	</select>
 	
-	<!-- 인기 프로그램 --><!-- 수정해야댐 -->
+	<!-- 인기 홈스테이 --><!-- 수정해야댐 -->
 	<select id="popularBoards" resultType="Board">
 		SELECT B.*
 		FROM cultureStay_board B

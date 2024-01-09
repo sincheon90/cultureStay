@@ -20,7 +20,7 @@ CREATE TABLE cultureStay_member(
 );
 select * from cultureStay_member;
 drop table cultureStay_member;
---프로그램 테이블 
+--홈스테이 테이블
 CREATE TABLE Program (
 	programNum	number	            primary key,
 	userid	    varchar2(255),
@@ -33,12 +33,12 @@ CREATE TABLE Program (
 	start_date	date		    ,
 	end_date	date		    ,
 	inputdate       date                default sysdate, 
-    hits            number              default 0 --인기프로그램용 조회수
+    hits            number              default 0 --인기홈스테이용 조회수
 );
 create sequence programNum_seq;
 
 
---좋아요한 프로그램 테이블
+--좋아요한 홈스테이 테이블
 CREATE TABLE Program_like(     
 	p_like_num 	number 				primary key,
 	userid	    varchar2(255)	    references cultureStay_member(userid), 
@@ -48,7 +48,7 @@ CREATE TABLE Program_like(
 create sequence p_like_num_seq;
 select * from Program_like;
 drop table Program_like;
---북마크한 프로그램 테이블 
+--북마크한 홈스테이 테이블
 CREATE TABLE Program_bookmark(     
 	bookmark_num 	number 				primary key,
 	userid	    varchar2(255)	    references cultureStay_member(userid), 
@@ -60,7 +60,7 @@ create sequence bookmark_num_seq;
 select * from Program_bookmark;
 drop table Program_bookmark;
 
---최근 방문 프로그램 테이블
+--최근 방문 홈스테이 테이블
 CREATE TABLE recentClick(     
 	clickNum   	number		         primary key,
 	userid	    varchar2(255)	    references cultureStay_member(userid),
@@ -70,7 +70,7 @@ CREATE TABLE recentClick(
 create sequence clickNum_seq;
 select * from recentClick;
 drop table recentClick;
---프로그램 필터,태그 
+--홈스테이 필터,태그
 CREATE TABLE ProgramTag(
 	programNum	    number		  primary key references Program(programNum), 
 	--인원수
@@ -132,7 +132,7 @@ create table tagClick_cnt(
 select * from tagclick_cnt;
 drop table tagclick_cnt;
 
---프로그램 리뷰 테이블
+--홈스테이 리뷰 테이블
 CREATE TABLE Review (
 	reviewNum   	number		            primary key,
 	programNum	    number		            references Program(programNum), 

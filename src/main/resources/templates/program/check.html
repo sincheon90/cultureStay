@@ -6,7 +6,7 @@
 </head>
 <body>
 	
-<h3>내 프로그램 관리</h3>
+<h3>내 홈스테이 관리</h3>
 	<table>
 		<tr th:each="program: ${programList}">	
 			<th th:text="${program.programNum}"></th>
@@ -16,10 +16,10 @@
 	</table>
 		
 <h3>예약현황</h3>		
-<h4>예약상태(0:수락대기/1:수락완료/2:프로그램종료)</h4>
+<h4>예약상태(0:수락대기/1:수락완료/2:홈스테이종료)</h4>
 	<table>
 			<tr th:each="reservation: ${reservation}">	 
-			<th>프로그램 번호</th>
+			<th>홈스테이 번호</th>
 			<td th:text="${reservation.programNum}"></td>
 			<td>
 				<a th:href="@{/program/accept(reserNum=${reservation.reserNum})}" 
@@ -35,14 +35,14 @@
 	</table>
 	<br>
 	
- <h3>내가 신청한 프로그램</h3>		
+ <h3>내가 신청한 홈스테이</h3>
 	<table>
 			<tr th:each="myReservation: ${myReservation}">	 
-			<th>프로그램 번호</th>
+			<th>홈스테이 번호</th>
 			<td th:text="${myReservation.programNum}"></td>
 			<td>
 				<a th:href="@{/program/detail(programNum=${myReservation.programNum})}" 
-					th:text="프로그램정보"></a>
+					th:text="홈스테이정보"></a>
 			</td>
 			<th>예약날짜</th>
 			<td th:text="${myReservation.start_date}"></td>

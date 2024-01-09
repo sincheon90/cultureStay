@@ -85,8 +85,8 @@
                            placeholder="종료 날짜"
                            hidden="hidden"></input>
 
-                    <!-- 프로그램 입력란 -->
-                    <input type="text" name="searchWord" placeholder="프로그램 검색" aria-label="프로그램">
+                    <!-- 홈스테이 입력란 -->
+                    <input type="text" name="searchWord" placeholder="홈스테이 검색" aria-label="홈스테이">
 
                     <!-- 검색 버튼 -->
                     <button type="submit" onclick="showMessage()" aria-label="검색">
@@ -103,7 +103,7 @@
 
         <div class="board-title">
             <h2>
-                <span th:text="${#authentication.name} + '님을 위한 추천 프로그램'">00님을 위한 추천 프로그램</span>
+                <span th:text="${#authentication.name} + '님을 위한 추천 홈스테이'">00님을 위한 추천 홈스테이</span>
             </h2>
             <div class="add_link"><a th:href="@{/program/recommend}">더보기</a></div>
         </div>

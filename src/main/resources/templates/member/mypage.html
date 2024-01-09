@@ -117,7 +117,7 @@
 <!--
 <a th:href="@{/member/update}" th:text="회원정보수정"></a>
 <br>
-<h3>내 프로그램 관리</h3>
+<h3>내 홈스테이 관리</h3>
 	<table>
 		<tr th:each="program: ${programList}">	
 			<th th:text="${program.programNum}"></th>
@@ -126,13 +126,13 @@
 		</tr>
 	</table>
 	
-<h4>예약상태(0:수락대기/1:수락완료/2:프로그램종료)<br> 2이면 리뷰쓰기 버튼 활성화</h4> 
+<h4>예약상태(0:수락대기/1:수락완료/2:홈스테이종료)<br> 2이면 리뷰쓰기 버튼 활성화</h4>
 		
 <h3>예약현황</h3>	
 <h4>(게스트에 대한 리뷰)</h4>	
 	<table>
 			<tr th:each="reservation: ${reservation}">	 
-			<th>프로그램 번호</th>
+			<th>홈스테이 번호</th>
 			<td th:text="${reservation.programNum}"></td>
 			<td>
 				<a th:href="@{/program/accept(reserNum=${reservation.reserNum})}" 
@@ -152,15 +152,15 @@
 	</table>
 	<br>
 	
- <h3>내가 신청한 프로그램</h3>		
- <h4>(프로그램,호스트에 대한 리뷰)</h4>	
+ <h3>내가 신청한 홈스테이</h3>
+ <h4>(홈스테이,호스트에 대한 리뷰)</h4>
 	<table>
 			<tr th:each="myReservation: ${myReservation}">	 
-			<th>프로그램 번호</th>
+			<th>홈스테이 번호</th>
 			<td th:text="${myReservation.programNum}"></td>
 			<td>
 				<a th:href="@{/program/detail(programNum=${myReservation.programNum})}" 
-					th:text="프로그램정보"></a>
+					th:text="홈스테이정보"></a>
 			</td>
 			<th>예약날짜</th>
 			<td th:text="${myReservation.start_date}"></td>
@@ -169,7 +169,7 @@
 			    <p th:case="0">예약이 확인 대기 중입니다.</p>
 			    <p th:case="1">예약이 확인되었습니다.</p>
 			    <p th:case="2">
-					<a th:href="@{/program/programReview(reserNum=${myReservation.reserNum})}" th:text="프로그램리뷰"></a> 
+					<a th:href="@{/program/programReview(reserNum=${myReservation.reserNum})}" th:text="홈스테이리뷰"></a>
 					<a th:href="@{/program/hostReview(reserNum=${myReservation.reserNum})}" th:text="호스트리뷰"></a> 
 
 				</p>

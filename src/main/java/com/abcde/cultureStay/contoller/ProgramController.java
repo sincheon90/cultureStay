@@ -60,7 +60,7 @@ public class ProgramController {
 			return "program/list";
 		}
 	
-	//프로그램 리스트
+	//홈스테이 리스트
 		@GetMapping("list")
 		public String programHome(Model model
 				, String start_date
@@ -87,14 +87,14 @@ public class ProgramController {
 		}
 		
 	
-	//프로그램 글쓰기 폼
+	//홈스테이 글쓰기 폼
 	@GetMapping("write")
 	public String pWriteForm() {
 		return "program/write";
 	}
 	
 	
-	//프로그램 글쓰기 (호스트)
+	//홈스테이 글쓰기 (호스트)
 	@PostMapping("write")
 	public String pWriteForm(Program program, Image img, ProgramTag tag,
 			@AuthenticationPrincipal UserDetails user) {
@@ -103,35 +103,35 @@ public class ProgramController {
 		log.debug("호스트아이디 : {}",user.getUsername());
 		
 		program.setUserid(user.getUsername());
-			log.debug("프로그램 : {}",program);
+			log.debug("홈스테이 : {}",program);
 
 		
 		int result = service.pWrite(program);
-		log.debug("프로그램 저장 성공 체크 : {}",result);
+		log.debug("홈스테이 저장 성공 체크 : {}",result);
 		int programNum = service.pnumCheck(user.getUsername());
-		log.debug("프로그램넘버 가져오기 : {}",programNum);
+		log.debug("홈스테이넘버 가져오기 : {}",programNum);
 		tag.setProgramNum(programNum);
-		log.debug("[write] 프로그램 태그 : {}", tag);
+		log.debug("[write] 홈스테이 태그 : {}", tag);
 
 		int resultTag = service.tagInsert(tag);
-		log.debug("프로그램 태그 성공 체크 : {}",resultTag);
+		log.debug("홈스테이 태그 성공 체크 : {}",resultTag);
 		
 		return "redirect:/program/list";
 	}
 	
-	//프로그램 디테일 조회
+	//홈스테이 디테일 조회
 	@GetMapping("detail")
 	public String read(@RequestParam(name = "programNum", defaultValue = "0") int programNum,
 			Model model,@AuthenticationPrincipal UserDetails user) {
-		log.debug("프로그램 넘버: {}", programNum);
+		log.debug("홈스테이 넘버: {}", programNum);
 
 		//호스트 정보 가져오기
 		Member host = mDao.selectUser(user.getUsername());
 		log.debug("호스트 디테일: {}", host);
 		
-		//프로그램 정보 가져오기
+		//홈스테이 정보 가져오기
 		Program program = service.readProgram(programNum);
-		log.debug("프로그램 디테일: {}", program);
+		log.debug("홈스테이 디테일: {}", program);
 		
 		if(user != null) {
 			//최근방문에 추가
@@ -152,12 +152,12 @@ public class ProgramController {
 		model.addAttribute("program_like", program_like);
 		model.addAttribute("program_bookmark", program_bookmark);
 		}
-		//프로그램 태그 가져오기
+		//홈스테이 태그 가져오기
 		ProgramTag programTag = service.readProgramTag(programNum);
-		log.debug("프로그램 태그: {}", programTag);
+		log.debug("홈스테이 태그: {}", programTag);
 		
 		
-		//프로그램 리뷰 가져오기
+		//홈스테이 리뷰 가져오기
 		ArrayList<Review> pReviewList = service.pReviewList(programNum);
 		log.debug("리뷰 : {}", pReviewList);
 
@@ -177,7 +177,7 @@ public class ProgramController {
 	@ResponseBody
 	@PostMapping("like")
 	public int like(int programNum,@AuthenticationPrincipal UserDetails user) {
-		log.debug("좋아요 프로그램 넘버 {}",programNum);
+		log.debug("좋아요 홈스테이 넘버 {}",programNum);
 		int program_like =  service.likeCheck(programNum,user.getUsername());
 	//	int program_like =  service.likeCheck(program.getProgramNum(),"aaa"); //test용
 		if(program_like==0) {

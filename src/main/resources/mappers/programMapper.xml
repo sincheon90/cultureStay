@@ -6,7 +6,7 @@
 <mapper namespace="com.abcde.cultureStay.dao.ProgramDAO">
 
 	<!--///////// 가장 첫 메인 홈 화면 ///////// -->
-	<!-- 인기 프로그램 --><!-- 수정해야댐 -->
+	<!-- 인기 홈스테이 --><!-- 수정해야댐 -->
 	<select id="homePopular" resultType="Program">
 		SELECT P.*
 		FROM Program P
@@ -19,7 +19,7 @@
 		WHERE P.inputdate >= SYSDATE - 14
 		ORDER BY PL.like_count DESC
 	</select>
-	<!-- 유저별 추천 프로그램 -->	<!-- 수정해야댐 -->
+	<!-- 유저별 추천 홈스테이 -->	<!-- 수정해야댐 -->
 	<select id="homeRecommend" parameterType="String"
 		resultType="Program">
 		 <![CDATA[
@@ -73,7 +73,7 @@
         ]]>
 	</select>
 
-	<!-- ///////////프로그램 화면////////////// --><!-- 수정해야댐 -->
+	<!-- ///////////홈스테이 화면////////////// --><!-- 수정해야댐 -->
 	<select id="programMainlist" parameterType="Map"
 		resultType="Program">
 	
