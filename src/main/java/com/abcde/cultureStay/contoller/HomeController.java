@@ -2,6 +2,8 @@ package com.abcde.cultureStay.contoller;
 
 import java.util.ArrayList;
 
+import com.abcde.cultureStay.service.BoardService;
+import com.abcde.cultureStay.vo.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +31,9 @@ public class HomeController {
     @Autowired
     ProgramService pService;
 
+    @Autowired
+    BoardService bService;
+
     @GetMapping("member/mypage")
     public String mypage() {
 
@@ -36,24 +41,26 @@ public class HomeController {
     }
 
     //홈화면
-	@GetMapping("")
-	public String homeList(@AuthenticationPrincipal UserDetails user,
-			Model model) {
+    @GetMapping("")
+    public String homeList(@AuthenticationPrincipal UserDetails user,
+                           Model model) {
 
-		//추천게시물 -최근방문+좋아요+북마크 ----sql 수정
-		ArrayList<Program> recommends = pService.homeRecommend(user.getUsername());
+        //추천게시물 -최근방문+좋아요+북마크 ----sql 수정
+        ArrayList<Program> recommends = pService.homeRecommend(user.getUsername());
 //		ArrayList<Program> recommends = pService.homeRecommend("aaa");
-		log.debug("추천:{}",recommends);
-		model.addAttribute("recommends", recommends);
+        log.debug("추천:{}", recommends);
+        model.addAttribute("recommends", recommends);
 
-		//인기게시물 -조회수+좋아요 ----sql 수정
-		ArrayList<Program> populars = pService.homePopular();
-		model.addAttribute("populars", populars);
-		log.debug("인기: {}",populars);
+        //인기게시물 -조회수+좋아요 ----sql 수정
+        ArrayList<Program> populars = pService.homePopular();
+        model.addAttribute("populars", populars);
+        log.debug("인기: {}", populars);
 
+//        ArrayList<Board> popularBoard = bService.getPopularBoard();
+//        model.addAttribute("popularBoard", popularBoard);
 
-		 return "home";
-	}
+        return "home";
+    }
 
 
 }
