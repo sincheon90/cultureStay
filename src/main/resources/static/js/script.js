@@ -115,4 +115,10 @@ $(document).ready(function() {
 
         $('#' + type + '_img').attr('src', imgSrc);
     }
+
+    // 게시글 추천(좋아요)
+    var boardnum = $('input[name="boardnum"]').val();
+    var recommend = $('input[name="recommend"]').val();
+
+
 });
