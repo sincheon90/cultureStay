@@ -16,25 +16,25 @@
 
 <main>
 	<section class="board-container">
-        <div class="board-title">
-            <h2>인기 게시글</h2>
-        </div>
+		<div class="board-title">
+			<h2>인기 게시글</h2>
+		</div>
 
-        <div class="pBoard-container">
-            <article class="pBoard-article" th:each="popularBoards : ${popularBoards}">
-                <div class="image-container">
-                    <div class="image-wrapper">
-                        <img th:src="${popularBoards.imagePath1}" alt="이미지1">
-                    </div>
-                </div>
+		<div class="pBoard-container">
+			<article class="pBoard-article" th:each="popularBoard : ${popularBoards}">
+				<div class="image-container">
+					<div class="image-wrapper">
+						<img th:src="${popularBoard.imagePath1}" alt="이미지">
+					</div>
+				</div>
 
-                <div class="image-container-sub program-to-detail clickable"
-                     th:data-programnum="${popularBoards.boardNum}">
-                    <h4 th:text="${popularBoards.title}">프로그램 이름</h4>
-                </div>
-            </article>
-        </div>
-    </section>
+				<div class="image-container-sub program-to-detail clickable"
+					 th:data-boardnum="${popularBoard.boardnum}">
+					<h4 th:text="${popularBoard.title}">프로그램 이름</h4>
+				</div>
+			</article>
+		</div>
+	</section>
 
 	<br><br>
 	<hr>

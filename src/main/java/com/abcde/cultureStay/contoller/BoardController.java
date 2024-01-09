@@ -76,6 +76,17 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("type", type);
 		model.addAttribute("searchWord", searchWord);
+
+		// 인기 게시글(커뮤니티)
+		ArrayList<Board> limitedRecommends = new ArrayList<>();
+		ArrayList<Board> popularBoards = service.popularBoards();
+
+		limitedRecommends = new ArrayList<>();
+		for (int i = 0; i < Math.min(popularBoards.size(), 2); i++) {
+			limitedRecommends.add(popularBoards.get(i) != null ? popularBoards.get(i) : null);
+		}
+
+		model.addAttribute("popularBoards", limitedRecommends);
 		
 		return "board/boardList";
 	}
@@ -294,8 +305,8 @@ public class BoardController {
 	@GetMapping("popularBoards")
     public String popularBoards(@AuthenticationPrincipal UserDetails user,
                            Model model) {
-        int maxElements = 3;
-        ArrayList<Board> limitedRecommends = new ArrayList<>();
+//        int maxElements = 3;
+//        ArrayList<Board> limitedRecommends = new ArrayList<>();
 
 //        //추천게시물 -최근방문+좋아요+북마크 ----sql 수정
 //        ArrayList<Program> recommends = new ArrayList<>();
@@ -319,6 +330,7 @@ public class BoardController {
 //        model.addAttribute("populars", limitedRecommends);
 
 
+		ArrayList<Board> limitedRecommends = new ArrayList<>();
         // 인기 게시글(커뮤니티)
         ArrayList<Board> popularBoards = service.popularBoards();
 
