@@ -63,6 +63,7 @@
 	<link rel="stylesheet" th:href="@{/css/main/list.css}">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	 <link rel="stylesheet" th:href="@{/css/header_style.css}">
 
 
 </head>
@@ -74,8 +75,8 @@
 <nav id="mypage-nav" >
 	<ul>
 		<li><a href="#" th:onclick="|loadContent('updateForm', event)|" th:text="회원정보수정"></a></li>
-        <li><a href="#" th:onclick="|loadContent('myProgram', event)|" th:text="'호스팅 관리'"></a></li>
-        <li><a href="#" th:onclick="|loadContent('myReview', event)|" th:text="내예약"></a></li>
+        <li th:if="${hasPrograms}"><a href="#" th:onclick="|loadContent('myProgram', event)|" th:text="'호스팅 관리'"></a></li>
+        <li><a href="#" th:onclick="|loadContent('myReservation', event)|" th:text="'내 예약 관리'"></a></li>
         <li><a href="#" th:onclick="|loadContent('myBookmark', event)|" th:text="북마크"></a></li>
 
 	</ul>

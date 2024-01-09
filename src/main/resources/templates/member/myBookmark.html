@@ -42,17 +42,32 @@
 			font-weight: 600;
 
 		}
+		.container {
+			display: flex;
+			justify-content: left;
+			justify-content: flex-start;
+			flex-wrap: wrap;
+		}
+
+		.card {
+			/*  flex: 1;각 박스가 동일한 너비를 가지도록 */
+			margin: 10px;
+			width: 30%;
+
+		}
+		 
 	</style>
 	
 	<link rel="stylesheet" th:href="@{/css/main/write.css}">
 	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
+	 <link rel="stylesheet" th:href="@{/css/header_style.css}">
+
 </head>
 
 <body>
-	
-	
-	<h4 id="title">내가 북마크한 숙소</h4>
-	<div class="container">
+ 		  
+<h4 id="title">내가 북마크한 숙소</h4>
+  	<div class="container">
 		<div class="card" style="width: 18rem;" th:each="program: ${bookmarkList}">
 			<a th:href="@{/program/detail(programNum=${program.programNum})}"
 				style="text-decoration: none; color: inherit;">
