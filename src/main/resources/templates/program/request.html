@@ -86,13 +86,15 @@
 				<td th:text="${reservation.start_date+'~'}+${reservation.end_date}"></td>
 				<td th:switch="${reservation.status}">
 					<p th:case="0">대기 중
-						<a th:if="${reservation.status == 0}"
-							th:href="@{/program/accept(reserNum=${reservation.reserNum})}" th:text="수락"
+						<a th:href="@{/program/accept(reserNum=${reservation.reserNum})}" th:text="수락"
 							class="btn btn-primary"></a>
+						<a th:href="@{/program/guestReview(reserNum=${reservation.reserNum})}"
+							th:text="'게스트 리뷰작성'" class="btn btn-primary"></a>
 					</p>
 					<p th:case="1">예약 확정</p>
-					<p th:case="2">종료<a th:href="@{/program/guestReview(reserNum=${reservation.reserNum})}"
-							th:text="게스트리뷰작성하기"></a></p>
+					<p th:case="2">종료
+						<a th:href="@{/program/guestReview(reserNum=${reservation.reserNum})}"
+							th:text="'게스트 리뷰작성'" class="btn btn-primary"></a>
 					<p th:case="*">알 수 없는 상태입니다.</p>
 				</td>
 			</tr>

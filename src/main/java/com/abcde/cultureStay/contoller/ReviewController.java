@@ -64,7 +64,7 @@ public class ReviewController {
 			
 	        dao.guestReview(review); 
 	        
-	        return "redirect:/member/mypage";
+	        return "redirect:/program/request";
 	    }
 	
 		

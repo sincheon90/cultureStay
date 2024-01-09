@@ -142,7 +142,7 @@ CREATE TABLE Review (
 	reserNum		number		            references Reservation(reserNum), 
 
 	stars	        number	    	        default 5,
-	content	        varchar2(2000)  		NOT NULL,
+	content	        varchar2(2000)  		NULL,
 	inputdate	    date		        	 default sysdate,
 	who				varchar2(2000) --뭐에 대한 리뷰(p,h,g)
 );
