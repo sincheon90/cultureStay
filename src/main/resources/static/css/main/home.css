@@ -88,3 +88,12 @@
     color: var(--secondary-color); /* hover 색상으로 변경 (예: 빨간색으로 설정) */
 }
 
+.pBoard-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pBoard-article {
+    width : 45%;
+}

@@ -63,13 +63,20 @@ public class HomeController {
         ArrayList<Program> populars = pService.homePopular();
 
         limitedRecommends = new ArrayList<>();
-        for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
-            limitedRecommends.add(recommends.get(i));
+        for (int i = 0; i < Math.min(populars.size(), maxElements); i++) {
+            limitedRecommends.add(populars.get(i));
         }
         model.addAttribute("populars", limitedRecommends);
 
-//        ArrayList<Board> popularBoard = bService.getPopularBoard();
-//        model.addAttribute("popularBoard", popularBoard);
+
+        // 인기 게시글(커뮤니티)
+//        ArrayList<Board> popularBoards = bService.getPopularBoard();
+
+        limitedRecommends = new ArrayList<>();
+        for (int i = 0; i < Math.min(populars.size(), 2); i++) {
+            limitedRecommends.add(recommends.get(i));
+        }
+        model.addAttribute("popularBoards", limitedRecommends);
 
         return "home";
     }

@@ -2,21 +2,21 @@
 <html xmlns:th="thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Home</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
 
-<!-- 달력 daterangepicker -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- 달력 daterangepicker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
-<link rel="stylesheet" th:href="@{/css/main/home.css}">
-<link rel="stylesheet" th:href="@{/css/main/list.css}">
+    <link rel="stylesheet" th:href="@{/css/main/home.css}">
+    <link rel="stylesheet" th:href="@{/css/main/list.css}">
 
-<style>
+    <style>
 
-</style>
+    </style>
 </head>
 <body>
 
@@ -25,11 +25,11 @@
 <!-- 채팅방 살려죠 -->
 <form action="/chat/createRoom" method="post">
     <input type="text" name="name" placeholder="채팅방 이름">
-    <button type="submit" >방 만들기</button>
+    <button type="submit">방 만들기</button>
 </form>
 
 <table>
-    <tr th:each="room : ${roomList}" >
+    <tr th:each="room : ${roomList}">
         <td>
             <a th:href="@{chatRoom(roomId=${room.roomId} )}"
                th:text="${room.name}"></a>
@@ -38,149 +38,158 @@
 </table>
 
 <!--구글사이트번역-->
-<div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
+<div id="google_translate_element" class="hd_lang"
+     style="float: right;position: relative;top: -4px;margin-left: 10px;"></div>
 
 <main>
-	<section class="board-container">
-		<div class="board-title">
-			<h2>인기 게시글</h2>
-		</div>
+    <section class="board-container">
+        <div class="board-title">
+            <h2>인기 게시글</h2>
+        </div>
 
-		<div class="board-card">
-			<article class="card-image">
-				<img th:src="@{/img/board/img.png}" alt="게시글 1">
-			</article>
+        <div class="pBoard-container">
+            <article class="pBoard-article" th:each="popularBoard : ${popularBoards}">
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img th:src="${popularBoard.imagePath1}" alt="이미지1">
+                    </div>
+                </div>
 
-			<article class="card-image">
-				<img th:src="@{/img/board/img_1.png}" alt="게시글 2">
-			</article>
-		</div>
-	</section>
+                <div class="image-container-sub program-to-detail clickable"
+                     th:data-programnum="${popularBoard.programNum}">
+                    <h4 th:text="${popularBoard.title}">프로그램 이름</h4>
+                </div>
+            </article>
+        </div>
+    </section>
 
-	<br><br>
-	<hr>
-	<br><br>
+    <br><br>
+    <hr>
+    <br><br>
 
-	<section class="search-section">
-		<div class="header-container header-bottom">
-			<div class="search-bar">
-				<form id="pagingForm" method="get" th:action="@{/program/list}">
-				<!-- 지역 입력란 -->
-				<input type="text" name="address" placeholder="지역 검색" aria-label="지역">
+    <section class="search-section">
+        <div class="header-container header-bottom">
+            <div class="search-bar">
+                <form id="pagingForm" method="get" th:action="@{/program/list}">
+                    <!-- 지역 입력란 -->
+                    <input type="text" name="address" placeholder="지역 검색" aria-label="지역">
 
-				<!-- 날짜 선택 -->
-				<input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택" readonly></input>
+                    <!-- 날짜 선택 -->
+                    <input type="text" class="dateinput" id="dateinput" placeholder="날짜 선택" readonly></input>
 
-				<input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date" placeholder="시작 날짜"
-					   hidden="hidden"></input>
+                    <input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date"
+                           placeholder="시작 날짜"
+                           hidden="hidden"></input>
 
-				<input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date" placeholder="종료 날짜"
-					   hidden="hidden"></input>
+                    <input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date"
+                           placeholder="종료 날짜"
+                           hidden="hidden"></input>
 
-				<!-- 프로그램 입력란 -->
-				<input type="text" name="searchWord" placeholder="프로그램 검색" aria-label="프로그램">
+                    <!-- 프로그램 입력란 -->
+                    <input type="text" name="searchWord" placeholder="프로그램 검색" aria-label="프로그램">
 
-				<!-- 검색 버튼 -->
-				<button type="submit" onclick="showMessage()" aria-label="검색">
-					<span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
-				</button></form>
-			</div>
-		</div>
-	</section>
+                    <!-- 검색 버튼 -->
+                    <button type="submit" onclick="showMessage()" aria-label="검색">
+                        <span class="icon-search"><i class="fas fa-search"></i></span> <!-- Font Awesome 검색 아이콘 -->
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-	<section sec:authorize="isAuthenticated()" class="board-container">
+    <section sec:authorize="isAuthenticated()" class="board-container">
 
-		<br><br>
+        <br><br>
 
-		<div class="board-title">
-			<h2>
-				<span th:text="${#authentication.name} + '님을 위한 추천 프로그램'">00님을 위한 추천 프로그램</span>
-			</h2>
-			<div class="add_link"><a th:href="@{/program/recommend}">더보기</a></div>
-		</div>
+        <div class="board-title">
+            <h2>
+                <span th:text="${#authentication.name} + '님을 위한 추천 프로그램'">00님을 위한 추천 프로그램</span>
+            </h2>
+            <div class="add_link"><a th:href="@{/program/recommend}">더보기</a></div>
+        </div>
 
-		<div class="board-card" th:each="recommend : ${recommends}">
-			<article class="card-image">
-				<img th:src="${recommend.imagePath1}" alt="게시글 이미지">
-			</article>
+        <div class="board-card" th:each="recommend : ${recommends}">
+            <article class="card-image">
+                <img th:src="${recommend.imagePath1}" alt="게시글 이미지">
+            </article>
 
-			<article class="card-content">
-				<div class="image-container-sub program-to-detail clickable"
-					 th:data-programnum="${recommend.programNum}">
-					<h2 th:text="${recommend.title}">전주 한옥마을에서의 전통적 홈스테이</h2>
-				</div>
-				<p class="program-to-detail clickable" th:text="${recommend.content}"
-				   th:data-programnum="${recommend.programNum}"></p>
-				<div class="content-article-footer">
-					<div class="tags">
-						<a class="tag clickable">#태그1</a>
-						<a class="tag clickable">#태그2</a>
-					</div>
-					<p><span>₩<span th:text="${#numbers.formatDecimal(recommend.price, 0, 'COMMA', 0, 'POINT')}"></p>
-				</div>
-			</article>
-		</div>
-	</section>
+            <article class="card-content">
+                <div class="image-container-sub program-to-detail clickable"
+                     th:data-programnum="${recommend.programNum}">
+                    <h2 th:text="${recommend.title}">전주 한옥마을에서의 전통적 홈스테이</h2>
+                </div>
+                <p class="program-to-detail clickable" th:text="${recommend.content}"
+                   th:data-programnum="${recommend.programNum}"></p>
+                <div class="content-article-footer">
+                    <div class="tags">
+                        <a class="tag clickable">#태그1</a>
+                        <a class="tag clickable">#태그2</a>
+                    </div>
+                    <p><span>₩<span th:text="${#numbers.formatDecimal(recommend.price, 0, 'COMMA', 0, 'POINT')}"></p>
+                </div>
+            </article>
+        </div>
+    </section>
 
-	<br><br>
+    <br><br>
 
-	<section class="board-container">
-		<div class="board-title">
-			<h2>인기 Best</h2>
-			<div class="add_link"><a th:href="@{/program/popular}">더보기</a></div>
-		</div>
+    <section class="board-container">
+        <div class="board-title">
+            <h2>인기 Best</h2>
+            <div class="add_link"><a th:href="@{/program/popular}">더보기</a></div>
+        </div>
 
-		<div class="board-card" th:each="popular : ${populars}">
-			<article class="card-image">
-				<img th:src="${popular.imagePath1}" alt="게시글 이미지">
-			</article>
+        <div class="board-card" th:each="popular : ${populars}">
+            <article class="card-image">
+                <img th:src="${popular.imagePath1}" alt="게시글 이미지">
+            </article>
 
-			<article class="card-content">
-				<div class="image-container-sub program-to-detail clickable"
-					 th:data-programnum="${popular.programNum}">
-					<h2 th:text="${popular.title}">전주 한옥마을에서의 전통적 홈스테이</h2>
-				</div>
-				<p class="program-to-detail clickable" th:text="${popular.content}"
-				   th:data-programnum="${popular.programNum}"></p>
-				<div class="content-article-footer">
-					<div class="tags">
-						<a class="tag clickable">#태그1</a>
-						<a class="tag clickable">#태그2</a>
-					</div>
-					<p><span>₩<span th:text="${#numbers.formatDecimal(popular.price, 0, 'COMMA', 0, 'POINT')}"></p>
-				</div>
-			</article>
-		</div>
-	</section>
+            <article class="card-content">
+                <div class="image-container-sub program-to-detail clickable"
+                     th:data-programnum="${popular.programNum}">
+                    <h2 th:text="${popular.title}">전주 한옥마을에서의 전통적 홈스테이</h2>
+                </div>
+                <p class="program-to-detail clickable" th:text="${popular.content}"
+                   th:data-programnum="${popular.programNum}"></p>
+                <div class="content-article-footer">
+                    <div class="tags">
+                        <a class="tag clickable">#태그1</a>
+                        <a class="tag clickable">#태그2</a>
+                    </div>
+                    <p><span>₩<span th:text="${#numbers.formatDecimal(popular.price, 0, 'COMMA', 0, 'POINT')}"></p>
+                </div>
+            </article>
+        </div>
+    </section>
 
-	<section>
-		<br><br><br><br><br><br><br>
-	</section>
+    <section>
+        <br><br><br><br><br><br><br>
+    </section>
 </main>
 
 <footer th:replace="layouts/footer::footer"></footer>
 
 <script>
-	// JavaScript 함수 정의
+    // JavaScript 함수 정의
     function showMessage() {
         alert('버튼이 클릭되었습니다!');
     }
 </script>
 
-	<script>
-		function googleTranslateElementInit() {
-			new google.translate.TranslateElement({
-				pageLanguage: 'en',
-				includedLanguages: 'ko,en,ja,zh-CN,fr',
-				//layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-				autoDisplay: false,
-				multilanguagePage: true
-			}, 'google_translate_element');
-		}
-	</script>
-	<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'ko,en,ja,zh-CN,fr',
+            //layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+            multilanguagePage: true
+        }, 'google_translate_element');
+    }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-	<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>
