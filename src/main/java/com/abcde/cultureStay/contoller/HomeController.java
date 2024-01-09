@@ -44,6 +44,8 @@ public class HomeController {
     @GetMapping("")
     public String homeList(@AuthenticationPrincipal UserDetails user,
                            Model model) {
+        int maxElements = 3;
+        ArrayList<Program> limitedRecommends = new ArrayList<>();
 
         //추천게시물 -최근방문+좋아요+북마크 ----sql 수정
         ArrayList<Program> recommends = new ArrayList<>();
@@ -51,13 +53,20 @@ public class HomeController {
         if(user != null && user.getUsername() != null){
             recommends = pService.homeRecommend(user.getUsername());
         }
-        log.debug("추천:{}", recommends);
-        model.addAttribute("recommends", recommends);
+
+        for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
+            limitedRecommends.add(recommends.get(i));
+        }
+        model.addAttribute("recommends", limitedRecommends);
 
         //인기게시물 -조회수+좋아요 ----sql 수정
         ArrayList<Program> populars = pService.homePopular();
-        model.addAttribute("populars", populars);
-        log.debug("인기: {}", populars);
+
+        limitedRecommends = new ArrayList<>();
+        for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
+            limitedRecommends.add(recommends.get(i));
+        }
+        model.addAttribute("populars", limitedRecommends);
 
 //        ArrayList<Board> popularBoard = bService.getPopularBoard();
 //        model.addAttribute("popularBoard", popularBoard);
