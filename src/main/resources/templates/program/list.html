@@ -21,7 +21,7 @@
 <body>
 
 <!-- 헤더 섹션-->
-<header th:replace="layouts/header::header"></header>
+<header class="header-class" th:replace="layouts/header::header"></header>
 
 <main>
 
@@ -58,24 +58,37 @@
                     <div id="toggleIcon" style="cursor: pointer;">&#9660;</div>
 
                     <!-- Program Tag Selection -->
-                    <div class="program-tag-container" id="tagSection" style="display:none;">
+                    <div class="program-tag-container" id="tagSection" style="display:block;">
                         <label>프로그램 태그</label>
                         <div>
-                            <input type="checkbox" id="apartment" name="apartment" value="1">
-                            <label for="apartment">아파트</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.active} == 1"><label>활동적</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.creative} == 1"><label>창의적</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.healing} == 1"><label>힐링</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.traditional} == 1"><label>전통</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.cookingExperience} == 1"><label>요리체험</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.scenicView} == 1"><label>뷰</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.countryside} == 1"><label>시골</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.city} == 1"><label>도시</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.festival} == 1"><label>축제</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.drive} == 1"><label>드라이브</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.socializing} == 1"><label>친목</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.tranquil} == 1"><label>한적한</label>
                         </div>
+
+                        <label>호스트 태그</label>
                         <div>
-                            <input type="checkbox" id="detached" name="detached" value="1">
-                            <label for="detached">단독주택</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.separateBathroom} == 1"><label>화장실</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.bathtub} == 1"><label>욕조</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.wifi} == 1"><label>와이파이</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.transformer} == 1"><label>변압기</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.pajamasProvided} == 1"><label>파자마</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.hairdryer} == 1"><label>헤어드라이</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.petFriendly} == 1"><label>반려동물</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.roomAlone} == 1"><label>1인실</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.langJapanese} == 1"><label>일본어</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.langEnglish} == 1"><label>영어</label>
+                            <input type="checkbox" name="apartment" value="1" th:checked="${programTag.langKorean} == 1"><label>한국어</label>
                         </div>
-                        <!-- Repeat for other tags -->
-                        <!-- Example for a thematic tag -->
-                        <div>
-                            <input type="checkbox" id="countryside" name="countryside" value="1"
-                            th:checked="${programTag.countryside} == 1">
-                            <label for="countryside">countryside</label>
-                        </div>
-                        <!-- ... more checkboxes for each tag ... -->
                     </div>
                 </form>
             </div>
