@@ -30,7 +30,7 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Program> homeRecommend(String id) {
 		ArrayList<Program> result = dao.homeRecommend(id);
 
-		result = extractPreview(result);
+		result = extractPrgramPreview(result);
 
 		log.debug("추천id:{}",id);
 		return result;
@@ -40,7 +40,7 @@ public class ProgramServiceImpl implements ProgramService{
 	public ArrayList<Program> homePopular() {
 		ArrayList<Program> result = dao.homePopular();
 
-		result = extractPreview(result);
+		result = extractPrgramPreview(result);
 
 		return result;
 	}
@@ -60,7 +60,7 @@ public class ProgramServiceImpl implements ProgramService{
 
 		ArrayList<Program> result = dao.programMainlist(map);
 		// 미리보기용 이미지 및 텍스트 추출
-		result = extractPreview(result);
+		result = extractPrgramPreview(result);
 
 		log.debug("검색결과 {}",result);
 	

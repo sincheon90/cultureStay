@@ -44,7 +44,7 @@ public class HtmlUtils {
         return result;
     }
 
-    public static ArrayList<Program> extractPreview(ArrayList<Program> programList) {
+    public static ArrayList<Program> extractPrgramPreview(ArrayList<Program> programList) {
         for (Program program : programList) {
             // 미리보기용 이미지 추출
             ArrayList<String> imageList = extractTwoImages(program.getContent());
@@ -69,7 +69,7 @@ public class HtmlUtils {
         }
         return programList;
     }
-    public static ArrayList<Board> extractPreview2(ArrayList<Board> boardList) {
+    public static ArrayList<Board> extractBoardPreview(ArrayList<Board> boardList) {
         for (Board board : boardList) {
             // 미리보기용 이미지 추출
             ArrayList<String> imageList = extractTwoImages(board.getContents());

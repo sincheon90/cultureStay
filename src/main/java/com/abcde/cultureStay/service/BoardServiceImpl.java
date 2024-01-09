@@ -46,6 +46,8 @@ public class BoardServiceImpl implements BoardService{
 
 		ArrayList<Board> boards = dao.selectList(map, rb);
 
+		boards = extractBoardPreview(boards);
+
 		for (Board board: boards) {
 			board.setContents(extractText(board.getContents()));
 		}
@@ -179,7 +181,7 @@ public class BoardServiceImpl implements BoardService{
 	public ArrayList<Board> popularBoards() {
 		ArrayList<Board> result = dao.popularBoards();
 
-		result = extractPreview2(result);
+		result = extractBoardPreview(result);
 
 		return result;
 	}
