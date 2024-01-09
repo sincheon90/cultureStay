@@ -63,10 +63,10 @@ public class ProgramController {
 	//홈스테이 리스트
 		@GetMapping("list")
 		public String programHome(Model model,
-								  @RequestParam String address,
+								  @RequestParam(name = "address", defaultValue = "") String address,
+								  @RequestParam(name = "searchWord", defaultValue = "") String searchWord,
 								  @RequestParam(required = false) String start_date,
 								  @RequestParam(required = false) String end_date,
-								  @RequestParam String searchWord,
 								  ProgramTag tag) {
 			log.info("=======검색=======");
 			log.debug("주소 {}",address);
