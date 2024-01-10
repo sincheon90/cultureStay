@@ -2,6 +2,8 @@ package com.abcde.cultureStay.util;
 
 import com.abcde.cultureStay.vo.Board;
 import com.abcde.cultureStay.vo.Program;
+import com.abcde.cultureStay.vo.Reservation;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -94,6 +96,6 @@ public class HtmlUtils {
         }
         return boardList;
     }
-
-
+    
+     
 }

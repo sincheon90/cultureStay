@@ -117,3 +117,19 @@
     object-fit: cover;
     border-radius: 15px; /* 둥근 모서리 */
 }
+
+.video-section {
+    width: 100vw;
+    height: 480px; /* 또는 원하는 높이 값 */
+    overflow: hidden; /* 비디오가 너무 길 경우 잘라냄 */
+    position: relative;
+}
+
+.video-section video {
+    width: 100%;
+    height: auto; /* 비디오의 원래 비율을 유지하면서 너비에 맞게 높이 조절 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 비디오를 섹션 중앙에 정렬 */
+}

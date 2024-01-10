@@ -36,6 +36,7 @@
 			/*  flex: 1;각 박스가 동일한 너비를 가지도록 */
 			margin: 10px;
 			width: 30%;
+			 
 
 		}
 
@@ -61,10 +62,7 @@
 
 		}
 
-		.review-item-wrapper {
-			 
-			background-color: red;
-		}
+		 
 
 		
 	</style>
@@ -105,7 +103,7 @@
 
 	<br><br>
 	<div style="display: flex; 	justify-content: space-between;">
-		<h4 id="title">운영 중인 숙소</h4>
+		<h4 id="title">운영 중인 홈스테이</h4>
 		<button type="button" class="btn btn-primary" th:onclick="|location.href='@{/program/request}'|">
 			예약현황</button>
 	</div>
@@ -113,9 +111,9 @@
 		<div class="card" style="width: 18rem;" th:each="program: ${programList}">
 			<a th:href="@{/program/detail(programNum=${program.programNum})}"
 				style="text-decoration: none; color: inherit;">
-				<img th:src="@{/img/board/img_3.png}" class="card-img-top" alt="...">
+                        <img th:src="${program.imagePath1}" alt="이미지1" style="width: 100%; height: 200px; object-fit: cover; border-top-left-radius: 5px; border-top-right-radius: 5px;">
 				<div class="card-body" style="display: flex; justify-content: space-between; align-items: center;">
-					<h5 th:text="${program.title}"></h5>
+					<h5 th:text="${program.title}" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 16px;"></h5>
 				</div>
 			</a>
 		</div>

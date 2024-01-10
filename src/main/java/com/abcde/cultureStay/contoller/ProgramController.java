@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.abcde.cultureStay.dao.MemberDAO;
+import com.abcde.cultureStay.dao.ProgramDAO;
 import com.abcde.cultureStay.service.ProgramService;
 import com.abcde.cultureStay.vo.Image;
 import com.abcde.cultureStay.vo.Member;
@@ -30,7 +31,10 @@ public class ProgramController {
 
     @Autowired
     ProgramService service;
-
+    
+    @Autowired
+    ProgramDAO dao; 
+    
     @Autowired
     MemberDAO mDao;
 
@@ -137,23 +141,33 @@ public class ProgramController {
         log.debug("홈스테이 디테일: {}", program);
 
         if (user != null) {
-            //최근방문에 추가
-//			service.recentClick(programNum,user.getUsername());
-
+          //  최근방문에 추가
+			service.recentClick(programNum,user.getUsername());
 
             //좋아요 상태(좋아요:1, 없음:0)
             int program_like = service.likeCheck(programNum, user.getUsername());
-            //	int program_like =  service.likeCheck(programNum,"aaa");//test용
-
-            log.debug("좋아요 상태: {}", program_like);
+            model.addAttribute("program_like", program_like);
 
             //북마크 상태(북마크:1, 없음:0)
             int program_bookmark = service.bookmarkCheck(programNum, user.getUsername());
-            //	int program_bookmark = service.bookmarkCheck(programNum,"aaa");//test용
-            log.debug("북마크 상태 : {}", program_bookmark);
-
-            model.addAttribute("program_like", program_like);
             model.addAttribute("program_bookmark", program_bookmark);
+        	
+            //호스트 평균 별점
+		  	double hostAvg = dao.hostAvg(program.getUserid());
+			model.addAttribute("hostAvg",hostAvg);
+ 
+			//호스트 리뷰 리스트
+			ArrayList<Review> hostReview = dao.getHostReview(user.getUsername());
+			model.addAttribute("hostReview",hostReview);
+			
+			//프로그램 평균 별점
+		  	double programAvg = dao.programAvg(program.getProgramNum());
+			model.addAttribute("programAvg",programAvg);
+ 
+			//호스트 리뷰 리스트
+			ArrayList<Review> programReview = dao.getProgramReview(program.getProgramNum());
+			model.addAttribute("programReview",programReview);
+			
         }
         //홈스테이 태그 가져오기
         ProgramTag programTag = service.readProgramTag(programNum);
