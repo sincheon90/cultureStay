@@ -100,10 +100,8 @@
         , address
         , detailed_address
         , price
-
         , start_date
         , end_date
-
         ) values (
         programNum_seq.nextval
         , #{userid}
