@@ -94,7 +94,8 @@ public class ProgramServiceImpl implements ProgramService{
 		Program program = dao.readProgram(programNum);
 		//조회수
 		dao.p_updateHits(programNum);
-		
+        ArrayList<String> imageList = extractTwoImages(program.getContent());
+        program.setImagePath1(imageList.get(0));
 		return program;
 	}
 	
