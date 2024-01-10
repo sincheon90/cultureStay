@@ -86,14 +86,14 @@ public class HomeController {
         }
 
         for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
-            limitedRecommends.add(recommends.get(i));
+            limitedRecommends.add(recommends.get(i) != null ? recommends.get(i) : null);
         }
         model.addAttribute("recommends", limitedRecommends);
 
         //인기게시물 -조회수+좋아요 ----sql 수정
         ArrayList<Program> populars = pService.homePopular();
         for (int i = 0; i < Math.min(populars.size(), maxElements); i++) {
-            limitedPopulars.add(populars.get(i));
+            limitedPopulars.add(populars.get(i) != null ? populars.get(i) : null);
         }
         model.addAttribute("populars", limitedPopulars);
 
@@ -101,7 +101,7 @@ public class HomeController {
         // 인기 게시글(커뮤니티)
         ArrayList<Board> popularBoards = bService.popularBoards();
         for (int i = 0; i < Math.min(populars.size(), 2); i++) {
-            limitedPopularBoards.add(popularBoards.get(i));
+            limitedPopularBoards.add(popularBoards.get(i) != null ? popularBoards.get(i) : null);
         }
         model.addAttribute("popularBoards", limitedPopularBoards);
 
