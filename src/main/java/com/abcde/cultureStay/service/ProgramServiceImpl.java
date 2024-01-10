@@ -105,7 +105,6 @@ public class ProgramServiceImpl implements ProgramService{
 		HashMap<String, Object> map = getMap(programNum, userid);
 		log.debug("recentClick map 결과 {}",map);
 
-		
 		dao.recentClick(map);
 
 	}
