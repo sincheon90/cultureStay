@@ -137,13 +137,12 @@ public class ProgramController {
         log.debug("홈스테이 디테일: {}", program);
 
         //호스트 정보 가져오기
-//        Member host = mDao.selectUser(user.getUsername());
         Member host = mDao.selectUser(program.getUserid());
         log.debug("호스트 디테일: {}", host);
 
         if (user != null) {
             //  최근방문에 추가
-//            service.recentClick(programNum, user.getUsername());
+            service.recentClick(programNum, user.getUsername());
 
             //좋아요 상태(좋아요:1, 없음:0)
             int program_like = service.likeCheck(programNum, user.getUsername());
