@@ -5,6 +5,7 @@
 <title>회원정보수정</title>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <link rel="stylesheet" th:href="@{/css/main/write.css}">
+    <link rel="stylesheet" th:href="@{/css/member/joinForm.css}">
 
 <script>
 function checkValid(){
@@ -96,7 +97,7 @@ function checkValid(){
         }).open();
     }
     //프로필사진 업데이트
-    function uploadAndPreview() {
+/*   function uploadAndPreview() {
             var fileInput = document.getElementById('fileInput');
             var preview = document.getElementById('preview');
 
@@ -142,7 +143,68 @@ function checkValid(){
         }
         window.onload = function() {
             setExternalImage();
-        };
+        };*/
+        
+        function updateProfilePicture() {
+    var fileInput = document.getElementById('fileInput');
+    var imageUrlInput = document.getElementById('imageUrlInput');
+    var preview = document.getElementById('preview');
+
+    var file = fileInput.files[0];
+    var imageUrl = imageUrlInput.value;
+
+    if (file) {
+        // 파일이 선택된 경우
+        uploadAndPreview(file);
+    } else if (imageUrl) {
+        // 이미지 URL이 제공된 경우
+        setExternalImage(imageUrl);
+    } else {
+        // 파일도 없고 이미지 URL도 없는 경우
+        preview.src = "#";
+    }
+}
+
+function uploadAndPreview(file) {
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+
+    reader.readAsDataURL(file);
+
+    // 파일을 서버에 업로드
+    uploadFile(file);
+}
+
+function uploadFile(file) {
+    var formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('File uploaded:', data.imageUrl);
+        // 서버에서 전달한 이미지 URL을 사용하여 추가 작업 수행
+    })
+    .catch(error => {
+        console.error('Error uploading file:', error);
+    });
+}
+
+function setExternalImage(imageUrl) {
+    preview.src = imageUrl;
+}
+
+window.onload = function() {
+    // 초기 프로필 이미지 설정
+    var initialImageUrl = 'https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w170-h170-rw';
+    setExternalImage(initialImageUrl);
+};
 </script>
 </head>
 <body>
@@ -213,16 +275,11 @@ function checkValid(){
                 <input type="text" name="introduce" id="introduce" th:value="${member.introduce}">
              </td>
           </tr>
-          <tr>
-            <th>프로필사진</th>
-            <td>
-                <input type="file" name="profileImage" id="profileImage" accept="image/*">
-            </td>
-        </tr>
+          
          <tr>
             <th>프로필 사진</th>
                   <td>
-                     <input type="file" name="upload" id="fileInput" onchange="uploadAndPreview()" accept="image/*">
+                     <input type="file" name="upload" id="fileInput" onchange="updateProfilePicture()" accept="image/*">
                       <br>
                       <img id="preview" src="#" alt="Preview" style="max-width: 170px; max-height: 170px;">
                   </td>
