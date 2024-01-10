@@ -1,5 +1,7 @@
 package com.abcde.cultureStay.contoller;
 
+import static com.abcde.cultureStay.util.HtmlUtils.extractPrgramPreview;
+
 import java.util.ArrayList;
 
 
@@ -116,6 +118,8 @@ public class MypageController {
 				
 				//내 북마크 리스트
 				ArrayList<Program> bookmarkList = dao.getmyBookmark(user.getUsername());
+				bookmarkList=extractPrgramPreview(bookmarkList);
+
 				model.addAttribute("bookmarkList",bookmarkList);
 
 //			
