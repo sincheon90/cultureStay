@@ -2,6 +2,8 @@ package com.abcde.cultureStay.util;
 
 import com.abcde.cultureStay.vo.Board;
 import com.abcde.cultureStay.vo.Program;
+import com.abcde.cultureStay.vo.Reservation;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -93,6 +95,38 @@ public class HtmlUtils {
             board.setContents(extractText(board.getContents()));
         }
         return boardList;
+    }
+    
+    //예약 썸네일 출력
+    public static ArrayList<Reservation> extractReservationPreview(ArrayList<Program> programList,
+    		ArrayList<Reservation> reservationList) {
+        for (Reservation reservation : reservationList) {
+
+    	for (Program program : programList) {
+            // 미리보기용 이미지 추출
+            ArrayList<String> imageList = extractTwoImages(program.getContent());
+
+            // 이미지 리스트 검사 및 안전한 할당
+            if (!imageList.isEmpty()) {
+                program.setImagePath1(imageList.get(0));
+                if (imageList.size() > 1) {
+                    program.setImagePath2(imageList.get(1));
+                } else {
+                    // 이미지가 하나만 있는 경우 또는 대체할 기본 이미지 경로
+                    program.setImagePath2("defaultImagePath2");
+                }
+            } else {
+                // 이미지가 없는 경우 기본 이미지 경로 할당
+            	reservation.setImagePath1(defaultImage1);
+            	reservation.setImagePath2(defaultImage2);
+            }
+            
+             
+            
+    		}
+        
+        }
+        return reservationList;
     }
 
 

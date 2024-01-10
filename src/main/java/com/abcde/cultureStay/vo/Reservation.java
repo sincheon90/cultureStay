@@ -18,4 +18,7 @@ public class Reservation {
     int payment; 	
     int status;	
     String inputdate;
+  //추출한 이미지파일 경로
+    String imagePath1;
+    String imagePath2;
 }

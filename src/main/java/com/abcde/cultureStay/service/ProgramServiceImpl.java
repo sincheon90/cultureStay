@@ -238,7 +238,43 @@ public class ProgramServiceImpl implements ProgramService{
 	@Override
 	public ArrayList<Reservation> myReservation(String userid) {
 		ArrayList<Reservation> result = dao.myReservation(userid);
+		ArrayList<Program> programList =extractPrograms(result);
+		programList=extractPrgramPreview(programList);
+		log.debug("1번 예약된 프로그램 {}",programList);
+
+		result = setReservationImagePath(result,programList);
+		log.debug("예약 섬네일 {}",result);
+
 		return result;
 	}
+	
+	
+	public ArrayList<Program> extractPrograms(ArrayList<Reservation> reservations) {
+        ArrayList<Program> programs = new ArrayList<>();
 
+        for (Reservation reservation : reservations) {
+            // Assuming there is a getter method for programNum in the Reservation class
+            int programNum = reservation.getProgramNum();
+
+            // Assuming there is a constructor in the Program class that takes programNum as a parameter
+            Program program = dao.readProgram(programNum);
+
+            // Adding the program to the new ArrayList<Program>
+            programs.add(program);
+        }
+
+        return programs;
+    }
+	public ArrayList<Reservation> setReservationImagePath(ArrayList<Reservation> reservationList, ArrayList<Program> programList) {
+	    for (Reservation reservation : reservationList) {
+	        for (Program program : programList) {
+	        	if(program.getProgramNum() == reservation.getProgramNum()) {
+	        	reservation.setImagePath1(program.getImagePath1());
+	        	break;
+	        	}
+	        	
+	        }
+	    }
+	    return reservationList;
+	}
 }
