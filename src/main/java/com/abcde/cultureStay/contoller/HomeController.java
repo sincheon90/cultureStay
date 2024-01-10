@@ -37,7 +37,7 @@ public class HomeController {
 	  public String mypage(@AuthenticationPrincipal UserDetails user, Model model) {
 			
 
-			//내프로그램 리스트
+			//내홈스테이 리스트
 			ArrayList<Program> programList = pService.myProgram(user.getUsername());
 			log.debug("사이즈{}",programList.size());
 			model.addAttribute("hasPrograms",programList.size());
