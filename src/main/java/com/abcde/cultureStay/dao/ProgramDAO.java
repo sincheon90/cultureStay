@@ -95,7 +95,7 @@ public interface ProgramDAO {
 
 	ArrayList<Program> searchWithTags(@Param("program") Program program, @Param("tag") ProgramTag tag);
 
-	double programAvg(int programNum);
+	Double programAvg(int programNum);
 
 	
 
