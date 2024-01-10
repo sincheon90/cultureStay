@@ -64,7 +64,7 @@ public class ReviewController {
 			
 	        dao.guestReview(review); 
 	        
-	        return "redirect:/member/mypage";
+	        return "redirect:/program/request";
 	    }
 	
 		
@@ -103,7 +103,7 @@ public class ReviewController {
 
 	        dao.hostReview(review); 
 	        
-	        return "redirect:/member/mypage";
+	        return "redirect:/program/detail?programNum="+programNum;
 	    }
 		
 		//게스트가 홈스테이 후기
@@ -140,7 +140,7 @@ public class ReviewController {
 
 	        dao.programReview(review); 
 	        
-	        return "redirect:/member/mypage";
+	        return "redirect:/program/detail?programNum="+programNum;
 	    }
 		
 		

@@ -1,111 +1,115 @@
 <!DOCTYPE html>
-<html xmlns:th="thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <meta charset="UTF-8">
-    <title>결제</title>
+	<meta charset="UTF-8">
+	<title>결제</title>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <!--카카오페이 jsp--> 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!--카카오페이 jsp-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-   
 
 
-    <link rel="stylesheet" th:href="@{/css/main/write.css}">
-    <link rel="stylesheet" th:href="@{/css/main/detail.css}">
+
+	<link rel="stylesheet" th:href="@{/css/main/write.css}">
+	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
 
 
 
 </head>
+
 <body>
 
-<!-- 헤더 섹션-->
-<header th:replace="layouts/header::header"></header>
+	<!-- 헤더 섹션-->
+	<header th:replace="layouts/header::header"></header>
 
-<main>
-    <form class="apply-class" th:action="@{/program/success}" method="post">
+	<main>
+		<form class="apply-class" th:action="@{/program/success}" method="post">
 
-        <h3>총 결제금액</h3>
-        <div>
-            <span>₩<span th:text="${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span> x 5박</span>
-            <span> = </span>
-            <span class="price-total">₩<span
-                    th:text="${#numbers.formatDecimal(program.price * 5, 0, 'COMMA', 0, 'POINT')}"></span></span>
-        </div>
+			<h3>총 결제금액</h3>
+			<div>
+				<span>₩<span th:text="${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span> 
+				<span th:text="${days}">x0박</span>
+				</span>
+				<span> = </span>
+				<span class="price-total">₩
+					<span th:text="${totalPrice}">0</span></span>
+			</div>
 
-        <br>
+			<br>
 
-        <table>
-            <tr>
-                <th>start_date</th>
-                <td>
-                    <pre th:text="${start_date}"></pre>
-                </td>
-            </tr>
-            <tr>
-                <th>end_date</th>
-                <td>
-                    <pre th:text="${end_date}"></pre>
+			<table>
+				<tr>
+					<th>start_date</th>
+					<td>
+						<pre th:text="${start_date}"></pre>
+					</td>
+				</tr>
+				<tr>
+					<th>end_date</th>
+					<td>
+						<pre th:text="${end_date}"></pre>
 
-                </td>
-            </tr>
+					</td>
+				</tr>
 
-        </table>
+			</table>
 
-        <hr>
+			<hr>
 
-        <h3>결제 수단</h3>
-        <div>
-            <select name="paymentMethod">
-                <option value="creditCard">신용카드</option>
-                <option value="paypal">페이팔</option>
-                <option value="bankTransfer">은행 송금</option>
-                <option value="mobilePay">모바일 결제</option>
-                <!-- Add more payment methods as needed -->
-            </select>
-        </div>
+			<h3>결제 수단</h3>
+			<div>
+				<select name="paymentMethod">
+					<option value="creditCard">신용카드</option>
+					<option value="paypal">페이팔</option>
+					<option value="bankTransfer">은행 송금</option>
+					<option value="mobilePay">모바일 결제</option>
+					<!-- Add more payment methods as needed -->
+				</select>
+			</div>
 
-        <hr>
+			<hr>
 
-        <h3>환불 정책</h3>
-        <div>
-            환불 정책
-            1월 7일 전에 취소하면 부분 환불을 받으실 수 있습니다. 그 이후에는 취소 시점에 따라 환불액이 결정됩니다.
-            <a href="#" class="detailed-info">자세히 알아보기</a>
-        </div>
+			<h3>환불 정책</h3>
+			<div>
+				환불 정책
+				1월 7일 전에 취소하면 부분 환불을 받으실 수 있습니다. 그 이후에는 취소 시점에 따라 환불액이 결정됩니다.
+				<a href="#" class="detailed-info">자세히 알아보기</a>
+			</div>
 
-        <br>
-        <hr>
+			<br>
+			<hr>
 
-        <h3>기본 규칙</h3>
-        <div>
-            훌륭한 게스트가 되기 위한 몇 가지 간단한 규칙을 지켜주실 것을 모든 게스트에게 당부드리고 있습니다.
-            숙소 이용규칙을 준수하세요.
-            호스트의 집도 자신의 집처럼 아껴주세요.
-        </div>
+			<h3>기본 규칙</h3>
+			<div>
+				훌륭한 게스트가 되기 위한 몇 가지 간단한 규칙을 지켜주실 것을 모든 게스트에게 당부드리고 있습니다.
+				숙소 이용규칙을 준수하세요.
+				호스트의 집도 자신의 집처럼 아껴주세요.
+			</div>
 
-        <br>
+			<br>
 
-        <div class="right-align">
-            <input type="hidden" name="start_date" th:value="${start_date}">
-            <input type="hidden" name="end_date" th:value="${end_date}">
-            <input type="hidden" name="programNum" th:value="${program.programNum}">
-            <input type="hidden" name="totalPrice" th:value="${program.price}">
-            <input type="hidden" name="request" th:value="${request}">
+			<div class="right-align">
+				<input type="hidden" name="start_date" th:value="${start_date}">
+				<input type="hidden" name="end_date" th:value="${end_date}">
+				<input type="hidden" name="programNum" th:value="${program.programNum}">
+				<input type="hidden" name="totalPrice" th:value="${program.price}">
+				<input type="hidden" name="request" th:value="${request}">
 
-            <button type="submit">결제하기</button>
-        </div>
-    </form>
-            <form method="post" action="/kakaoPay">
-    			<button>카카오페이로 결제하기</button>
-			</form>
-    
-</main>
+				<button type="submit">결제하기</button>
+			</div>
+		</form>
+		<form method="post" action="/kakaoPay">
+			<button>카카오페이로 결제하기</button>
+		</form>
 
-<footer th:replace="layouts/footer::footer"></footer>
+	</main>
 
-<script th:src="@{/js/script.js}"></script>
+	<footer th:replace="layouts/footer::footer"></footer>
+
+	<script th:src="@{/js/script.js}"></script>
 
 </body>
+
 </html>

@@ -1,85 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<meta charset="UTF-8">
 
-<title>Insert title here</title>
- <style>
-        body{
-			background-color: #e8e8e8;
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+	<title>예약수락</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;600;700&family=Jua&family=Nanum+Gothic+Coding:wght@400;700&display=swap');
+
+		body {
+			/*background-color: #e8e8e8;*/
+			font-family: 'IBM Plex Sans KR', sans-serif;
 		}
+
 		.container {
-			background-color: #f7f7cb;
+			background-color: #F7F8E0;
 			border: 1.5px solid #cfcfc6;
 			width: 60%;
 			height: auto;
- 			border-radius: 10q;
-			padding: 20px; /* h3 요소 아래 여백 추가 */
+			border-radius: 10q;
+			padding: 20px;
+			/* h3 요소 아래 여백 추가 */
 			margin: 0 auto;
 			margin-top: 30px;
-			display: flex;
-			flex-direction : column;
-			
 		}
-       
 
-        button {
-            padding: 10px 20px;
-            font-size: 14px;
-        }
-        
-        
-        body {
-            text-align: center; /* 전체 내용을 가운데 정렬 */
-        }
-        
-        #item{
-						flex-direction : row;
 
+		.btn {
+			background-color: #1F9CB3;
+			border: none;
+			padding: 7px 14px;
+			font-size: 20px;
 		}
-       
-        
-    </style>
+
+		.btn:hover {
+			background-color: #E91E63;
+			transition: 0.5s;
+		}
+
+		body {
+			text-align: center;
+			/* 전체 내용을 가운데 정렬 */
+		}
+
+
+	</style>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+	<link rel="stylesheet" th:href="@{/css/main/home.css}">
+	<link rel="stylesheet" th:href="@{/css/main/list.css}">
 </head>
+
 <body>
+
 	<div class="container">
- <h2>예약정보</h2> 
- <hr>
-	 <div style="width: 18rem; background-color: transparent;" id="item">
-	  		<img th:src="@{/img/board/img_3.png}" class="card-img-top" alt="...">
-		 <div class="card-body">
-		    <p class="card-text" th:text="${program.title}"> </p>
-		  </div>
+		<form th:action="@{/program/accept}" method="post">
+
+			<h2>예약정보(체크리스트추가?)</h2>
+			<hr>
+
+				<div style="width: 18rem; background-color: transparent;
+						border: 1.5px solid #cfcfc6; border-radius: 10q; padding: 5px; display: inline-block;  " id="item">
+					<img th:src="@{/img/board/img_3.png}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<p class="card-text" th:text="${program.title}"> </p>
+					</div>
+				</div>
+
+
+				<div class="form-floating mb-3">
+					<input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput"
+						th:value="${reservation.userid}">
+					<label for="floatingPlaintextInput">예약자</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput"
+						th:value="${reservation.start_date}">
+					<label for="floatingPlaintextInput">신청기간</label>
+				</div>
+
+
+
+			<hr>
+
+
+
+
+			<input type="hidden" name="reserNum" th:value="${reservation.reserNum}">
+			<button type="submit" class="btn btn-primary">수락하기</button>
+		</form>
 	</div>
-		
- 
-	 
-	<div class="form-floating mb-3">
-	  <input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput"  th:value="${reservation.userid}">
-	  <label for="floatingPlaintextInput" >예약자</label>
-	</div>
-	<div class="form-floating mb-3">
-	  <input type="text" readonly class="form-control-plaintext" id="floatingPlaintextInput"  th:value="${reservation.start_date}">
-	  <label for="floatingPlaintextInput" >신청기간</label>
-	</div>
-	 
-	
-	
-	<hr>
-	체크리스트
-	
-	
-	
-	<form th:action="@{/program/accept}" method="post">	
-	<input type="hidden" name="reserNum" th:value="${reservation.reserNum}">
-    <button type="submit"  class="btn btn-primary" style="background-color: #1F9CB3; border: 0;">수락하기</button>
-	</form>
-</div>
-	
-		<!--<h3>홈스테이 정보</h3>
+
+	<!--<h3>프로그램 정보</h3>
 		<tr>
 			<th>글번호</th>
 			<td style="width: 80px;" th:text="${program.programNum}"></td>
@@ -94,7 +109,10 @@
 		</tr>
 	</table>	
 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
 
 </body>
+
 </html>

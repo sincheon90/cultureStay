@@ -10,7 +10,7 @@
 	<title>Insert title here</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@300;400;600;700&family=Jua&family=Nanum+Gothic+Coding:wght@400;700&display=swap');
-	
+
 		body {
 			font-family: 'IBM Plex Sans KR', sans-serif;
 		}
@@ -60,8 +60,13 @@
 			font-size: 35px;
 
 		}
- 
 
+		.review-item-wrapper {
+			 
+			background-color: red;
+		}
+
+		
 	</style>
 	<link rel="stylesheet" th:href="@{/css/main/write.css}">
 	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
@@ -83,25 +88,27 @@
 		<tr>
 			<th th:text="'리뷰 '+${#lists.size(hostReview) + '건'}"></th>
 		</tr>
-		<tr th:each="hostReview: ${hostReview}">
-			<th th:text="${hostReview.reviewerID}"></th>
-			<!-- 별점을 표현하는 Font Awesome 별 아이콘 -->
-			<td>
-				<div class="stars" th:each="star : ${#numbers.sequence(1, hostReview.stars)}">
-					<i class="fas fa-star"></i>
-				</div>
-			</td>
-			<td th:text="${hostReview.content}"> </td>
-		</tr>
+		<div>
+			<tr th:each="hostReview: ${hostReview}">
+				<th th:text="${hostReview.reviewerID}"></th>
+				<!-- 별점을 표현하는 Font Awesome 별 아이콘 -->
+				<td>
+					<div class="stars" th:each="star : ${#numbers.sequence(1, hostReview.stars)}">
+						<i class="fas fa-star"></i>
+					</div>
+				</td>
+				<td th:text="${hostReview.content}"> </td>
+			</tr>
+		</div>
+
 	</table>
 
 	<br><br>
-<div style="display: flex; 	justify-content: space-between;" >
-	<h4 id="title">운영 중인 숙소</h4>
-	<button type="button" class="btn btn-primary" 
-	th:onclick="|location.href='@{/program/request}'|">
-	예약현황</button>
-</div>
+	<div style="display: flex; 	justify-content: space-between;">
+		<h4 id="title">운영 중인 숙소</h4>
+		<button type="button" class="btn btn-primary" th:onclick="|location.href='@{/program/request}'|">
+			예약현황</button>
+	</div>
 	<div class="container">
 		<div class="card" style="width: 18rem;" th:each="program: ${programList}">
 			<a th:href="@{/program/detail(programNum=${program.programNum})}"

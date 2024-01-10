@@ -56,7 +56,6 @@ public class MypageController {
 			//내홈스테이 리스트
 			ArrayList<Program> programList = pService.myProgram(user.getUsername());
 			model.addAttribute("programList",programList);
- 			model.addAttribute("hasPrograms",programList.size());
 
 			
 //			//내 홈스테이 리뷰 리스트
@@ -104,6 +103,7 @@ public class MypageController {
 	    	
 			//예약 리스트
 			ArrayList<Reservation> reservation = pService.newReser(user.getUsername());
+			log.debug("예약리스트 {}",reservation);
 			model.addAttribute("reservation",reservation);
 //			
 			
