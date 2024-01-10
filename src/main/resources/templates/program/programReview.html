@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<title>홈스테이 리뷰</title>
+<title>호스트리뷰</title>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" th:href="@{/css/main/reviewWrite.css}">
@@ -19,19 +19,45 @@
 			font-weight: 600;
 
 		}
+
 </style>
+
 </head>
 <body>
-<h3 id="title">홈스테이에 대한 후기를 작성해주세요!</h3>
-<form th:action="@{/program/programReview}" method="post" enctype="multipart/form-data">
-        <div>
-            <input type="text" id="title" name="stars" placeholder="별점">
-        </div>
+	<!-- 헤더 섹션-->
+<header th:replace="layouts/header::header"></header>
 
-        <div>
-            <textarea id="content" name="content" placeholder="후기를 작성해주세요!"></textarea>
-            <br>
-        </div>
+<br>
+<h2 id="title">홈스테이에 대한 후기를 작성해주세요!</h2>
+<div class="container" >
+<div class="items" style="width: 18rem;">
+  <img th:src="@{/img/board/img_3.png}" class="card-img-top" alt="...">
+  <div class="card-body" >  
+    <h5 class="card-title" th:text="${program.title}">Card title</h5>
+ </div>
+</div>
+<div class="items" style="margin-top: 40px;">
+	
+<form th:action="@{/program/programReview}" id="myform"  method="post" enctype="multipart/form-data">
+     
+	<fieldset>
+		<span class="text-bold">별점을 선택해주세요</span>
+		<input type="radio" name="stars" value="5" id="rate1" checked><label
+			for="rate1">★</label>
+		<input type="radio" name="stars" value="4" id="rate2" ><label
+			for="rate2">★</label>
+		<input type="radio" name="stars" value="3" id="rate3" ><label
+			for="rate3">★</label>
+		<input type="radio" name="stars" value="2" id="rate4" ><label
+			for="rate4">★</label>
+		<input type="radio" name="stars" value="1" id="rate5"  ><label
+			for="rate5">★</label>
+	</fieldset>
+    <div>
+        <textarea name="content" placeholder="후기를 작성해주세요!"
+        class="form-control" id="exampleFormControlTextarea1" rows="3" style="width: 20rem;"></textarea>
+        <br>
+    </div>
 
     <div class="right-align">
         <button type="submit" class="btn-save">작성</button>
@@ -47,6 +73,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 		crossorigin="anonymous"></script>
-
+		 
 </body>
 </html>
