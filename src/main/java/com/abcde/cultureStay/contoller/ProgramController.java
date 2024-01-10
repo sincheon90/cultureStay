@@ -127,18 +127,19 @@ public class ProgramController {
     public String read(@RequestParam(name = "programNum", defaultValue = "0") int programNum,
                        Model model, @AuthenticationPrincipal UserDetails user) {
         log.debug("홈스테이 넘버: {}", programNum);
-
-        //호스트 정보 가져오기
-        Member host = mDao.selectUser(user.getUsername());
-        log.debug("호스트 디테일: {}", host);
-
-        //홈스테이 정보 가져오기
+	 //홈스테이 정보 가져오기
         Program program = service.readProgram(programNum);
         log.debug("홈스테이 디테일: {}", program);
+        
+        //호스트 정보 가져오기
+        Member host = mDao.selectUser(program.getUserid());
+        log.debug("호스트 디테일: {}", host);
+
+       
 
         if (user != null) {
-            //최근방문에 추가
-//			service.recentClick(programNum,user.getUsername());
+           // 최근방문에 추가
+			service.recentClick(programNum,user.getUsername());
 
 
             //좋아요 상태(좋아요:1, 없음:0)
@@ -149,7 +150,6 @@ public class ProgramController {
 
             //북마크 상태(북마크:1, 없음:0)
             int program_bookmark = service.bookmarkCheck(programNum, user.getUsername());
-            //	int program_bookmark = service.bookmarkCheck(programNum,"aaa");//test용
             log.debug("북마크 상태 : {}", program_bookmark);
 
             model.addAttribute("program_like", program_like);
