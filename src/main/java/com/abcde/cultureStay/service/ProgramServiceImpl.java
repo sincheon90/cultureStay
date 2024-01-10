@@ -219,9 +219,7 @@ public class ProgramServiceImpl implements ProgramService{
 		ArrayList<Program> programList = dao.myProgram(userid);
 		
 
-		for (Program r : programList) {
-			r.setContent(extractText(r.getContent()));
-		}
+		programList=extractPrgramPreview(programList);
 
 		
 		return programList;

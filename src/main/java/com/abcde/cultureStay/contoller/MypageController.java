@@ -56,7 +56,7 @@ public class MypageController {
 			//내홈스테이 리스트
 			ArrayList<Program> programList = pService.myProgram(user.getUsername());
 			model.addAttribute("programList",programList);
-
+			log.debug("리스트{}",programList);
 			
 //			//내 홈스테이 리뷰 리스트
 //			ArrayList<Review> programReview = dao.myProgramReview(user.getUsername());
