@@ -89,7 +89,7 @@ public interface ProgramDAO {
 
 	Checklist getChecklist(int reserNum);
 
-	double hostAvg(String userid);
+	Double hostAvg(String userid);
 
 	ArrayList<Review> myProgramReview(String userid);
 
