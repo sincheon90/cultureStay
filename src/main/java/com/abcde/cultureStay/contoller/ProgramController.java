@@ -161,7 +161,10 @@ public class ProgramController {
 			model.addAttribute("hostReview",hostReview);
 			
 			//프로그램 평균 별점
-		  	double programAvg = dao.programAvg(program.getProgramNum());
+		  	Double programAvg = dao.programAvg(program.getProgramNum());
+            if (programAvg == null) {
+                programAvg = 0.0;
+            }
 			model.addAttribute("programAvg",programAvg);
  
 			//호스트 리뷰 리스트
