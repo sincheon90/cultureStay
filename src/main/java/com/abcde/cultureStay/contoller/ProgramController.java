@@ -31,10 +31,10 @@ public class ProgramController {
 
     @Autowired
     ProgramService service;
-    
+
     @Autowired
-    ProgramDAO dao; 
-    
+    ProgramDAO dao;
+
     @Autowired
     MemberDAO mDao;
 
@@ -141,8 +141,8 @@ public class ProgramController {
         log.debug("홈스테이 디테일: {}", program);
 
         if (user != null) {
-          //  최근방문에 추가
-			service.recentClick(programNum,user.getUsername());
+            //  최근방문에 추가
+            service.recentClick(programNum, user.getUsername());
 
             //좋아요 상태(좋아요:1, 없음:0)
             int program_like = service.likeCheck(programNum, user.getUsername());
@@ -151,30 +151,29 @@ public class ProgramController {
             //북마크 상태(북마크:1, 없음:0)
             int program_bookmark = service.bookmarkCheck(programNum, user.getUsername());
             model.addAttribute("program_bookmark", program_bookmark);
-        	
+
             //호스트 평균 별점
-          //호스트 평균 별점
             Double hostAvg = dao.hostAvg(program.getUserid());
             if (hostAvg == null) {
                 hostAvg = 0.0;
             }
-         model.addAttribute("hostAvg",hostAvg);
- 
-			//호스트 리뷰 리스트
-			ArrayList<Review> hostReview = dao.getHostReview(user.getUsername());
-			model.addAttribute("hostReview",hostReview);
-			
-			//프로그램 평균 별점
-		  	Double programAvg = dao.programAvg(program.getProgramNum());
+            model.addAttribute("hostAvg", hostAvg);
+
+            //호스트 리뷰 리스트
+            ArrayList<Review> hostReview = dao.getHostReview(user.getUsername());
+            model.addAttribute("hostReview", hostReview);
+
+            //프로그램 평균 별점
+            Double programAvg = dao.programAvg(program.getProgramNum());
             if (programAvg == null) {
                 programAvg = 0.0;
             }
-			model.addAttribute("programAvg",programAvg);
- 
-			//호스트 리뷰 리스트
-			ArrayList<Review> programReview = dao.getProgramReview(program.getProgramNum());
-			model.addAttribute("programReview",programReview);
-			
+            model.addAttribute("programAvg", programAvg);
+
+            //호스트 리뷰 리스트
+            ArrayList<Review> programReview = dao.getProgramReview(program.getProgramNum());
+            model.addAttribute("programReview", programReview);
+
         }
         //홈스테이 태그 가져오기
         ProgramTag programTag = service.readProgramTag(programNum);
