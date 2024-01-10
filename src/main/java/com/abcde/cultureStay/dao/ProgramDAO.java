@@ -89,11 +89,15 @@ public interface ProgramDAO {
 
 	Checklist getChecklist(int reserNum);
 
-	double hostAvg(String userid);
+	Double hostAvg(String userid);
 
 	ArrayList<Review> myProgramReview(String userid);
 
 	ArrayList<Program> searchWithTags(@Param("program") Program program, @Param("tag") ProgramTag tag);
+
+	Double programAvg(int programNum);
+
+	
 
 
 }

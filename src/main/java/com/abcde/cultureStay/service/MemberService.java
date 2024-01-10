@@ -12,4 +12,5 @@ public interface MemberService {
 
 	int updateUser(Member member);
 
+
 }

@@ -187,5 +187,9 @@
     margin-right: 10px; /* 태그 사이 간격 조정 */
 }
 
-
-
+.ssssssssssssssearch-section {
+    background-image: url('/img/board/img.png'); /* 배경 이미지 설정 */
+    background-size: cover; /* 이미지가 섹션을 완전히 덮도록 설정 */
+    background-position: center; /* 이미지가 센터에 위치하도록 설정 */
+    background-repeat: no-repeat; /* 이미지 반복 방지 */
+}

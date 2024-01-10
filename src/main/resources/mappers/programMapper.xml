@@ -100,10 +100,8 @@
         , address
         , detailed_address
         , price
-
         , start_date
         , end_date
-
         ) values (
         programNum_seq.nextval
         , #{userid}
@@ -622,7 +620,15 @@
         SELECT ROUND(AVG(stars), 1) AS avgStars
         FROM Review
         WHERE hostID = #{userid}
+        and who = 'h'
     </select>
+     <select id="programAvg" parameterType="int" resultType="double">
+        SELECT ROUND(AVG(stars), 1) AS avgStars
+        FROM Review
+        WHERE programNum = #{programNum}
+         and who = 'p'
+    </select>
+    
     <select id="myProgramReview" parameterType="String" resultType="Review">
         SELECT *
         FROM Review
