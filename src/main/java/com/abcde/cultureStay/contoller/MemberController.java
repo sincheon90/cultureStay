@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.abcde.cultureStay.service.MemberService;
 import com.abcde.cultureStay.vo.Member;
+import com.abcde.cultureStay.vo.Board;
 import com.abcde.cultureStay.util.FileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -91,12 +92,34 @@ public class MemberController {
 	}
     @PostMapping("update")
 	public String update(@AuthenticationPrincipal UserDetails user
-			, Member member) {
+			, Member member, MultipartFile upload) {
 		
 		member.setUserid(user.getUsername());
 		log.debug(user.getUsername());
 		int result = service.updateUser(member);
 		log.debug("update 결과: {}", result);
+		
+		Member oldMember = null;
+		String oldOgProfileImage = null;
+		String svProfileImage = null;
+
+		// 프로필 이미지가 있는 경우 기존 파일 삭제 후 새 파일 저장
+		if (upload != null && !upload.isEmpty()) {
+		    oldMember = service.selectUser(member.getUserid());
+		    oldOgProfileImage = oldMember == null ? null : oldMember.getOgProfileImage();
+
+		    svProfileImage = FileService.saveFile(upload, uploadPath);
+		    member.setOgProfileImage(upload.getOriginalFilename());
+		    member.setSvProfileImage(svProfileImage);
+		    log.debug("새 프로필 이미지:{}, 구 프로필 이미지:{}", svProfileImage, oldOgProfileImage);
+		}
+
+		int result1 = service.updateUser(member);
+
+		// 프로필 이미지 수정 성공 and 첨부된 파일이 있는 경우 파일도 삭제
+		if (result1 == 1 && svProfileImage != null) {
+		    FileService.deleteFile(uploadPath + "/" + oldOgProfileImage);
+		}
 		
 		return "redirect:/";
 	}

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
 	<meta charset="UTF-8">
 	<title>조회</title>
@@ -17,186 +17,278 @@
 	<link rel="stylesheet" th:href="@{/css/main/write.css}">
 	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
 
+	<style>
+		#title {
+			font-size: 25px;
+			font-weight: 600;
+		}
 
+		.stars {
+			color: gold;
+			/* 별점 색상 설정 */
+			display: inline-block;
+		}
+
+		.fa-star {
+			font-size: 20px;
+			/* 별 아이콘 크기 설정 */
+		}
+
+		#avgStar {
+			color: gold;
+			font-size: 35px;
+
+		}
+
+		#review {
+			background-color: #F7F8E0;
+			border-radius: 8px;
+			border: 1.5px solid #cfcfc6;
+			padding: 20px;
+		}
+	</style>
 
 
 </head>
+
 <body>
 
-<!-- 헤더 섹션-->
-<header th:replace="layouts/header::header"></header>
+	<!-- 헤더 섹션-->
+	<header th:replace="layouts/header::header"></header>
 
-<main>
+	<main>
 
-	<!-- 홈스테이 설명 컨테이너-->
-	<div>
-		<div class="with-reservation-container">
-			<div class="reservation-left">
-				<div class="title-container">
-					<div class="title-wrapper">
-						<h2 th:text="${program.title}"></h2>
-					</div>
-
-					<div class="like-bookmark-wrapper">
-						<input name="like" th:value="${program_like}" hidden="hidden"></input>
-						<input name="bookmark" th:value="${program_bookmark}" hidden="hidden"></input>
-						<input name="price" th:value="${program.price}" hidden="hidden"></input>
-
-						<img class="mark clickable" id="like_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
-						<img class="mark clickable" id="bookmark_img" src="/img/mark/unbookmark.png" alt="unbookmark" style="width: 20px; height: 20px;">
-					</div>
-				</div>
-		
-				<div>
-					<p th:utext="${program.content}"></p>
-				</div>
-
-				<br><hr><br>
-
-				<div class="feature-container">
-					<div class="theme-print">
-						<h3>홈스테이 테마</h3>
-						<ul>
-							<li th:if="${programTag.active}">활동적</li>
-							<li th:if="${programTag.creative}">창의적</li>
-							<li th:if="${programTag.healing}">힐링</li>
-							<li th:if="${programTag.traditional}">전통</li>
-							<li th:if="${programTag.cookingExperience}">요리체험</li>
-							<li th:if="${programTag.scenicView}">뷰</li>
-							<li th:if="${programTag.countryside}">시골</li>
-							<li th:if="${programTag.city}">도시</li>
-							<li th:if="${programTag.festival}">축제</li>
-							<li th:if="${programTag.drive}">드라이브</li>
-							<li th:if="${programTag.socializing}">친목</li>
-							<li th:if="${programTag.tranquil}">한적한</li>
-						</ul>
-
-					</div>
-
-					<hr>
-
-					<div class="theme-print">
-						<h3>호스트용 체크리스트</h3>
-						<ul>
-							<li th:if="${programTag.separateBathroom}">화장실과 욕실 분리</li>
-							<li th:if="${programTag.bathtub}">욕조</li>
-							<li th:if="${programTag.wifi}">와이파이</li>
-							<li th:if="${programTag.transformer}">변압기</li>
-							<li th:if="${programTag.pajamasProvided}">파자마(잠옷)</li>
-							<li th:if="${programTag.hairdryer}">헤어드라이기</li>
-							<li th:if="${programTag.basicToiletriesProvided}">기본 세면도구</li>
-							<li th:if="${programTag.petFriendly}">반려동물 동반 가능</li>
-							<li th:if="${programTag.roomAlone}">방 호자 사용</li>
-							<li th:if="${programTag.langJapanese}">일본어 가능</li>
-							<li th:if="${programTag.langEnglish}">영어 가능</li>
-							<li th:if="${programTag.langKorean}">한국어 가능</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<div class="reservation-container">
-				<form id="myForm" th:action="@{/program/apply}" method="get">
-					<article class="reservation-article">
-						<div class="price-per">
-							<span class="price" th:text="'₩' + ${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span>
-							<span class="per-night">/0박</span>
-						</div>
-
-						<br>
-
-						<div class="date-wrapper">
-							<div class="dateinput" id="dateinput"></div>
-
-							<div>
-								<input type="text" autocomplete="off" class="dateinput" id="start_date" name="start_date" placeholder="체크인"></input>
-							</div>
-
-							<div>
-								<input type="text" autocomplete="off" class="dateinput" id="end_date" name="end_date" placeholder="체크아웃"></input>
-							</div>
-						</div>
-
-						<br>
-
-						<div class="button-wrapper">
-							<button type="submit" class="btn-save" onclick="submitForm()">예약하기</button>
-							<input type="hidden" name="programNum" th:value="${program.programNum}">
-						</div>
-
-						<div class="price-sum">
-							<!-- Price per night multiplied by number of nights -->
-							<div class="price-detail">
-								<span>₩<span th:text="${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span>
-								 <span class="x-night" id="daysValue">x0박</span></span>
-								<span class="price-total">₩<span class="totalPrice">0</span></span>
-							</div>
-    			<input type="hidden" name="days" id="hiddenDays" value="">
-
-							<br><hr>
-
-							<!-- Total sum -->
-							<div class="price-detail">
-								<span>총 합계</span>
-								<span class="price-total">₩<span  class="totalPrice" id="totalPrice">0</span></span> <!-- Sum of price and fee -->
-							</div>    			<input type="hidden" name="totalPrice" id="hiddenPrice" value="">
-
-						</div>
-					</article>
-				</form>
-			</div>
-		</div>
-
-		<br><hr><br>
-
-		<div style="width: 100%;">
-			<!--리뷰-->
-			<h2>리뷰</h2>
-			<img th:src="@{/img/review.png}" alt="review" style="width: 100%;">
-			<img th:src="@{/img/review_button.png}" alt="review">
-		</div>
-
-		<br><hr><br>
-
-		<div style="width: 100%;">
-			<h2>호스팅 지역</h2>
-			<img th:src="@{/img/seoul.jpeg}" alt="map" style="width: 100%;">
-		</div>
-
-		<br><hr><br>
-
-		<div style="width: 100%;">
-			<h2>호스트 정보</h2>
-			<img th:src="@{/img/host_info.png}" alt="host_info" style="width: 100%;">
-		</div>
-
+		<!-- 홈스테이 설명 컨테이너-->
 		<div>
-			<!--주의사항: 알아두어야 할 사항-->
+			<div class="with-reservation-container">
+				<div class="reservation-left">
+					<div class="title-container">
+						<div class="title-wrapper">
+							<h2 th:text="${program.title}"></h2>
+						</div>
+
+						<div class="like-bookmark-wrapper">
+							<input name="like" th:value="${program_like}" hidden="hidden"></input>
+							<input name="bookmark" th:value="${program_bookmark}" hidden="hidden"></input>
+							<input name="price" th:value="${program.price}" hidden="hidden"></input>
+
+							<img class="mark clickable" id="like_img" src="/img/mark/unheart.png" alt="unheart"
+								style="width: 20px; height: 20px;">
+							<img class="mark clickable" id="bookmark_img" src="/img/mark/unbookmark.png"
+								alt="unbookmark" style="width: 20px; height: 20px;">
+						</div>
+					</div>
+
+					<div>
+						<p th:utext="${program.content}"></p>
+					</div>
+
+					<br>
+					<hr><br>
+
+					<div class="feature-container">
+						<div class="theme-print">
+							<h3>홈스테이 테마</h3>
+							<ul>
+								<li th:if="${programTag.active}">활동적</li>
+								<li th:if="${programTag.creative}">창의적</li>
+								<li th:if="${programTag.healing}">힐링</li>
+								<li th:if="${programTag.traditional}">전통</li>
+								<li th:if="${programTag.cookingExperience}">요리체험</li>
+								<li th:if="${programTag.scenicView}">뷰</li>
+								<li th:if="${programTag.countryside}">시골</li>
+								<li th:if="${programTag.city}">도시</li>
+								<li th:if="${programTag.festival}">축제</li>
+								<li th:if="${programTag.drive}">드라이브</li>
+								<li th:if="${programTag.socializing}">친목</li>
+								<li th:if="${programTag.tranquil}">한적한</li>
+							</ul>
+
+						</div>
+
+						<hr>
+
+						<div class="theme-print">
+							<h3>호스트용 체크리스트</h3>
+							<ul>
+								<li th:if="${programTag.separateBathroom}">화장실과 욕실 분리</li>
+								<li th:if="${programTag.bathtub}">욕조</li>
+								<li th:if="${programTag.wifi}">와이파이</li>
+								<li th:if="${programTag.transformer}">변압기</li>
+								<li th:if="${programTag.pajamasProvided}">파자마(잠옷)</li>
+								<li th:if="${programTag.hairdryer}">헤어드라이기</li>
+								<li th:if="${programTag.basicToiletriesProvided}">기본 세면도구</li>
+								<li th:if="${programTag.petFriendly}">반려동물 동반 가능</li>
+								<li th:if="${programTag.roomAlone}">방 호자 사용</li>
+								<li th:if="${programTag.langJapanese}">일본어 가능</li>
+								<li th:if="${programTag.langEnglish}">영어 가능</li>
+								<li th:if="${programTag.langKorean}">한국어 가능</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="reservation-container">
+					<form id="myForm" th:action="@{/program/apply}" method="get">
+						<article class="reservation-article">
+							<div class="price-per">
+								<span class="price"
+									th:text="'₩' + ${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span>
+								<span class="per-night">/0박</span>
+							</div>
+
+							<br>
+
+							<div class="date-wrapper">
+								<div class="dateinput" id="dateinput"></div>
+
+								<div>
+									<input type="text" autocomplete="off" class="dateinput" id="start_date"
+										name="start_date" placeholder="체크인"></input>
+								</div>
+
+								<div>
+									<input type="text" autocomplete="off" class="dateinput" id="end_date"
+										name="end_date" placeholder="체크아웃"></input>
+								</div>
+							</div>
+
+							<br>
+
+							<div class="button-wrapper">
+								<button type="submit" class="btn-save" onclick="submitForm()">예약하기</button>
+								<input type="hidden" name="programNum" th:value="${program.programNum}">
+							</div>
+
+							<div class="price-sum">
+								<!-- Price per night multiplied by number of nights -->
+								<div class="price-detail">
+									<span>₩<span
+											th:text="${#numbers.formatDecimal(program.price, 0, 'COMMA', 0, 'POINT')}"></span>
+										<span class="x-night" id="daysValue">x0박</span></span>
+									<span class="price-total">₩<span class="totalPrice">0</span></span>
+								</div>
+								<input type="hidden" name="days" id="hiddenDays" value="">
+
+								<br>
+								<hr>
+
+								<!-- Total sum -->
+								<div class="price-detail">
+									<span>총 합계</span>
+									<span class="price-total">₩<span class="totalPrice" id="totalPrice">0</span></span>
+									<!-- Sum of price and fee -->
+								</div> <input type="hidden" name="totalPrice" id="hiddenPrice" value="">
+
+							</div>
+						</article>
+					</form>
+				</div>
+			</div>
+
+			<br>
+			<hr><br>
+
+			<div style="width: 100%;">
+				<!--리뷰-->
+				<h2>리뷰</h2>
+				<div id="review">
+ 					<div style="display: flex; align-items: center; ">
+						<!-- 별점 평균 계산 -->
+						<i class="fas fa-star" id="avgStar"></i>
+						<h4 id="title" th:text="${programAvg}"></h4>
+					</div>
+					<table>
+						<tr>
+							<th th:text="'리뷰 '+${#lists.size(programReview) + '건'}"></th>
+						</tr>
+						<div>
+							<tr th:each="programReview: ${programReview}">
+								<th th:text="${programReview.reviewerID}"></th>
+								<!-- 별점을 표현하는 Font Awesome 별 아이콘 -->
+								<td>
+									<div class="stars" th:each="star : ${#numbers.sequence(1, programReview.stars)}">
+										<i class="fas fa-star"></i>
+									</div>
+								</td>
+								<td th:text="${programReview.content}"> </td>
+							</tr>
+						</div>
+
+					</table>
+				</div>
+			</div>
+
+			<br>
+			<hr><br>
+
+			<div style="width: 100%;">
+				<h2>호스팅 지역</h2>
+				<img th:src="@{/img/seoul.jpeg}" alt="map" style="width: 100%;">
+			</div>
+
+			<br>
+			<hr><br>
+
+			<div style="width: 100%;">
+
+
+				<div id="review">
+					<h4 id="title" th:text="${program.userid + ' 호스트님의 평균 별점'}"></h4>
+					<div style="display: flex; align-items: center; ">
+						<!-- 별점 평균 계산 -->
+						<i class="fas fa-star" id="avgStar"></i>
+						<h4 id="title" th:text="${hostAvg}"></h4>
+					</div>
+					<table>
+						<tr>
+							<th th:text="'리뷰 '+${#lists.size(hostReview) + '건'}"></th>
+						</tr>
+						<div>
+							<tr th:each="hostReview: ${hostReview}">
+								<th th:text="${hostReview.reviewerID}"></th>
+								<!-- 별점을 표현하는 Font Awesome 별 아이콘 -->
+								<td>
+									<div class="stars" th:each="star : ${#numbers.sequence(1, hostReview.stars)}">
+										<i class="fas fa-star"></i>
+									</div>
+								</td>
+								<td th:text="${hostReview.content}"> </td>
+							</tr>
+						</div>
+
+					</table>
+				</div>
+			</div>
+
+			<div>
+				<!--주의사항: 알아두어야 할 사항-->
+			</div>
 		</div>
-	</div>
 
-<br><br>
+		<br><br>
 
-</main>
+	</main>
 
-<footer th:replace="layouts/footer::footer"></footer>
+	<footer th:replace="layouts/footer::footer"></footer>
 
-<script th:src="@{/js/script.js}"></script>
-<script>
-	 function submitForm() {
-        // per-night 클래스를 가진 span 요소의 값을 가져옴
-        var daysValue = document.getElementById('daysValue').innerText;
-        var totalPrice = document.getElementById('totalPrice').innerText;
+	<script th:src="@{/js/script.js}"></script>
+	<script>
+		function submitForm() {
+			// per-night 클래스를 가진 span 요소의 값을 가져옴
+			var daysValue = document.getElementById('daysValue').innerText;
+			var totalPrice = document.getElementById('totalPrice').innerText;
 
-        // 가져온 값을 hidden input에 설정
-        document.getElementById('hiddenDays').value = daysValue;
-        document.getElementById('hiddenPrice').value = totalPrice;
+			// 가져온 값을 hidden input에 설정
+			document.getElementById('hiddenDays').value = daysValue;
+			document.getElementById('hiddenPrice').value = totalPrice;
 
-        document.getElementById('myForm').submit();
+			document.getElementById('myForm').submit();
 
-    }
-</script>
-</script>
- 
+		}
+	</script>
+
+
 </body>
+
 </html>
