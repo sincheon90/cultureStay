@@ -103,11 +103,11 @@ $(document).ready(function() {
 		const days = calculateDateDifference(start_date, end_date);
 
 		// 일수에 따라 표시할 문자열 생성
-		const nightsString = days > 1 ? `${days}박 ${days + 1}일` : '1박 2일';
+		const nightsString = days > 1 ? ` (${days}박 ${days + 1}일)` : '1박 2일';
 		const nightsString2 = days > 1 ? `${days}박` : '1박';
 
 		// 일수를 표시할 요소에 반영
-		$('.per-night').text(` /${nightsString}`);
+		$('.per-night').text(`${nightsString}`);
 		$('.x-night').text(` x${nightsString2}`);
 
 		var price = $('input[name="price"]').val();
