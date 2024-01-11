@@ -18,7 +18,7 @@
 	<link rel="stylesheet" th:href="@{/css/main/detail.css}">
 
 	<style>
-		#title {
+		.title {
 			font-size: 25px;
 			font-weight: 600;
 		}
@@ -30,17 +30,13 @@
 		}
 
 		.fa-star {
-			font-size: 20px;
-			/* 별 아이콘 크기 설정 */
-		}
-
-		#avgStar {
 			color: gold;
 			font-size: 35px;
-
 		}
 
-		#review {
+		
+
+		.review {
 			background-color: #F7F8E0;
 			border-radius: 8px;
 			border: 1.5px solid #cfcfc6;
@@ -192,11 +188,11 @@
 			<div style="width: 100%;">
 				<!--리뷰-->
 				<h2>리뷰</h2>
-				<div id="review">
+				<div class="review">
  					<div style="display: flex; align-items: center; ">
 						<!-- 별점 평균 계산 -->
-						<i class="fas fa-star" id="avgStar"></i>
-						<h4 id="title" th:text="${programAvg}"></h4>
+						<i class="fas fa-star"></i>
+						<h4 class="title" th:text="${programAvg}"></h4>
 					</div>
 					<table>
 						<tr>
@@ -233,12 +229,12 @@
 			<div style="width: 100%;">
 
 
-				<div id="review">
-					<h4 id="title" th:text="${program.userid + ' 호스트님의 평균 별점'}"></h4>
+				<div class="review">
+					<h4 class="title" th:text="${program.userid + ' 호스트님의 평균 별점'}"></h4>
 					<div style="display: flex; align-items: center; ">
 						<!-- 별점 평균 계산 -->
-						<i class="fas fa-star" id="avgStar"></i>
-						<h4 id="title" th:text="${hostAvg}"></h4>
+						<i class="fas fa-star"></i>
+						<h4 class="title" th:text="${hostAvg}"></h4>
 					</div>
 					<table>
 						<tr>
