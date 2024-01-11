@@ -35,6 +35,8 @@ public interface ProgramService {
 
 	void deleteBookmark(int programNum, String userid);
 
+	Program readProgramPreview(int programNum);
+
 	void recentClick(int programNum, String userid);
 
 	int insertReserveForm(Reservation reserveForm);
