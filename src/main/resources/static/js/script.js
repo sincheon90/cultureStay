@@ -112,7 +112,9 @@ $(document).ready(function() {
 
 		var price = $('input[name="price"]').val();
 		const totalPrice = price * days;
-		$('.totalPrice').text(`${totalPrice}`);
+		// 숫자를 한국어 화폐 형식으로 변환
+        const formattedTotalPrice = totalPrice.toLocaleString('ko-KR');
+		$('.totalPrice').text(`${formattedTotalPrice}`);
 
 	});
 
