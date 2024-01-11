@@ -11,37 +11,25 @@
 	<tr>
 		<th>결제일시</th> 
 		<td>
-			<p th:if="${info != null}" th:text="${info.approved_at}"></p>
-		</td>
-	</tr>
-	<tr>
-		<th>주문번호</th> 
-		<td>
-			<p th:if="${info != null}" th:text="${info.partner_order_id}"></p>
+			<p >2024-01-11</p>
 		</td>
 	</tr>
 	<tr>
 		<th>상품명</th> 
 		<td>
-			<p th:if="${info != null}" th:text="${info.item_name}"></p>
-		</td>
-	</tr>
-	<tr>
-		<th>상품수량</th> 
-		<td>
-			<p th:if="${info != null}" th:text="${info.quantity}"></p>
+			<p >culture_stay</p>
 		</td>
 	</tr>
 	<tr>
 		<th>결제금액</th> 
 		<td>
-			<p th:if="${info != null}" th:text="${info.amount.total}"></p>
+			<p >1,500,000</p>
 		</td>
 	</tr>
 	<tr>
 		<th>결제방법</th> 
 		<td>
-			<p th:if="${info != null}" th:text="${info.payment_method_type}"></p>
+			<p >kakao_pay</p>
 		</td>
 	</tr>
  </table>
