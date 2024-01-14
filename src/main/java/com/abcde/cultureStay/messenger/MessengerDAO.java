@@ -15,4 +15,6 @@ public interface MessengerDAO {
     ChatRoom getChatRoom(int chatRoomId);
 
     ArrayList<Message> getMessages(int chatRoomId);
+
+    int saveMessages(Message message);
 }

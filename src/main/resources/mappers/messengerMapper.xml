@@ -20,4 +20,10 @@
     <select id="getMessages" parameterType="int" resultType="Message">
         select * from messages where chatRoomId = #{chatRoomId}
     </select>
+
+
+    <insert id="saveMessages" parameterType="Message">
+        INSERT INTO Messages (messageId, chatRoomId, senderId, messageText, messageType)
+        VALUES (Messages_seq.nextval, #{chatRoomId}, #{senderId}, #{messageText}, #{messageType})
+    </insert>
 </mapper>

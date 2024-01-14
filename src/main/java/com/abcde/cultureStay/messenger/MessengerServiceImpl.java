@@ -40,4 +40,9 @@ public class MessengerServiceImpl implements MessengerService{
     public ArrayList<Message> getMessages(int chatRoomId) {
         return dao.getMessages(chatRoomId);
     }
+
+    @Override
+    public int saveMessages(Message message) {
+        return dao.saveMessages(message);
+    }
 }

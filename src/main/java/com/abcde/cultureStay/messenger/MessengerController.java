@@ -46,8 +46,13 @@ public class MessengerController {
     @SendTo("/topic/messages") // 브로드캐스트할 경로
     public String sendMessage(String jsonMessage) {
         // JSON 문자열을 파싱하여 실제 메시지 내용을 추출
-//        JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
-        System.out.println(jsonMessage);
+        JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
+        Message message = new Message();
+        message.setMessageText(String.valueOf(jsonObject.get("messageText")));
+        message.setChatRoomId(jsonObject.get("chatRoomId").getAsLong());
+        message.setSenderId("111");
+        message.setMessageType("test");
+        service.saveMessages(message);
         return jsonMessage;
     }
 

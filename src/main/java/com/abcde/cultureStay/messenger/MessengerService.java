@@ -15,4 +15,6 @@ public interface MessengerService {
     boolean isChatRoomPresent(String id);
 
     ArrayList<Message> getMessages(int chatRoomId);
+
+    int saveMessages(Message message);
 }
