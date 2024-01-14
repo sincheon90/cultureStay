@@ -28,7 +28,7 @@ public class MessengerController {
 //        if(!service.isChatRoomPresent(id)) service.createChatRoom(id, "테스트 채팅방");
         ArrayList<ChatRoom> chatRooms = service.getChatRoomList(id);
         model.addAttribute("chatRooms", chatRooms);
-        return "chatRoomList";
+        return "messenger/chatRoomList";
     }
     @GetMapping("chatRoom")
     public String getChatRoom(Model model, int chatRoomId){
