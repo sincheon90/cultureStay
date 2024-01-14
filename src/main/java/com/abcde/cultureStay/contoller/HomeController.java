@@ -104,6 +104,7 @@ public class HomeController {
 
         // 인기 게시글(커뮤니티)
         ArrayList<Board> popularBoards = bService.popularBoards();
+
         if(popularBoards != null){
             for (int i = 0; i < Math.min(popularBoards.size(), 2); i++) {
                 limitedPopularBoards.add(popularBoards.get(i));

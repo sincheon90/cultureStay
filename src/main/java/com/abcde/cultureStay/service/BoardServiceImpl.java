@@ -181,7 +181,7 @@ public class BoardServiceImpl implements BoardService{
 	public ArrayList<Board> popularBoards() {
 		ArrayList<Board> result = dao.popularBoards();
 
-		result = extractBoardPreview(result);
+		if(result != null) result = extractBoardPreview(result);
 
 		return result;
 	}

@@ -1,5 +1,7 @@
 package com.abcde.cultureStay.messenger;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -11,13 +13,15 @@ public class MessageController {
 
     @GetMapping("chat")
     public String chatTest(){
-        return "simpleChat";
+        return "/messenger/simpleChat";
     }
 
     @MessageMapping("/sendMessage") // 클라이언트가 메시지를 보낼 경로
     @SendTo("/topic/messages") // 브로드캐스트할 경로
-    public Message sendMessage(Message message) {
-        return message; // 메시지를 브로드캐스트
+    public String sendMessage(String jsonMessage) {
+        // JSON 문자열을 파싱하여 실제 메시지 내용을 추출
+//        JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
+        return jsonMessage;
     }
 }
 
