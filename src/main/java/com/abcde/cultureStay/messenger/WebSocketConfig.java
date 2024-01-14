@@ -21,10 +21,3 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/chat").withSockJS(); // SockJS 지원을 통해 웹소켓 사용이 불가능할 경우 대체 옵션 제공
     }
 }
-
-/*
-알림
-디비설계
-화면 구현
-테스트
-*/
