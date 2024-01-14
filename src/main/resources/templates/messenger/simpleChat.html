@@ -28,16 +28,9 @@
             function (frame) {
                 console.log('Connected: ' + frame);
                 stompClient.subscribe('/topic/messages', function (message) {
-                    try {
-                        var parsedMessage = JSON.parse(message.body);
+                    var parsedMessage = JSON.parse(message.body);
                         showMessage(parsedMessage.content);
-                    } catch (e) {
-                        console.error('Error parsing JSON message:', message.body);
-                    }
                 });
-            },
-            function (error) {
-                console.log('Connection error: ' + error);
             }
         );
     }
