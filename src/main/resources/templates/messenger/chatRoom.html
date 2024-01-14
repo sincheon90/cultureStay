@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1 th:text="${chatRoom.chatRoomName}"></h1>
+<input type="hidden" id="chatRoomId" th:value="${chatRoom.chatRoomId}"></input>
 
 <div>
     <!-- 채팅 내용 표시 -->
@@ -41,15 +42,20 @@
                 console.log('Connected: ' + frame);
                 stompClient.subscribe('/topic/messages', function (message) {
                     var parsedMessage = JSON.parse(message.body);
-                        showMessage(parsedMessage.content);
+                        showMessage(parsedMessage.messageText);
                 });
             }
         );
     }
 
     function sendMessage() {
-        var messageContent = document.getElementById('message').value;
-        stompClient.send("/app/sendSimpleMessage", {}, JSON.stringify({'content': messageContent}));
+        var messageText = document.getElementById('message').value;
+        var chatRoomId = document.getElementById('chatRoomId').value;
+        stompClient.send("/app/sendMessage", {}, JSON.stringify({
+                'messageText': messageText,
+                'chatRoomId': chatRoomId
+            })
+        );
         document.getElementById('message').value = '';
     }
 

@@ -2,6 +2,8 @@ package com.abcde.cultureStay.messenger;
 
 import com.abcde.cultureStay.messenger.vo.ChatRoom;
 import com.abcde.cultureStay.messenger.vo.Message;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -45,6 +47,7 @@ public class MessengerController {
     public String sendMessage(String jsonMessage) {
         // JSON 문자열을 파싱하여 실제 메시지 내용을 추출
 //        JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
+        System.out.println(jsonMessage);
         return jsonMessage;
     }
 
