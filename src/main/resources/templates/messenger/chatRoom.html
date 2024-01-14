@@ -5,16 +5,14 @@
     <title>Chat Room</title>
 </head>
 <body>
-<h1 th:text="${chatRoom.name}"></h1>
+<h1 th:text="${chatRoom.chatRoomName}"></h1>
 
 <div>
     <!-- 채팅 내용 표시 -->
     <ul>
-        <!-- 반복문을 사용하여 채팅 메시지 출력 -->
-        <!-- 예제 데이터 구조: chatRoom.messages 안에 메시지 리스트가 있다고 가정 -->
-        <li th:each="message : ${chatRoom.messages}">
-            <span th:text="${message.sender}"></span>:
-            <span th:text="${message.content}"></span>
+        <li th:each="message : ${messages}">
+            <span th:text="${message.senderId}"></span>:
+            <span th:text="${message.messageText}"></span>
         </li>
     </ul>
 </div>
@@ -25,27 +23,49 @@
     <button type="submit">Send</button>
 </form>
 
+<div id="messages">
+    <!-- 수신된 메시지가 여기에 표시됩니다 -->
+</div>
+
 <script src="/your-socket-io-library.js"></script> <!-- Socket.io 라이브러리 불러오기 -->
 <script>
-    // Socket.io를 사용하여 메시지 전송 로직을 작성 (서버와 통신)
-    var socket = io('/topic/messages'); // 서버의 브로드캐스트 경로와 연결
-    var messageForm = document.getElementById('messageForm');
-    var messageInput = document.getElementById('messageInput');
+    var stompClient = null;
 
-    messageForm.addEventListener('submit', function(event) {
+    function connect() {
+        var socket = new SockJS('/chat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({},
+            function (frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/messages', function (message) {
+                    var parsedMessage = JSON.parse(message.body);
+                        showMessage(parsedMessage.content);
+                });
+            }
+        );
+    }
+
+    function sendMessage() {
+        var messageContent = document.getElementById('message').value;
+        stompClient.send("/app/sendSimpleMessage", {}, JSON.stringify({'content': messageContent}));
+        document.getElementById('message').value = '';
+    }
+
+    function showMessage(message) {
+        console.log(message);
+        var messagesDiv = document.getElementById('messages');
+        var messageParagraph = document.createElement('p');
+        messageParagraph.appendChild(document.createTextNode(message));
+        messagesDiv.appendChild(messageParagraph);
+    }
+
+    document.getElementById('messageForm').addEventListener('submit', function(event) {
         event.preventDefault();
-        var message = messageInput.value;
-        socket.emit('sendMessage', message); // sendMessage 이벤트 발송
-        messageInput.value = ''; // 입력 필드 비우기
+        sendMessage();
     });
 
-    // 채팅 메시지를 받아서 화면에 추가하는 코드
-    socket.on('message', function(message) {
-        var messageList = document.querySelector('ul');
-        var messageItem = document.createElement('li');
-        messageItem.textContent = message;
-        messageList.appendChild(messageItem);
-    });
+    // 웹 페이지가 로드되면 웹소켓에 연결합니다.
+    window.onload = connect;
 </script>
 </body>
 </html>

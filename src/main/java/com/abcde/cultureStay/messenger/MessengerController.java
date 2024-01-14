@@ -1,6 +1,7 @@
 package com.abcde.cultureStay.messenger;
 
 import com.abcde.cultureStay.messenger.vo.ChatRoom;
+import com.abcde.cultureStay.messenger.vo.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -33,8 +34,10 @@ public class MessengerController {
     @GetMapping("chatRoom")
     public String getChatRoom(Model model, int chatRoomId){
         ChatRoom chatRoom = service.getChatRoom(chatRoomId);
+        ArrayList<Message> messages = service.getMessages(chatRoomId);
         model.addAttribute("chatRoom", chatRoom);
-        return "chatRoom";
+        model.addAttribute("messages", messages);
+        return "messenger/chatRoom";
     }
 
     @MessageMapping("/sendMessage") // 클라이언트가 메시지를 보낼 경로

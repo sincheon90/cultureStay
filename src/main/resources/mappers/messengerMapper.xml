@@ -12,4 +12,12 @@
     <select id="getChatRoomList" parameterType="String" resultType="ChatRoom">
         select * from chatrooms
     </select>
+
+    <select id="getChatRoom" parameterType="int" resultType="ChatRoom">
+        select * from chatrooms where chatRoomId = #{chatRoomId}
+    </select>
+
+    <select id="getMessages" parameterType="int" resultType="Message">
+        select * from messages where chatRoomId = #{chatRoomId}
+    </select>
 </mapper>

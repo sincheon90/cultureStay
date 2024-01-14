@@ -1,6 +1,7 @@
 package com.abcde.cultureStay.messenger;
 
 import com.abcde.cultureStay.messenger.vo.ChatRoom;
+import com.abcde.cultureStay.messenger.vo.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +28,16 @@ public class MessengerServiceImpl implements MessengerService{
 
     @Override
     public ChatRoom getChatRoom(int chatRoomId) {
-        return null;
+        return dao.getChatRoom(chatRoomId);
     }
 
     @Override
     public boolean isChatRoomPresent(String id) {
         return false;
+    }
+
+    @Override
+    public ArrayList<Message> getMessages(int chatRoomId) {
+        return dao.getMessages(chatRoomId);
     }
 }
