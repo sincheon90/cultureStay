@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Room List</title>
+</head>
+<body>
+<h1>Chat Room List</h1>
+
+<ul>
+    <!-- 반복문을 사용하여 채팅룸 리스트를 출력 -->
+    <li th:each="chatRoom : ${chatRooms}">
+        <a th:href="@{/messenger/chatRoom(chatRoomId=${chatRoom.id})}" th:text="${chatRoom.name}"></a>
+    </li>
+</ul>
+
+<a href="#">Create New Chat Room</a> <!-- 새로운 채팅룸 생성 링크 -->
+</body>
+</html>
