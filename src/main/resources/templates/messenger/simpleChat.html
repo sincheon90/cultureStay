@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stomp-websocket/lib/stomp.min.js"></script>
+</head>
+<body>
+
+<h2>Simple Chat Application</h2>
+
+<form id="messageForm">
+    <input type="text" id="message" placeholder="Enter a message"/>
+    <button type="submit">Send</button>
+</form>
+
+<div id="messages">
+    <!-- 수신된 메시지가 여기에 표시됩니다 -->
+</div>
+
+<script type="text/javascript">
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/chat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/messages', function (message) {
+                showMessage(JSON.parse(message.body).content);
+            });
+        });
+    }
+
+    function sendMessage() {
+        var messageContent = document.getElementById('message').value;
+        stompClient.send("/app/sendMessage", {}, JSON.stringify({'content': messageContent}));
+        document.getElementById('message').value = '';
+    }
+
+    function showMessage(message) {
+        var messagesDiv = document.getElementById('messages');
+        var messageParagraph = document.createElement('p');
+        messageParagraph.appendChild(document.createTextNode(message));
+        messagesDiv.appendChild(messageParagraph);
+    }
+
+    document.getElementById('messageForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        sendMessage();
+    });
+
+    // 웹 페이지가 로드되면 웹소켓에 연결합니다.
+    window.onload = connect;
+</script>
+
+</body>
+</html>
