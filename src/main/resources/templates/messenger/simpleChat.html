@@ -37,7 +37,7 @@
 
     function sendMessage() {
         var messageContent = document.getElementById('message').value;
-        stompClient.send("/app/sendMessage", {}, JSON.stringify({'content': messageContent}));
+        stompClient.send("/app/sendSimpleMessage", {}, JSON.stringify({'content': messageContent}));
         document.getElementById('message').value = '';
     }
 

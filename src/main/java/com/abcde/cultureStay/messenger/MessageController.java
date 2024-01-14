@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MessageController {
 
-    @GetMapping("chat")
+    @GetMapping("simpleChat")
     public String chatTest(){
         return "/messenger/simpleChat";
     }
 
-    @MessageMapping("/sendMessage") // 클라이언트가 메시지를 보낼 경로
+    @MessageMapping("/sendSimpleMessage") // 클라이언트가 메시지를 보낼 경로
     @SendTo("/topic/messages") // 브로드캐스트할 경로
     public String sendMessage(String jsonMessage) {
         // JSON 문자열을 파싱하여 실제 메시지 내용을 추출
