@@ -1,14 +1,15 @@
 package com.abcde.cultureStay.messenger;
 
-import com.abcde.cultureStay.vo.ChatRoom;
-import org.springframework.stereotype.Service;
+import com.abcde.cultureStay.messenger.vo.ChatRoom;
 
 import java.util.ArrayList;
 
 public interface MessengerService {
     ArrayList<ChatRoom> getChatRoomList(String username);
 
-    ChatRoom createChatRoom();
+    int createChatRoom(String id, String 테스트_채팅방);
 
     ChatRoom getChatRoom(int chatRoomId);
+
+    boolean isChatRoomPresent(String id);
 }

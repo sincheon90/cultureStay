@@ -1,6 +1,6 @@
 package com.abcde.cultureStay.messenger;
 
-import com.abcde.cultureStay.vo.ChatRoom;
+import com.abcde.cultureStay.messenger.vo.ChatRoom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -17,13 +17,16 @@ import java.util.ArrayList;
 @RequestMapping("messenger")
 public class MessengerController {
     @Autowired
-    private MessengerService service;
+    MessengerService service;
 
-    @GetMapping("chatRoomList")
-    public String chatRoomList(Model model,
-                               @AuthenticationPrincipal UserDetails user) {
-        ArrayList<ChatRoom> chatRooms = service.getChatRoomList(user.getUsername());
-        if(chatRooms.size() == 0) chatRooms.add(service.createChatRoom());
+    @GetMapping("chat")
+    public String chatRoomList(Model model
+                              ) {
+        System.out.println("chatRoomList entered");
+        String id = "111";
+//        ArrayList<ChatRoom> chatRooms = service.getChatRoomList(user.getUsername());
+//        if(!service.isChatRoomPresent(id)) service.createChatRoom(id, "테스트 채팅방");
+        ArrayList<ChatRoom> chatRooms = service.getChatRoomList(id);
         model.addAttribute("chatRooms", chatRooms);
         return "chatRoomList";
     }

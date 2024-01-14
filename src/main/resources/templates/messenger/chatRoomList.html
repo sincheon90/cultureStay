@@ -10,7 +10,7 @@
 <ul>
     <!-- 반복문을 사용하여 채팅룸 리스트를 출력 -->
     <li th:each="chatRoom : ${chatRooms}">
-        <a th:href="@{/messenger/chatRoom(chatRoomId=${chatRoom.id})}" th:text="${chatRoom.name}"></a>
+        <a th:href="@{/messenger/chatRoom(chatRoomId=${chatRoom.chatRoomId})}" th:text="${chatRoom.chatRoomName}"></a>
     </li>
 </ul>
 

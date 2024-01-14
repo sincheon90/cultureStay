@@ -13,6 +13,6 @@ public class ChatRoom {
     private Long chatRoomId;
     private String chatRoomName;
     private Date createTimestamp;
-    private Long createdUserId;
+    private String createdUserId;
 }
 
