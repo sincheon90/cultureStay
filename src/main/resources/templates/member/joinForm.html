@@ -7,6 +7,7 @@
    <link rel="stylesheet" th:href="@{/css/member/joinForm.css}">
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script th:src="@{/js/jquery-3.6.0.js}"></script>
 
 <script>
    function idCheck() {
@@ -27,6 +28,7 @@
         let address_address = document.querySelector('#address_address');
         let email = document.querySelector('#email');
         let file = document.querySelector('#upload');
+        let enj = $("#hid").attr("check");
 
 
 
@@ -70,10 +72,10 @@
          alert("주소를 입력하세요.");
          return false;
       }
-      if (email.value == '') {
-         alert("메일주소를 입력하세요.");
-         return false;
-      }
+      if (mail.value == '') {
+            alert('이메일를 입력하세요');
+            return false;
+         }
 
 
       return true;
@@ -160,6 +162,38 @@ function uploadAndPreview() {
             }
         }).open();
     }
+    
+    //이메일
+      function sendNumber() {
+		  $("#mail_number").css("display", "block");
+         console.log("1차통과");
+         $.ajax({
+            url: "/mail",
+            type: "post",
+            dataType: "json",
+            data: {"mail": $("#email").val()},
+            success: function (data) {
+               alert("인증번호를 발송했습니다.");
+               $("#Confirm").attr("value", data);
+            }
+            , error: function (request, status, error) {
+               alert("올바른 이메일을 입력하세요.")
+               console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+         });
+      }
+
+      function confirmNumber() {
+         var number1 = $("#number").val();
+         var number2 = $("#Confirm").val();
+
+         if (number1 == number2) {
+            alert("인증되었습니다.");
+            $("#hid").attr("check", "true");
+         } else {
+            alert("인증번호가 다릅니다.");
+         }
+      }
 </script>
 <body>
    <header th:replace="layouts/header::header"></header>
@@ -241,11 +275,27 @@ function uploadAndPreview() {
                    <input type="text" name="address_extraAddress" id="address_extraAddress" placeholder="참고항목" readonly>
                 </td>
              </tr>
+             
              <tr>
                 <th>이메일</th>
                 <td>
+                <div id="mail_input" name="mail_input">
+                     <input type="text" name="email" id="email" placeholder="이메일 입력">
+                     <button type="button" id="sendBtn" name="sendBtn" class="submit2" onclick="sendNumber()">인증번호 받기</button>
+                  </div>
+                  <br>
+                  <div id="mail_number" name="mail_number" >
+                     <input type="text" class="un" name="number" id="number" placeholder="인증번호 입력">
+                     <button type="button" class="submit2" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일
+                        인증</button>
+                  </div>
+                  <br>
+                  <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+                  <input type="hidden" id="hid" check="false">
+                  </td>
+          <!--      <td>
                    <input type="email" name="email" id="email" placeholder="이메일 입력">
-                </td>
+                </td> -->
              </tr>
              <tr>
                 <th>자기소개</th>

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.abcde.cultureStay.service.MailService;
 import com.abcde.cultureStay.service.MemberService;
 import com.abcde.cultureStay.vo.Member;
 import com.abcde.cultureStay.vo.Board;
@@ -30,6 +32,7 @@ import java.nio.file.Paths;
 public class MemberController {
     @Autowired
     MemberService service;
+    MailService mailService;
     
     @Value("${spring.servlet.multipart.location}")
 	String uploadPath;
@@ -37,6 +40,17 @@ public class MemberController {
     @GetMapping("join")
     public String joinForm() {
         return "member/joinForm";
+    }
+    @ResponseBody
+    @PostMapping("mail")
+    public String MailSend(String mail) {
+       log.debug("mail:{}", mail);
+
+       int number = mailService.sendMail(mail);
+
+       String num = "" + number;
+
+       return num;
     }
 
     @GetMapping("idCheck")
@@ -73,6 +87,7 @@ public class MemberController {
         service.joinMember(member);
         return "redirect:/";
     }
+    
     
     @GetMapping("loginForm")
 	public String loginForm() {

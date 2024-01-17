@@ -46,7 +46,7 @@ public class MypageController {
 
 		  
 		  	//내 호스트 평균 별점
-		  	double hostAvg = dao.hostAvg(user.getUsername());
+		  	Double hostAvg = dao.hostAvg(user.getUsername());
 			model.addAttribute("hostAvg",hostAvg);
 		  
 			//호스트 리뷰 리스트
