@@ -245,7 +245,9 @@
 						<h3>주소</h3>
 						<pre th:text="'우편번호 : '+${program.postcode}"></pre>
 						<pre th:text="'상세주소 : '+${program.address}" + "${program.detailed_address}"></pre>
+				<br>상세주소지도넣기
 				https://console.cloud.google.com/google/maps-apis/build/locator-plus?project=inbound-density-411507
+					
 					</div>
 					<div id="googleMap" style="width:65%; background-color: blue" ></div>
 				</div>
