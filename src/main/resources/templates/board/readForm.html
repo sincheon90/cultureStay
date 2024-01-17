@@ -33,7 +33,8 @@
             <input type="hidden" name="boardnum" th:value="${board.boardnum}"></input>
 
             <input type="hidden" name="recommend" th:value="${board.recommend}"></input>
-            <img class="mark clickable" id="recommend_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;"><span id="cnt" th:text="${board.recommend}"></span>
+            <img class="mark clickable" id="recommend_img" src="/img/mark/unheart.png" alt="unheart" style="width: 20px; height: 20px;">
+            <!--<span id="cnt" th:text="${board.recommend}"></span>--><!--ajax로 데이터 가져오는게 필요-->
         </div>
     </div>
 
@@ -42,11 +43,32 @@
     </div>
 
     <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <br><br>
+
+    <section>
+        <!-- 리플 작성 폼 -->
+        <form class="reply-form" th:action="@{/reply/writeReply}" method="post">
+            <input type="hidden" name="boardnum" th:value="${board.boardnum}">
+            <input type="text" name="content" style="width: 90%;">
+            <button type="submit">확인</button>
+        </form>
+
+        <!-- 리플 목록 출력 -->
+        <table class="reply">
+            <tr class="reply-form" th:each="reply : ${replyList}">
+                <td class="replyid" th:text="${reply.userid}"></td>
+                <td class="content" th:text="${reply.content}"></td>
+                <td class="replydate" th:text="${reply.inputdate}"></td>
+                <td class="white">
+                    <th:block th:if="${#authentication.name} == ${reply.userid}">
+                        <a th:href="|javascript:deleteReply(${reply.replynum}, ${reply.boardnum})|">
+                            <input type="button" value="삭제">
+                        </a>
+                    </th:block>
+                </td>
+            </tr>
+        </table>
+    </section>
+
     <br><br>
     <br><br>
     <br><br>

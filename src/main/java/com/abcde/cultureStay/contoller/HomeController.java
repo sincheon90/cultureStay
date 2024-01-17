@@ -85,23 +85,29 @@ public class HomeController {
             recommends = pService.homeRecommend(user.getUsername());
         }
 
-        for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
-            limitedRecommends.add(recommends.get(i) != null ? recommends.get(i) : null);
+        if(recommends != null){
+            for (int i = 0; i < Math.min(recommends.size(), maxElements); i++) {
+                limitedRecommends.add(recommends.get(i));
+            }
         }
         model.addAttribute("recommends", limitedRecommends);
 
         //인기게시물 -조회수+좋아요 ----sql 수정
         ArrayList<Program> populars = pService.homePopular();
-        for (int i = 0; i < Math.min(populars.size(), maxElements); i++) {
-            limitedPopulars.add(populars.get(i) != null ? populars.get(i) : null);
+        if(populars != null) {
+            for (int i = 0; i < Math.min(populars.size(), maxElements); i++) {
+                limitedPopulars.add(populars.get(i));
+            }
         }
         model.addAttribute("populars", limitedPopulars);
 
 
         // 인기 게시글(커뮤니티)
         ArrayList<Board> popularBoards = bService.popularBoards();
-        for (int i = 0; i < Math.min(populars.size(), 2); i++) {
-            limitedPopularBoards.add(popularBoards.get(i) != null ? popularBoards.get(i) : null);
+        if(popularBoards != null){
+            for (int i = 0; i < Math.min(popularBoards.size(), 2); i++) {
+                limitedPopularBoards.add(popularBoards.get(i));
+            }
         }
         model.addAttribute("popularBoards", limitedPopularBoards);
 

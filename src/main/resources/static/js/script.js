@@ -103,16 +103,18 @@ $(document).ready(function() {
 		const days = calculateDateDifference(start_date, end_date);
 
 		// 일수에 따라 표시할 문자열 생성
-		const nightsString = days > 1 ? `${days}박 ${days + 1}일` : '1박 2일';
+		const nightsString = days > 1 ? ` (${days}박 ${days + 1}일)` : '1박 2일';
 		const nightsString2 = days > 1 ? `${days}박` : '1박';
 
 		// 일수를 표시할 요소에 반영
-		$('.per-night').text(` /${nightsString}`);
+		$('.per-night').text(`${nightsString}`);
 		$('.x-night').text(` x${nightsString2}`);
 
 		var price = $('input[name="price"]').val();
 		const totalPrice = price * days;
-		$('.totalPrice').text(`${totalPrice}`);
+		// 숫자를 한국어 화폐 형식으로 변환
+        const formattedTotalPrice = totalPrice.toLocaleString('ko-KR');
+		$('.totalPrice').text(`${formattedTotalPrice}`);
 
 	});
 

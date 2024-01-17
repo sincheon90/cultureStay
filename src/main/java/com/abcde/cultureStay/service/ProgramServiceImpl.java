@@ -94,8 +94,21 @@ public class ProgramServiceImpl implements ProgramService{
 		Program program = dao.readProgram(programNum);
 		//조회수
 		dao.p_updateHits(programNum);
-	//        ArrayList<String> imageList = extractTwoImages(program.getContent());
-	//        program.setImagePath1(imageList.get(0) != null ? imageList.get(0) : null);
+
+		return program;
+	}
+
+	@Override
+	public Program readProgramPreview(int programNum) {
+
+		Program program = dao.readProgram(programNum);
+		//조회수
+		dao.p_updateHits(programNum);
+
+		ArrayList<Program> programs = new ArrayList<>();
+		programs.add(program);
+		programs = extractPrgramPreview(programs);
+		program = programs.get(0);
 		return program;
 	}
 	
@@ -105,7 +118,6 @@ public class ProgramServiceImpl implements ProgramService{
 		HashMap<String, Object> map = getMap(programNum, userid);
 		log.debug("recentClick map 결과 {}",map);
 
-		
 		dao.recentClick(map);
 
 	}

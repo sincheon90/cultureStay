@@ -39,7 +39,7 @@ public class ReviewController {
 			log.debug("예약신청정보 {}", reservation);
 			model.addAttribute("reservation", reservation);
 			
-			Program program = service.readProgram(reservation.getProgramNum());
+			Program program = service.readProgramPreview(reservation.getProgramNum());
 			log.debug("홈스테이정보 {}",program);
 			model.addAttribute("program",program);
 
@@ -78,7 +78,7 @@ public class ReviewController {
 			log.debug("예약신청정보 {}", reservation);
 			model.addAttribute("reservation", reservation);
 			
-			Program program = service.readProgram(reservation.getProgramNum());
+			Program program = service.readProgramPreview(reservation.getProgramNum());
 			log.debug("홈스테이정보 {}",program);
 			model.addAttribute("program",program);
 
@@ -116,7 +116,7 @@ public class ReviewController {
 			log.debug("예약신청정보 {}", reservation);
 			model.addAttribute("reservation", reservation);
 			
-			Program program = service.readProgram(reservation.getProgramNum());
+			Program program = service.readProgramPreview(reservation.getProgramNum());
 			log.debug("홈스테이정보 {}",program);
 			model.addAttribute("program",program);
 
