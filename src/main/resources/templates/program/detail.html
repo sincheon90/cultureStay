@@ -245,11 +245,14 @@
 						<h3>주소</h3>
 						<pre th:text="'우편번호 : '+${program.postcode}"></pre>
 						<pre th:text="'상세주소 : '+${program.address}" + "${program.detailed_address}"></pre>
-				<br>상세주소지도넣기
-				https://console.cloud.google.com/google/maps-apis/build/locator-plus?project=inbound-density-411507
 					
 					</div>
-					<div id="googleMap" style="width:65%; background-color: blue" ></div>
+					<div id="googleMap" style="width:65%;" >
+								<input type="hidden" id="mapaddress" th:value="${program.address}">
+								<input type="hidden" id="detailed_address" th:value="${program.detailed_address}">
+								<input type="hidden" id="postcode" th:value="${program.postcode}">
+
+					</div>
 				</div>
 			</div>
 
@@ -312,20 +315,62 @@
 			document.getElementById('myForm').submit();
 
 		}
-	</script>
 
-
-<script>
+ 
 	
    function myMap(){
-      var mapOptions = { 
-            center:new google.maps.LatLng(51.508742, -0.120850),
-            zoom:5
-      };
+       // Geocoder 객체를 선언
+    const geocoder = new google.maps.Geocoder();
+
+    // 지도에서 보여주고 싶은 장소의 주소 또는 이름
+    const address =  document.getElementById("postcode").value+' '+document.getElementById("mapaddress").value+','+document.getElementById("detailed_address").value;
+            console.log('주소:', address);
+
+    geocoder.geocode({ address: address }, (results, status) => {
+        if (status === 'OK') {
+            // 해당 장소의 위도와 경도 가져오기
+            const latitude = results[0].geometry.location.lat();
+            const longitude = results[0].geometry.location.lng();
+            console.log('위도:', latitude);
+            console.log('경도:', longitude);
+
+            // 장소의 위도와 경도 정보를 담은 객체 선언
+            let hotel = {lat: latitude, lng: longitude};
+
+            // 지도에 나타내고 싶은 장소의 마커 선언
+            var mapOptions = {
+                center: hotel, // 지도의 중심에 표시할 장소
+                zoom: 16, // 몇 배 확대해서 보여줄 것인지
+                disableDefaultUI:true,
+                zoomControl: true // 지도 확대/축소 가능 여부
+            };
+
+            // 지도를 보여줄 div 영역의 id 값과 위에서 지정한 옵션을 map에 등록
+            var map = new google.maps.Map(
+                document.getElementById("googleMap"), mapOptions );
  
-      var map = new google.maps.Map( 
-             document.getElementById("googleMap") 
-            , mapOptions );
+            // 지도에 표시할 마커를 생성
+            var marker = new google.maps.Marker({position: hotel, map: map});
+			// 마커를 클릭했을 때 보여주고 싶은 문구가 있을 경우 추가
+            var infoWindow = new google.maps.InfoWindow({
+                content: `
+                    <h6>${address}</h6>
+                    <a href="#">Go to Program Details</a>
+                `
+        	});
+        
+
+          	// 마커 클릭 이벤트 등록
+            marker.addListener('click', () => {
+                infoWindow.open(map, marker);
+            });
+     	} else {
+              console.error('지오코딩 실패:', status);
+        }
+    });
+     
+     
+     
    }
 </script> 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU-o1BNLzLIcDQzL5S47RQzLkS0XhnSG8&callback=myMap"></script>
