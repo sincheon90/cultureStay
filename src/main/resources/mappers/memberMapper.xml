@@ -63,7 +63,7 @@
 	<update id="updateUser" parameterType="Member">
     UPDATE cultureStay_member
     SET
-        <if test="password != null">password = #{password},</if>
+        <if test="password != null or password != ''">password = #{password},</if>
        
         phone = #{phone}
         , address_postcode = #{address_postcode}
@@ -72,10 +72,7 @@
         , address_extraAddress = #{address_extraAddress}
         , email = #{email}
         , introduce = #{introduce}
-        <if test="ogProfileImage != null and svProfileImage != null">
-            , ogProfileImage = #{ogProfileImage}
-            , svProfileImage = #{svProfileImage}
-        </if>
+
     WHERE
         userid = #{userid}
 </update>

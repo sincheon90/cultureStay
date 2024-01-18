@@ -111,8 +111,9 @@ public class MemberController {
 		
 		member.setUserid(user.getUsername());
 		log.debug(user.getUsername());
-		int result = service.updateUser(member);
-		log.debug("update 결과: {}", result);
+		log.debug("멤버패스 전결과: {}", member.getPassword());
+		
+		log.debug("update 후결과: {}", member.getPassword());
 		
 		Member oldMember = null;
 		String oldOgProfileImage = null;

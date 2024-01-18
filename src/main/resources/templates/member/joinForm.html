@@ -10,6 +10,38 @@
 <script th:src="@{/js/jquery-3.6.0.js}"></script>
 
 <script>
+	
+	 //이메일
+      function sendNumber() {
+		  $("#mail_number").css("display", "block");
+         console.log("1차통과");
+         $.ajax({
+            url: "/mail",
+            type: "post",
+            dataType: "json",
+            data: {"mail": $("#email").val()},
+            success: function (data) {
+               alert("인증번호를 발송했습니다.");
+               $("#Confirm").attr("value", data);
+            }
+            , error: function (request, status, error) {
+               alert("올바른 이메일을 입력하세요.")
+               console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+         });
+      }
+
+      function confirmNumber() {
+         var number1 = $("#number").val();
+         var number2 = $("#Confirm").val();
+
+         if (number1 == number2) {
+            alert("인증되었습니다.");
+            $("#hid").attr("check", "true");
+         } else {
+            alert("인증번호가 다릅니다.");
+         }
+      }
    function idCheck() {
       // url경로, 이름, 속성
       //let win = window.open('idCheck', 'idwin', 'top=200, left=500, width=500, height=400');
@@ -159,37 +191,7 @@ function uploadAndPreview() {
         }).open();
     }
     
-    //이메일
-      function sendNumber() {
-		  $("#mail_number").css("display", "block");
-         console.log("1차통과");
-         $.ajax({
-            url: "/mail",
-            type: "post",
-            dataType: "json",
-            data: {"mail": $("#email").val()},
-            success: function (data) {
-               alert("인증번호를 발송했습니다.");
-               $("#Confirm").attr("value", data);
-            }
-            , error: function (request, status, error) {
-               alert("올바른 이메일을 입력하세요.")
-               console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-            }
-         });
-      }
-
-      function confirmNumber() {
-         var number1 = $("#number").val();
-         var number2 = $("#Confirm").val();
-
-         if (number1 == number2) {
-            alert("인증되었습니다.");
-            $("#hid").attr("check", "true");
-         } else {
-            alert("인증번호가 다릅니다.");
-         }
-      }
+   
 </script>
 <body>
    <header th:replace="layouts/header::header"></header>
@@ -197,7 +199,7 @@ function uploadAndPreview() {
     <main>
        <h1>회원가입</h1>
        <!--onsubmit="return checkValid();"-->
-       <form th:action="@{/member/join}" method="post" enctype="multipart/form-data" onsubmit="return checkValid();">
+       <form th:action="@{/member/join}" method="post" enctype="multipart/form-data" >
           <table>
              <tr>
                 <th>아이디</th>
