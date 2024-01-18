@@ -28,7 +28,7 @@
         let address_address = document.querySelector('#address_address');
         let email = document.querySelector('#email');
         let file = document.querySelector('#upload');
-        let enj = $("#hid").attr("check");
+        let mail_check = $("#hid").attr("check");
 
 
 
@@ -52,12 +52,8 @@
          alert("이름을 입력하세요.");
          return false;
       }
-      if(!(gender.value == 'm' || gender.value == 'f')){
-         alert("성별을 정확히 입력해주세요 ex)남자 = m 여자 = f");
-         return false;
-      }
-      if(birth.value.length != 8){
-         alert("숫자 8자를 입력해주세요 ex)20231211");
+      if(birth.value.length == ''){
+         alert("생년월일을 정확히 입력해주세요");
          return false;
       }
       if (phone.value == '') {
@@ -72,8 +68,8 @@
          alert("주소를 입력하세요.");
          return false;
       }
-      if (mail.value == '') {
-            alert('이메일를 입력하세요');
+       if (mail_check == "false") {
+            alert('이메일 인증 하세요');
             return false;
          }
 
@@ -201,12 +197,12 @@ function uploadAndPreview() {
     <main>
        <h1>회원가입</h1>
        <!--onsubmit="return checkValid();"-->
-       <form th:action="@{/member/join}" method="post" enctype="multipart/form-data">
+       <form th:action="@{/member/join}" method="post" enctype="multipart/form-data" onsubmit="return checkValid();">
           <table>
              <tr>
                 <th>아이디</th>
                 <td>
-                   <input type="text" name="userid" id="userid">
+                   <input type="text" name="userid" id="userid" readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력">
                    <!--readonly="readonly" onclick="idCheck();" placeholder="아이디를 입력"-->
                    <input type="button" value="ID중복검사" onclick="idCheck();">
                 </td>
@@ -268,11 +264,11 @@ function uploadAndPreview() {
              <tr>
                 <th>주소</th>
                 <td>
-                   <input type="text" name="address_postcode" id="address_postcode" placeholder="우편번호">
+                   <input type="text" name="address_postcode" id="address_postcode" placeholder="우편번호" readonly="readonly" onclick="address();">
                    <input type="button" onclick="address()" value="우편번호 찾기"><br>
-                   <input type="text" name="address_address" id="address_address" placeholder="주소"><br>
+                   <input type="text" name="address_address" id="address_address" placeholder="주소" readonly="readonly" onclick="address();"><br>
                    <input type="text" name="address_detailAddress" id="address_detailAddress" placeholder="상세주소">
-                   <input type="text" name="address_extraAddress" id="address_extraAddress" placeholder="참고항목" readonly>
+                   <input type="text" name="address_extraAddress" id="address_extraAddress" placeholder="참고항목" readonly="readonly" onclick="address();">
                 </td>
              </tr>
              
