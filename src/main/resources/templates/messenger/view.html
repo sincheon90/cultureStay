@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Room List</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stomp-websocket/lib/stomp.min.js"></script>
+    <style>
+        .messenger-content {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <div class="messenger-container">
+        <div class="messenger-title">
+            <h1>Chat Room List</h1>
+            <input type="hidden" id="userId" th:value="${userId}"></input>
+        </div>
+
+        <div class="messenger-content">
+            <div class="chatRoomList-container">
+                <div id="chatRoomList">
+
+                </div>
+                <a href="#">Create New Chat Room</a> <!-- 새로운 채팅룸 생성 링크 -->
+            </div>
+
+            <div class="chatroom-container">
+                채팅방
+
+                <!-- 채팅 내용 표시 -->
+                <div id="chatroom">
+
+                </div>
+
+                <!-- 메시지 입력 폼 -->
+                <form id="messageForm">
+                    <input type="text" id="message" placeholder="Enter a message"/>
+                    <button type="submit">Send</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    var stompClient = null;
+    var userId = document.getElementById('userId').value;
+
+    function connect() {
+        var socket = new SockJS('/chat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({},
+            function (frame) {
+                console.log('Connected: ' + frame);
+                initChatRoomList();
+                stompClient.subscribe('/topic/chatRoomList', function (chatRoomList) {
+                    // 메시지를 받으면 채팅방 리스트 업데이트
+                    showChatRoomList(JSON.parse(chatRoomList.body));
+                });
+                stompClient.subscribe('/topic/chatMessages', function (messages) {
+                    // 메시지를 받으면 채팅방 업데이트
+                    showChatRoom(JSON.parse(messages.body));
+                });
+                
+            }
+        );
+    }
+
+    function initChatRoomList(){
+        var userId = document.getElementById('userId').value;
+        stompClient.send("/app/getChatRoomList", {}, JSON.stringify({
+                'userId': userId
+            })
+        );
+    }
+
+    function showChatRoomList(chatRoomData) {
+        var chatRoomsDiv = document.getElementById('chatRoomList');
+        chatRoomsDiv.innerHTML = ''; // 기존 리스트를 초기화
+
+        chatRoomData.forEach(function(chatRoom) {
+            var chatRoomElement = document.createElement('li');
+            var chatRoomLink = document.createElement('a');
+            chatRoomLink.href = '#'; // 페이지 이동을 방지하기 위해 '#' 사용
+            chatRoomLink.textContent = chatRoom.chatRoomName;
+            chatRoomLink.setAttribute('data-chatRoomId', chatRoom.chatRoomId);
+
+            // 클릭 이벤트 리스너 추가
+            chatRoomLink.addEventListener('click', function(event) {
+                event.preventDefault(); // 링크의 기본 동작(페이지 이동)을 방지
+                var chatRoomId = this.getAttribute('data-chatRoomId');
+                getChatRoom(chatRoomId);
+            });
+
+            chatRoomElement.appendChild(chatRoomLink);
+            chatRoomsDiv.appendChild(chatRoomElement);
+        });
+    }
+
+    function getChatRoom(chatRoomId) {
+        stompClient.send("/app/getChatMessages", {}, JSON.stringify({
+                'chatRoomId': chatRoomId,
+                'userId': userId
+            })
+        );
+    }
+
+    function showChatRoom(messages) {
+        var chatRoomDiv = document.getElementById('chatroom');
+        chatRoomDiv.innerHTML = ''; // 기존 리스트를 초기화
+
+        messages.forEach(function(message) {
+            var chatWrapper = document.createElement('div');
+            var chatElement = document.createElement('span');
+            
+            chatElement.textContent = message.messageText;
+            
+            chatWrapper.appendChild(chatElement);
+            chatRoomDiv.appendChild(chatWrapper);
+        });
+    }
+
+
+    function showMessage(message) {
+        console.log(message);
+        var messagesDiv = document.getElementById('messages');
+        var messageParagraph = document.createElement('p');
+        messageParagraph.appendChild(document.createTextNode(message));
+        messagesDiv.appendChild(messageParagraph);
+        window.location.reload()
+        //fetch로 메시지 리스트 재구현
+    }
+
+    document.getElementById('messageForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        sendMessage();
+    });
+    
+    connect();
+</script>
+
+</body>
+</html>
