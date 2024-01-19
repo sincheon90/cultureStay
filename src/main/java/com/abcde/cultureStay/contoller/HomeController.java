@@ -70,7 +70,7 @@ public class HomeController {
  
 
     //홈화면
-    @GetMapping("")
+    @GetMapping({"", "/"})
     public String homeList(@AuthenticationPrincipal UserDetails user,
                            Model model) {
         int maxElements = 3;

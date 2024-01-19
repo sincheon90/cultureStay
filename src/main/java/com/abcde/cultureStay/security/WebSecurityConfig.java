@@ -25,28 +25,30 @@ public class WebSecurityConfig {
         http.csrf().disable()
         .authorizeRequests()
         .antMatchers("/",
-                "/**",
-        		"/upload",
+                "/video/**",
         		"/thymeleaf",
         		"/member/join",
         		"/member/idCheck",
         		"/board/boardList",
+                "/board/readForm",
         		"/program/list",
         		"/board/read",
-                "/image/**",
+                "/img/**",
                 "/css/**",
                 "/js/**").permitAll()		//설정한 리소스의 접근을 인증절차 없이 허용
         .anyRequest().authenticated()   	//위의 경로 외에는 모두 로그인을 해야 함
         .and()
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용
-        .loginPage("/member/loginForm")		//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
-        .loginProcessingUrl("/member/login").permitAll()	//인증 처리를 하는 URL을 설정. 로그인 폼의 action으로 지정
-        .usernameParameter("userid")		//로그인폼의 아이디 입력란의 name
-        .passwordParameter("password")		//로그인폼의 비밀번호 입력란의 name
+            .loginPage("/member/loginForm")		//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
+            .loginProcessingUrl("/member/login")
+            .defaultSuccessUrl("/", true) // 로그인 성공 시 리다이렉트할 기본 URL 설정
+            .permitAll()	//인증 처리를 하는 URL을 설정. 로그인 폼의 action으로 지정
+            .usernameParameter("userid")		//로그인폼의 아이디 입력란의 name
+            .passwordParameter("password")		//로그인폼의 비밀번호 입력란의 name
         .and()
         .logout()
-        .logoutUrl("/member/logout")
-        .logoutSuccessUrl("/").permitAll()	//로그아웃시에 이동할 경로
+            .logoutUrl("/member/logout")
+            .logoutSuccessUrl("/").permitAll()	//로그아웃시에 이동할 경로
         .and()
         .cors()
         .and()
