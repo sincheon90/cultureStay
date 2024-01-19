@@ -24,21 +24,24 @@ public class MessengerController {
 
     @GetMapping({"","/"})
     public String chatRoomList(Model model
-                              ) {
+                              , @AuthenticationPrincipal UserDetails user) {
         System.out.println("chatRoomList entered");
+        System.out.println("[chatRoomList] get user name : " + user.getUsername());
         String id = "111";
-//        ArrayList<ChatRoom> chatRooms = service.getChatRoomList(user.getUsername());
+        ArrayList<ChatRoom> chatRooms = service.getChatRoomList(user.getUsername());
 //        if(!service.isChatRoomPresent(id)) service.createChatRoom(id, "테스트 채팅방");
-        ArrayList<ChatRoom> chatRooms = service.getChatRoomList(id);
+//        ArrayList<ChatRoom> chatRooms = service.getChatRoomList(id);
         model.addAttribute("chatRooms", chatRooms);
         return "messenger/chatRoomList";
     }
     @GetMapping("chatRoom")
-    public String getChatRoom(Model model, int chatRoomId){
+    public String getChatRoom(Model model, int chatRoomId
+            , @AuthenticationPrincipal UserDetails user ){
         ChatRoom chatRoom = service.getChatRoom(chatRoomId);
         ArrayList<Message> messages = service.getMessages(chatRoomId);
         model.addAttribute("chatRoom", chatRoom);
         model.addAttribute("messages", messages);
+        model.addAttribute("userId", user.getUsername());
         return "messenger/chatRoom";
     }
 
@@ -50,8 +53,8 @@ public class MessengerController {
         Message message = new Message();
         message.setMessageText(String.valueOf(jsonObject.get("messageText")));
         message.setChatRoomId(jsonObject.get("chatRoomId").getAsLong());
-        message.setSenderId("111");
-        message.setMessageType("test");
+        message.setSenderId(String.valueOf(jsonObject.get("userId")));
+        message.setMessageType("text");
         service.saveMessages(message);
         return jsonMessage;
     }
