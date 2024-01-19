@@ -3,17 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat Room List</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stomp-websocket/lib/stomp.min.js"></script>
 </head>
 <body>
 <h1>Chat Room List</h1>
+<input type="text" id="userId" th:value="${userId}"></input>
 
-<ul>
-    <!-- 반복문을 사용하여 채팅룸 리스트를 출력 -->
-    <li th:each="chatRoom : ${chatRooms}">
-        <a th:href="@{/messenger/chatRoom(chatRoomId=${chatRoom.chatRoomId})}" th:text="${chatRoom.chatRoomName}"></a>
-    </li>
-</ul>
+<div id="chatRooms"></div>
 
 <a href="#">Create New Chat Room</a> <!-- 새로운 채팅룸 생성 링크 -->
+
+<script>
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/chat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({},
+            function (frame) {
+                console.log('Connected: ' + frame);
+                initChatRooms();
+                stompClient.subscribe('/topic/chatrooms', function (message) {
+                    // 메시지를 받으면 채팅방 리스트 업데이트
+                    updateChatRooms(JSON.parse(message.body));
+                });
+            }
+        );
+    }
+
+    function updateChatRooms(chatRoomData) {
+        var chatRoomsDiv = document.getElementById('chatRooms');
+        chatRoomsDiv.innerHTML = ''; // 기존 리스트를 초기화
+
+        chatRoomData.forEach(function(chatRoom) {
+            var chatRoomElement = document.createElement('li');
+            var chatRoomLink = document.createElement('a');
+            chatRoomLink.href = '/messenger/chatRoom?chatRoomId=' + chatRoom.chatRoomId;
+            chatRoomLink.textContent = chatRoom.chatRoomName;
+
+            chatRoomElement.appendChild(chatRoomLink);
+            chatRoomsDiv.appendChild(chatRoomElement);
+        });
+    }
+
+    function initChatRooms(){
+        var userId = document.getElementById('userId').value;
+        stompClient.send("/app/chatrooms", {}, JSON.stringify({
+                'userId': userId
+            })
+        );
+    }
+    
+    connect();
+</script>
+
 </body>
 </html>
