@@ -1,24 +1,25 @@
 --유저테이블 verified 디폴트값 넣어주기
+drop table cultureStay_member;
 CREATE TABLE cultureStay_member(
 	userid	    	            varchar2(255)	    primary key,
 	password		            varchar2(255)	    not null,
-	name		                varchar2(255)	    not null,
-	phone	    	            varchar2(255)		not null,
+	name		                varchar2(255)	    null,
+	phone	    	            varchar2(255)		null,
 	address_postcode 		    varchar2(255)		NULL,
     address_address 		    varchar2(255)		NULL,
     address_detailAddress 		varchar2(255)		NULL,
     address_extraAddress 		varchar2(255)		NULL,
-	email	    	            varchar2(100)		not null,        --이메일
+	email	    	            varchar2(100)		NULL,        --이메일
 	birth	   	 	            date		        NULL,            --생년월일
-    gender      	            varchar2(20)        not null,        --성별
+    gender      	            varchar2(20)        null,        --성별
     ogProfileImage	            varchar(255),					 -- 프사original
     svProfileImage              varchar(255),					 -- 프사saved
     verified    	            varchar2(1) 		CHECK(verified IN  ('0','1')), --본인인증 여부
     enabled     	            NUMBER(1)       	DEFAULT 1 NOT NULL,             -- 계정 상태. 1:사용 가능, 0:사용 불가능
-    rolename    	            VARCHAR2(20)   		DEFAULT 'ROLE_USER' NOT NULL    -- 사용자 권한. 모두 'ROLE_USER'로 처리
+    rolename    	            VARCHAR2(20)   		DEFAULT 'ROLE_USER' NOT NULL,    -- 사용자 권한. 모두 'ROLE_USER'로 처리
+    introduce     	            varchar2(1000)
 );
 select * from cultureStay_member;
-drop table cultureStay_member;
 
 --홈스테이 테이블
 CREATE TABLE Program (

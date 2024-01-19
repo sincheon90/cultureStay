@@ -22,7 +22,7 @@ public class MessengerController {
     @Autowired
     MessengerService service;
 
-    @GetMapping("chat")
+    @GetMapping({"","/"})
     public String chatRoomList(Model model
                               ) {
         System.out.println("chatRoomList entered");
