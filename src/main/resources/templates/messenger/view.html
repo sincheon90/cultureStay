@@ -50,6 +50,7 @@
 <script>
     var stompClient = null;
     var userId = document.getElementById('userId').value;
+    var chatRoomId = null;
 
     function connect() {
         var socket = new SockJS('/chat');
@@ -57,16 +58,18 @@
         stompClient.connect({},
             function (frame) {
                 console.log('Connected: ' + frame);
-                initChatRoomList();
                 stompClient.subscribe('/topic/chatRoomList', function (chatRoomList) {
                     // 메시지를 받으면 채팅방 리스트 업데이트
                     showChatRoomList(JSON.parse(chatRoomList.body));
                 });
-                stompClient.subscribe('/topic/chatMessages', function (messages) {
+                stompClient.subscribe('/topic/getMessages', function (messages) {
                     // 메시지를 받으면 채팅방 업데이트
                     showChatRoom(JSON.parse(messages.body));
                 });
-                
+                stompClient.subscribe('/topic/sendMessage', function (message) {
+                    addNewMessage(JSON.parse(message.body));
+                });
+                initChatRoomList();
             }
         );
     }
@@ -102,8 +105,9 @@
         });
     }
 
-    function getChatRoom(chatRoomId) {
-        stompClient.send("/app/getChatMessages", {}, JSON.stringify({
+    function getChatRoom(clickedId) {
+        chatRoomId = clickedId;
+        stompClient.send("/app/getMessages", {}, JSON.stringify({
                 'chatRoomId': chatRoomId,
                 'userId': userId
             })
@@ -125,15 +129,27 @@
         });
     }
 
+    function sendMessage() {
+        var messageText = document.getElementById('message').value;
 
-    function showMessage(message) {
-        console.log(message);
-        var messagesDiv = document.getElementById('messages');
-        var messageParagraph = document.createElement('p');
-        messageParagraph.appendChild(document.createTextNode(message));
-        messagesDiv.appendChild(messageParagraph);
-        window.location.reload()
-        //fetch로 메시지 리스트 재구현
+        stompClient.send("/app/sendMessage", {}, JSON.stringify({
+                'messageText': messageText,
+                'chatRoomId': chatRoomId,
+                'userId': userId
+            })
+        );
+        document.getElementById('message').value = '';
+    }
+
+    function addNewMessage(message){
+        var chatRoomDiv = document.getElementById('chatroom');
+        var chatWrapper = document.createElement('div');
+        var chatElement = document.createElement('span');
+        
+        chatElement.textContent = message.messageText;
+        
+        chatWrapper.appendChild(chatElement);
+        chatRoomDiv.appendChild(chatWrapper);
     }
 
     document.getElementById('messageForm').addEventListener('submit', function(event) {
