@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 @Mapper
 public interface MessengerDAO {
-    int createChatRoom(ChatRoom chatRoom);
+    Long createChatRoom(ChatRoom chatRoom);
 
     ArrayList<ChatRoom> getChatRoomList(String username);
 
-    ChatRoom getChatRoom(int chatRoomId);
+    ChatRoom getChatRoom(Long chatRoomId);
 
-    ArrayList<Message> getMessages(int chatRoomId);
+    ArrayList<Message> getMessages(Long chatRoomId);
 
-    int saveMessages(Message message);
+    Long saveMessages(Message message);
 }

@@ -8,13 +8,13 @@ import java.util.ArrayList;
 public interface MessengerService {
     ArrayList<ChatRoom> getChatRoomList(String username);
 
-    int createChatRoom(String id, String 테스트_채팅방);
+    Long createChatRoom(String id, String 테스트_채팅방);
 
-    ChatRoom getChatRoom(int chatRoomId);
+    ChatRoom getChatRoom(Long chatRoomId);
 
     boolean isChatRoomPresent(String id);
 
-    ArrayList<Message> getMessages(int chatRoomId);
+    ArrayList<Message> getMessages(Long chatRoomId);
 
-    int saveMessages(Message message);
+    Long saveMessages(Message message);
 }

@@ -19,7 +19,7 @@ public class MessengerServiceImpl implements MessengerService{
     }
 
     @Override
-    public int createChatRoom(String createdUser, String roomName) {
+    public Long createChatRoom(String createdUser, String roomName) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setCreatedUserId(createdUser);
         chatRoom.setChatRoomName(roomName);
@@ -27,7 +27,7 @@ public class MessengerServiceImpl implements MessengerService{
     }
 
     @Override
-    public ChatRoom getChatRoom(int chatRoomId) {
+    public ChatRoom getChatRoom(Long chatRoomId) {
         return dao.getChatRoom(chatRoomId);
     }
 
@@ -37,12 +37,12 @@ public class MessengerServiceImpl implements MessengerService{
     }
 
     @Override
-    public ArrayList<Message> getMessages(int chatRoomId) {
+    public ArrayList<Message> getMessages(Long chatRoomId) {
         return dao.getMessages(chatRoomId);
     }
 
     @Override
-    public int saveMessages(Message message) {
+    public Long saveMessages(Message message) {
         return dao.saveMessages(message);
     }
 }

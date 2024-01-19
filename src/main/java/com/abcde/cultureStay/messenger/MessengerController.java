@@ -33,7 +33,7 @@ public class MessengerController {
     @SendTo("/topic/chatRoomList")
     public ArrayList<ChatRoom> sendChatRoomUpdate(String jsonMessage) {
         JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
-        String userId = String.valueOf(jsonObject.get("userId"));
+        String userId = jsonObject.get("userId").getAsString();
         ArrayList<ChatRoom> chatRooms = service.getChatRoomList(userId);
         return chatRooms;
     }
@@ -42,7 +42,7 @@ public class MessengerController {
     @SendTo("/topic/getMessages")
     public ArrayList<Message> getChatMessages(String jsonMessage){
         JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
-        int chatRoomId = jsonObject.get("chatRoomId").getAsInt();
+        Long chatRoomId = jsonObject.get("chatRoomId").getAsLong();
 
         ArrayList<Message> messages = service.getMessages(chatRoomId);
 
@@ -55,9 +55,9 @@ public class MessengerController {
         // JSON 문자열을 파싱하여 실제 메시지 내용을 추출
         JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
         Message message = new Message();
-        message.setMessageText(String.valueOf(jsonObject.get("messageText")));
+        message.setMessageText(jsonObject.get("messageText").getAsString());
         message.setChatRoomId(jsonObject.get("chatRoomId").getAsLong());
-        message.setSenderId(String.valueOf(jsonObject.get("userId")));
+        message.setSenderId(jsonObject.get("userId").getAsString());
         message.setMessageType("text");
         service.saveMessages(message);
         return jsonMessage;

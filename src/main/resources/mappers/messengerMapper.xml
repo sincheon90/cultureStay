@@ -13,11 +13,11 @@
         select * from chatrooms
     </select>
 
-    <select id="getChatRoom" parameterType="int" resultType="ChatRoom">
+    <select id="getChatRoom" parameterType="Long" resultType="ChatRoom">
         select * from chatrooms where chatRoomId = #{chatRoomId}
     </select>
 
-    <select id="getMessages" parameterType="int" resultType="Message">
+    <select id="getMessages" parameterType="Long" resultType="Message">
         select * from messages where chatRoomId = #{chatRoomId}
     </select>
 
