@@ -15,7 +15,7 @@ public class Message {
     private String senderId;
     private String messageText;
     private Date timestamp;
-    private Integer isRead;
+    private Long isRead;
     private String messageType;
 }
 

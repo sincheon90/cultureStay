@@ -17,4 +17,6 @@ public interface MessengerDAO {
     ArrayList<Message> getMessages(Long chatRoomId);
 
     Long saveMessages(Message message);
+
+    Long getMemberCount(Long chatRoomId);
 }
