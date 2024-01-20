@@ -52,6 +52,19 @@ public class MessengerServiceImpl implements MessengerService{
         return unReadCount;
     }
 
+    /*
+    [updateIsRead]
+    단체방일때는 읽은 메시지 현황을 테이블로 추가하여 로직을 만들어야 함.
+    (현재는 2명으로 제한하여 개발중)
+
+    읽으면 -1 또 읽으면 0 플러스.
+    내 아이디로 읽었는지 안읽었는지 테이블 추가가 필요.
+    어떤 메시지까지는 읽은 메시지(0) 어떤 메시부터는 안 읽은 메시지(-1)인지
+    timestamp 기준으로 update하면 성능에 유리할듯.
+    
+    작성자 : 오정권
+    작성일자 : 2024-01-20
+    */
     @Override
     public void updateIsRead(Long chatRoomId, String userId) {
         Map<String, Object> map = new HashMap<>();
