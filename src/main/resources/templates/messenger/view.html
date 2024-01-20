@@ -67,7 +67,7 @@
                     showChatRoom(JSON.parse(messages.body));
                 });
                 stompClient.subscribe('/topic/sendMessage', function (message) {
-                    addNewMessage(JSON.parse(message.body));
+                    addChatElement(JSON.parse(message.body));
                 });
                 initChatRoomList();
             }
@@ -119,17 +119,26 @@
         chatRoomDiv.innerHTML = ''; // 기존 리스트를 초기화
 
         messages.forEach(function(message) {
-            var chatWrapper = document.createElement('div');
-            var chatElement = document.createElement('span');
-            var isReadElement = document.createElement('span');
-            
-            chatElement.textContent = message.messageText;
-            isReadElement.textContent = message.isRead;
-            
-            chatWrapper.appendChild(chatElement);
-            chatWrapper.appendChild(isReadElement);
-            chatRoomDiv.appendChild(chatWrapper);
+            addChatElement(message)
         });
+    }
+
+    function addChatElement(message) {
+        var chatDiv = document.createElement('div');
+
+        var senderIdElement = document.createElement('span');
+        var messageTextElement = document.createElement('span');
+        var isReadElement = document.createElement('span');
+        
+        senderIdElement.textContent = message.senderId;
+        messageTextElement.textContent = message.messageText;
+        isReadElement.textContent = message.isRead;
+        
+        chatDiv.appendChild(senderIdElement);
+        chatDiv.appendChild(messageTextElement);
+        chatDiv.appendChild(isReadElement);
+
+        chatRoomDiv.appendChild(chatDiv);
     }
 
     function sendMessage() {
@@ -142,17 +151,6 @@
             })
         );
         document.getElementById('message').value = '';
-    }
-
-    function addNewMessage(message){
-        var chatRoomDiv = document.getElementById('chatroom');
-        var chatWrapper = document.createElement('div');
-        var chatElement = document.createElement('span');
-        
-        chatElement.textContent = message.messageText;
-        
-        chatWrapper.appendChild(chatElement);
-        chatRoomDiv.appendChild(chatWrapper);
     }
 
     document.getElementById('messageForm').addEventListener('submit', function(event) {
