@@ -45,7 +45,8 @@ public class MessengerServiceImpl implements MessengerService{
 
     @Override
     public Long saveMessage(Message message) {
-        Long unReadCount = dao.getMemberCount(message.getChatRoomId()) - 1; // 작성자는 읽었기 때문에
+        Long memberCount = dao.getMemberCount(message.getChatRoomId());
+        Long unReadCount = (memberCount > 0 ? memberCount : 1) - 1; // 작성자는 읽었기 때문에 -1
         message.setIsRead(unReadCount);
         dao.saveMessage(message);
         return unReadCount;

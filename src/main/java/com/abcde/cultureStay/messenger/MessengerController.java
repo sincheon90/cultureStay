@@ -62,8 +62,10 @@ public class MessengerController {
         message.setSenderId(jsonObject.get("senderId").getAsString());
         message.setMessageType("text");
 
-        service.saveMessage(message);
-        return jsonMessage;
+        Long isRead = service.saveMessage(message);
+        jsonObject.addProperty("isRead", isRead);
+
+        return jsonObject.toString();
     }
 
 //    @GetMapping({"","/"})

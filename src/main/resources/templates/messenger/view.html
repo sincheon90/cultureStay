@@ -149,8 +149,7 @@
         stompClient.send("/app/sendMessage", {}, JSON.stringify({
                 'messageText': messageText,
                 'chatRoomId': chatRoomId,
-                'senderId': userId,
-                'isRead': 1,
+                'senderId': userId
             })
         );
         document.getElementById('message').value = '';

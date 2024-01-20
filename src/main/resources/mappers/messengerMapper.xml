@@ -25,8 +25,8 @@
 
 
     <insert id="saveMessage" parameterType="Message">
-        INSERT INTO Messages (messageId, chatRoomId, senderId, messageText, messageType)
-        VALUES (Messages_seq.nextval, #{chatRoomId}, #{senderId}, #{messageText}, #{messageType})
+        INSERT INTO Messages (messageId, chatRoomId, senderId, messageText, isRead, messageType)
+        VALUES (Messages_seq.nextval, #{chatRoomId}, #{senderId}, #{messageText}, #{isRead}, #{messageType})
     </insert>
 
     <select id="getMemberCount" parameterType="Long" resultType="Long">
