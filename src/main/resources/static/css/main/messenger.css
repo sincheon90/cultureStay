@@ -1,85 +1,112 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f0f0f0;
-    }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
 
-    .messenger-container {
-        max-width: 900px;
-        margin: auto;
-        padding: 20px;
-        background-color: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+.messenger-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    .messenger-title {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+.messenger-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-    .messenger-content {
-        display: flex;
-        border-top: 1px solid #e0e0e0;
-    }
+.messenger-content {
+    display: flex;
+    border-top: 1px solid #e0e0e0;
+}
 
-    .chatRoomList-container {
-        width: 30%;
-        border-right: 1px solid #e0e0e0;
-        padding: 10px;
-    }
+.chatRoomList-container {
+    width: 30%;
+    border-right: 1px solid #e0e0e0;
+    padding: 10px;
+}
 
-    #chatRoomList {
-        list-style: none;
-        padding: 0;
-    }
+#chatRoomList {
+    list-style: none;
+    padding: 0;
+}
 
-    #chatRoomList li a {
-        display: block;
-        padding: 10px;
-        text-decoration: none;
-        color: black;
-        border-bottom: 1px solid #e0e0e0;
-        cursor: pointer;
-    }
+#chatRoomList li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+}
 
-    #chatRoomList li a:hover {
-        background-color: #f0f0f0;
-    }
+#chatRoomList li a:hover {
+    background-color: #f0f0f0;
+}
 
-    .chatroom-container {
-        width: 70%;
-        padding: 10px;
-    }
+.chatroom-container {
+    width: 70%;
+    padding: 10px;
+}
 
-    #chatroom {
-        height: 300px;
-        overflow-y: auto;
-        border-bottom: 1px solid #e0e0e0;
-        margin-bottom: 10px;
-    }
+#chatroom {
+    height: 300px;
+    overflow-y: auto;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 10px;
+}
 
-    #messageForm {
-        display: flex;
-    }
+#messageForm {
+    display: flex;
+}
 
-    #messageForm input[type="text"] {
-        flex: 1;
-        padding: 10px;
-        border: 1px solid #e0e0e0;
-        margin-right: 10px;
-    }
+#messageForm input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    margin-right: 10px;
+}
 
-    #messageForm button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
+#messageForm button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 
-    #messageForm button:hover {
-        background-color: #0056b3;
-    }
-</style>
+#messageForm button:hover {
+    background-color: #0056b3;
+}
+
+.scroll-to-bottom {
+    display: none;
+    position: fixed;
+    right: 50%; /* Position it in the middle horizontally */
+    bottom: 20px;
+    padding: 10px 15px;
+    transform: translateX(50%); /* Adjust its position to truly center it */
+    background-color: #f0f0f0; /* Lighter background color */
+    color: #007bff; /* Blue text color to match the button */
+    border: 1px solid #e0e0e0; /* Add a border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.scroll-to-bottom.show {
+    display: block;
+}
+
+.scroll-to-bottom:hover {
+    background-color: #d0d0d0; /* Slightly darker on hover */
+}
+
+/* Optional: Add an icon (like an arrow) or specific text */
+.scroll-to-bottom::before {
+    content: '↓'; /* Example: Downward arrow */
+    margin-right: 5px;
+}

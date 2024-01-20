@@ -37,6 +37,8 @@
 
                 </div>
 
+                <button id="scrollToBottom" class="scroll-to-bottom">최신 메시지 보기</button>
+
                 <!-- 메시지 입력 폼 -->
                 <form id="messageForm">
                     <input type="text" id="message" placeholder="Enter a message"/>
@@ -51,11 +53,15 @@
 <footer th:replace="layouts/footer::footer"></footer>
 
 <script>
+    var scrollToBottomButton = document.getElementById('scrollToBottom');
+
     var stompClient = null;
     var chatRoomId = null;
     var userId = document.getElementById('userId').value;    
     var chatRoomDiv = document.getElementById('chatroom');
 
+
+    // 웹소켓 관련 function
     function connect() {
         var socket = new SockJS('/chat');
         stompClient = Stomp.over(socket);
@@ -144,6 +150,12 @@
         chatDiv.appendChild(isReadElement);
 
         chatRoomDiv.appendChild(chatDiv);
+
+        // Check if the 'Scroll to Bottom' button is currently hidden
+        if (!scrollToBottomButton.classList.contains('show')) {
+            // If hidden, scroll to the bottom
+            chatRoomDiv.scrollTop = chatRoomDiv.scrollHeight;
+        }
     }
 
     function sendMessage() {
@@ -164,6 +176,29 @@
     });
     
     connect();
+
+
+    // 스크롤 관련 function
+    function shouldScrollToBottom() {
+        return chatRoomDiv.scrollTop + chatRoomDiv.clientHeight === chatRoomDiv.scrollHeight;
+    }
+
+    // Scroll to Bottom button logic
+    scrollToBottomButton.addEventListener('click', function() {
+        chatRoomDiv.scrollTop = chatRoomDiv.scrollHeight;
+        scrollToBottomButton.classList.remove('show');
+    });
+
+    // Update the logic for the scroll event listener
+    chatRoomDiv.addEventListener('scroll', function() {
+        // If the user scrolls up, disable auto-scroll to bottom
+        if (chatRoomDiv.scrollTop < chatRoomDiv.scrollHeight - chatRoomDiv.clientHeight) {
+            scrollToBottomButton.classList.add('show');
+        } else {
+            // User scrolled to the bottom, re-enable auto-scroll
+            scrollToBottomButton.classList.remove('show');
+        }
+    });
 </script>
 
 </body>
