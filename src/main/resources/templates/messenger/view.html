@@ -30,14 +30,14 @@
             </div>
 
             <div class="chatroom-container">
-                채팅방 이름
+                <!-- 채팅방 이름 -->
 
                 <!-- 채팅 내용 표시 -->
                 <div id="chatroom">
 
                 </div>
 
-                <button id="scrollToBottom" class="scroll-to-bottom">최신 메시지 보기</button>
+                <button id="scrollToBottom" class="scroll-to-bottom"></button>
 
                 <!-- 메시지 입력 폼 -->
                 <form id="messageForm">
@@ -154,18 +154,30 @@
 
     function addChatElement(message) {
         var chatDiv = document.createElement('div');
+        chatDiv.classList.add('chat-message');
 
-        var senderIdElement = document.createElement('span');
-        var messageTextElement = document.createElement('span');
-        var isReadElement = document.createElement('span');
-        
+        // 메시지가 사용자 본인의 것인지 여부에 따라 클래스 적용
+        if (message.senderId === userId) {
+            chatDiv.classList.add('my-message');
+        } else {
+            chatDiv.classList.add('other-message');
+        }
+        var senderIdElement = document.createElement('div');
+        senderIdElement.classList.add('message-sender');
         senderIdElement.textContent = message.senderId;
+
+        var messageTextElement = document.createElement('span');
+        messageTextElement.classList.add('message-text');
         messageTextElement.textContent = message.messageText;
-        isReadElement.textContent = message.isRead;
         
         chatDiv.appendChild(senderIdElement);
         chatDiv.appendChild(messageTextElement);
-        chatDiv.appendChild(isReadElement);
+        if (message.isRead > 0) { // isRead가 0보다 클때만 안 읽은 수 표시
+            var isReadElement = document.createElement('span');
+            isReadElement.classList.add('message-status');
+            isReadElement.textContent = message.isRead;
+            chatDiv.appendChild(isReadElement);
+        }
 
         chatRoomDiv.appendChild(chatDiv);
 
@@ -197,7 +209,6 @@
 
 
     // 스크롤 관련 function
-    // Scroll to Bottom button logic
     scrollToBottomButton.addEventListener('click', function() {
         chatRoomDiv.scrollTop = chatRoomDiv.scrollHeight;
         scrollToBottomButton.classList.remove('show');
