@@ -43,7 +43,9 @@ public class MessengerController {
     public ArrayList<Message> getChatMessages(String jsonMessage){
         JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
         Long chatRoomId = jsonObject.get("chatRoomId").getAsLong();
+        String userId = jsonObject.get("userId").getAsString();
 
+        service.updateIsRead(chatRoomId, userId);
         ArrayList<Message> messages = service.getMessages(chatRoomId);
 
         return messages;
@@ -59,6 +61,7 @@ public class MessengerController {
         message.setChatRoomId(jsonObject.get("chatRoomId").getAsLong());
         message.setSenderId(jsonObject.get("userId").getAsString());
         message.setMessageType("text");
+
         service.saveMessages(message);
         return jsonMessage;
     }

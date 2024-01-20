@@ -19,4 +19,6 @@ public interface MessengerDAO {
     Long saveMessages(Message message);
 
     Long getMemberCount(Long chatRoomId);
+
+    void updateIsRead(Long chatRoomId, String userId);
 }

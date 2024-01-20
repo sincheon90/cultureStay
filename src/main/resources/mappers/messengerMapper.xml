@@ -33,4 +33,11 @@
         JOIN Messages Me ON Me.chatRoomId == CM.chatRoomId
         WHERE CM.chatRoomId == #{chatRoomId}
     </select>
+
+    <update id="updateIsRead" parameterType="Long">
+        update Messages set isRead = isRead -1
+        where chatRoomId = #{chatRoomId}
+        and isRead > 0
+        and senderId != #{userId}
+    </update>
 </mapper>

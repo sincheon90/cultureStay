@@ -121,10 +121,13 @@
         messages.forEach(function(message) {
             var chatWrapper = document.createElement('div');
             var chatElement = document.createElement('span');
+            var isReadElement = document.createElement('span');
             
             chatElement.textContent = message.messageText;
+            isReadElement.textContent = message.isRead;
             
             chatWrapper.appendChild(chatElement);
+            chatWrapper.appendChild(isReadElement);
             chatRoomDiv.appendChild(chatWrapper);
         });
     }

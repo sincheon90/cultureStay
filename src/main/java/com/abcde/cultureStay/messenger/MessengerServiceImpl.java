@@ -47,4 +47,9 @@ public class MessengerServiceImpl implements MessengerService{
         message.setIsRead(unReadCount);
         return dao.saveMessages(message);
     }
+
+    @Override
+    public void updateIsRead(Long chatRoomId, String userId) {
+        dao.updateIsRead(chatRoomId, userId);
+    }
 }
