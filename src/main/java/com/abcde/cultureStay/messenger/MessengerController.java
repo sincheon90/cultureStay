@@ -39,7 +39,7 @@ public class MessengerController {
         String userId = jsonObject.get("userId").getAsString();
         ArrayList<ChatRoom> chatRooms = service.getChatRoomList(userId);
 
-        template.convertAndSend("/topic/chatRoomList", chatRooms);
+        template.convertAndSend("/topic/chatRoomList/" + userId, chatRooms);
         return chatRooms;
     }
 
@@ -52,13 +52,12 @@ public class MessengerController {
         service.updateIsRead(chatRoomId, userId);
         ArrayList<Message> messages = service.getMessages(chatRoomId);
 
-        // 특정 채팅방 구독자들에게 메시지 전송
+        // 특정 채팅방 구독자들에게 메시지 리스트 전송
         template.convertAndSend("/topic/chatRoom/" + chatRoomId, messages);
         return messages;
     }
 
     @MessageMapping("/sendMessage") // 클라이언트가 메시지를 보낼 경로
-    @SendTo("/topic/sendMessage") // 브로드캐스트할 경로
     public String sendMessage(String jsonMessage) {
         // JSON 문자열을 파싱하여 실제 메시지 내용을 추출
         JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
@@ -71,6 +70,8 @@ public class MessengerController {
         Long isRead = service.saveMessage(message);
         jsonObject.addProperty("isRead", isRead);
 
+        // 특정 채팅방 구독자들에게 메시지 전송
+        template.convertAndSend("/topic/sendMessage/" + message.getChatRoomId(), message);
         return jsonObject.toString();
     }
 
