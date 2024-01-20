@@ -49,22 +49,28 @@ body {
 
 .chatroom-container {
     width: 70%;
+    height: 500px;
     padding: 10px;
+    position: relative; /* Add relative positioning */
+    display: flex;
+    flex-direction: column; /* Organize children in a column */
 }
 
 #chatroom {
-    height: 300px;
+    height: 80%;
     overflow-y: auto;
     border-bottom: 1px solid #e0e0e0;
     margin-bottom: 10px;
+    flex-grow: 1; /* Chatroom body takes up available space */
 }
 
 #messageForm {
     display: flex;
+    border-top: 1px solid #e0e0e0;
 }
 
 #messageForm input[type="text"] {
-    flex: 1;
+    flex-grow: 1;
     padding: 10px;
     border: 1px solid #e0e0e0;
     margin-right: 10px;
@@ -84,11 +90,11 @@ body {
 
 .scroll-to-bottom {
     display: none;
-    position: fixed;
+    position: absolute; /* Change to absolute positioning */
     right: 50%; /* Position it in the middle horizontally */
-    bottom: 20px;
-    padding: 10px 15px;
+    bottom: 15%;
     transform: translateX(50%); /* Adjust its position to truly center it */
+    padding: 10px 15px;
     background-color: #f0f0f0; /* Lighter background color */
     color: #007bff; /* Blue text color to match the button */
     border: 1px solid #e0e0e0; /* Add a border */
