@@ -136,7 +136,7 @@ body {
 }
 
 .other-message .message-status {
-    right: -12px; /* 상대방 메시지에서는 말풍선 오른쪽에 위치 */
+    right: -15px; /* 상대방 메시지에서는 말풍선 오른쪽에 위치 */
 }
 
 
