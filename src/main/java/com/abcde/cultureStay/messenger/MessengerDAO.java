@@ -5,6 +5,7 @@ import com.abcde.cultureStay.messenger.vo.Message;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Mapper
 public interface MessengerDAO {
@@ -20,5 +21,5 @@ public interface MessengerDAO {
 
     Long getMemberCount(Long chatRoomId);
 
-    void updateIsRead(Long chatRoomId, String userId);
+    void updateIsRead(Map<String, Object> params);
 }

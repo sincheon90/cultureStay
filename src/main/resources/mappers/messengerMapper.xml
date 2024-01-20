@@ -34,7 +34,7 @@
         WHERE CM.chatRoomId == #{chatRoomId}
     </select>
 
-    <update id="updateIsRead" parameterType="Long">
+    <update id="updateIsRead" parameterType="map">
         update Messages set isRead = isRead -1
         where chatRoomId = #{chatRoomId}
         and isRead > 0

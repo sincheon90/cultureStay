@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class MessengerServiceImpl implements MessengerService{
@@ -50,6 +52,9 @@ public class MessengerServiceImpl implements MessengerService{
 
     @Override
     public void updateIsRead(Long chatRoomId, String userId) {
-        dao.updateIsRead(chatRoomId, userId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("chatRoomId", chatRoomId);
+        map.put("userId", userId);
+        dao.updateIsRead(map);
     }
 }
