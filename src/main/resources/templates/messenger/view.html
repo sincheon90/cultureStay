@@ -59,6 +59,7 @@
     var chatRoomId = null;
     var userId = document.getElementById('userId').value;    
     var chatRoomDiv = document.getElementById('chatroom');
+    var currentChatRoomSubscription = null;
 
 
     // 웹소켓 관련 function
@@ -71,10 +72,6 @@
                 // 채팅방 리스트 가져오기 구독
                 stompClient.subscribe('/topic/chatRoomList', function (chatRoomList) {
                     showChatRoomList(JSON.parse(chatRoomList.body)); // 결과 값을 받으면 function 실행
-                });
-                // 채팅방 메시지 리스트 가져오기 구독
-                stompClient.subscribe('/topic/getMessages', function (messages) {
-                    showChatRoom(JSON.parse(messages.body));
                 });
                 // 채팅 보내기 구독
                 stompClient.subscribe('/topic/sendMessage', function (message) {
@@ -119,6 +116,16 @@
 
     function getChatRoom(clickedId) {
         chatRoomId = clickedId;
+        // 기존에 구독된 채팅방 구독 해제 (있는 경우)
+        if (currentChatRoomSubscription) {
+            currentChatRoomSubscription.unsubscribe();
+        }
+        // 새로운 채팅방 구독 설정
+        currentChatRoomSubscription = stompClient.subscribe('/topic/chatRoom/' + chatRoomId, function (messages) {
+            showChatRoom(JSON.parse(messages.body));
+        });
+
+        // 메시지 목록 요청
         stompClient.send("/app/getMessages", {}, JSON.stringify({
                 'chatRoomId': chatRoomId,
                 'userId': userId
@@ -133,6 +140,14 @@
             addChatElement(message)
         });
     }
+
+    // isRead 확인을 위한 새로고침
+    var chatContainer = document.querySelector('.chatroom-container');
+    chatContainer.addEventListener('focus', function() {
+        if (chatRoomId) {
+            getChatRoom(chatRoomId);
+        }
+    });
 
     function addChatElement(message) {
         var chatDiv = document.createElement('div');
@@ -179,10 +194,6 @@
 
 
     // 스크롤 관련 function
-    function shouldScrollToBottom() {
-        return chatRoomDiv.scrollTop + chatRoomDiv.clientHeight === chatRoomDiv.scrollHeight;
-    }
-
     // Scroll to Bottom button logic
     scrollToBottomButton.addEventListener('click', function() {
         chatRoomDiv.scrollTop = chatRoomDiv.scrollHeight;

@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class MessengerController {
     @Autowired
     MessengerService service;
 
+    @Autowired
+    private SimpMessagingTemplate template;
+
     @GetMapping({"","/"})
     public String chatRoomList(Model model
             , @AuthenticationPrincipal UserDetails user) {
@@ -30,16 +34,16 @@ public class MessengerController {
     }
 
     @MessageMapping("/getChatRoomList")
-    @SendTo("/topic/chatRoomList")
     public ArrayList<ChatRoom> sendChatRoomUpdate(String jsonMessage) {
         JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
         String userId = jsonObject.get("userId").getAsString();
         ArrayList<ChatRoom> chatRooms = service.getChatRoomList(userId);
+
+        template.convertAndSend("/topic/chatRoomList", chatRooms);
         return chatRooms;
     }
 
     @MessageMapping("/getMessages")
-    @SendTo("/topic/getMessages")
     public ArrayList<Message> getChatMessages(String jsonMessage){
         JsonObject jsonObject = new JsonParser().parse(jsonMessage).getAsJsonObject();
         Long chatRoomId = jsonObject.get("chatRoomId").getAsLong();
@@ -48,6 +52,8 @@ public class MessengerController {
         service.updateIsRead(chatRoomId, userId);
         ArrayList<Message> messages = service.getMessages(chatRoomId);
 
+        // 특정 채팅방 구독자들에게 메시지 전송
+        template.convertAndSend("/topic/chatRoom/" + chatRoomId, messages);
         return messages;
     }
 
