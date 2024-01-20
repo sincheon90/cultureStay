@@ -18,11 +18,13 @@
     </select>
 
     <select id="getMessages" parameterType="Long" resultType="Message">
-        select * from messages where chatRoomId = #{chatRoomId}
+        select * from messages
+        where chatRoomId = #{chatRoomId}
+        order by timestamp
     </select>
 
 
-    <insert id="saveMessages" parameterType="Message">
+    <insert id="saveMessage" parameterType="Message">
         INSERT INTO Messages (messageId, chatRoomId, senderId, messageText, messageType)
         VALUES (Messages_seq.nextval, #{chatRoomId}, #{senderId}, #{messageText}, #{messageType})
     </insert>
@@ -30,8 +32,7 @@
     <select id="getMemberCount" parameterType="Long" resultType="Long">
         SELECT count(distinct userId)
         FROM ChatRoomMembers CM
-        JOIN Messages Me ON Me.chatRoomId == CM.chatRoomId
-        WHERE CM.chatRoomId == #{chatRoomId}
+        WHERE CM.chatRoomId = #{chatRoomId}
     </select>
 
     <update id="updateIsRead" parameterType="map">

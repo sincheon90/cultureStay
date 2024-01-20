@@ -16,7 +16,7 @@ public interface MessengerService {
 
     ArrayList<Message> getMessages(Long chatRoomId);
 
-    Long saveMessages(Message message);
+    Long saveMessage(Message message);
 
     void updateIsRead(Long chatRoomId, String userId);
 }

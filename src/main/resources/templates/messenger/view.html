@@ -49,8 +49,9 @@
 
 <script>
     var stompClient = null;
-    var userId = document.getElementById('userId').value;
     var chatRoomId = null;
+    var userId = document.getElementById('userId').value;    
+    var chatRoomDiv = document.getElementById('chatroom');
 
     function connect() {
         var socket = new SockJS('/chat');
@@ -58,16 +59,17 @@
         stompClient.connect({},
             function (frame) {
                 console.log('Connected: ' + frame);
+                // 채팅방 리스트 가져오기 구독
                 stompClient.subscribe('/topic/chatRoomList', function (chatRoomList) {
-                    // 메시지를 받으면 채팅방 리스트 업데이트
-                    showChatRoomList(JSON.parse(chatRoomList.body));
+                    showChatRoomList(JSON.parse(chatRoomList.body)); // 결과 값을 받으면 function 실행
                 });
+                // 채팅방 메시지 리스트 가져오기 구독
                 stompClient.subscribe('/topic/getMessages', function (messages) {
-                    // 메시지를 받으면 채팅방 업데이트
                     showChatRoom(JSON.parse(messages.body));
                 });
+                // 채팅 보내기 구독
                 stompClient.subscribe('/topic/sendMessage', function (message) {
-                    addChatElement(JSON.parse(message.body));
+                    addChatElement(JSON.parse(message.body)); 
                 });
                 initChatRoomList();
             }
@@ -81,6 +83,7 @@
             })
         );
     }
+
 
     function showChatRoomList(chatRoomData) {
         var chatRoomsDiv = document.getElementById('chatRoomList');
@@ -115,7 +118,6 @@
     }
 
     function showChatRoom(messages) {
-        var chatRoomDiv = document.getElementById('chatroom');
         chatRoomDiv.innerHTML = ''; // 기존 리스트를 초기화
 
         messages.forEach(function(message) {
@@ -147,7 +149,8 @@
         stompClient.send("/app/sendMessage", {}, JSON.stringify({
                 'messageText': messageText,
                 'chatRoomId': chatRoomId,
-                'userId': userId
+                'senderId': userId,
+                'isRead': 1,
             })
         );
         document.getElementById('message').value = '';

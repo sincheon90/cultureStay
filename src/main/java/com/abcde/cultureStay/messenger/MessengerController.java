@@ -59,10 +59,10 @@ public class MessengerController {
         Message message = new Message();
         message.setMessageText(jsonObject.get("messageText").getAsString());
         message.setChatRoomId(jsonObject.get("chatRoomId").getAsLong());
-        message.setSenderId(jsonObject.get("userId").getAsString());
+        message.setSenderId(jsonObject.get("senderId").getAsString());
         message.setMessageType("text");
 
-        service.saveMessages(message);
+        service.saveMessage(message);
         return jsonMessage;
     }
 
