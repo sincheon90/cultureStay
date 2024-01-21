@@ -20,17 +20,15 @@ public class messengerApiController {
     MessengerService service;
 
     @GetMapping("createChatRoom")
-    ArrayList<Message> createChatRoom(@RequestParam String chatPartner,
+    Long createChatRoom(@RequestParam String chatPartner,
                                       @AuthenticationPrincipal UserDetails user) {
-        ArrayList<Message> messages;
-        Long chatRoomId = Long.valueOf(-1);
-        chatRoomId = service.checkChatRoom(chatPartner, user.getUsername());
-        if(chatRoomId > 0) {
-            return service.getMessages(chatRoomId);
+        Long chatRoomId = service.checkChatRoom(chatPartner, user.getUsername());
+
+        if (chatRoomId <= 0) {
+            service.createChatRoom(user.getUsername(), chatPartner + "와의 대화", chatPartner);
+            chatRoomId = service.checkChatRoom(chatPartner, user.getUsername());
         }
-        else {
-            service.createChatRoom(user.getUsername() , chatPartner + "와의 대화", chatPartner);
-            return null;
-        }
+
+        return chatRoomId;
     }
 }

@@ -216,7 +216,7 @@ body {
     cursor: pointer;
 }
 
-.sendMessageButton {
+.openChatRoomButton {
     border: none; /* 버튼 테두리 제거 */
     background-color: #ff385c; /* 버튼 배경 색상 */
     color: white; /* 버튼 텍스트 색상 */
@@ -229,11 +229,11 @@ body {
     transition: background-color 0.3s, box-shadow 0.3s; /* 배경 및 그림자 변화 효과 */
 }
 
-.sendMessageButton:hover {
+.openChatRoomButton:hover {
     background-color: #e3314b; /* 호버 시 배경 색상 변경 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 효과 변경 */
 }
 
-.sendMessageButton:active {
+.openChatRoomButton:active {
     transform: translateY(1px); /* 클릭 시 약간 아래로 이동 */
 }

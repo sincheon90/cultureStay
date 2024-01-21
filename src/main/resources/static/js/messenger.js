@@ -173,9 +173,10 @@ chatRoomDiv.addEventListener('scroll', function() {
 
 
 // modal 관련
+var searchUserModal = document.getElementById('searchUserModal');
+
 document.addEventListener('DOMContentLoaded', function() {
     var searchUserButton = document.getElementById('searchUserButton');
-    var searchUserModal = document.getElementById('searchUserModal');
     var closeButton = document.querySelector('.close');
     var searchUserSubmit = document.getElementById('searchUserSubmit')
 
@@ -228,7 +229,7 @@ function addClickEventToUserId(userIdElement, userId) {
 function showUserActionMenu(targetElement, userId) {
     var menu = document.createElement('div');
     menu.className = 'user-action-menu';
-    menu.innerHTML = '<button class="sendMessageButton" onclick="sendMessage(\'' + userId + '\')">메시지 보내기</button>';
+    menu.innerHTML = '<button class="openChatRoomButton" onclick="openChatRoom(\'' + userId + '\')">메시지 보내기</button>';
     // 메뉴 위치 설정 및 표시
     menu.style.position = 'absolute';
     menu.style.left = targetElement.getBoundingClientRect().left + 'px';
@@ -243,18 +244,29 @@ function showUserActionMenu(targetElement, userId) {
         window.addEventListener('click', function(event) {
             if (!menu.contains(event.target)) {
                 menu.remove();
+                searchUserModal.style.display = 'none'; // 모달 안보이기
                 window.removeEventListener('click', this);
             }
         });
     }, 0);
 }
 
-function sendMessage(userId) {
-    createChatRoom(userId);
+function openChatRoom(userId) {
+    fetch('/api/messenger/createChatRoom?chatPartner=' + encodeURIComponent(userId))
+    .then(function(response) {
+        return response.json(); // JSON으로 파싱
+    })
+    .then(function(chatRoomId) {
+        getChatRoom(chatRoomId); // JSON으로 파싱된 chatRoomId를 getChatRoom 함수에 전달
+    })
+    .catch(function(error) {
+        console.error('Error:', error);
+    });
 
     // 메뉴 제거
     var menu = document.querySelector('.user-action-menu');
     if (menu) {
         menu.remove();
+        searchUserModal.style.display = 'none'; // 모달 안보이기
     }
 }
