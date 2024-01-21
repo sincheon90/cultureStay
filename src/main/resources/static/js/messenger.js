@@ -227,7 +227,8 @@ function addClickEventToUserId(userIdElement, userId) {
 
 function showUserActionMenu(targetElement, userId) {
     var menu = document.createElement('div');
-    menu.innerHTML = '<button onclick="sendMessage(\'' + userId + '\')">메시지 보내기</button>';
+    menu.className = 'user-action-menu';
+    menu.innerHTML = '<button class="sendMessageButton" onclick="sendMessage(\'' + userId + '\')">메시지 보내기</button>';
     // 메뉴 위치 설정 및 표시
     menu.style.position = 'absolute';
     menu.style.left = targetElement.getBoundingClientRect().left + 'px';
@@ -235,10 +236,25 @@ function showUserActionMenu(targetElement, userId) {
     menu.style.zIndex = 1000; // 페이지 최상단에 표시
 
     document.body.appendChild(menu);
+
+    // 다른 곳을 클릭하면 메뉴 닫기
+    setTimeout(function() {
+        window.addEventListener('click', function(event) {
+            if (!menu.contains(event.target)) {
+                menu.remove();
+                window.removeEventListener('click', this);
+            }
+        });
+    }, 0);
 }
 
 function sendMessage(userId) {
     // 채팅방 생성 및 ChatRoomMembers 테이블 업데이트 로직
-    console.log("chatRoom creating")
+    console.log("chatRoom creating");
+    // 메뉴 제거
+    var menu = document.querySelector('.user-action-menu');
+    if (menu) {
+        menu.remove();
+    }
     createChatRoom(userId);
 }

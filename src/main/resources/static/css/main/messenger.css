@@ -215,3 +215,25 @@ body {
     text-decoration: none;
     cursor: pointer;
 }
+
+.sendMessageButton {
+    border: none; /* 버튼 테두리 제거 */
+    background-color: #ff385c; /* 버튼 배경 색상 */
+    color: white; /* 버튼 텍스트 색상 */
+    border-radius: 5px; /* 버튼 둥근 모서리 */
+    padding: 10px 20px; /* 버튼 내부 여백 */
+    cursor: pointer; /* 클릭 가능 커서 */
+    outline: none; /* 포커스 아웃라인 제거 */
+    font-weight: bold; /* 텍스트 굵게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    transition: background-color 0.3s, box-shadow 0.3s; /* 배경 및 그림자 변화 효과 */
+}
+
+.sendMessageButton:hover {
+    background-color: #e3314b; /* 호버 시 배경 색상 변경 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 호버 시 그림자 효과 변경 */
+}
+
+.sendMessageButton:active {
+    transform: translateY(1px); /* 클릭 시 약간 아래로 이동 */
+}
