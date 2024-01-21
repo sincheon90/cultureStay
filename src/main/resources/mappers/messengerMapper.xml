@@ -64,10 +64,11 @@
         and senderId != #{userId}
     </update>
 
-    <insert id="checkChatRoom" parameterType="map">
+    <select id="checkChatRoom" parameterType="map">
         SELECT crm1.chatRoomId
         FROM ChatRoomMembers crm1
         JOIN ChatRoomMembers crm2 ON crm1.chatRoomId = crm2.chatRoomId
         WHERE crm1.userId = #{chatPartner} AND crm2.userId = #{username}
-    </insert>
+        order by crm2.joinedTimestamp desc
+    </select>
 </mapper>

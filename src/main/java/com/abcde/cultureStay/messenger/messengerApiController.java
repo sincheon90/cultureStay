@@ -25,7 +25,7 @@ public class messengerApiController {
         Long chatRoomId = service.checkChatRoom(chatPartner, user.getUsername());
 
         if (chatRoomId <= 0) {
-            service.createChatRoom(user.getUsername(), chatPartner + "와의 대화", chatPartner);
+            service.createChatRoom(user.getUsername(), user.getUsername() + "의 채팅", chatPartner);
             chatRoomId = service.checkChatRoom(chatPartner, user.getUsername());
         }
 

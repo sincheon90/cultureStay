@@ -91,7 +91,7 @@ function showChatRoom(messages) {
 
 // isRead 확인을 위한 새로고침
 var chatContainer = document.querySelector('.chatroom-container');
-chatContainer.addEventListener('focus', function() {
+chatContainer.addEventListener('click', function() {
     if (chatRoomId) {
         getChatRoom(chatRoomId);
     }
