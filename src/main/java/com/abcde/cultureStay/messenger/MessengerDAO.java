@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Mapper
 public interface MessengerDAO {
-    Long createChatRoom(ChatRoom chatRoom);
+    Long createChatRoom(Map<String, Object> chatRoom);
 
     ArrayList<ChatRoom> getChatRoomList(String username);
 
@@ -22,4 +22,6 @@ public interface MessengerDAO {
     Long getMemberCount(Long chatRoomId);
 
     void updateIsRead(Map<String, Object> params);
+
+    Long checkChatRoom(Map<String, Object> map);
 }

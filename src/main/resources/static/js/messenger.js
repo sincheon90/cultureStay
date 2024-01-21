@@ -238,6 +238,7 @@ function showUserActionMenu(targetElement, userId) {
     document.body.appendChild(menu);
 
     // 다른 곳을 클릭하면 메뉴 닫기
+    // menu가 생성 되고 listner가 바로 실행하지 않도록 setTimeout 사용
     setTimeout(function() {
         window.addEventListener('click', function(event) {
             if (!menu.contains(event.target)) {
@@ -249,12 +250,11 @@ function showUserActionMenu(targetElement, userId) {
 }
 
 function sendMessage(userId) {
-    // 채팅방 생성 및 ChatRoomMembers 테이블 업데이트 로직
-    console.log("chatRoom creating");
+    createChatRoom(userId);
+
     // 메뉴 제거
     var menu = document.querySelector('.user-action-menu');
     if (menu) {
         menu.remove();
     }
-    createChatRoom(userId);
 }

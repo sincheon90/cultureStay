@@ -1,6 +1,7 @@
 package com.abcde.cultureStay.messenger;
 
 import com.abcde.cultureStay.messenger.vo.ChatRoom;
+import com.abcde.cultureStay.messenger.vo.ChatRoomMember;
 import com.abcde.cultureStay.messenger.vo.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,13 @@ public class MessengerServiceImpl implements MessengerService{
     }
 
     @Override
-    public Long createChatRoom(String createdUser, String roomName) {
-        ChatRoom chatRoom = new ChatRoom();
-        chatRoom.setCreatedUserId(createdUser);
-        chatRoom.setChatRoomName(roomName);
-        return dao.createChatRoom(chatRoom);
+    public Long createChatRoom(String createdUser, String chatRoomName, String chatPartner) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("createdUser", createdUser);
+        map.put("chatRoomName", chatRoomName);
+        map.put("chatPartner", chatPartner);
+
+        return dao.createChatRoom(map);
     }
 
     @Override
@@ -74,5 +77,13 @@ public class MessengerServiceImpl implements MessengerService{
         map.put("chatRoomId", chatRoomId);
         map.put("userId", userId);
         dao.updateIsRead(map);
+    }
+
+    @Override
+    public Long checkChatRoom(String chatPartner, String username) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("chatPartner", chatPartner);
+        map.put("username", username);
+        return dao.checkChatRoom(map);
     }
 }
