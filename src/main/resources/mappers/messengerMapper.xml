@@ -25,7 +25,14 @@
     </insert>
 
     <select id="getChatRoomList" parameterType="String" resultType="ChatRoom">
-        select * from chatrooms
+        select
+            cr.chatRoomId,
+            cr.chatRoomName,
+            cr.createTimestamp,
+            cr.createdUserId
+        from ChatRoomMembers crm
+        join chatrooms cr on crm.chatRoomId = cr.chatRoomId
+        where crm.userId = #{username}
     </select>
 
     <select id="getChatRoom" parameterType="Long" resultType="ChatRoom">
