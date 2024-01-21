@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 var userElement = document.createElement('div');
                 userElement.textContent = user.userid; // 예시: 사용자 이름을 표시
                 searchResult.appendChild(userElement);
+                addClickEventToUserId(userElement, user.userid)
             });
         })
         .catch(function(error) {
@@ -215,3 +216,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     })
 });
+
+
+function addClickEventToUserId(userIdElement, userId) {
+    userIdElement.addEventListener('click', function() {
+        console.log('id clicked');
+        showUserActionMenu(this, userId);
+    });
+}
+
+function showUserActionMenu(targetElement, userId) {
+    var menu = document.createElement('div');
+    menu.innerHTML = '<button onclick="sendMessage(\'' + userId + '\')">메시지 보내기</button>';
+    // 메뉴 위치 설정 및 표시
+    menu.style.position = 'absolute';
+    menu.style.left = targetElement.getBoundingClientRect().left + 'px';
+    menu.style.top = targetElement.getBoundingClientRect().bottom + 'px';
+    menu.style.zIndex = 1000; // 페이지 최상단에 표시
+
+    document.body.appendChild(menu);
+}
+
+function sendMessage(userId) {
+    // 채팅방 생성 및 ChatRoomMembers 테이블 업데이트 로직
+    console.log("chatRoom creating")
+    createChatRoom(userId);
+}
