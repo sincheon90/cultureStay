@@ -24,7 +24,6 @@ function connect() {
 }
 
 function initChatRoomList(){
-    var userId = document.getElementById('userId').value;
     stompClient.send("/app/getChatRoomList", {}, JSON.stringify({
             'userId': userId
         })
@@ -262,6 +261,8 @@ function openChatRoom(userId) {
     .catch(function(error) {
         console.error('Error:', error);
     });
+
+    initChatRoomList();
 
     // 메뉴 제거
     var menu = document.querySelector('.user-action-menu');
