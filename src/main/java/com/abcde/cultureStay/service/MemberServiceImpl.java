@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import com.abcde.cultureStay.dao.MemberDAO;
 import com.abcde.cultureStay.vo.Member;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -48,6 +52,14 @@ public class MemberServiceImpl implements MemberService{
 				int result = dao.updateUser(member);
 				
 				return result;
+	}
+
+	@Override
+	public ArrayList<Member> searchUsersExcludeSelf(String searchUser, String currentUser) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchUser", searchUser);
+		map.put("currentUser", currentUser);
+		return dao.searchUsersExcludeSelf(map);
 	}
 
 }

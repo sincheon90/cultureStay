@@ -195,6 +195,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     searchUserSubmit.addEventListener('click', function() {
-        var searchText = document.getElementById('searchUserInput');
+        var searchUser = document.getElementById('searchUserInput');
+        var searchResult = document.getElementById('searchResult');
+        
+        fetch('/api/searchUser?searchUser=' + encodeURIComponent(searchUser.value))
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(users) {
+            searchResult.innerHTML = '';
+            users.forEach(function(user) {
+                var userElement = document.createElement('div');
+                userElement.textContent = user.userid; // 예시: 사용자 이름을 표시
+                searchResult.appendChild(userElement);
+            });
+        })
+        .catch(function(error) {
+            console.error('Error:', error);
+        });
     })
 });

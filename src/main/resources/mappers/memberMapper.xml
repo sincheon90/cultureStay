@@ -80,5 +80,11 @@
         userid = #{userid}
 </update>
 
+<select id="searchUsersExcludeSelf" parameterType="map" resultType="Member">
+    select *
+    from cultureStay_member
+    where userid LIKE '%' || #{searchUser} || '%'
+    and userid != #{currentUser}
+</select>
 
 </mapper>

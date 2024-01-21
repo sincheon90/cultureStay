@@ -5,10 +5,7 @@ import com.abcde.cultureStay.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -19,9 +16,10 @@ public class ApiController {
     @Autowired
     MemberService memberService;
 
-    @GetMapping("searchUser/{searchUser}")
-    public ArrayList<Member> searchUser(@PathVariable String searchUser,
+    @GetMapping("searchUser")
+    public ArrayList<Member> searchUser(@RequestParam String searchUser,
                                         @AuthenticationPrincipal UserDetails user) {
+        System.out.println(searchUser);
         return memberService.searchUsersExcludeSelf(searchUser, user.getUsername());
     }
 }
