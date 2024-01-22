@@ -17,7 +17,7 @@ CREATE TABLE ChatRooms (
     chatRoomId NUMBER PRIMARY KEY,
     chatRoomName VARCHAR2(255),
     createTimestamp DATE DEFAULT SYSDATE,
-    createdUserId NUMBER
+    createdUserId VARCHAR2(255)
 );
 CREATE SEQUENCE ChatRooms_seq;
 
