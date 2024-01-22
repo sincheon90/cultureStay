@@ -12,7 +12,6 @@ import com.abcde.cultureStay.handler.KakaoPay;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
-@Log
 @Controller
 public class KakaoPayController {
 	
