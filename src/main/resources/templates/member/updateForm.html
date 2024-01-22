@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정</title>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <link rel="stylesheet" th:href="@{/css/main/write.css}">
     <link rel="stylesheet" th:href="@{/css/member/joinForm.css}">
+    </head>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/jquery-3.6.0.js}"></script>
 
 <script>
 function checkValid(){
@@ -20,6 +22,7 @@ function checkValid(){
         let address_address = document.querySelector('#address_address');
         let email = document.querySelector('#email');
         let profileImage = document.querySelector('#profileImage');
+        let mail_check = $("#hid").attr("check");
 
 		
 		
@@ -52,6 +55,10 @@ function checkValid(){
 			alert("프로필사진을 등록하세요");
 			return false;
 		}
+		if (mail_check == "false") {
+            alert('이메일 인증 하세요');
+            return false;
+         }
 		
 
 		return true;
@@ -205,8 +212,41 @@ window.onload = function() {
     var initialImageUrl = 'https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo=w170-h170-rw';
     setExternalImage(initialImageUrl);
 };
+
+//이메일
+      function sendNumber() {
+		  alert('d');
+		  $("#mail_number").css("display", "block");
+         console.log("1차통과");
+         $.ajax({
+            url: "/mail",
+            type: "post",
+            dataType: "json",
+            data: {"mail": $("#email").val()},
+            success: function (data) {
+               alert("인증번호를 발송했습니다.");
+               $("#Confirm").attr("value", data);
+            }
+            , error: function (request, status, error) {
+               alert("올바른 이메일을 입력하세요.")
+               console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+         });
+      }
+
+      function confirmNumber() {
+         var number1 = $("#number").val();
+         var number2 = $("#Confirm").val();
+
+         if (number1 == number2) {
+            alert("인증되었습니다.");
+            $("#hid").attr("check", "true");
+         } else {
+            alert("인증번호가 다릅니다.");
+         }
+      }
 </script>
-</head>
+
 <body>
    
 	<h1>회원정보 수정</h1>
@@ -263,12 +303,23 @@ window.onload = function() {
     		  	<input type="text" name="address_extraAddress" id="address_extraAddress" placeholder="참고항목" th:value="${member.address_extraAddress}">
     		  </td>
 		  </tr>
-          <tr>
-             <th>이메일</th>
-             <td>
-                <input type="email" name="email" id="email" th:value="${member.email}">
-             </td>
-          </tr>
+         <tr>
+                <th>이메일</th>
+                <td>
+                <div id="mail_input" name="mail_input">
+                     <input type="text" name="email" id="email" placeholder="이메일 입력">
+                     <button type="button" id="sendBtn" name="sendBtn" class="submit2" onclick="sendNumber()">인증번호 받기</button>
+                  </div>
+                  <br>
+                  <div id="mail_number" name="mail_number" >
+                     <input type="text" class="un" name="number" id="number" placeholder="인증번호 입력">
+                     <button type="button" class="submit2" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일
+                        인증</button>
+                  </div>
+                  <br>
+                  <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+                  <input type="hidden" id="hid" check="false">
+                  </td>
           <tr>
              <th>자기소개</th>
              <td>

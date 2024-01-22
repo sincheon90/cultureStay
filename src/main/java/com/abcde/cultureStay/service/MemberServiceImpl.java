@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 import com.abcde.cultureStay.dao.MemberDAO;
 import com.abcde.cultureStay.vo.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
 @Service
+@Slf4j
 public class MemberServiceImpl implements MemberService{
 	@Autowired
 	MemberDAO dao;
@@ -44,9 +47,10 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int updateUser(Member member) {
 		// updateForm.html에서 비밀번호를 변경한 경우에 암호화
+				log.debug("멤버겟패스:{}", member.getPassword());
 				if(member.getPassword() != null || !member.getPassword().equals("")) {
-					String encodedPw = passwordEncoder.encode(member.getPassword());
-					member.setPassword(encodedPw);
+					String encodedPassword = passwordEncoder.encode(member.getPassword());
+					member.setPassword(encodedPassword);
 				}
 				
 				int result = dao.updateUser(member);
