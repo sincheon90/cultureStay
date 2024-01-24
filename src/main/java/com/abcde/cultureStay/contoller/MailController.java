@@ -18,10 +18,6 @@ public class MailController {
 	@Autowired
 	MailService mailService;
 
-    @GetMapping("mail")
-    public String MailPage(){
-        return "mail/Main";
-    }
     
     @ResponseBody
     @PostMapping("mail")

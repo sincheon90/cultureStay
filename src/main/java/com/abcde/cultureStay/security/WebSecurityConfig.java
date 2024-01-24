@@ -25,6 +25,7 @@ public class WebSecurityConfig {
         http.csrf().disable()
         .authorizeRequests()
         .antMatchers("/",
+        		"/mail",
                 "/video/**",
         		"/thymeleaf",
         		"/member/join",
