@@ -63,7 +63,10 @@
 	<link rel="stylesheet" th:href="@{/css/main/list.css}">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-	 <link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<link rel="stylesheet" th:href="@{/css/header_style.css}">
+	<!--카카오주소api 로드-->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script th:src="@{/js/jquery-3.6.0.js}"></script>
 
 
 </head>
@@ -109,6 +112,148 @@
         };
         xhr.send();
     }
+    
+    
+    
+     //이메일
+      function sendNumber() {
+		  $("#mail_number").css("display", "block");
+         console.log("1차통과");
+         $.ajax({
+            url: "/mail",
+            type: "post",
+            dataType: "json",
+            data: {"mail": $("#email").val()},
+            success: function (data) {
+               alert("인증번호를 발송했습니다.");
+               $("#Confirm").attr("value", data);
+            }
+            , error: function (request, status, error) {
+               alert("올바른 이메일을 입력하세요.")
+               console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+         });
+      }
+
+
+
+
+      function confirmNumber() {
+         var number1 = $("#number").val();
+         var number2 = $("#Confirm").val();
+         
+          if (number2 == ""){
+			alert("이메일 인증을 하세요")
+			return false;
+		} if (number1 == number2) {
+            alert("인증되었습니다.");
+            $("#hid").attr("check", "true");
+         } else {
+            alert("인증번호가 다릅니다.");
+         }
+      }
+    
+function checkValid(){
+        let userid = document.querySelector('#userid');
+		let password = document.querySelector('#password');
+		let password2 = document.querySelector('#password2');
+		let name = document.querySelector('#name');
+        let gender = document.querySelector('#gender');
+        let birth = document.querySelector('#birth');
+        let phone = document.querySelector('#phone');
+        let address_postcode = document.querySelector('#address_postcode');
+        let address_address = document.querySelector('#address_address');
+        let email = document.querySelector('#email');
+        let mail_check = $("#hid").attr("check");
+        let hidemail = document.querySelector('#hidemail');
+        
+
+		
+		
+		if (!password.value =='' && password.value.length < 3 || password.value.length > 10) {
+			alert("비밀번호는 3~10자로 입력하세요.");
+			return false;
+		}
+		
+		if (password.value != password2.value) {
+			alert("비밀번호를 정확하게 입력하세요.");
+			return false;
+		}
+		if (phone.value == '') {
+			alert("연락처를 입력하세요.");
+			return false;
+		}
+		if (address_postcode.value == '') {
+         alert("주소를 입력하세요.");
+         return false;
+      	}
+      	if (address_address.value == '') {
+         	alert("주소를 입력하세요.");
+         	return false;
+      	}
+		
+        if (email.value == '') {
+			alert("이메일 인증 하세요!");
+			return false;
+		}
+		if (email.value == hidemail.value) {
+			return true;
+		}
+		if (mail_check == "false") {
+            alert('이메일 인증 하세요');
+            return false;
+        }
+       
+         
+         
+		
+
+		return true;
+    }
+    
+   
+
+    
+     //카카오 주소입력 api
+        function address() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = '';
+                var extraAddr = '';
+
+                if (data.userSelectedType === 'R') {
+                    addr = data.roadAddress;
+                } else {
+                    addr = data.jibunAddress;
+                }
+
+                if (data.userSelectedType === 'R') {
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraAddr += data.bname;
+                    }
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if (extraAddr !== '') {
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    document.getElementById("address_extraAddress").value = extraAddr;
+                } else {
+                    document.getElementById("address_extraAddress").value = '';
+                }
+
+                document.getElementById('address_postcode').value = data.zonecode;
+                document.getElementById("address_address").value = addr;
+                document.getElementById("address_detailAddress").focus();
+            }
+        }).open();
+    }
+   function ch() {
+	   let email = document.querySelector('#email');
+	   let mail_check = $("#hid").attr("check");
+	   console.log(email.value);
+	   console.log(mail_check);
+   }
     
    
 </script>

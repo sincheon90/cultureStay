@@ -100,6 +100,7 @@ public class MemberController {
 		
 		member.setUserid(user.getUsername());
 		log.debug(user.getUsername());
+		System.out.println(member);
 		log.debug("멤버패스 전결과: {}", member.getPassword());
 		
 		log.debug("update 후결과: {}", member.getPassword());
