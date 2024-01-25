@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService{
 	public int updateUser(Member member) {
 		// updateForm.html에서 비밀번호를 변경한 경우에 암호화
 				log.debug("멤버겟패스:{}", member.getPassword());
-				if(member.getPassword() != null || !member.getPassword().equals("")) {
+				if(member.getPassword() != null && !member.getPassword().equals("")) {
 					String encodedPassword = passwordEncoder.encode(member.getPassword());
 					member.setPassword(encodedPassword);
 				}
